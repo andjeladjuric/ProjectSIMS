@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using HospitalService.Pages;
+using System.Windows;
 
 namespace HospitalService
 {
@@ -10,6 +11,13 @@ namespace HospitalService
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MyWindow_Loaded;
         }
+
+        private void MyWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            frame.NavigationService.Navigate(new Start());
+        }
+        
     }
 }

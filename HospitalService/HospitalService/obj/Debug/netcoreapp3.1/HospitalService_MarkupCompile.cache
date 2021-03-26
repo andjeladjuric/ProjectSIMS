@@ -1,5 +1,5 @@
 ﻿HospitalService
-1.0.0.0
+
 
 winexe
 C#
@@ -12,7 +12,7 @@ TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\App.xaml
 6-217128898
 1-917587658
-291228157074
+27-1927504424
 192-1533232326
 MainWindow.xaml;Pages\Doctor.xaml;Pages\Manager.xaml;Pages\Patient.xaml;Pages\Secretary.xaml;Pages\Start.xaml;
 
