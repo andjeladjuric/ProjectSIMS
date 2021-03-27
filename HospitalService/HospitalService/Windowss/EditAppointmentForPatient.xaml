@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.Windowss"
         mc:Ignorable="d"
-        Title="EditAppointmentForPatient" Height="450" Width="800">
+        Title="EditAppointmentForPatient"  Height="470" Width="514" WindowStartupLocation="CenterScreen">
     <Grid x:Name="editGrid" Margin="0,0,4,0" Height="470" VerticalAlignment="Top">
         <TextBox Name="idTB"  IsReadOnly="True" HorizontalAlignment="Left" Height="35" Margin="252,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" RenderTransformOrigin="0.485,-0.456"/>
         <TextBox Name="startTB" HorizontalAlignment="Left" Height="37" Margin="252,114,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168" RenderTransformOrigin="1.684,0.193"/>

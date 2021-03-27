@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.Windowss"
         mc:Ignorable="d"
-        Title="AddAppointmentToPatient" Height="450" Width="800">
+        Title="AddAppointmentToPatient" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="ID:" HorizontalAlignment="Left" Margin="40,35,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <Label Content="Start:" HorizontalAlignment="Left" Margin="40,161,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>

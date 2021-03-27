@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Colakovic\\Desktop\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj": {}
+    "C:\\Users\\jovic\\Desktop\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Colakovic\\Desktop\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj": {
+    "C:\\Users\\jovic\\Desktop\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Colakovic\\Desktop\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj",
+        "projectUniqueName": "C:\\Users\\jovic\\Desktop\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj",
         "projectName": "HospitalService",
-        "projectPath": "C:\\Users\\Colakovic\\Desktop\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj",
-        "packagesPath": "C:\\Users\\Colakovic\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Colakovic\\Desktop\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\obj\\",
+        "projectPath": "C:\\Users\\jovic\\Desktop\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj",
+        "packagesPath": "C:\\Users\\jovic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jovic\\Desktop\\ProjectSIMS\\HospitalService\\HospitalService\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Colakovic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jovic\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -63,7 +66,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

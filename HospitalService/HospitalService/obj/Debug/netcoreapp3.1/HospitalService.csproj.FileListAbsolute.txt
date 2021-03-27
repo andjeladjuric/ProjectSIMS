@@ -107,3 +107,7 @@ C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\
 C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForPatient.baml
 C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToPatient.g.cs
 C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToPatient.baml
+C:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToPatient.g.cs
+C:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForPatient.g.cs
+C:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToPatient.baml
+C:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForPatient.baml

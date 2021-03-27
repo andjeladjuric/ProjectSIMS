@@ -29,6 +29,9 @@ namespace HospitalService.Windowss
             baza = aps;
             Tabela = dg;
             editGrid.DataContext = this;
+            IdTB.Text = a.Id;
+            startTB.Text = a.StartTime.ToString();
+            endTB.Text = a.EndTime.ToString();
 
         }
 

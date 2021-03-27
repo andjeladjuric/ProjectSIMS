@@ -48,6 +48,7 @@ namespace HospitalService.Windowss
             String[] name = ime.Split(' ');
             Patient selectedPatient = new Patient() { Name = name[0], Surname = name[1] };
             Room selectedRoom = new Room() { Id = RoomBox.Text };
+            Doctor defaultDoctor = new Doctor() { Name="Petra", Surname="Jovic"};
             Appointment newAppointment = new Appointment()
             {
                 Id = IdBox.Text,
@@ -55,7 +56,8 @@ namespace HospitalService.Windowss
                 EndTime = Convert.ToDateTime(kraj),
                 Type = (AppointmentType)AppointmentTypeBox.SelectedIndex,
                 patient = selectedPatient,
-                room = selectedRoom
+                room = selectedRoom,
+                doctor = defaultDoctor
             };
             baza.Save(newAppointment);
             Table.Items.Refresh();
