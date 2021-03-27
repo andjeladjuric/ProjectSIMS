@@ -22,6 +22,12 @@
     <Compile Update="Pages\Start.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windowss\AddAppointmentToPatient.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windowss\EditAppointmentForPatient.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
@@ -40,6 +46,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\Start.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windowss\AddAppointmentToPatient.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windowss\EditAppointmentForPatient.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

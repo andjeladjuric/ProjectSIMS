@@ -14,7 +14,7 @@ namespace Model
         {
             appointments = new List<Appointment>();
             appointments = JsonConvert.DeserializeObject<List<Appointment>>(File.ReadAllText(FileLocation));
-           /* var doktor1 = new Doctor();
+            /*var doktor1 = new Doctor();
             doktor1.Name = "Petra";
             doktor1.Surname = "Jovic";
             var pacijent1 = new Patient();
