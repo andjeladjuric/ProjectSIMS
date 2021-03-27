@@ -7,7 +7,7 @@ namespace Model
         public MedicalRecord medicalRecord { get; set; }
 
 
-        public System.Collections.ArrayList appointment;
+       /* public System.Collections.ArrayList appointment;
 
         public System.Collections.ArrayList GetAppointment()
         {
@@ -60,7 +60,7 @@ namespace Model
                     oldAppointment.SetPatient((Patient)null);
                 tmpAppointment.Clear();
             }
-        }
+        }*/
 
     }
 }

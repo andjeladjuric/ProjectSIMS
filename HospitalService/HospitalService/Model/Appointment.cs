@@ -16,7 +16,7 @@ namespace Model
         public Patient patient { get; set; }
 
 
-        public Doctor GetDoctor()
+       /* public Doctor GetDoctor()
         {
             return doctor;
         }
@@ -61,7 +61,7 @@ namespace Model
                     this.patient.AddAppointment(this);
                 }
             }
-        }
+        }*/
 
     }
 }

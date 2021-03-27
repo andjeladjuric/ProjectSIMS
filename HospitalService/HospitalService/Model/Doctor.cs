@@ -4,7 +4,7 @@ namespace Model
     public class Doctor : User
     {
         public DoctorType DoctorType { get; set; }
-        public System.Collections.ArrayList appintments;
+        /*public System.Collections.ArrayList appintments;
 
         public System.Collections.ArrayList GetAppintments()
         {
@@ -57,7 +57,7 @@ namespace Model
                     oldAppointment.SetDoctor((Doctor)null);
                 tmpAppintments.Clear();
             }
-        }
+        }*/
 
     }
 }

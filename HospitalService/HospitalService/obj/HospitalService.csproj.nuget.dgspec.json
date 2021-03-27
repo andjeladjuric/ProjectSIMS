@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\FAKS\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj": {}
+    "C:\\Users\\jovic\\Desktop\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj": {}
   },
   "projects": {
-    "D:\\FAKS\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj": {
+    "C:\\Users\\jovic\\Desktop\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FAKS\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj",
+        "projectUniqueName": "C:\\Users\\jovic\\Desktop\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj",
         "projectName": "HospitalService",
-        "projectPath": "D:\\FAKS\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj",
-        "packagesPath": "C:\\Users\\Andjela\\.nuget\\packages\\",
-        "outputPath": "D:\\FAKS\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\obj\\",
+        "projectPath": "C:\\Users\\jovic\\Desktop\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj",
+        "packagesPath": "C:\\Users\\jovic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jovic\\Desktop\\ProjectSIMS\\HospitalService\\HospitalService\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Andjela\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jovic\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,6 +42,12 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -57,7 +66,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
