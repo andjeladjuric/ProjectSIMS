@@ -1,13 +1,15 @@
 ﻿
 
-FC:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\MainWindow.xaml;;
-FC:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\Pages\Doctor.xaml;;
-FC:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\Pages\Manager.xaml;;
-FC:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\Pages\Patient.xaml;;
-FC:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\Pages\Secretary.xaml;;
-FC:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\Pages\Start.xaml;;
-FC:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\Windowss\AddAppointmentToDoctor.xaml;;
-FC:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\Windowss\AddAppointmentToPatient.xaml;;
-FC:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\Windowss\EditAppointmentForDoctor.xaml;;
-FC:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\Windowss\EditAppointmentForPatient.xaml;;
+FD:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\MainWindow.xaml;;
+FD:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\Pages\Doctor.xaml;;
+FD:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\Pages\Manager.xaml;;
+FD:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\Pages\NewRoom.xaml;;
+FD:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\Pages\Patient.xaml;;
+FD:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\Pages\RoomEdit.xaml;;
+FD:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\Pages\Secretary.xaml;;
+FD:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\Pages\Start.xaml;;
+FD:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\Windowss\AddAppointmentToDoctor.xaml;;
+FD:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\Windowss\AddAppointmentToPatient.xaml;;
+FD:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\Windowss\EditAppointmentForDoctor.xaml;;
+FD:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\Windowss\EditAppointmentForPatient.xaml;;
 

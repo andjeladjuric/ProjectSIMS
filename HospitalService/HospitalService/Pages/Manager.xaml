@@ -8,7 +8,64 @@
       d:DesignHeight="600" d:DesignWidth="950"
       Title="Manager">
 
-    <Grid>
-        
+    <Grid Background="#dbe0e4">
+        <DataGrid x:Name="tableBinding" IsReadOnly="True"
+                  SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
+                  Height="449" Margin="36,88,0,0" VerticalAlignment="Top" Width="457" FontFamily="Gill Sans MT" FontSize="14">
+            <DataGrid.Resources>
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#f8f5ee"/>
+                    <Setter Property="Foreground" Value="#5b7886"/>
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Style.Triggers>
+                        <Trigger Property="DataGridCell.IsSelected" Value="True">
+                            <Setter Property="Background" Value="#bad6e4" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Room Number" Binding="{Binding Id}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#5b7886"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Width="*"  Binding="{Binding Name}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#5b7886"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Type of Room" Width="*"  Binding="{Binding Type}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#5b7886"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Background="#adc5d0"  x:Name="create" Content="Add" HorizontalAlignment="Left" Margin="91,50,0,0" VerticalAlignment="Top" Height="26" Width="75" Click="create_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Button Background="#adc5d0" x:Name="update" Content="Update" HorizontalAlignment="Left" Margin="223,50,0,0" VerticalAlignment="Top" Height="26" Width="75" Click="update_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Button Background="#adc5d0" x:Name="delete" Content="Delete" HorizontalAlignment="Left" Margin="350,50,0,0" VerticalAlignment="Top" Height="26" Width="75" Click="delete_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Grid Margin="494,88,5,63" Width="451" Height="449">
+            <Frame x:Name="newFrame" HorizontalAlignment="Right" Width="451" Margin="0,0,0,0" NavigationUIVisibility="Hidden"/>
+        </Grid>
+        <Button Background="#adc5d0" x:Name="logout" Content="Log out" HorizontalAlignment="Left" Margin="840,50,0,0" VerticalAlignment="Top" Height="26" Width="75" Click="logout_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
     </Grid>
 </Page>

@@ -30,7 +30,7 @@
                 RenderTransformOrigin="-0.923,1.373" FontFamily="Yu Gothic UI Semibold" 
                 FontSize="16" Background="#FFA7D5FA"
                 Click="doctor_Click"/>
-        <Button Content="Menager" HorizontalAlignment="Left" Margin="68,335,0,0" VerticalAlignment="Top" 
+        <Button Content="Manager" HorizontalAlignment="Left" Margin="68,335,0,0" VerticalAlignment="Top" 
                 Width="167" Height="44" FontSize="16" 
                 FontFamily="Yu Gothic UI Semibold" Background="#FFA7D5FA"
                 Click="menager_Click"/>

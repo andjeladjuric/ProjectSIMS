@@ -111,3 +111,17 @@ C:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\net
 C:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForPatient.g.cs
 C:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToPatient.baml
 C:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForPatient.baml
+D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\NewRoom.g.cs
+D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.g.cs
+D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToDoctor.g.cs
+D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToPatient.g.cs
+D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForDoctor.g.cs
+D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForPatient.g.cs
+D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\NewRoom.baml
+D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.baml
+D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToDoctor.baml
+D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToPatient.baml
+D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForDoctor.baml
+D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForPatient.baml
+D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.csproj.CopyComplete
