@@ -22,13 +22,13 @@ namespace HospitalService.Windowss
 
         public AppointmentStorage baza { get; set; }
         public DataGrid Table { get; set; }
-        public static List<String> appointmentsType = Enum.GetNames(typeof(AppointmentType)).ToList();
+       // public static List<String> appointmentsType = Enum.GetNames(typeof(AppointmentType)).ToList();
         public AddAppointmentToPatient(AppointmentStorage aps, DataGrid dg)
         {
             InitializeComponent();
             baza = aps;
             Table = dg;
-            AppointmentTypeBox.ItemsSource = appointmentsType;
+            //AppointmentTypeBox.ItemsSource = appointmentsType;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -54,7 +54,7 @@ namespace HospitalService.Windowss
                 Id = IdBox.Text,
                 StartTime = Convert.ToDateTime(pocetak),
                 EndTime = Convert.ToDateTime(kraj),
-                Type = (AppointmentType)AppointmentTypeBox.SelectedIndex,
+                Type = AppointmentType.CheckUp,
                 doctor = selectedDoctor,
                 room = selectedRoom,
                 patient = patient

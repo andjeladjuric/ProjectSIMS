@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "OqgdmkPDyTpk/h5bbM/HelHRyizSeNstdqtpS+yUohEbS4MQC/mLvswKXRpdyPfWx9y3fbuDQXu90gqRiNpReQ==",
+  "dgSpecHash": "7CY9KNZLbWVLKQOVzfkFL7qQJrCq3/57xpchbO/H4Y393/JWI3uxfsBU/SO9d3HlMA0e4VWITYV9bmMbtwUdog==",
   "success": true,
-  "projectFilePath": "D:\\FAKS\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj",
+  "projectFilePath": "C:\\Users\\Colakovic\\Desktop\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Andjela\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+    "C:\\Users\\Colakovic\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
   ],
   "logs": []
 }

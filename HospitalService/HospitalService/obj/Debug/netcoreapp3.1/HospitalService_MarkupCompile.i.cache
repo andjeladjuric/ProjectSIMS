@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\
+C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\
 HospitalService
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
-D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\App.xaml
+C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\App.xaml
 121543638914
 1-917587658
 351576210549
-193391827278
+1931870744733
 MainWindow.xaml;Pages\Doctor.xaml;Pages\Manager.xaml;Pages\NewRoom.xaml;Pages\Patient.xaml;Pages\RoomEdit.xaml;Pages\Secretary.xaml;Pages\Start.xaml;Windowss\AddAppointmentToDoctor.xaml;Windowss\AddAppointmentToPatient.xaml;Windowss\EditAppointmentForDoctor.xaml;Windowss\EditAppointmentForPatient.xaml;
 
 True

@@ -125,3 +125,7 @@ D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1
 D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForDoctor.baml
 D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForPatient.baml
 D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.csproj.CopyComplete
+C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\NewRoom.g.cs
+C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.g.cs
+C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\NewRoom.baml
+C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.baml
