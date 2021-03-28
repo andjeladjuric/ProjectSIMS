@@ -13,7 +13,7 @@ namespace Model
         public PatientStorage()
         {
             patients = new List<Patient>();
-            Patient p1 = new Patient
+            /*Patient p1 = new Patient
             {
                 Username = null,
                 Password = null,
@@ -47,7 +47,7 @@ namespace Model
             patients.Add(p1);
             patients.Add(p2);
             File.WriteAllText(FileLocation, JsonConvert.SerializeObject(patients));
-           
+           */
 
             patients = JsonConvert.DeserializeObject<List<Patient>>(File.ReadAllText(FileLocation));
         }

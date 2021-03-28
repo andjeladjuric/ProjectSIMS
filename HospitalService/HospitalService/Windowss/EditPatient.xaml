@@ -29,7 +29,7 @@
         <TextBox Name="phone" Text="{Binding Path=patient.Phone}" HorizontalAlignment="Left" Height="20" Margin="144,288,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
         <TextBox Name="email" Text="{Binding Path=patient.Email}" HorizontalAlignment="Left" Height="20" Margin="144,318,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
         <ComboBox Name="cbtype" HorizontalAlignment="Left" Margin="144,14,0,0" VerticalAlignment="Top" Width="127" Height="20">
-            <ComboBoxItem Content="General" IsSelected="True"></ComboBoxItem>
+            
         </ComboBox>
         <ComboBox IsReadOnly="True" HorizontalAlignment="Left" Margin="144,140,0,0" VerticalAlignment="Top" Width="127" Height="20">
             <ComboBoxItem Content="{Binding Path=patient.Gender}" IsSelected="True"></ComboBoxItem>

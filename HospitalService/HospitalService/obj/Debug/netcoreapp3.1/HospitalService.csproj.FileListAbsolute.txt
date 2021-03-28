@@ -272,3 +272,7 @@ C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netc
 C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.dll
 C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.pdb
 C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.genruntimeconfig.cache
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddPatient.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditPatient.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddPatient.baml
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditPatient.baml

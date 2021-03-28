@@ -26,6 +26,20 @@ namespace HospitalService.Windowss
             InitializeComponent();
             patient = p;
             PatientType type = p.PatientType;
+            List<String> ids = new List<String>();
+            ids.Add("Guest");
+            ids.Add("General");
+            if (type == PatientType.Guest)
+            {
+                cbtype.ItemsSource = ids;
+                cbtype.SelectedItem = patient.PatientType.ToString();
+             }
+            else
+            {
+                ids.Remove("Guest");
+                cbtype.ItemsSource = ids;
+                cbtype.SelectedItem = patient.PatientType.ToString();
+            }
             storage = ps;
             Table = dg;
             editGrid.DataContext = this;

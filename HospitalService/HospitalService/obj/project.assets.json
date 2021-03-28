@@ -53,11 +53,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Home\\Desktop\\proba datum\\HospitalService\\HospitalService\\HospitalService.csproj",
+      "projectUniqueName": "C:\\Users\\Home\\Desktop\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj",
       "projectName": "HospitalService",
-      "projectPath": "C:\\Users\\Home\\Desktop\\proba datum\\HospitalService\\HospitalService\\HospitalService.csproj",
+      "projectPath": "C:\\Users\\Home\\Desktop\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj",
       "packagesPath": "C:\\Users\\Home\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Home\\Desktop\\proba datum\\HospitalService\\HospitalService\\obj\\",
+      "outputPath": "C:\\Users\\Home\\Desktop\\ProjectSIMS\\HospitalService\\HospitalService\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Home\\AppData\\Roaming\\NuGet\\NuGet.Config",
