@@ -125,7 +125,7 @@ namespace HospitalService.Windowss {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/HospitalService;V1.0.0.0;component/windowss/editpatient.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/HospitalService;component/windowss/editpatient.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Windowss\EditPatient.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
