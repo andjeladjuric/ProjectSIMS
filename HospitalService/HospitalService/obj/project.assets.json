@@ -48,19 +48,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Colakovic\\.nuget\\packages\\": {}
+    "C:\\Users\\Home\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Colakovic\\Desktop\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj",
+      "projectUniqueName": "C:\\Users\\Home\\Desktop\\proba datum\\HospitalService\\HospitalService\\HospitalService.csproj",
       "projectName": "HospitalService",
-      "projectPath": "C:\\Users\\Colakovic\\Desktop\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\HospitalService.csproj",
-      "packagesPath": "C:\\Users\\Colakovic\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Colakovic\\Desktop\\SIMS\\ProjectSIMS\\HospitalService\\HospitalService\\obj\\",
+      "projectPath": "C:\\Users\\Home\\Desktop\\proba datum\\HospitalService\\HospitalService\\HospitalService.csproj",
+      "packagesPath": "C:\\Users\\Home\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Home\\Desktop\\proba datum\\HospitalService\\HospitalService\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Colakovic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Home\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

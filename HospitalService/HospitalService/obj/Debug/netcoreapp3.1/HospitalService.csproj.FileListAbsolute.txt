@@ -129,3 +129,146 @@ C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\
 C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.g.cs
 C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\NewRoom.baml
 C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.baml
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\Images\doctors.jpg
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.exe
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.deps.json
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.runtimeconfig.json
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.runtimeconfig.dev.json
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.dll
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.pdb
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.csprojAssemblyReference.cache
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\MainWindow.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Doctor.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Manager.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\NewRoom.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Patient.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Secretary.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Start.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToDoctor.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToPatient.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForDoctor.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForPatient.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\App.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService_Content.g.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService_MarkupCompile.cache
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService_MarkupCompile.lref
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\MainWindow.baml
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Doctor.baml
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Manager.baml
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\NewRoom.baml
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Patient.baml
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.baml
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Secretary.baml
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Start.baml
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToDoctor.baml
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToPatient.baml
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForDoctor.baml
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForPatient.baml
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.g.resources
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.AssemblyInfoInputs.cache
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.AssemblyInfo.cs
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.csproj.CoreCompileInputs.cache
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.csproj.CopyComplete
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.dll
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.pdb
+C:\Users\Home\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.genruntimeconfig.cache
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.csprojAssemblyReference.cache
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\MainWindow.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Doctor.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Manager.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\NewRoom.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Patient.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Secretary.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Start.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToDoctor.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToPatient.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddPatient.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForDoctor.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForPatient.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditPatient.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\App.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService_Content.g.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService_MarkupCompile.cache
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService_MarkupCompile.lref
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.dll
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.pdb
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\Images\doctors.jpg
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.exe
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.deps.json
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.runtimeconfig.json
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.runtimeconfig.dev.json
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.dll
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.pdb
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\MainWindow.baml
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Doctor.baml
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Manager.baml
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\NewRoom.baml
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Patient.baml
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.baml
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Secretary.baml
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Start.baml
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToDoctor.baml
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToPatient.baml
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddPatient.baml
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForDoctor.baml
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForPatient.baml
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditPatient.baml
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.g.resources
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.AssemblyInfoInputs.cache
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.AssemblyInfo.cs
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.csproj.CoreCompileInputs.cache
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.csproj.CopyComplete
+C:\Users\Home\Desktop\proba\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.genruntimeconfig.cache
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\Images\doctors.jpg
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.exe
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.deps.json
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.runtimeconfig.json
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.runtimeconfig.dev.json
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.dll
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\HospitalService.pdb
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.csprojAssemblyReference.cache
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\MainWindow.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Doctor.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Manager.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\NewRoom.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Patient.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Secretary.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Start.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToDoctor.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToPatient.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddPatient.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForDoctor.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForPatient.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditPatient.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\App.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService_Content.g.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService_MarkupCompile.cache
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService_MarkupCompile.lref
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\MainWindow.baml
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Doctor.baml
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Manager.baml
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\NewRoom.baml
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Patient.baml
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.baml
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Secretary.baml
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\Start.baml
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToDoctor.baml
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddAppointmentToPatient.baml
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\AddPatient.baml
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForDoctor.baml
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditAppointmentForPatient.baml
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Windowss\EditPatient.baml
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.g.resources
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.AssemblyInfoInputs.cache
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.AssemblyInfo.cs
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.csproj.CoreCompileInputs.cache
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.csproj.CopyComplete
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.dll
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.pdb
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\HospitalService.genruntimeconfig.cache

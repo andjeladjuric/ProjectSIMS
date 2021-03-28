@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\
 HospitalService
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
-C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\App.xaml
-121543638914
+C:\Users\Home\Desktop\proba datum\HospitalService\HospitalService\App.xaml
+14-456140336
 1-917587658
-33-1579450949
-1931870744733
-MainWindow.xaml;Pages\Doctor.xaml;Pages\Manager.xaml;Pages\NewRoom.xaml;Pages\Patient.xaml;Pages\RoomEdit.xaml;Pages\Secretary.xaml;Pages\Start.xaml;Windowss\AddAppointmentToDoctor.xaml;Windowss\AddAppointmentToPatient.xaml;Windowss\EditAppointmentForDoctor.xaml;Windowss\EditAppointmentForPatient.xaml;
+341598346737
+193-1652619151
+MainWindow.xaml;Pages\Doctor.xaml;Pages\Manager.xaml;Pages\NewRoom.xaml;Pages\Patient.xaml;Pages\RoomEdit.xaml;Pages\Secretary.xaml;Pages\Start.xaml;Windowss\AddAppointmentToDoctor.xaml;Windowss\AddAppointmentToPatient.xaml;Windowss\AddPatient.xaml;Windowss\EditAppointmentForDoctor.xaml;Windowss\EditAppointmentForPatient.xaml;Windowss\EditPatient.xaml;
 
 False
 
