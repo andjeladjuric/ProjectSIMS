@@ -7,7 +7,7 @@ namespace Model
 {
     public class AppointmentStorage
     {
-        private String FileLocation = @"..\..\..\Images\appointments.json";
+        private String FileLocation = @"..\..\..\Data\appointments.json";
         public List<Appointment> appointments { get; set; }
 
         public AppointmentStorage()

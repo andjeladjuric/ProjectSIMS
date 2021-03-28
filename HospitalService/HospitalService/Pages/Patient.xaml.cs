@@ -23,6 +23,7 @@ namespace HospitalService.Pages
 
         private int colNum = 0;
         AppointmentStorage baza;
+        RoomFileStorage sobe;
 
         public List<Appointment> appointments
         {
@@ -35,6 +36,7 @@ namespace HospitalService.Pages
             this.DataContext = this;
             baza = new AppointmentStorage();
             appointments = baza.GetAll();
+            sobe = new RoomFileStorage();
             tableBinding.ItemsSource = appointments;
         }
 
@@ -45,7 +47,7 @@ namespace HospitalService.Pages
 
         private void dodaj_Click(object sender, RoutedEventArgs e)
         {
-            AddAppointmentToPatient prozorDodavanje = new AddAppointmentToPatient(baza, tableBinding);
+            AddAppointmentToPatient prozorDodavanje = new AddAppointmentToPatient(baza, tableBinding, sobe);
             prozorDodavanje.Show();
         }
 
@@ -58,7 +60,7 @@ namespace HospitalService.Pages
             }
             else
             {
-                EditAppointmentForPatient prozorIzmjena = new EditAppointmentForPatient(a, baza, tableBinding);
+                EditAppointmentForPatient prozorIzmjena = new EditAppointmentForPatient(a, baza, tableBinding, sobe);
                 prozorIzmjena.Show();
             }
         }

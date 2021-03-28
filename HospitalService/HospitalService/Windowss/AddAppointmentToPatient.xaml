@@ -20,9 +20,6 @@
 
         </ComboBox>
         <ComboBox Name="RoomBox" HorizontalAlignment="Left" Margin="525,98,0,0" VerticalAlignment="Top" Width="129" Height="35" RenderTransformOrigin="2.602,-6.764">
-            <ComboBoxItem Content="102"></ComboBoxItem>
-            <ComboBoxItem Content="202"></ComboBoxItem>
-            <ComboBoxItem Content="302"></ComboBoxItem>
         </ComboBox>
 
         <Label Content="End:" HorizontalAlignment="Left" Margin="40,234,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
