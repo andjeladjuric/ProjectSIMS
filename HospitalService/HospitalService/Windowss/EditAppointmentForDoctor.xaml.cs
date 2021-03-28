@@ -22,7 +22,7 @@ namespace HospitalService.Windowss
         public AppointmentStorage baza { get; set; }
         public DataGrid Tabela { get; set; }
 
-        public EditAppointmentForDoctor(Appointment ap, AppointmentStorage aps, DataGrid dg)
+        public EditAppointmentForDoctor(Appointment ap, AppointmentStorage aps, DataGrid dg, RoomFileStorage sobe)
         {
             InitializeComponent();
             a = ap;
@@ -32,6 +32,16 @@ namespace HospitalService.Windowss
             IdTB.Text = a.Id;
             startTB.Text = a.StartTime.ToString();
             endTB.Text = a.EndTime.ToString();
+            List<Room> r = sobe.GetAll();
+            List<String> ids = new List<String>();
+            Room soba;
+            for (int i = 0; i < r.Count; i++)
+            {
+                soba = r[i];
+                ids.Add(soba.Id);
+            }
+            comboBox.ItemsSource = ids;
+            comboBox.SelectedItem = a.room.Id;
 
         }
 

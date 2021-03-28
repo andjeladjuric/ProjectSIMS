@@ -23,12 +23,22 @@ namespace HospitalService.Windowss
         public DataGrid Table { get; set; }
         public static List<String> appointmentsType = Enum.GetNames(typeof(AppointmentType)).ToList();
 
-        public AddAppointmentToDoctor(AppointmentStorage aps, DataGrid dg)
+        public AddAppointmentToDoctor(AppointmentStorage aps, DataGrid dg, RoomFileStorage sobe)
         {
             baza = aps;
             Table = dg;
             InitializeComponent();
             AppointmentTypeBox.ItemsSource = appointmentsType;
+            List<Room> r = sobe.GetAll();
+            List<String> ids = new List<String>();
+            Room soba;
+            for(int i = 0; i < r.Count; i++)
+            {
+                soba = r[i];
+                ids.Add(soba.Id);
+            }
+
+        RoomBox.ItemsSource = ids;
 
         }
 

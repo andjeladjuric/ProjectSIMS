@@ -11,10 +11,6 @@
         <TextBox Name="startTB" HorizontalAlignment="Left" Height="37" Margin="252,114,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168" RenderTransformOrigin="1.684,0.193"/>
         <TextBox Name="endTB" HorizontalAlignment="Left" Height="36" Margin="252,192,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168"/>
         <ComboBox Name ="comboBox" HorizontalAlignment="Left" Margin="252,267,0,0" VerticalAlignment="Top" Width="168" Height="33" RenderTransformOrigin="0.538,-0.42">
-            <ComboBoxItem Content="{Binding Path=a.room.Id}" IsSelected="True"></ComboBoxItem>
-            <ComboBoxItem Content="201"></ComboBoxItem>
-            <ComboBoxItem Content="301"></ComboBoxItem>
-            <ComboBoxItem Content="401"></ComboBoxItem>
         </ComboBox>
         <Label Content="Appointment:" HorizontalAlignment="Left" Margin="69,40,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
         <Label Content="Start:" HorizontalAlignment="Left" Margin="69,114,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>

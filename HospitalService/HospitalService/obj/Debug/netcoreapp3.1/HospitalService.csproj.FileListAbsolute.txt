@@ -129,3 +129,7 @@ C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\
 C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.g.cs
 C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\NewRoom.baml
 C:\Users\Colakovic\Desktop\SIMS\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.baml
+C:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\NewRoom.g.cs
+C:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.g.cs
+C:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\NewRoom.baml
+C:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\obj\Debug\netcoreapp3.1\Pages\RoomEdit.baml
