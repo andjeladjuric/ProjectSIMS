@@ -48,7 +48,10 @@ namespace HospitalService.Windowss
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             String dat = date.Text;
-            storage.Edit(jmbg.Text, username.Text, password.Text, (DateTime?)Convert.ToDateTime(dat), phone.Text, address.Text, email.Text, PatientType.General);
+            if (cbtype.Text == "General")
+                storage.Edit(jmbg.Text, username.Text, password.Text, (DateTime?)Convert.ToDateTime(dat), phone.Text, address.Text, email.Text, PatientType.General);
+            else
+                storage.Edit(jmbg.Text, username.Text, password.Text, (DateTime?)Convert.ToDateTime(dat), phone.Text, address.Text, email.Text, PatientType.Guest);
             Table.Items.Refresh();
             this.Close();
         }
