@@ -16,52 +16,7 @@ namespace Model
         public Patient patient { get; set; }
 
 
-       /* public Doctor GetDoctor()
-        {
-            return doctor;
-        }
-
-      
-        public void SetDoctor(Doctor newDoctor)
-        {
-            if (this.doctor != newDoctor)
-            {
-                if (this.doctor != null)
-                {
-                    Doctor oldDoctor = this.doctor;
-                    this.doctor = null;
-                    oldDoctor.RemoveAppintments(this);
-                }
-                if (newDoctor != null)
-                {
-                    this.doctor = newDoctor;
-                    this.doctor.AddAppintments(this);
-                }
-            }
-        }
-
-        public Patient GetPatient()
-        {
-            return patient;
-        }
-
-        public void SetPatient(Patient newPatient)
-        {
-            if (this.patient != newPatient)
-            {
-                if (this.patient != null)
-                {
-                    Patient oldPatient = this.patient;
-                    this.patient = null;
-                    oldPatient.RemoveAppointment(this);
-                }
-                if (newPatient != null)
-                {
-                    this.patient = newPatient;
-                    this.patient.AddAppointment(this);
-                }
-            }
-        }*/
+     
 
     }
 }

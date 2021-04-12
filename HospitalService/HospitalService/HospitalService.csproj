@@ -7,17 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\doctors.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Images\doctors.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Images\" />
   </ItemGroup>
 
 </Project>

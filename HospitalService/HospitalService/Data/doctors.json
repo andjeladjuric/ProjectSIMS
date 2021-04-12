@@ -1,0 +1,15 @@
+﻿[
+  {
+    "DoctorType": 1,
+    "Username": "drpetra",
+    "Password": "123",
+    "Name": "Petra",
+    "Surname": "Jovic",
+    "DateOfBirth": "1999-01-01T00:00:00",
+    "Jmbg": "0101000234567",
+    "Phone": "0614563456",
+    "Address": "Balzakova 23",
+    "Email": "sladjanac@gmail.com",
+    "Gender": 0
+  }
+]
