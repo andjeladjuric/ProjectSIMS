@@ -34,49 +34,26 @@ namespace HospitalService.View.DoctorUI
             this.DataContext = this;
             baza = new AppointmentStorage();
             doctor = d;
-            appointments = baza.GetAll();
+            appointments = baza.getByDoctor(doctor, DateTime.Now);
             sobe = new RoomFileStorage();
-            tableBinding.ItemsSource = appointments;
+
+            AppointmentsTable.ItemsSource = appointments;
+            datePicker.SelectedDate = DateTime.Now.Date;
         }
 
-        private void odjava_Click(object sender, RoutedEventArgs e)
+        private void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            appointments = baza.getByDoctor(doctor, (DateTime)datePicker.SelectedDate);
+            AppointmentsTable.ItemsSource = appointments;
+            AppointmentsTable.Items.Refresh();
+        }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
         {
             new MainWindow().Show();
             this.Close();
         }
 
-        private void dodaj_Click(object sender, RoutedEventArgs e)
-        {
-            AddAppointmentToDoctor prozorDodavanje = new AddAppointmentToDoctor(baza, tableBinding, sobe);
-            prozorDodavanje.Show();
-        }
 
-        private void obrisi_Click(object sender, RoutedEventArgs e)
-        {
-            Appointment a = (Appointment)tableBinding.SelectedItem;
-            if (a == null)
-            {
-                MessageBox.Show("You must select one item");
-            }
-            else
-            {
-                baza.Delete(a.Id);
-                tableBinding.Items.Refresh();
-            }
-        }
-
-        private void izmjeni_Click(object sender, RoutedEventArgs e)
-        {
-            Appointment a = (Appointment)tableBinding.SelectedItem;
-            if (a == null)
-            {
-                MessageBox.Show("You must select one item");
-            }
-            else
-            {
-                EditAppointmentForDoctor prozorIzmjena = new EditAppointmentForDoctor(a, baza, tableBinding, sobe);
-                prozorIzmjena.Show();
-            }
-        }
     }
 }

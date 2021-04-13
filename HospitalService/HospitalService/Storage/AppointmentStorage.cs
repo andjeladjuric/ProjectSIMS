@@ -32,13 +32,11 @@ namespace Model
 
         public List<Appointment> GetAll()
         {
-            // TODO: implement
             return appointments;
         }
 
         public void Save(Appointment newAppointment)
         {
-            // TODO: implement
             appointments.Add(newAppointment);
             File.WriteAllText(FileLocation, JsonConvert.SerializeObject(appointments,
                        new JsonSerializerSettings()
@@ -92,6 +90,22 @@ namespace Model
                     break;
                 }
             }
+        }
+
+        // Vraca listu termina za proslijedjenog doktora
+        public List<Appointment> getByDoctor(Doctor d, DateTime dt)
+        {
+            Appointment a;
+            List<Appointment> retVal = new List<Appointment>();
+            for (int i = 0; i < appointments.Count; i++)
+            {
+                a = appointments[i];
+                if (a.doctor.Jmbg.Equals(d.Jmbg) && a.StartTime.Date == dt.Date)
+                {
+                    retVal.Add(a);
+                }
+            }
+            return retVal;
         }
     }
 }
