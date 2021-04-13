@@ -41,6 +41,14 @@ namespace HospitalService.View.ManagerUI
             room.Type = (RoomType)comboBox.SelectedIndex;
             room.Id = IDBox.Text;
             room.Name = NameBox.Text;
+            if ((bool)available.IsChecked)
+            {
+                room.IsFree = true;
+            }
+            else
+            {
+                room.IsFree = false;
+            }
 
             storage.Save(room);
             bind.Items.Refresh();

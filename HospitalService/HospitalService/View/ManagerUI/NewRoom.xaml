@@ -5,24 +5,26 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.ManagerUI"
       mc:Ignorable="d" 
-      d:DesignHeight="502" d:DesignWidth="419"
+     d:DesignHeight="718" d:DesignWidth="969"
       Title="NewRoom">
 
-    <Grid Background="#dbe0e4" x:Name="grid" HorizontalAlignment="Center" VerticalAlignment="Center" Width="420" Height="323">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Label x:Name="id" Content="ID" HorizontalAlignment="Left" Margin="88,60,0,0" VerticalAlignment="Top" Width="103" Grid.ColumnSpan="3" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14"/>
-        <Label x:Name="name" Content="Name" HorizontalAlignment="Left" Margin="88,106,0,0" VerticalAlignment="Top" Width="103" Grid.ColumnSpan="3" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886"/>
-        <Label x:Name="type" Content="Type" HorizontalAlignment="Left" Margin="88,152,0,0" VerticalAlignment="Top" Width="103" Grid.ColumnSpan="3" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold"/>
-        <TextBox x:Name="IDBox" HorizontalAlignment="Left" Height="26" Margin="196,60,0,0" Text="{Binding Path = room.Id}" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" Grid.ColumnSpan="3" TextChanged="idTextChanged"/>
-        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="26" Margin="196,106,0,0" Text="{Binding Path = room.Name}" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" Grid.ColumnSpan="3" TextChanged="nameTextChanged"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="26" Margin="196,154,0,0" VerticalAlignment="Top" Width="142" Grid.ColumnSpan="3"/>
-        <Button x:Name="save" Content="Save" HorizontalAlignment="Left" Margin="116,231,0,0" VerticalAlignment="Top" Height="26" Width="75" Click="save_Click" Grid.ColumnSpan="3" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Button x:Name="cancel" Content="Cancel" HorizontalAlignment="Left" Margin="230,231,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="cancel_Click" Grid.ColumnSpan="3" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Label x:Name="label" Visibility="Hidden" Content="Wrong format!" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="280,128,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
-        <Label x:Name="label2" Visibility="Hidden" Content="Wrong format!" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="280,85,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
+    <Grid Background="White">
+        <Rectangle HorizontalAlignment="Center" Height="442" Stroke="Black" VerticalAlignment="Top" Width="398" Margin="0,133,0,0"/>
+        <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="336,217,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="36"/>
+        <Label x:Name="name" Content="Ime" HorizontalAlignment="Left" Margin="336,280,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
+        <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="336,0,0,0" VerticalAlignment="Center" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
+        <TextBox x:Name="IDBox" HorizontalAlignment="Left" Height="36" Margin="468,217,0,0" Text="{Binding Path = room.Id}" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" TextChanged="idTextChanged"/>
+        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="35" Margin="468,280,0,0" Text="{Binding Path = room.Name}" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" TextChanged="nameTextChanged"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="34" Margin="468,0,0,0" VerticalAlignment="Center" Width="172"/>
+        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="370,456,0,0" VerticalAlignment="Top" Height="26" Width="91" Click="save_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="509,456,0,0" VerticalAlignment="Top" Height="26" Width="90" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Label x:Name="label" Visibility="Hidden" Content="Pogrešan format!" HorizontalAlignment="Left" Margin="567,315,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
+        <Label x:Name="label2" Visibility="Hidden" Content="Pogrešan format!" HorizontalAlignment="Left" Margin="567,253,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="332,56,0,0" Text="Dodaj stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
+        <Label x:Name="availability" Content="Dostupnost" HorizontalAlignment="Left" Margin="336,395,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
+        <RadioButton x:Name="available" Content="Da" HorizontalAlignment="Left" Margin="469,400,0,0" VerticalAlignment="Top" FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14"/>
+        <RadioButton x:Name="notAvailable" Content="Ne" HorizontalAlignment="Left" Margin="533,403,0,0" VerticalAlignment="Top" FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14" RenderTransformOrigin="-0.412,0.308"/>
+
     </Grid>
 </Page>
+
