@@ -14,22 +14,20 @@ using System.Windows.Shapes;
 
 namespace HospitalService.View.DoctorUI
 {
-    /// <summary>
-    /// Interaction logic for AddAppointmentToDoctor.xaml
-    /// </summary>
+   
     public partial class AddAppointmentToDoctor : Window
     {
+        public DoctorWindow DoctorWindow { get; set; }
         public AppointmentStorage baza { get; set; }
-        public DataGrid Table { get; set; }
         public static List<String> appointmentsType = Enum.GetNames(typeof(AppointmentType)).ToList();
 
-        public AddAppointmentToDoctor(AppointmentStorage aps, DataGrid dg, RoomFileStorage sobe)
+        public AddAppointmentToDoctor(DoctorWindow dw)
         {
-            baza = aps;
-            Table = dg;
+            DoctorWindow = dw;
+            baza = dw.baza;
             InitializeComponent();
             AppointmentTypeBox.ItemsSource = appointmentsType;
-            List<Room> r = sobe.GetAll();
+            List<Room> r = dw.sobe.GetAll();
             List<String> ids = new List<String>();
             Room soba;
             for (int i = 0; i < r.Count; i++)
@@ -42,12 +40,12 @@ namespace HospitalService.View.DoctorUI
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Apply_Click(object sender, RoutedEventArgs e)
         {
             String start = StartBox.Text;
             String end = EndBox.Text;
@@ -58,7 +56,7 @@ namespace HospitalService.View.DoctorUI
             String[] name = ime.Split(' ');
             Patient selectedPatient = new Patient() { Name = name[0], Surname = name[1] };
             Room selectedRoom = new Room() { Id = RoomBox.Text };
-            Doctor defaultDoctor = new Doctor() { Name = "Petra", Surname = "Jovic" };
+            Doctor defaultDoctor = new Doctor() { Name = "Petra", Surname = "Jovic", Jmbg= "0101000234567" };
             Appointment newAppointment = new Appointment()
             {
                 Id = IdBox.Text,
@@ -70,8 +68,9 @@ namespace HospitalService.View.DoctorUI
                 doctor = defaultDoctor
             };
             baza.Save(newAppointment);
-            Table.Items.Refresh();
+            DoctorWindow.refresh();
             this.Close();
         }
+
     }
 }

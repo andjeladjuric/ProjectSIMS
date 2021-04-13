@@ -19,9 +19,9 @@ namespace HospitalService.View.DoctorUI
     public partial class DoctorWindow : Window
     {
         private int colNum = 0;
-        AppointmentStorage baza;
-        RoomFileStorage sobe;
-        private Doctor doctor;
+        public AppointmentStorage baza { get; set; }
+        public RoomFileStorage sobe { get; set; }
+        public  Doctor doctor { get; set; }
         public List<Appointment> appointments
 
         {
@@ -41,7 +41,7 @@ namespace HospitalService.View.DoctorUI
             datePicker.SelectedDate = DateTime.Now.Date;
         }
 
-        private void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        public void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             appointments = baza.getByDoctor(doctor, (DateTime)datePicker.SelectedDate);
             AppointmentsTable.ItemsSource = appointments;
@@ -54,6 +54,17 @@ namespace HospitalService.View.DoctorUI
             this.Close();
         }
 
+        private void AddAppointment_Click(object sender, RoutedEventArgs e)
+        {
+            AddAppointmentToDoctor prozorDodavanje = new AddAppointmentToDoctor(this);
+            prozorDodavanje.Show();
+        }
 
+        public void refresh()
+        {
+            appointments = baza.getByDoctor(doctor, (DateTime)datePicker.SelectedDate);
+            AppointmentsTable.ItemsSource = appointments;
+            AppointmentsTable.Items.Refresh();
+        }
     }
 }
