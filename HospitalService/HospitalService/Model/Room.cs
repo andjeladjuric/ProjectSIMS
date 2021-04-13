@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Model
 {
@@ -9,9 +10,9 @@ namespace Model
         public String Name { get; set; }
         public Boolean IsFree { get; set; }
 
-        public System.Collections.ArrayList inventory;
+        public Dictionary<int, int> inventory { get; set; }
 
-        public System.Collections.ArrayList GetInventory()
+        /*public System.Collections.ArrayList GetInventory()
         {
             if (inventory == null)
                 inventory = new System.Collections.ArrayList();
@@ -48,7 +49,7 @@ namespace Model
         {
             if (inventory != null)
                 inventory.Clear();
-        }
+        }*/
 
     }
 }

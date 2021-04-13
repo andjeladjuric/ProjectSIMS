@@ -63,5 +63,21 @@ namespace Model
             return rooms.Find(x => x.Id == id);
         }
 
+        public List<Room> getByType(RoomType type)
+        {
+            List<Room> listByType = new List<Room>();
+            Room r;
+
+            for( int i = 0; i < rooms.Count; i++)
+            {
+                r = rooms[i];
+                if (r.Type == type)
+                    listByType.Add(r);
+            }
+
+            return listByType;
+
+        }
+
     }
 }

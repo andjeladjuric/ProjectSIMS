@@ -1,1 +1,44 @@
-[{"inventory":null,"Type":0,"Id":"102","Name":"Patient room 1","IsFree":true},{"inventory":null,"Type":1,"Id":"203","Name":"Operating room 2","IsFree":false},{"inventory":null,"Type":3,"Id":"304","Name":"Storage","IsFree":true},{"inventory":null,"Type":2,"Id":"105","Name":"Check up room","IsFree":true},{"inventory":null,"Type":0,"Id":"123","Name":"Patient room 2","IsFree":true},{"inventory":null,"Type":3,"Id":"406","Name":"Storage room 2","IsFree":false}]
+[
+  {
+    "Type": 0,
+    "Id": "102",
+    "Name": "Patient room 1",
+    "IsFree": true,
+    "inventory": {}
+  },
+  {
+    "Type": 1,
+    "Id": "203",
+    "Name": "Operating room 2",
+    "IsFree": false,
+    "inventory": { "104": 1 }
+  },
+  {
+    "Type": 3,
+    "Id": "304",
+    "Name": "Storage",
+    "IsFree": true,
+    "inventory": {}
+  },
+  {
+    "Type": 2,
+    "Id": "105",
+    "Name": "Check up room",
+    "IsFree": true,
+    "inventory": {}
+  },
+  {
+    "Type": 0,
+    "Id": "123",
+    "Name": "Patient room 2",
+    "IsFree": true,
+    "inventory": {}
+  },
+  {
+    "Type": 3,
+    "Id": "406",
+    "Name": "Storage room 2",
+    "IsFree": false,
+    "inventory": null
+  }
+]

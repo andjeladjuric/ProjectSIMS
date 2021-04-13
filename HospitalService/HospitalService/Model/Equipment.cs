@@ -3,8 +3,7 @@ namespace Model
 {
     public enum Equipment
     {
-        MedicalKit,
-        Instruments,
-        Furniture
+        Satic,
+        Dynamic
     }
 }
