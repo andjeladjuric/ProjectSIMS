@@ -13,26 +13,23 @@ using System.Windows.Shapes;
 
 namespace HospitalService.View.DoctorUI
 {
-    /// <summary>
-    /// Interaction logic for EditAppointmentForDoctor.xaml
-    /// </summary>
     public partial class EditAppointmentForDoctor : Window
     {
         public Appointment a { get; set; }
         public AppointmentStorage baza { get; set; }
-        public DataGrid Tabela { get; set; }
+        public DoctorWindow DoctorWindow { get; set; }
 
-        public EditAppointmentForDoctor(Appointment ap, AppointmentStorage aps, DataGrid dg, RoomFileStorage sobe)
+        public EditAppointmentForDoctor(Appointment ap, DoctorWindow dw)
         {
             InitializeComponent();
+            DoctorWindow = dw;
             a = ap;
-            baza = aps;
-            Tabela = dg;
+            baza = dw.baza;
             editGrid.DataContext = this;
             IdTB.Text = a.Id;
             startTB.Text = a.StartTime.ToString();
             endTB.Text = a.EndTime.ToString();
-            List<Room> r = sobe.GetAll();
+            List<Room> r = dw.sobe.GetAll();
             List<String> ids = new List<String>();
             Room soba;
             for (int i = 0; i < r.Count; i++)
@@ -55,8 +52,7 @@ namespace HospitalService.View.DoctorUI
             catch (Exception) { }
             a.room.Id = comboBox.Text;
             baza.Edit(a.Id, a.StartTime, a.EndTime, a.room);
-            Tabela.Items.Refresh();
-
+            DoctorWindow.refresh();
             this.Close();
 
         }

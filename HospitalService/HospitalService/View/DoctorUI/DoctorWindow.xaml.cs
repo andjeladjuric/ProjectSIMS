@@ -43,9 +43,7 @@ namespace HospitalService.View.DoctorUI
 
         public void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            appointments = baza.getByDoctor(doctor, (DateTime)datePicker.SelectedDate);
-            AppointmentsTable.ItemsSource = appointments;
-            AppointmentsTable.Items.Refresh();
+            this.refresh();
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
@@ -56,8 +54,8 @@ namespace HospitalService.View.DoctorUI
 
         private void AddAppointment_Click(object sender, RoutedEventArgs e)
         {
-            AddAppointmentToDoctor prozorDodavanje = new AddAppointmentToDoctor(this);
-            prozorDodavanje.Show();
+            AddAppointmentToDoctor addAppointmentWindow = new AddAppointmentToDoctor(this);
+            addAppointmentWindow.Show();
         }
 
         public void refresh()
@@ -65,6 +63,34 @@ namespace HospitalService.View.DoctorUI
             appointments = baza.getByDoctor(doctor, (DateTime)datePicker.SelectedDate);
             AppointmentsTable.ItemsSource = appointments;
             AppointmentsTable.Items.Refresh();
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            Appointment a = (Appointment)AppointmentsTable.SelectedItem;
+            if (a == null)
+            {
+                MessageBox.Show("You must select one item");
+            }
+            else
+            {
+                baza.Delete(a.Id);
+                this.refresh();
+            }
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            Appointment a = (Appointment)AppointmentsTable.SelectedItem;
+            if (a == null)
+            {
+                MessageBox.Show("You must select one item");
+            }
+            else
+            {
+                EditAppointmentForDoctor editAppointmentWindow = new EditAppointmentForDoctor(a, this);
+                editAppointmentWindow.Show();
+            }
         }
     }
 }
