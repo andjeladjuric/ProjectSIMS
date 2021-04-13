@@ -37,6 +37,7 @@ namespace HospitalService.View.DoctorUI
             }
 
             RoomBox.ItemsSource = ids;
+            DateBox.SelectedDate = DateTime.Today;
 
         }
 

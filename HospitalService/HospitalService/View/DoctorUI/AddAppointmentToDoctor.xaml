@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI"
         mc:Ignorable="d"
-       Title="AddAppointmentToDoctor" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+       Title="Novi termin" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="ID:" HorizontalAlignment="Left" Margin="40,35,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <Label Content="Od:" HorizontalAlignment="Left" Margin="40,161,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>

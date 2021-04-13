@@ -28,8 +28,8 @@ namespace HospitalService.View.DoctorUI
             editGrid.DataContext = this;
             AppointmentDate.SelectedDate = a.StartTime.Date;
             IdTB.Text = a.Id;
-            startTB.Text = a.StartTime.ToShortTimeString();
-            endTB.Text = a.EndTime.ToShortTimeString();
+            startTB.Text = a.StartTime.ToString("HH:mm");
+            endTB.Text = a.EndTime.ToString("HH:mm");
             List<Room> r = dw.sobe.GetAll();
             List<String> ids = new List<String>();
             Room soba;

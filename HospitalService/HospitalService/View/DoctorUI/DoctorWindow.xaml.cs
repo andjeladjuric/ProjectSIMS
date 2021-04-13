@@ -19,23 +19,23 @@ namespace HospitalService.View.DoctorUI
         private int colNum = 0;
         public AppointmentStorage baza { get; set; }
         public RoomFileStorage sobe { get; set; }
-        public  Doctor doctor { get; set; }
-        public List<Appointment> appointments
+        public PatientStorage patientsBase { get; set; }
+        public Doctor doctor { get; set; }
+        public List<Appointment> appointments { get; set; }
 
-        {
-            get;
-            set;
-        }
         public DoctorWindow(Doctor d)
         {
             InitializeComponent();
             this.DataContext = this;
+            patientsBase = new PatientStorage();
+            List<Patient> patients = patientsBase.GetAll();
             baza = new AppointmentStorage();
             doctor = d;
             appointments = baza.getByDoctor(doctor, DateTime.Now);
             sobe = new RoomFileStorage();
 
             AppointmentsTable.ItemsSource = appointments;
+            PatientsTable.ItemsSource = patients;
             datePicker.SelectedDate = DateTime.Now.Date;
         }
 

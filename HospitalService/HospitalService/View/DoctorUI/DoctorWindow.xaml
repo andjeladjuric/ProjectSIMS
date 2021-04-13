@@ -66,8 +66,8 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Ime"  Binding="{Binding patient.Name}" Width="*"/>
                             <DataGridTextColumn Header="Prezime" Binding="{Binding patient.Surname}" Width="*"/>
-                            <DataGridTextColumn Header="Od" Binding="{Binding StartTime}" Width="*"/>
-                            <DataGridTextColumn Header="Do" Binding="{Binding EndTime}" Width="*"/>
+                            <DataGridTextColumn Header="Od" Binding="{Binding StartTime, StringFormat=HH:mm}" Width="*"/>
+                            <DataGridTextColumn Header="Do" Binding="{Binding EndTime, StringFormat=HH:mm}" Width="*"/>
                             <DataGridTextColumn Header="Tip" Binding="{Binding Type}" Width="*"/>
                             <DataGridTextColumn Header="Soba" Binding="{Binding room.Id}" Width="*"/>
                         </DataGrid.Columns>
@@ -75,27 +75,23 @@
                 </DockPanel>
             </TabItem>
             <TabItem Header="Pacijenti" Margin="-3,8,0,-18">
-                <DockPanel Margin="0,0,0,97">
-                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="27">
-                        <Label Content="Pretraži:"  Height="34" Width="65"/>
-                        <TextBox Width="115" />
-                        <Button Width="27"/>
+                <DockPanel Margin="0,0,0,80">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="31" Margin="0,10,0,10">
+                        <Label Content="Pretraga" Margin="780,0,0,0"/>
                     </StackPanel>
-                    <Button DockPanel.Dock="Bottom" Width="147" RenderTransformOrigin="0.49,0.111">
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
-                        </Button.Background> Prikaži karton
-                    </Button>
-                    <DataGrid x:Name="tableBinding2" IsReadOnly="True" 
-                  SelectionMode="Single" AutoGenerateColumns="False" 
-                  Height="523" Width="800">
+                        <Button DockPanel.Dock="Bottom" Margin="0,0,0,0" Width="147" RenderTransformOrigin="0.49,0.111" Content="Prikaži karton">
+                            <Button.Background>
+                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
+                            </Button.Background>
+                        </Button>
+                    <DataGrid x:Name="PatientsTable" IsReadOnly="True" 
+                  SelectionMode="Single" AutoGenerateColumns="False" Height="300" Width="760" Margin="0,0,0,20">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Ime" Width="*"/>
-                            <DataGridTextColumn Header="Prezime" Width="*"/>
-                            <DataGridTextColumn Header="Od" Width="*"/>
-                            <DataGridTextColumn Header="Do" Width="*"/>
-                            <DataGridTextColumn Header="Tip" Width="*"/>
-                            <DataGridTextColumn Header="Soba" Width="*"/>
+                            <DataGridTextColumn Header="Ime"  Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}" Width="*"/>
+                            <DataGridTextColumn Header="JMBG" Binding="{Binding Jmbg}" Width="*"/>
+                            <DataGridTextColumn Header="Datum rođenja" Binding="{Binding DateOfBirth, StringFormat={}{0:MM/dd/yyyy}}" Width="*"/>
+                            <DataGridTextColumn Header="Karton" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DockPanel>
