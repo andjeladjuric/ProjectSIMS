@@ -62,7 +62,7 @@ namespace HospitalService.View.PatientUI
                 Id = IdBox.Text,
                 StartTime = Convert.ToDateTime(pocetak),
                 EndTime = Convert.ToDateTime(kraj),
-                Type = AppointmentType.CheckUp,
+                Type = AppointmentType.Pregled,
                 doctor = selectedDoctor,
                 room = selectedRoom,
                 patient = patient

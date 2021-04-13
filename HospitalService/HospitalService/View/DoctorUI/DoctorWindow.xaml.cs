@@ -13,9 +13,7 @@ using System.Windows.Shapes;
 
 namespace HospitalService.View.DoctorUI
 {
-    /// <summary>
-    /// Interaction logic for DoctorWindow.xaml
-    /// </summary>
+   
     public partial class DoctorWindow : Window
     {
         private int colNum = 0;
@@ -70,12 +68,16 @@ namespace HospitalService.View.DoctorUI
             Appointment a = (Appointment)AppointmentsTable.SelectedItem;
             if (a == null)
             {
-                MessageBox.Show("You must select one item");
+                MessageBox.Show("Morate izabrati termin.");
             }
             else
-            {
-                baza.Delete(a.Id);
-                this.refresh();
+            { 
+                var Result = MessageBox.Show("Da li ste sigurni da želite da obrišete termin?", "Brisanje termina", MessageBoxButton.YesNo);
+                if (Result == MessageBoxResult.Yes)
+                {
+                    baza.Delete(a.Id);
+                    this.refresh();
+                }
             }
         }
 
@@ -84,7 +86,7 @@ namespace HospitalService.View.DoctorUI
             Appointment a = (Appointment)AppointmentsTable.SelectedItem;
             if (a == null)
             {
-                MessageBox.Show("You must select one item");
+                MessageBox.Show("Morate izabrati termin.");
             }
             else
             {

@@ -26,9 +26,10 @@ namespace HospitalService.View.DoctorUI
             a = ap;
             baza = dw.baza;
             editGrid.DataContext = this;
+            AppointmentDate.SelectedDate = a.StartTime.Date;
             IdTB.Text = a.Id;
-            startTB.Text = a.StartTime.ToString();
-            endTB.Text = a.EndTime.ToString();
+            startTB.Text = a.StartTime.ToShortTimeString();
+            endTB.Text = a.EndTime.ToShortTimeString();
             List<Room> r = dw.sobe.GetAll();
             List<String> ids = new List<String>();
             Room soba;
@@ -46,8 +47,13 @@ namespace HospitalService.View.DoctorUI
         {
             try
             {
-                a.StartTime = Convert.ToDateTime(startTB.Text);
-                a.EndTime = Convert.ToDateTime(endTB.Text);
+                String start = startTB.Text;
+                String end = endTB.Text;
+                String date = AppointmentDate.Text;
+                String pocetak = date + " " + start;
+                String kraj = date + " " + end;
+                a.StartTime = Convert.ToDateTime(pocetak);
+                a.EndTime = Convert.ToDateTime(kraj);
             }
             catch (Exception) { }
             a.room.Id = comboBox.Text;

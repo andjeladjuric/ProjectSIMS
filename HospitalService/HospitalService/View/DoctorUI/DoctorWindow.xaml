@@ -45,7 +45,7 @@
                         <DatePicker Name="datePicker" SelectedDateChanged="datePicker_SelectedDateChanged" Width="124"  Margin="725,0,0,0"/>
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                        <Button Margin="280,0,0,0" Width="52" Click="Delete_Click">Obrisi
+                        <Button Margin="280,0,0,0" Width="52" Click="Delete_Click">Obriši
                             <Button.Background>
                                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
                             </Button.Background>
