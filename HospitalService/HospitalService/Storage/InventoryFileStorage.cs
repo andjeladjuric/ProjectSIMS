@@ -12,7 +12,7 @@ namespace Model
         private String FileLocation = @"..\..\..\Data\inventory.json";
         private List<Inventory> inventoryList;
         RoomFileStorage storage = new RoomFileStorage();
-
+        
         public InventoryFileStorage()
         {
             inventoryList = new List<Inventory>();
@@ -25,21 +25,58 @@ namespace Model
 
         public void Save(Inventory newItem)
         {
-            inventoryList.Add(newItem);
-
-            foreach(Room r in storage.GetAll())
+            if (storage.GetAll().Count == 0)
             {
-                r.inventory = new Dictionary<int, int>();
+                MessageBox.Show("Ne postoji soba u koju možete ubaciti inventar!");
+            }
 
-                if(r.Type == RoomType.StorageRoom)
+            foreach (Room r in storage.GetAll())
+            {
+                if (r.Type == RoomType.StorageRoom)
                 {
                     r.inventory.Add(newItem.Id, newItem.Quantity);
+                    inventoryList.Add(newItem);
+                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
                     File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
-                    break;
+                    return;
                 }
             }
 
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+            foreach (Room r in storage.GetAll())
+            {
+                if (r.Type == RoomType.ExaminationRoom)
+                {
+                    r.inventory.Add(newItem.Id, newItem.Quantity);
+                    inventoryList.Add(newItem);
+                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                    return;
+                }
+            }
+
+            foreach (Room r in storage.GetAll())
+            {
+                if (r.Type == RoomType.PatientRoom)
+                {
+                    r.inventory.Add(newItem.Id, newItem.Quantity);
+                    inventoryList.Add(newItem);
+                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                    return;
+                }
+            }
+
+            foreach (Room r in storage.GetAll())
+            {
+                if (r.Type == RoomType.OperatingRoom)
+                {
+                    r.inventory.Add(newItem.Id, newItem.Quantity);
+                    inventoryList.Add(newItem);
+                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                    return;
+                }
+            }
         }
 
         public void Delete(int invId)
@@ -78,117 +115,251 @@ namespace Model
                 {
                     item.Name = name;
                     item.EquipmentType = type;
+                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+
+                    int value = 0;
                     int temp = 0;
-                    int leftover = 0;
 
-                    List<Room> storageRooms = storage.getByType(RoomType.StorageRoom);
-                    List<Room> examinationRooms = storage.getByType(RoomType.ExaminationRoom);
-                    List<Room> patientRooms = storage.getByType(RoomType.PatientRoom);
-                    List<Room> operationRooms = storage.getByType(RoomType.OperatingRoom);
-
-                    foreach(Room r in storageRooms)
+                    if(storage.GetAll().Count == 0)
                     {
-                        if (r.inventory != null && r.inventory.Count != 0)
+                        MessageBox.Show("Ne postoje sobe u kojima inventar može da se izmeni!");
+                    }
+                     
+                    if (item.Quantity > quantity) //oduzimanje
+                    {
+                        temp = item.Quantity - quantity;
+                        foreach (Room r in storage.GetAll())
                         {
-                            int value = r.inventory[item.Id];
-                            if (item.Quantity > quantity)
+                            if (r.Type == RoomType.StorageRoom)
                             {
-                                temp = item.Quantity - quantity;
+                                if (!r.inventory.ContainsKey(item.Id))
+                                    continue;
 
-                                if (temp > value)
+                                value = r.inventory[item.Id];
+                                if (value - temp > 0) //ima dovoljno u skladistu
                                 {
-                                    r.inventory.Remove(item.Id);
-                                    leftover = temp - value;
-
-                                    while (leftover > 0)
-                                    {
-                                        foreach (Room re in examinationRooms)
-                                        {
-                                            if (re.inventory != null && re.inventory.Count != 0)
-                                            {
-                                                value = re.inventory[item.Id];
-                                                if (leftover > value)
-                                                {
-                                                    re.inventory.Remove(item.Id);
-                                                    leftover = leftover - value;
-                                                    continue;
-                                                }
-
-                                                value = value - leftover;
-                                                re.inventory[item.Id] = value;
-                                                File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
-                                                leftover = 0;
-                                                break;
-                                            }
-                                        }
-
-                                        foreach (Room ro in operationRooms)
-                                        {
-                                            if (ro.inventory != null && ro.inventory.Count != 0)
-                                            {
-                                                value = ro.inventory[item.Id];
-                                                if (leftover > value)
-                                                {
-                                                    ro.inventory.Remove(item.Id);
-                                                    leftover = leftover - value;
-                                                    continue;
-                                                }
-
-                                                value = value - leftover;
-                                                ro.inventory[item.Id] = value;
-                                                File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
-                                                leftover = 0;
-                                                break;
-                                            }
-                                        }
-
-                                        foreach (Room rp in patientRooms)
-                                        {
-                                            if (rp.inventory != null && rp.inventory.Count != 0)
-                                            {
-                                                value = rp.inventory[item.Id];
-                                                if (leftover > value)
-                                                {
-                                                    rp.inventory.Remove(item.Id);
-                                                    leftover = leftover - value;
-                                                    continue;
-                                                }
-
-                                                value = value - leftover;
-                                                rp.inventory[item.Id] = value;
-                                                File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
-                                                leftover = 0;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                                else if (value > temp)
-                                {
-
-                                    value = value - temp;
+                                    value -= temp;
                                     r.inventory[item.Id] = value;
+                                    item.Quantity = quantity;
                                     File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
-                                    break;
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
                                 }
 
+                                temp -= value;
+                                r.inventory.Remove(item.Id);
+                                if(temp == 0)
+                                {
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
                             }
-                            else if (item.Quantity < quantity)
+                        }
+
+                        foreach (Room r in storage.GetAll())
+                        {
+                            if (r.Type == RoomType.ExaminationRoom)
                             {
-                                temp = quantity - item.Quantity;
-                                value = value + temp;
-                                r.inventory[item.Id] = value;
-                                File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                if (!r.inventory.ContainsKey(item.Id))
+                                    continue;
+
+                                value = r.inventory[item.Id];
+                                if (value - temp > 0) //ima dovoljno u skladistu
+                                {
+                                    value -= temp;
+                                    r.inventory[item.Id] = value;
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
+
+                                temp -= value;
+                                r.inventory.Remove(item.Id);
+                                if (temp == 0)
+                                {
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
+                            }
+                        }
+
+                        foreach (Room r in storage.GetAll())
+                        {
+                            if (r.Type == RoomType.OperatingRoom)
+                            {
+                                if (!r.inventory.ContainsKey(item.Id))
+                                    continue;
+
+                                value = r.inventory[item.Id];
+                                if (value - temp > 0) //ima dovoljno u skladistu
+                                {
+                                    value -= temp;
+                                    r.inventory[item.Id] = value;
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
+
+                                temp -= value;
+                                r.inventory.Remove(item.Id);
+                                if (temp == 0)
+                                {
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
+                            }
+                        }
+
+                        foreach (Room r in storage.GetAll())
+                        {
+                            if (r.Type == RoomType.PatientRoom)
+                            {
+                                if (!r.inventory.ContainsKey(item.Id))
+                                    continue;
+
+                                value = r.inventory[item.Id];
+                                if (value - temp > 0) //ima dovoljno u skladistu
+                                {
+                                    value -= temp;
+                                    r.inventory[item.Id] = value;
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
+
+                                temp -= value;
+                                r.inventory.Remove(item.Id);
+                                if (temp == 0)
+                                {
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
+                            }
+                        }
+                    }else if(item.Quantity < quantity) // dodavanje
+                    {
+                        temp = quantity - item.Quantity;
+                        foreach(Room r in storage.GetAll()) 
+                        {
+                            if (r.Type == RoomType.StorageRoom)
+                            {
+                                if (r.inventory.ContainsKey(item.Id))
+                                {
+                                    value = r.inventory[item.Id];
+
+                                    value += temp;
+                                    r.inventory[item.Id] = value;
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
+                                else
+                                {
+                                    value = temp;
+                                    r.inventory.Add(item.Id, value);
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
+                            }
+                        }
+
+                        foreach (Room r in storage.GetAll())
+                        {
+                            if (r.Type == RoomType.ExaminationRoom)
+                            {
+                                if (r.inventory.ContainsKey(item.Id))
+                                {
+                                    value = r.inventory[item.Id];
+
+                                    value += temp;
+                                    r.inventory[item.Id] = value;
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
+                                else
+                                {
+                                    value = temp;
+                                    r.inventory.Add(item.Id, value);
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
+                            }
+                        }
+
+                        foreach (Room r in storage.GetAll())
+                        {
+                            if (r.Type == RoomType.OperatingRoom)
+                            {
+                                if (r.inventory.ContainsKey(item.Id))
+                                {
+                                    value = r.inventory[item.Id];
+
+                                    value += temp;
+                                    r.inventory[item.Id] = value;
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
+                                else
+                                {
+                                    value = temp;
+                                    r.inventory.Add(item.Id, value);
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
+                            }
+                        }
+
+                        foreach (Room r in storage.GetAll())
+                        {
+                            if (r.Type == RoomType.PatientRoom)
+                            {
+                                if (r.inventory.ContainsKey(item.Id))
+                                {
+                                    value = r.inventory[item.Id];
+
+                                    value += temp;
+                                    r.inventory[item.Id] = value;
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
+                                else
+                                {
+                                    value = temp;
+                                    r.inventory.Add(item.Id, value);
+                                    item.Quantity = quantity;
+                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(storage.GetAll()));
+                                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                                    return;
+                                }
                             }
                         }
                     }
-
-                    item.Quantity = quantity;
-                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
-                    break;
                 }
             }
-            
         }
 
         public Inventory getOne(int id)

@@ -8,6 +8,10 @@
      d:DesignHeight="718" d:DesignWidth="969"
       Title="NewRoom">
 
+    <Page.Resources>
+        <local:EnumValueConverter x:Key="comboConvert"/>
+    </Page.Resources>
+
     <Grid Background="White">
         <Rectangle HorizontalAlignment="Center" Height="442" Stroke="Black" VerticalAlignment="Top" Width="398" Margin="0,133,0,0"/>
         <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="336,217,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="36"/>
@@ -15,7 +19,13 @@
         <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="336,0,0,0" VerticalAlignment="Center" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
         <TextBox x:Name="IDBox" HorizontalAlignment="Left" Height="36" Margin="468,217,0,0" Text="{Binding Path = room.Id}" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" TextChanged="idTextChanged"/>
         <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="35" Margin="468,280,0,0" Text="{Binding Path = room.Name}" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" TextChanged="nameTextChanged"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="34" Margin="468,0,0,0" VerticalAlignment="Center" Width="172"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="34" Margin="468,0,0,0" VerticalAlignment="Center" Width="172">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource comboConvert}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="370,456,0,0" VerticalAlignment="Top" Height="26" Width="91" Click="save_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="509,456,0,0" VerticalAlignment="Top" Height="26" Width="90" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
         <Label x:Name="label" Visibility="Hidden" Content="Pogrešan format!" HorizontalAlignment="Left" Margin="567,315,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>

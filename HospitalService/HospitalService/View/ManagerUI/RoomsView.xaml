@@ -8,7 +8,14 @@
       d:DesignHeight="718" d:DesignWidth="969"
       Title="RoomsView">
 
+
+    <Page.Resources>
+        <local:EnumValueConverter x:Key="enumConverter"/>
+    </Page.Resources>
+
     <Grid Background="White">
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="202,56,0,0" Text="Sobe" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="46" FontStyle="Italic" TextAlignment="Left"/>
+
         <DataGrid x:Name="tableBinding" IsReadOnly="True"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
                   Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14">
@@ -47,7 +54,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Tip sobe" Width="*"  Binding="{Binding Type}">
+                <DataGridTextColumn Header="Tip sobe" Width="*"  Binding="{Binding Type, Converter={StaticResource enumConverter}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />

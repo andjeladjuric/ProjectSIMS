@@ -8,6 +8,10 @@
       d:DesignHeight="718" d:DesignWidth="969"
       Title="RoomEdit">
 
+    <Page.Resources>
+        <local:EnumValueConverter x:Key="comboConvert"/>
+    </Page.Resources>
+
     <Grid Background="White">
 
         <DataGrid x:Name="tableBinding" IsReadOnly="True"  Margin="16,0,0,0"
@@ -48,7 +52,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Tip sobe" Width="*"  Binding="{Binding Type}">
+                <DataGridTextColumn Header="Tip sobe" Width="*"  Binding="{Binding Type, Converter={StaticResource comboConvert}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -69,7 +73,13 @@
             <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="52,297,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
             <TextBox x:Name="IDBox" IsReadOnly="True"  HorizontalAlignment="Left" Height="30" Margin="170,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
             <TextBox x:Name="NameBox"  HorizontalAlignment="Left" Height="32" Margin="170,242,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" TextChanged="textChanged" />
-            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="30" Margin="169,297,0,0" VerticalAlignment="Top" Width="154"/>
+            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="30" Margin="169,297,0,0" VerticalAlignment="Top" Width="154">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource comboConvert}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="83,416,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="saveClick" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
             <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="207,416,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="cancelClick" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
             <Label x:Name="label" Visibility="Hidden" Content="Wrong format!" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="280,128,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>

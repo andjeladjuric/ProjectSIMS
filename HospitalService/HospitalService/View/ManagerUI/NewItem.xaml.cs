@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -105,22 +106,33 @@ namespace HospitalService.View.ManagerUI
                 label3.Visibility = Visibility.Hidden;
             }
         }
+    }
 
-        private void DobavljacBox_TextChanged(object sender, TextChangedEventArgs e)
+    public class InventoryTypeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!checkName.IsMatch(DobavljacBox.Text))
+            switch (value.ToString().ToLower())
             {
-                label4.Visibility = Visibility.Visible;
-                save.IsEnabled = false;
+                case "static":
+                    return "Statička";
+                case "dynamic":
+                    return "Dinamička";
             }
-            else
-            {
-                label4.Visibility = Visibility.Hidden;
 
-                if (label.Visibility == Visibility.Hidden && label1.Visibility == Visibility.Hidden && label2.Visibility == Visibility.Hidden &&
-                    label3.Visibility == Visibility.Hidden)
-                    save.IsEnabled = true;
+            return null;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is string)
+            {
+                if (value.Equals("Statička"))
+                    return Equipment.Static;
+                else if (value.Equals("Dinamička"))
+                    return Equipment.Dynamic;
             }
+
+            return null;
         }
     }
 }

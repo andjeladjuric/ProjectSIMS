@@ -3,7 +3,7 @@ namespace Model
 {
     public enum Equipment
     {
-        Satic,
+        Static,
         Dynamic
     }
 }

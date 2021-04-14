@@ -8,24 +8,32 @@
       d:DesignHeight="718" d:DesignWidth="969"
       Title="NewItem">
 
+    <Page.Resources>
+        <local:InventoryTypeConverter x:Key="invConverter"/>
+    </Page.Resources>
+
     <Grid Background="White" Margin="0,68,0,-68">
         <Rectangle HorizontalAlignment="Center" Height="442" Stroke="Black" VerticalAlignment="Top" Width="398" Margin="0,133,0,0"/>
 
-        <Label x:Name="id" Content="ID" HorizontalAlignment="Left" Margin="332,178,0,0" VerticalAlignment="Top" Width="130" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="34"/>
-        <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="332,237,0,0" VerticalAlignment="Top" Width="130" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="34"/>
-        <Label x:Name="kolicina" Content="Količina" HorizontalAlignment="Left" Margin="332,296,0,0" VerticalAlignment="Top" Width="130" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="34"/>
-        <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="332,416,0,0" VerticalAlignment="Top" Width="130" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
-        <TextBox x:Name="IDBox" HorizontalAlignment="Left" Height="34" Margin="467,178,0,0" Text="{Binding item.Id}" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TextChanged="idTextChanged"/>
-        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="34" Margin="467,237,0,0" Text="{Binding item.Name}" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TextChanged="nameTextChanged"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="34" Margin="467,418,0,0" VerticalAlignment="Top" Width="179"/>
-        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="367,491,0,0" VerticalAlignment="Top" Height="34" Width="95" Click="save_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="510,491,0,0" VerticalAlignment="Top" Height="34" Width="93" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" RenderTransformOrigin="0.522,0.406"/>
+        <Label x:Name="id" Content="ID" HorizontalAlignment="Left" Margin="332,217,0,0" VerticalAlignment="Top" Width="130" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="34"/>
+        <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="332,276,0,0" VerticalAlignment="Top" Width="130" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="34"/>
+        <Label x:Name="kolicina" Content="Količina" HorizontalAlignment="Left" Margin="332,335,0,0" VerticalAlignment="Top" Width="130" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="34"/>
+        <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="332,398,0,0" VerticalAlignment="Top" Width="130" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
+        <TextBox x:Name="IDBox" HorizontalAlignment="Left" Height="34" Margin="467,217,0,0" Text="{Binding item.Id}" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TextChanged="idTextChanged"/>
+        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="34" Margin="467,276,0,0" Text="{Binding item.Name}" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TextChanged="nameTextChanged"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="34" Margin="467,393,0,0" VerticalAlignment="Top" Width="179">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource invConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="360,472,0,0" VerticalAlignment="Top" Height="34" Width="96" Click="save_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="504,472,0,0" VerticalAlignment="Top" Height="34" Width="92" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" RenderTransformOrigin="0.522,0.406"/>
         <Label x:Name="label" Visibility="Hidden" Content="Pogrešan format!" HorizontalAlignment="Left" Margin="583,217,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
         <Label x:Name="label1" Visibility="Hidden" Content="Ovaj ID već postoji!" HorizontalAlignment="Left" Margin="467,217,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
         <Label x:Name="label2" Visibility="Hidden" Content="Pogrešan format!" HorizontalAlignment="Left" Margin="583,276,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
-        <TextBox x:Name="KolicinaBox" HorizontalAlignment="Left" Height="34" Margin="467,297,0,0" Text="{Binding item.Quantity}" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TextChanged="KolicinaBox_TextChanged"/>
-        <Label x:Name="dobavljac" Content="Dobavljač" HorizontalAlignment="Left" Margin="332,360,0,0" VerticalAlignment="Top" Width="130" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="34"/>
-        <TextBox x:Name="DobavljacBox" HorizontalAlignment="Left" Height="34" Margin="467,360,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TextChanged="DobavljacBox_TextChanged"/>
+        <TextBox x:Name="KolicinaBox" HorizontalAlignment="Left" Height="34" Margin="467,336,0,0" Text="{Binding item.Quantity}" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TextChanged="KolicinaBox_TextChanged"/>
         <Label x:Name="label3" Visibility="Hidden" Content="Pogrešan format!" HorizontalAlignment="Left" Margin="583,337,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
         <Label x:Name="label4" Visibility="Hidden" Content="Pogrešan format!" HorizontalAlignment="Left" Margin="583,399,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="332,56,0,0" Text="Dodaj stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
