@@ -56,7 +56,7 @@ namespace HospitalService.View.ManagerUI
             Room r = (Room)tableBinding.SelectedItem;
             if (r == null)
             {
-                MessageBox.Show("You must select an item!");
+                MessageBox.Show("Morate izabrati sobu!");
             }
             else
             {
@@ -64,6 +64,12 @@ namespace HospitalService.View.ManagerUI
                 tableBinding.Items.Refresh();
 
             }
+        }
+
+        private void inventory_Click(object sender, RoutedEventArgs e)
+        {
+            Room r = (Room)tableBinding.SelectedItem;
+            newFrame.Content = new ManageRoomInventory(r);
         }
     }
 
