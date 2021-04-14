@@ -50,14 +50,14 @@ namespace HospitalService.View.ManagerUI
             tableBinding.ItemsSource = roomInventory;
         }
 
-        private void Dodaj_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Premesti_Click(object sender, RoutedEventArgs e)
         {
             newFrame.Content = new MoveInventory(r, tableBinding, roomInventory);
+        }
+
+        private void goBack_Click(object sender, RoutedEventArgs e)
+        {
+            newFrame.Content = new RoomsView();
         }
     }
 }

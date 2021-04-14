@@ -2,7 +2,8 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:HospitalService.View.ManagerUI"
       mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="969"
@@ -65,8 +66,12 @@
         <Label x:Name="Room" Content="Soba:" HorizontalAlignment="Left" Margin="531,74,0,0" VerticalAlignment="Top" Width="65" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="20" FontWeight="Bold" Height="30"/>
         <TextBox x:Name="IDBox" IsReadOnly="True"  HorizontalAlignment="Left" Height="30" Margin="614,78,0,0" TextWrapping="Wrap" 
                  TextAlignment="Center" VerticalContentAlignment="Center" FontFamily="GillSans MT" FontSize="16" VerticalAlignment="Top" Width="154"/>
-        <Button Background="#adc5d0"  x:Name="Dodaj" Content="Dodaj" HorizontalAlignment="Left" Margin="202,612,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="Dodaj_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Button Background="#adc5d0" x:Name="Premesti" Content="Premesti" HorizontalAlignment="Left" Margin="297,612,0,0" VerticalAlignment="Top" Height="26" Width="75" Click="Premesti_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Button Background="#adc5d0" x:Name="Premesti" Content="Premesti inventar" HorizontalAlignment="Left" Margin="202,606,0,0" VerticalAlignment="Top" Height="26" Width="112" Click="Premesti_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+
+        <Button x:Name="goBack" Click="goBack_Click" Background="{x:Null}" BorderThickness="0" Margin="0,78,737,610" HorizontalAlignment="Right" Width="30" Height="30">
+            <materialDesign:PackIcon Kind="ArrowLeft" Width="30" Height="30" HorizontalAlignment="Center" />
+        </Button>
+
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
 
     </Grid>
