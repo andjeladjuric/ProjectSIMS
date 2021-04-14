@@ -1,0 +1,36 @@
+﻿<Page x:Class="HospitalService.View.PatientUI.Pages.MoveAppointment"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HospitalService.View.PatientUI.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="830"
+      Title="MoveAppointment">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="207.5"/>
+            <ColumnDefinition Width="207.5"/>
+            <ColumnDefinition Width="207.5"/>
+            <ColumnDefinition Width="207.5"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="1" Grid.Column="0" Content="Pocetak:"  Height="50" Width="180" FontSize="24" FontStyle="Italic"/>
+        <TextBox x:Name="tb1" Grid.Row="1" Grid.Column="1" Height="50" Width="180"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Kraj:"  Height="50" Width="180" FontSize="24" FontStyle="Italic"/>
+        <TextBox x:Name="tb2" Grid.Row="2" Grid.Column="1" Height="50" Width="180"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Datum:"  Height="50" Width="180" FontSize="24" FontStyle="Italic"/>
+        <DatePicker x:Name="dp" Grid.Row="3" Grid.Column="1" Height="50" Width="180"/>
+        <Button  Content="Potvrdi" Grid.Row="5" Grid.Column="1" Height="50" Width="160" Click="ConfirmClick"/>
+        <Button Content="Otkazi" Grid.Row="5" Grid.Column="2" Width="160" Height="50" Click="CancelClick"/>
+    </Grid>
+</Page>

@@ -1,9 +1,10 @@
+using Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Model
+namespace Storage
 {
     public class AppointmentStorage
     {
@@ -93,5 +94,42 @@ namespace Model
                 }
             }
         }
+
+        public List<Appointment> getByPatient(Patient p) {
+
+            Appointment a;
+            List<Appointment> retVal = new List<Appointment>();
+            for (int i = 0; i < appointments.Count; i++) {
+                a = appointments[i];
+                if (a.patient.Jmbg.Equals(p.Jmbg)) {
+                    retVal.Add(a);
+                }
+            }
+            return retVal;
+        }
+
+
+        public void Move(String id, DateTime st, DateTime et)
+        {
+            Appointment a;
+            for (int i = 0; i < appointments.Count; i++)
+            {
+                a = appointments[i];
+                if (a.Id.Equals(id))
+                {
+                    a.StartTime = st;
+                    a.EndTime = et;
+                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(appointments,
+                       new JsonSerializerSettings()
+                       {
+                           ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                       }));
+                    break;
+                }
+            }
+
+
+        }
+
     }
 }
