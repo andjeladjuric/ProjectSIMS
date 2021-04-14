@@ -1,1 +1,42 @@
-[{"inventory":null,"Type":0,"Id":"102","Name":"Patient room 1","IsFree":false},{"inventory":null,"Type":1,"Id":"203","Name":"Operating room 2","IsFree":false},{"inventory":null,"Type":3,"Id":"304","Name":"Storage","IsFree":false},{"inventory":null,"Type":2,"Id":"105","Name":"Check up room","IsFree":false},{"inventory":null,"Type":0,"Id":"123","Name":"Patient room 2","IsFree":false},{"inventory":null,"Type":3,"Id":"406","Name":"Storage room 2","IsFree":false}]
+[
+  {
+    "Type": 0,
+    "Id": "102",
+    "Name": "Bolnička soba 1",
+    "IsFree": true,
+    "inventory": {}
+  },
+  {
+    "Type": 1,
+    "Id": "203",
+    "Name": "Operaciona sala 1",
+    "IsFree": false,
+    "inventory": {}
+  },
+  {
+    "Type": 3,
+    "Id": "105",
+    "Name": "Skladište 1",
+    "IsFree": false,
+    "inventory": {
+      "265": 10,
+      "890": 40,
+      "110": 40,
+      "432": 15
+    }
+  },
+  {
+    "Type": 0,
+    "Id": "123",
+    "Name": "Bolnička soba 2",
+    "IsFree": true,
+    "inventory": { "110": 10 }
+  },
+  {
+    "Type": 2,
+    "Id": "330",
+    "Name": "Ordinacija 1",
+    "IsFree": false,
+    "inventory": {}
+  }
+]

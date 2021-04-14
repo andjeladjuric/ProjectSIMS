@@ -5,10 +5,10 @@ namespace Model
 {
     public class Inventory
     {
-        public int Id;
-        public String Name;
-        public Equipment EquipmentType;
-        public int Quantity;
+        public int Id { get; set; }
+        public String Name { get; set; }
+        public Equipment EquipmentType { get; set; }
+        public int Quantity { get; set; }
 
     }
 }

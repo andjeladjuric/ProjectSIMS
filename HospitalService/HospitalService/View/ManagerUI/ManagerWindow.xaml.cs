@@ -18,58 +18,69 @@ namespace HospitalService.View.ManagerUI
     /// </summary>
     public partial class ManagerWindow : Window
     {
-        RoomFileStorage storage;
         private Manager manager;
         public ManagerWindow(Manager m)
         {
             InitializeComponent();
-            this.DataContext = this;
-            storage = new RoomFileStorage();
             manager = m;
-            List<Room> rooms = storage.GetAll();
-
-            tableBinding.ItemsSource = rooms;
-
         }
 
-        private void create_Click(object sender, RoutedEventArgs e)
+        private void openButtonClick(object sender, RoutedEventArgs e)
         {
-            newFrame.Content = new NewRoom(tableBinding, storage);
+            OpenMenuButton.Visibility = Visibility.Collapsed;
+            CloseMenuButton.Visibility = Visibility.Visible;
         }
 
-        private void update_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void closeButtonClick(object sender, RoutedEventArgs e)
         {
-            Room r = (Room)tableBinding.SelectedItem;
-            if (r == null)
-            {
-                MessageBox.Show("You must select an item!");
-            }
-            else
-            {
-                newFrame.Content = new RoomEdit(r, tableBinding, storage);
-                //this.NavigationService.Navigate(new RoomEdit(r));
-            }
+            OpenMenuButton.Visibility = Visibility.Visible;
+            CloseMenuButton.Visibility = Visibility.Collapsed;
         }
 
-        private void delete_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Notification_Click(object sender, RoutedEventArgs e)
         {
-            Room r = (Room)tableBinding.SelectedItem;
-            if (r == null)
-            {
-                MessageBox.Show("You must select an item!");
-            }
-            else
-            {
-                storage.Delete(r.Id);
-                tableBinding.Items.Refresh();
 
+        }
+
+        private void Profile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ListViewMenu != null && MainFrame != null)
+            {
+                if (RoomsPage.IsSelected)
+                {
+                    if (GridMenu.Width == 200)
+                    {
+                        CloseMenuButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                    }
+
+                    MainFrame.Content = new RoomsView();
+                }
+                else if (InventoryPage.IsSelected)
+                {
+                    if (GridMenu.Width == 200)
+                    {
+                        CloseMenuButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                    }
+
+                    MainFrame.Content = new InventoryView();
+                }
             }
         }
 
-        private void logout_Click(object sender, RoutedEventArgs e)
+        private void Logout_Click(object sender, RoutedEventArgs e)
         {
             new MainWindow().Show();
             this.Close();
+        }
+
+        private void Help_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

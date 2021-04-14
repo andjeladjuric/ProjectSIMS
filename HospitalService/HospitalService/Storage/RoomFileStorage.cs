@@ -41,7 +41,7 @@ namespace Model
             }
         }
 
-        public void Edit(String id, String name, RoomType type)
+        public void Edit(String id, String name, RoomType type, Boolean free)
         {
             Room r;
             for (int i = 0; i < rooms.Count; i++)
@@ -51,12 +51,33 @@ namespace Model
                 {
                     r.Name = name;
                     r.Type = type;
+                    r.IsFree = free;
                     File.WriteAllText(FileLocation, JsonConvert.SerializeObject(rooms));
                     break;
                 }
             }
         }
 
+        public Room getOne(string id)
+        {
+            return rooms.Find(x => x.Id == id);
+        }
+
+        public List<Room> getByType(RoomType type)
+        {
+            List<Room> listByType = new List<Room>();
+            Room r;
+
+            for( int i = 0; i < rooms.Count; i++)
+            {
+                r = rooms[i];
+                if (r.Type == type)
+                    listByType.Add(r);
+            }
+
+            return listByType;
+
+        }
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -37,6 +38,14 @@ namespace HospitalService.View.ManagerUI
             comboBox.SelectedItem = room.Type.ToString();
             IDBox.Text = room.Id;
             NameBox.Text = room.Name;
+
+            if (room.IsFree)
+                available.IsChecked = true;
+            else
+                notAvailable.IsChecked = true;
+
+            tableBinding.ItemsSource = storage.GetAll();
+            tableBinding.SelectedItem = storage.getOne(IDBox.Text);
         }
 
         private void saveClick(object sender, RoutedEventArgs e)
@@ -44,8 +53,17 @@ namespace HospitalService.View.ManagerUI
             RoomType tip = (RoomType)comboBox.SelectedIndex;
             string id = IDBox.Text;
             string neki = NameBox.Text;
+            Boolean slobodan;
+            if ((bool)available.IsChecked)
+            {
+                slobodan = true;
+            }
+            else
+            {
+                slobodan = false;
+            }
 
-            storage.Edit(id, neki, tip);
+            storage.Edit(id, neki, tip, slobodan);
             NavigationService.Navigate(new Page());
             bind.Items.Refresh();
         }
@@ -70,3 +88,5 @@ namespace HospitalService.View.ManagerUI
         }
     }
 }
+
+

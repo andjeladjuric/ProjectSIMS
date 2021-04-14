@@ -3,70 +3,119 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:HospitalService.View.ManagerUI"
         mc:Ignorable="d"
-       d:DesignHeight="600" d:DesignWidth="950"
-      Title="Manager">
+       d:DesignHeight="768" d:DesignWidth="1024" Background="White"
+      Title="MainView" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
 
-    <Grid Background="#dbe0e4">
-        <DataGrid x:Name="tableBinding" IsReadOnly="True"
-                  SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
-                  Height="449" Margin="36,88,0,0" VerticalAlignment="Top" Width="457" FontFamily="Gill Sans MT" FontSize="14">
-            <DataGrid.Resources>
-                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#f8f5ee"/>
-                    <Setter Property="Foreground" Value="#5b7886"/>
-                    <Setter Property="Height" Value="30"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                </Style>
+    <Window.Resources>
+        <Storyboard x:Key="OpenMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="55"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="55"/>
 
-                <Style TargetType="{x:Type DataGridCell}">
-                    <Style.Triggers>
-                        <Trigger Property="DataGridCell.IsSelected" Value="True">
-                            <Setter Property="Background" Value="#bad6e4" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
 
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Room Number" Binding="{Binding Id}" Width="*">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Name" Width="*"  Binding="{Binding Name}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Type of Room" Width="*"  Binding="{Binding Type}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="OpenMenuButton">
+            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
+        </EventTrigger>
 
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="CloseMenuButton">
+            <BeginStoryboard Storyboard="{StaticResource CloseMenu}"/>
+        </EventTrigger>
+    </Window.Triggers>
 
-            </DataGrid.Columns>
-        </DataGrid>
+    <Grid x:Name="MainGrid" Height="768" Width="1024">
+        <Grid
+            Height="50"
+            VerticalAlignment="Top"
+            Background="#adc5d0">
 
-        <Button Background="#adc5d0"  x:Name="create" Content="Add" HorizontalAlignment="Left" Margin="91,50,0,0" VerticalAlignment="Top" Height="26" Width="75" Click="create_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Button Background="#adc5d0" x:Name="update" Content="Update" HorizontalAlignment="Left" Margin="223,50,0,0" VerticalAlignment="Top" Height="26" Width="75" Click="update_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Button Background="#adc5d0" x:Name="delete" Content="Delete" HorizontalAlignment="Left" Margin="350,50,0,0" VerticalAlignment="Top" Height="26" Width="75" Click="delete_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Grid Margin="494,88,5,63" Width="451" Height="449">
-            <Frame x:Name="newFrame" HorizontalAlignment="Right" Width="451" Margin="0,0,0,0" NavigationUIVisibility="Hidden"/>
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Left" Margin="826,0,0,0" Width="198">
+                <Button x:Name="Profile" Click="Profile_Click" Margin="5" VerticalAlignment="Center" Width="35" Height="35" Background="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" >
+                    <materialDesign:PackIcon Kind="UserOutline"  Width="30" Height="30" />
+                </Button>
+                <Button x:Name="Notification" Click="Notification_Click" Margin="5" VerticalAlignment="Center" Width="35" Height="34" Background="{x:Null}" BorderThickness="0" >
+                    <materialDesign:PackIcon Kind="BellOutline"  Width="30" Height="30" />
+                </Button>
+                <Button x:Name="Help" Click="Help_Click" Margin="5" VerticalAlignment="Center" Width="35" Height="34" Background="{x:Null}" BorderThickness="0" >
+                    <materialDesign:PackIcon Kind="HelpCircleOutline"  Width="30" Height="30" />
+                </Button>
+
+                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" Width="30" Height="30" StaysOpen="False" Margin="10">
+                    <StackPanel Width="100">
+                        <Button Content="Demo"/>
+                        <Separator/>
+                        <Button Content="Logout" Click="Logout_Click"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+            </StackPanel>
         </Grid>
-        <Button Background="#adc5d0" x:Name="logout" Content="Log out" HorizontalAlignment="Left" Margin="840,50,0,0" VerticalAlignment="Top" Height="26" Width="75" Click="logout_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+
+        <Grid x:Name="GridMenu" Width="55" Panel.ZIndex="1" Background="#adc5d0" HorizontalAlignment="Left">
+            <StackPanel>
+                <Grid Height="200">
+                    <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
+                        <Button x:Name="OpenMenuButton" Click="openButtonClick" Width="35" Height="35" Background="{x:Null}" Margin="0,12,0,0" BorderThickness="0" HorizontalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Menu" Foreground="Black" Width="35" Height="35"/>
+                        </Button>
+
+                        <Button x:Name="CloseMenuButton" Click="closeButtonClick" Background="{x:Null}" BorderThickness="0" Visibility="Collapsed" Margin="0,12,0,0" HorizontalAlignment="Right">
+                            <materialDesign:PackIcon Kind="ArrowLeft" Width="35" Height="35" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+                <ListView x:Name="ListViewMenu" FontFamily="Gill Sans MT" FontSize="18" Foreground="black" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="{x:Null}" BorderThickness="0" SelectionChanged="ListViewMenu_SelectionChanged">
+                    <ListViewItem x:Name="RoomsPage" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="HospitalBuilding" Height="35" Width="35" Margin="4"/>
+                            <TextBlock Text="Sobe" VerticalAlignment="Center" Margin="40 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="InventoryPage" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Bed" Height="35" Width="35" Margin="4"/>
+                            <TextBlock Text="Inventar" VerticalAlignment="Center" Margin="40 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="StaffPage" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Users" Height="35" Width="35" Margin="4"/>
+                            <TextBlock Text="Zaposleni" VerticalAlignment="Center"  Margin="40 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="RequestsPage" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Message" Height="35" Width="35" Margin="4"/>
+                            <TextBlock Text="Zahtevi" VerticalAlignment="Center"  Margin="40 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="MedicationsPage" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Pill" Height="35" Width="35" Margin="4"/>
+                            <TextBlock Text="Lekovi" VerticalAlignment="Center" Margin="40 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
+        <Grid Margin="55,50,0,0">
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="/View/ManagerUI/RoomsView.xaml"/>
+        </Grid>
     </Grid>
+
 </Window>
+
 
