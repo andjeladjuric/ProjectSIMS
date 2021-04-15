@@ -23,9 +23,10 @@ namespace HospitalService.View.PatientUI
         public AppointmentStorage baza { get; set; }
         public RoomFileStorage sobe { get; set; }
 
+        public DoctorStorage ds { get; set; }
         public Patient pacijent { get; set; }
 
-        
+        public List<Doctor> doktori { get; set; }
         public AddAppointmentToPatient(Patient pac)
         {
             InitializeComponent();
@@ -37,9 +38,9 @@ namespace HospitalService.View.PatientUI
             List<String> ids = new List<String>();
             Room soba;
             pacijent = pac;
-            DoctorStorage ds = new DoctorStorage();
-            List<Doctor> doktori = ds.GetAll();
-            List<String> doc = new List<String>();
+            ds = new DoctorStorage();
+            doktori = ds.GetAll();
+            /*List<String> doc = new List<String>();
 
             for (int i = 0; i < doktori.Count; i++) {
 
@@ -47,7 +48,8 @@ namespace HospitalService.View.PatientUI
                 doc.Add(s);
             
             }
-            DoctorBox.ItemsSource = doc;
+            DoctorBox.ItemsSource = doc;*/
+            DoctorBox.ItemsSource = doktori;
             for (int i = 0; i < r.Count; i++)
             {
                 soba = r[i];
@@ -70,8 +72,16 @@ namespace HospitalService.View.PatientUI
             String pocetak = date + " " + start + ":00";
             String kraj = date + " " + end + ":00";
             String ime = DoctorBox.Text;
-            String[] name = ime.Split(' ');
-            Doctor selectedDoctor = new Doctor() { Name = name[0], Surname = name[1] };
+            /*String[] name = ime.Split(' ');
+
+            for (int i = 0; i < doktori.Count; i++) { 
+            
+            
+            }
+
+            Doctor selectedDoctor = new Doctor() { Name = name[0], Surname = name[1] };*/
+
+            Doctor selectedDoctor = (Doctor)DoctorBox.SelectedItem;
             Room selectedRoom = new Room() { Id = RoomBox.Text };
             Patient patient = new Patient() { Name = pacijent.Name, Surname = pacijent.Surname, Jmbg=pacijent.Jmbg, Username=pacijent.Username,DateOfBirth=pacijent.DateOfBirth };
 

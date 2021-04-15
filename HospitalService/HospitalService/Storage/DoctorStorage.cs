@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HospitalService.Storage
 {
-    class DoctorStorage
+    public class DoctorStorage
     {
         private String FileLocation = @"..\..\..\Data\doctors.json";
         private List<Doctor> doctors;

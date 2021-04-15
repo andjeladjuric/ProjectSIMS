@@ -38,8 +38,8 @@ namespace HospitalService.View.PatientUI.Pages
 
             if (Yes.IsChecked == true)
             {
-                //HitnoZakazivanjeTermina hzt = new HitnoZakazivanjeTermina();
-                //hzt.Show();
+                UrgentAppointment hzt = new UrgentAppointment(pac);
+                hzt.Show();
             }
         }
     }
