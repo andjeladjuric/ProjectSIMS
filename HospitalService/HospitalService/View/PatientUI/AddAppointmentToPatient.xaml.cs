@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalService.Storage;
+using Model;
 using Storage;
 using System;
 using System.Collections.Generic;
@@ -20,17 +21,33 @@ namespace HospitalService.View.PatientUI
     public partial class AddAppointmentToPatient : Window
     {
         public AppointmentStorage baza { get; set; }
-        public DataGrid Table { get; set; }
-        // public static List<String> appointmentsType = Enum.GetNames(typeof(AppointmentType)).ToList();
-        public AddAppointmentToPatient(AppointmentStorage aps, DataGrid dg, RoomFileStorage sobe)
+        public RoomFileStorage sobe { get; set; }
+
+        public Patient pacijent { get; set; }
+
+        
+        public AddAppointmentToPatient(Patient pac)
         {
             InitializeComponent();
-            baza = aps;
-            Table = dg;
-            //AppointmentTypeBox.ItemsSource = appointmentsType;
+
+
+            sobe = new RoomFileStorage();
             List<Room> r = sobe.GetAll();
+            baza = new AppointmentStorage();
             List<String> ids = new List<String>();
             Room soba;
+            pacijent = pac;
+            DoctorStorage ds = new DoctorStorage();
+            List<Doctor> doktori = ds.GetAll();
+            List<String> doc = new List<String>();
+
+            for (int i = 0; i < doktori.Count; i++) {
+
+                String s = doktori[i].Name + " " + doktori[i].Surname;
+                doc.Add(s);
+            
+            }
+            DoctorBox.ItemsSource = doc;
             for (int i = 0; i < r.Count; i++)
             {
                 soba = r[i];
@@ -56,7 +73,7 @@ namespace HospitalService.View.PatientUI
             String[] name = ime.Split(' ');
             Doctor selectedDoctor = new Doctor() { Name = name[0], Surname = name[1] };
             Room selectedRoom = new Room() { Id = RoomBox.Text };
-            Patient patient = new Patient() { Name = "Sladjana", Surname = "Colakovic" };
+            Patient patient = new Patient() { Name = pacijent.Name, Surname = pacijent.Surname, Jmbg=pacijent.Jmbg, Username=pacijent.Username,DateOfBirth=pacijent.DateOfBirth };
 
             Appointment newAppointment = new Appointment()
             {
@@ -70,7 +87,6 @@ namespace HospitalService.View.PatientUI
 
             };
             baza.Save(newAppointment);
-            Table.Items.Refresh();
             this.Close();
         }
     }

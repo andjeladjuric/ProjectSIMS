@@ -36,7 +36,7 @@
                                 <TextBlock Text="Izmjena profila" Foreground="White" FontStyle="Italic" FontSize="14"/>
                             </StackPanel>
                         </Button>
-                        <Button Grid.Row="2" Background="RoyalBlue">
+                        <Button x:Name="addApp" Grid.Row="2" Background="RoyalBlue" Click="addAppointmentClick">
                             <StackPanel>
                                 <Image Source="/View/PatientUI/Images/plus.png" Height="35" Width="70"/>
                                 <TextBlock Text="Zakazivanje termina" Foreground="White" FontStyle="Italic" FontSize="14"/>
