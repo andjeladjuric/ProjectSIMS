@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:HospitalService.View.ManagerUI"
         mc:Ignorable="d"
        d:DesignHeight="768" d:DesignWidth="1024" Background="White"
-      Title="MainView" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+      Title="MainView" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" WindowStyle="None">
 
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
@@ -56,7 +56,7 @@
                     <StackPanel Width="100">
                         <Button Content="Demo"/>
                         <Separator/>
-                        <Button Content="Logout" Click="Logout_Click"/>
+                        <Button Content="Log Out" Click="Logout_Click"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
 

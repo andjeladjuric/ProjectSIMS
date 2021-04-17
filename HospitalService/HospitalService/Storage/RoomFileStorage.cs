@@ -79,5 +79,18 @@ namespace Model
 
         }
 
+        public void editRoom(Room r)
+        {
+            for(int i = 0; i < GetAll().Count; i++)
+            {
+                if(r.Id == rooms[i].Id)
+                {
+                    rooms[i] = r;
+                    break;
+                }
+            }
+            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(rooms));
+        }
+
     }
 }
