@@ -4,7 +4,7 @@
     "Id": "123",
     "Patient": {
       "PatientType": 0,
-      "medicalRecordId": null,
+      "medicalRecordId": "123",
       "Username": null,
       "Password": null,
       "Name": "Marko",
@@ -15,7 +15,9 @@
       "Address": null,
       "Email": null,
       "Gender": 1
-    }
+    },
+    "Diagnoses": [],
+    "Prescriptions": []
   },
   {
     "Id": "1234",
@@ -32,7 +34,16 @@
       "Address": "Balzakova 23",
       "Email": "sladjanac@gmail.com",
       "Gender": 0
-    }
+    },
+    "Diagnoses": [
+      {
+        "Illness": "Upala krajnika",
+        "Symptoms": "temperatura",
+        "Datum": "2021-04-17T00:00:00",
+        "Anamnesis": "Dosla sa upaljenim grlom"
+      }
+    ],
+    "Prescriptions": []
   },
   {
     "Id": "ttt",
@@ -49,7 +60,9 @@
       "Address": "",
       "Email": "",
       "Gender": 0
-    }
+    },
+    "Diagnoses": [],
+    "Prescriptions": []
   },
   {
     "Id": "1234",
@@ -66,7 +79,9 @@
       "Address": "",
       "Email": "",
       "Gender": -1
-    }
+    },
+    "Diagnoses": [],
+    "Prescriptions": []
   },
   {
     "Id": "123",
@@ -83,7 +98,9 @@
       "Address": "",
       "Email": "",
       "Gender": -1
-    }
+    },
+    "Diagnoses": [],
+    "Prescriptions": []
   },
   {
     "Id": "f",
@@ -100,7 +117,9 @@
       "Address": "",
       "Email": "",
       "Gender": -1
-    }
+    },
+    "Diagnoses": [],
+    "Prescriptions": []
   },
   {
     "Id": "n",
@@ -117,7 +136,9 @@
       "Address": "",
       "Email": "",
       "Gender": -1
-    }
+    },
+    "Diagnoses": [],
+    "Prescriptions": []
   },
   {
     "Id": "e",
@@ -134,7 +155,9 @@
       "Address": "3",
       "Email": "3",
       "Gender": 0
-    }
+    },
+    "Diagnoses": [],
+    "Prescriptions": []
   },
   {
     "Id": "gff",
@@ -151,7 +174,9 @@
       "Address": "",
       "Email": "",
       "Gender": -1
-    }
+    },
+    "Diagnoses": [],
+    "Prescriptions": []
   },
   {
     "Id": "g",
@@ -168,7 +193,9 @@
       "Address": "",
       "Email": "",
       "Gender": -1
-    }
+    },
+    "Diagnoses": [],
+    "Prescriptions": []
   },
   {
     "Id": "56",
@@ -185,6 +212,8 @@
       "Address": "",
       "Email": "",
       "Gender": -1
-    }
+    },
+    "Diagnoses": [],
+    "Prescriptions": []
   }
 ]

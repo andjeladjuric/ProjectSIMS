@@ -32,8 +32,8 @@ namespace HospitalService.View.DoctorUI
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            //HistoryWindow historyWindow = new HistoryWindow(this);
-            //historyWindow.ShowDialog();
+            HistoryWindow historyWindow = new HistoryWindow(this);
+            historyWindow.ShowDialog();
 
         }
 
