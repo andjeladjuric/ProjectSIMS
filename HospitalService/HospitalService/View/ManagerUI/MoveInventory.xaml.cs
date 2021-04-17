@@ -147,18 +147,5 @@ namespace HospitalService.View.ManagerUI
         {
             newFrame.Content = new ManageRoomInventory(room);
         }
-
-        private void selectedChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-            if(selectedInv.EquipmentType == Equipment.Dynamic)
-            {
-                datePicker.IsEnabled = false;
-                TimeBox.IsEnabled = false;
-            }else
-            {
-                datePicker.IsEnabled = true;
-                TimeBox.IsEnabled = true;
-            }
-        }
     }
 }
