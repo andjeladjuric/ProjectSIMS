@@ -26,37 +26,26 @@ namespace HospitalService.View.PatientUI
         public DoctorStorage ds { get; set; }
         public Patient pacijent { get; set; }
 
+        public List<Appointment> termini { get; set; }
+
         public List<Doctor> doktori { get; set; }
+        
+        public List<Room> sale { get; set; }
         public AddAppointmentToPatient(Patient pac)
         {
             InitializeComponent();
 
 
             sobe = new RoomFileStorage();
-            List<Room> r = sobe.GetAll();
+            sale = sobe.GetAll();
             baza = new AppointmentStorage();
-            List<String> ids = new List<String>();
-            Room soba;
+            termini = baza.GetAll();
             pacijent = pac;
             ds = new DoctorStorage();
             doktori = ds.GetAll();
-            /*List<String> doc = new List<String>();
-
-            for (int i = 0; i < doktori.Count; i++) {
-
-                String s = doktori[i].Name + " " + doktori[i].Surname;
-                doc.Add(s);
             
-            }
-            DoctorBox.ItemsSource = doc;*/
             DoctorBox.ItemsSource = doktori;
-            for (int i = 0; i < r.Count; i++)
-            {
-                soba = r[i];
-                ids.Add(soba.Id);
-            }
-
-            RoomBox.ItemsSource = ids;
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -71,33 +60,119 @@ namespace HospitalService.View.PatientUI
             String date = DateBox.Text;
             String pocetak = date + " " + start + ":00";
             String kraj = date + " " + end + ":00";
-            String ime = DoctorBox.Text;
-            /*String[] name = ime.Split(' ');
-
-            for (int i = 0; i < doktori.Count; i++) { 
-            
-            
-            }
-
-            Doctor selectedDoctor = new Doctor() { Name = name[0], Surname = name[1] };*/
-
+            DateTime st = Convert.ToDateTime(pocetak);
+            DateTime et = Convert.ToDateTime(kraj);
             Doctor selectedDoctor = (Doctor)DoctorBox.SelectedItem;
-            Room selectedRoom = new Room() { Id = RoomBox.Text };
             Patient patient = new Patient() { Name = pacijent.Name, Surname = pacijent.Surname, Jmbg=pacijent.Jmbg, Username=pacijent.Username,DateOfBirth=pacijent.DateOfBirth };
 
-            Appointment newAppointment = new Appointment()
+            int k = 1;
+            for (int i = 0; i < termini.Count; i++)
             {
-                Id = IdBox.Text,
-                StartTime = Convert.ToDateTime(pocetak),
-                EndTime = Convert.ToDateTime(kraj),
-                Type = AppointmentType.Pregled,
-                doctor = selectedDoctor,
-                room = selectedRoom,
-                patient = patient
 
-            };
-            baza.Save(newAppointment);
-            this.Close();
+                if ((DateTime.Compare(termini[i].StartTime, st) == 0 || DateTime.Compare(termini[i].EndTime, et) == 0) && termini[i].doctor.Jmbg.Equals(selectedDoctor.Jmbg))
+                {
+
+                    k = 0;
+                    break;
+                }
+                else if (st >= termini[i].StartTime && st < termini[i].EndTime && termini[i].doctor.Jmbg.Equals(selectedDoctor.Jmbg))
+                {
+
+                    k = 0;
+                    break;
+
+                }
+                else if (et >= termini[i].StartTime && et < termini[i].EndTime && termini[i].doctor.Jmbg.Equals(selectedDoctor.Jmbg))
+                {
+
+                    k = 0;
+                    break;
+
+                }
+
+            }
+            if (k == 0)
+            {
+
+                MessageBox.Show("Doktor je zauzet!");
+            }
+            else
+            {
+                int f = 0;
+                int v = 1;
+                Room r = new Room();
+                for (int i = 0; i < sale.Count; i++)
+                {
+                    v = 1;
+                    for (int j = 0; j < termini.Count; j++)
+                    {
+
+                        if (DateTime.Compare(termini[j].StartTime, st) == 0 || DateTime.Compare(termini[j].EndTime, et) == 0)
+                        {
+                            if (termini[j].room.Id.Equals(sale[i].Id))
+                            {
+                                v = 0;
+                                break;
+                            }
+
+                        }
+                        else if (st >= termini[j].StartTime && st < termini[j].EndTime)
+                        {
+                            if (termini[j].room.Id.Equals(sale[i].Id))
+                            {
+                                v = 0;
+                                break;
+                            }
+                        }
+                        else if (et >= termini[j].StartTime && et < termini[j].EndTime)
+                        {
+                            if (termini[j].room.Id.Equals(sale[i].Id))
+                            {
+                                v = 0;
+                                break;
+                            }
+                        }
+
+                    }
+                    if (v == 1)
+                    {
+                        r = sale[i];
+                        f = 1;
+                        break;
+
+                    }
+                }
+
+                if (f == 0)
+                {
+                    MessageBox.Show("Nema slobodnih sala!");
+
+                }
+                else {
+
+                    Appointment newAppointment = new Appointment()
+                    {
+                        Id = IdBox.Text,
+                        StartTime =st,
+                        EndTime = et,
+                        Type = AppointmentType.Pregled,
+                        doctor = selectedDoctor,
+                        room = r,
+                        patient = patient
+
+                    };
+                    baza.Save(newAppointment);
+                    this.Close();
+
+
+                }
+
+
+
+
+            }
+
+            
         }
     }
 }

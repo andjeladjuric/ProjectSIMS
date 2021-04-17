@@ -112,7 +112,7 @@ namespace HospitalService.View.PatientUI.Pages
 
                     if (l == 1)
                     {
-
+                        
                         baza.Move(A.Id, st, et, A.room);
                         Table.Items.Refresh();
                         this.NavigationService.Navigate(new ViewAppointment(pacijent));

@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="240"/>
 
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="1" Grid.Column="1" Content="Pregled profila" FontStyle="Italic" FontSize="27"/>
+            <Label Grid.Row="1" Grid.Column="1" Content="Pregled termina" FontStyle="Italic" FontSize="27"/>
         </Grid>
         <Grid DockPanel.Dock="Bottom">
             <Grid.RowDefinitions>
