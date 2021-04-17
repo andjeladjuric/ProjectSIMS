@@ -31,7 +31,7 @@ namespace HospitalService.View.PatientUI
 
         private void ViewAppointmentsClick(object sender, RoutedEventArgs e)
         {
-            viewApp.Background = Brushes.CornflowerBlue;
+            
             Main.Content = new ViewAppointment(patient);
         }
 
@@ -43,8 +43,13 @@ namespace HospitalService.View.PatientUI
 
         private void addAppointmentClick(object sender, RoutedEventArgs e)
         {
-            addApp.Background = Brushes.CornflowerBlue;
+            
             Main.Content = new PreferencesForAppointment(patient);
+        }
+
+        private void viewPrescriptions(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new MedicalRecordWithPrescriptions(patient);
         }
     }
 }

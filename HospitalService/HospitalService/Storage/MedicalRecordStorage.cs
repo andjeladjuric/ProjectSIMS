@@ -1,4 +1,5 @@
 ﻿
+using HospitalService.Model;
 using Model;
 using Newtonsoft.Json;
 using System;
@@ -55,6 +56,28 @@ namespace Storage
                 }
             }
             File.WriteAllText(FileLocation, JsonConvert.SerializeObject(records));
+        }
+
+
+        public List<Prescription> getByPatient(Patient p) {
+
+            MedicalRecord md;
+            List<Prescription> rec = new List<Prescription>();
+
+            for (int i = 0; i < records.Count; i++) {
+
+                md = records[i];
+                if (md.Patient.Jmbg.Equals(p.Jmbg)) {
+
+                    rec = records[i].Prescriptions;
+                    break;
+                              
+                }
+                
+            }
+
+            return rec;
+        
         }
 
     }

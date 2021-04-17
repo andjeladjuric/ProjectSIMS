@@ -54,7 +54,7 @@
                                 <TextBlock Text="Zdravstveni karton" Foreground="White" FontStyle="Italic" FontSize="14"/>
                             </StackPanel>
                         </Button>
-                        <Button Grid.Row="5" Background="RoyalBlue">
+                        <Button Grid.Row="5" Background="RoyalBlue" Click="viewPrescriptions">
                             <StackPanel>
                                 <Image Source="/View/PatientUI/Images/survival.png" Height="35" Width="70"/>
                                 <TextBlock Text="Uvid u recepte" Foreground="White" FontStyle="Italic" FontSize="14"/>
