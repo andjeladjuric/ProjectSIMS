@@ -36,7 +36,7 @@ namespace HospitalService.View.DoctorUI
             int howOften = int.Parse(HoursTB.Text);
             int howLong = int.Parse(DaysTB.Text);
             string info = InfoTB.Text;
-            Prescription prescription = new Prescription(medication, howOften, howLong, info);
+            Prescription prescription = new Prescription(medication, howOften, howLong, info, DateTime.Now);
             MedicalRecord mr = medicalRecordWindow.Karton;
             mr.Prescriptions.Add(prescription);
             baza.Edit(mr);
