@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:HospitalService.View.ManagerUI"
         mc:Ignorable="d"
        d:DesignHeight="768" d:DesignWidth="1024" Background="White"
-      Title="MainView" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" WindowStyle="None">
+      Title="MainView" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">

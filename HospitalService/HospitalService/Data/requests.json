@@ -1,0 +1,29 @@
+[
+  {
+    "movingTime": "2021-04-17T17:22:00",
+    "quantity": 1,
+    "moveFromThisRoom": {
+      "Type": 0,
+      "Id": "123",
+      "Name": "Bolnička soba 2",
+      "IsFree": true,
+      "inventory": {
+        "110": 15,
+        "55": 1
+      }
+    },
+    "sendToThisRoom": {
+      "Type": 3,
+      "Id": "105",
+      "Name": "Skladište 1",
+      "IsFree": false,
+      "inventory": {
+        "265": 8,
+        "110": 25,
+        "432": 10,
+        "55": 7
+      }
+    },
+    "inventoryId": 55
+  }
+]

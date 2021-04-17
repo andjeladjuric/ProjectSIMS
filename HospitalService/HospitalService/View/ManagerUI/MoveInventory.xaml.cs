@@ -23,10 +23,12 @@ namespace HospitalService.View.ManagerUI
     public partial class MoveInventory : Page, INotifyPropertyChanged 
     {
         public Room room;
-        InventoryFileStorage invStorage;
+        InventoryFileStorage invStorage = new InventoryFileStorage();
         RoomFileStorage roomStorage;
         List<Inventory> roomInventory;
         public DataGrid bind;
+        public MovingRequests m = new MovingRequests();
+        public List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
 
         private Inventory _i;
         public Inventory selectedInv
@@ -73,6 +75,7 @@ namespace HospitalService.View.ManagerUI
 
             comboBox.ItemsSource = roomNames;
             tableBinding.ItemsSource = inv;
+            invStorage.analyzeRequests();
         }
 
         private void save_Click(object sender, RoutedEventArgs e)
@@ -81,7 +84,6 @@ namespace HospitalService.View.ManagerUI
             string selectedId = splitId[0];
 
             Room sendToThisRoom = null;
-
             foreach (Room r in roomStorage.GetAll())
             {
                 if (r.Id == selectedId)
@@ -92,60 +94,54 @@ namespace HospitalService.View.ManagerUI
             }
 
             int quantity = int.Parse(quantityBox.Text);
+            int inventoryId = int.Parse(IDBox.Text);
+            String time = TimeBox.Text;
+            String date = datePicker.Text;
 
-            if (tableBinding.SelectedItem != null)
+            foreach (Inventory i in invStorage.GetAll())
             {
-                foreach(Inventory stavka in roomInventory)
+                if (inventoryId == i.Id)
                 {
-                    if(stavka.Id == int.Parse(IDBox.Text))
+                    if (i.EquipmentType == Equipment.Dynamic)
                     {
-                        if (stavka.Quantity == quantity)
-                        {
-                            roomInventory.Remove(stavka);
-                            room.inventory.Remove(stavka.Id);
-                            roomStorage.editRoom(room);
-
-                            if (sendToThisRoom.inventory.ContainsKey(stavka.Id))
-                            {
-                                sendToThisRoom.inventory[stavka.Id] += quantity;
-                                File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
-                            }
-                            else
-                            {
-                                sendToThisRoom.inventory.Add(stavka.Id, quantity);
-                                File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
-                            }
-                        }
-                        else if (quantity > stavka.Quantity)
-                            MessageBox.Show("Ne postoji dovoljno stavki za premeštanje!");
-                        else
-                        {
-                            stavka.Quantity = stavka.Quantity - quantity;
-                            room.inventory[stavka.Id] = stavka.Quantity;
-                            roomStorage.editRoom(room);
-
-                            if (sendToThisRoom.inventory.ContainsKey(stavka.Id))
-                            {
-                                sendToThisRoom.inventory[stavka.Id] += quantity;
-                                File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
-                            }
-                            else
-                            {
-                                sendToThisRoom.inventory.Add(stavka.Id, quantity);
-                                File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
-                            }
-                        }
-
-                        newFrame.Content = new ManageRoomInventory(room);
+                        invStorage.moveDynamicInventory(sendToThisRoom, room, quantity, inventoryId, roomInventory, roomStorage);
                         break;
                     }
+                    else
+                    {
+                        m.inventoryId = inventoryId;
+                        m.moveFromThisRoom = room;
+                        m.sendToThisRoom = sendToThisRoom;
+                        m.movingTime = Convert.ToDateTime(time + " " + date);
+                        m.quantity = quantity;
+                        requests.Add(m);
+                        File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
+                        break;
+                    }
+
                 }
-            }
+            }       
+
+            newFrame.Content = new ManageRoomInventory(room);
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
             newFrame.Content = new ManageRoomInventory(room);
+        }
+
+        private void selectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (selectedInv.EquipmentType == Equipment.Dynamic)
+            {
+                datePicker.IsEnabled = false;
+                TimeBox.IsEnabled = false;
+            }
+            else
+            {
+                datePicker.IsEnabled = true;
+                TimeBox.IsEnabled = true;
+            }
         }
     }
 }

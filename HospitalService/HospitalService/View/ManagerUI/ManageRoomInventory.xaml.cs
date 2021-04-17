@@ -19,17 +19,14 @@ namespace HospitalService.View.ManagerUI
     /// </summary>
     public partial class ManageRoomInventory : Page
     {
-        InventoryFileStorage invStorage;
-        RoomFileStorage roomStorage;
+        InventoryFileStorage invStorage = new InventoryFileStorage();
+        RoomFileStorage roomStorage = new RoomFileStorage();
         List<Inventory> roomInventory;
         Room r;
         public ManageRoomInventory(Room room)
         {
             InitializeComponent();
-            this.DataContext = this;
-
-            roomStorage = new RoomFileStorage();
-            invStorage = new InventoryFileStorage();
+            this.DataContext = this; 
             r = room;
             IDBox.Text = r.Id;
 
@@ -46,7 +43,8 @@ namespace HospitalService.View.ManagerUI
                     }
                 }
             }
-            
+
+            invStorage.analyzeRequests();
             tableBinding.ItemsSource = roomInventory;
         }
 

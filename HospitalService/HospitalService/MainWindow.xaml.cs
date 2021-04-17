@@ -23,6 +23,7 @@ namespace HospitalService
         private DoctorStorage doctorBase = new DoctorStorage();
         private SecretaryStorage secretaryBase = new SecretaryStorage();
         private ManagerStorage managerBase = new ManagerStorage();
+        InventoryFileStorage invStorage = new InventoryFileStorage();
         List<Account> users = new List<Account>();
        
 

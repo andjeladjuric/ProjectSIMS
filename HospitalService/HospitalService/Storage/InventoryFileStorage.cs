@@ -12,7 +12,9 @@ namespace Model
         private String FileLocation = @"..\..\..\Data\inventory.json";
         private List<Inventory> inventoryList;
         RoomFileStorage storage = new RoomFileStorage();
-        
+        List<MovingRequests> requests = new List<MovingRequests>();
+
+
         public InventoryFileStorage()
         {
             inventoryList = new List<Inventory>();
@@ -365,6 +367,125 @@ namespace Model
         public Inventory getOne(int id)
         {
             return inventoryList.Find(x => x.Id == id);
+        }
+
+        public void  moveDynamicInventory(Room sendToThisRoom, Room moveFromThisRoom, int quantity, int inventoryId , List<Inventory> roomInventory, RoomFileStorage roomStorage)
+        {
+            foreach (Inventory stavka in roomInventory)
+            {
+                if (stavka.Id == inventoryId)
+                {
+                    if (stavka.Quantity == quantity)
+                    {
+                        roomInventory.Remove(stavka);
+                        moveFromThisRoom.inventory.Remove(stavka.Id);
+                        storage.editRoom(moveFromThisRoom);
+
+                        if (sendToThisRoom.inventory.ContainsKey(stavka.Id))
+                        {
+                            sendToThisRoom.inventory[stavka.Id] += quantity;
+                            File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
+                        }
+                        else
+                        {
+                            sendToThisRoom.inventory.Add(stavka.Id, quantity);
+                            File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
+                        }
+                    }
+                    else if (quantity > stavka.Quantity)
+                        MessageBox.Show("Ne postoji dovoljno stavki za premeštanje!");
+                    else
+                    {
+                        stavka.Quantity = stavka.Quantity - quantity;
+                        moveFromThisRoom.inventory[stavka.Id] = stavka.Quantity;
+                        storage.editRoom(moveFromThisRoom);
+
+                        if (sendToThisRoom.inventory.ContainsKey(stavka.Id))
+                        {
+                            sendToThisRoom.inventory[stavka.Id] += quantity;
+                            File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
+                        }
+                        else
+                        {
+                            sendToThisRoom.inventory.Add(stavka.Id, quantity);
+                            File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+
+        public void analyzeRequests()
+        {
+            requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
+            List<Inventory> roomInventory = new List<Inventory>();
+
+            if (requests != null && requests.Count != 0)
+            {
+                foreach (MovingRequests m in requests)
+                {
+                    if (DateTime.Compare(m.movingTime, DateTime.Now) < 0)
+                    {
+                        foreach (int i in m.moveFromThisRoom.inventory.Keys)
+                        {
+                            foreach (Inventory inv in inventoryList)
+                            {
+                                if (i == inv.Id)
+                                {
+                                    inv.Quantity = m.moveFromThisRoom.inventory[i];
+                                    roomInventory.Add(inv);
+                                }
+                            }
+                        }
+
+                        foreach (Inventory stavka in roomInventory)
+                        {
+                            if (stavka.Id == m.inventoryId)
+                            {
+                                if (stavka.Quantity == m.quantity)
+                                {
+                                    roomInventory.Remove(stavka);
+                                    m.moveFromThisRoom.inventory.Remove(stavka.Id);
+                                    storage.editRoom(m.moveFromThisRoom);
+
+                                    if (m.sendToThisRoom.inventory.ContainsKey(stavka.Id))
+                                    {
+                                        m.sendToThisRoom.inventory[stavka.Id] += m.quantity;
+                                        storage.editRoom(m.sendToThisRoom);
+                                    }
+                                    else
+                                    {
+                                        m.sendToThisRoom.inventory.Add(stavka.Id, m.quantity);
+                                        storage.editRoom(m.sendToThisRoom);
+                                    }
+                                }
+                                else if (m.quantity > stavka.Quantity)
+                                    MessageBox.Show("Ne postoji dovoljno stavki za premeštanje!");
+                                else
+                                {
+                                    stavka.Quantity = stavka.Quantity - m.quantity;
+                                    m.moveFromThisRoom.inventory[stavka.Id] = stavka.Quantity;
+                                    storage.editRoom(m.moveFromThisRoom);
+
+                                    if (m.sendToThisRoom.inventory.ContainsKey(stavka.Id))
+                                    {
+                                        m.sendToThisRoom.inventory[stavka.Id] += m.quantity;
+                                        storage.editRoom(m.sendToThisRoom);
+                                    }
+                                    else
+                                    {
+                                        m.sendToThisRoom.inventory.Add(stavka.Id, m.quantity);
+                                        storage.editRoom(m.sendToThisRoom);
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            }
         }
     }
 }

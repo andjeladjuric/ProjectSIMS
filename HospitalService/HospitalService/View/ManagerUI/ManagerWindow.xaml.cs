@@ -19,10 +19,12 @@ namespace HospitalService.View.ManagerUI
     public partial class ManagerWindow : Window
     {
         private Manager manager;
+        private InventoryFileStorage invStorage = new InventoryFileStorage();
         public ManagerWindow(Manager m)
         {
             InitializeComponent();
             manager = m;
+            invStorage.analyzeRequests();
         }
 
         private void openButtonClick(object sender, RoutedEventArgs e)
