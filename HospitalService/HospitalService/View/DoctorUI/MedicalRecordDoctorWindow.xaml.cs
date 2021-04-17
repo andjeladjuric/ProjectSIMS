@@ -39,8 +39,8 @@ namespace HospitalService.View.DoctorUI
 
         private void Prescription_Click(object sender, RoutedEventArgs e)
         {
-            // PrescriptionWindow prescriptionWindow = new PrescriptionWindow(this);
-            // prescriptionWindow.ShowDialog();
+             PrescriptionWindow prescriptionWindow = new PrescriptionWindow(this);
+             prescriptionWindow.ShowDialog();
         }
 
         public void Refresh()
