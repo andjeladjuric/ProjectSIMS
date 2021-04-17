@@ -18,7 +18,7 @@ namespace HospitalService.View.SecretaryUI
     /// </summary>
     public partial class EditPatient : Window
     {
-        public Model.Patient patient { get; set; }
+        public Patient patient { get; set; }
         public PatientStorage storage { get; set; }
         public DataGrid Table { get; set; }
         public EditPatient(Patient p, PatientStorage ps, DataGrid dg)

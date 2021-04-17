@@ -34,7 +34,7 @@ namespace HospitalService.View.SecretaryUI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             String Id = id.Text;
-            store.Save(new MedicalRecord { Id = Id, Patient = patient });
+            store.Save(new MedicalRecord{ Id = Id, Patient = patient });
             stor.addRecord(patient.Jmbg, Id);
             this.Close();
         }

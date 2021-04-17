@@ -1,1 +1,31 @@
-[{"PatientType":0,"medicalRecordId":"1234","Username":null,"Password":null,"Name":"Marko","Surname":"Jankovic","DateOfBirth":null,"Jmbg":"0534023456712","Phone":null,"Address":null,"Email":null,"Gender":1},{"PatientType":1,"medicalRecordId":"1234","Username":"sladjana","Password":"123","Name":"Sladjana","Surname":"Colakovic","DateOfBirth":"1999-01-01T00:00:00","Jmbg":"0101000244312","Phone":"0614563456","Address":"Balzakova 23","Email":"sladjanac@gmail.com","Gender":0}]
+[
+  
+  {
+    "PatientType": 0,
+    "medicalRecordId": "1234",
+    "Username": null,
+    "Password": null,
+    "Name": "Marko",
+    "Surname": "Jankovic",
+    "DateOfBirth": null,
+    "Jmbg": "0534023456712",
+    "Phone": null,
+    "Address": null,
+    "Email": null,
+    "Gender": 1
+  },
+  {
+    "PatientType": 1,
+    "medicalRecordId": "1234",
+    "Username": "sladjana",
+    "Password": "123",
+    "Name": "Sladjana",
+    "Surname": "Colakovic",
+    "DateOfBirth": "1999-01-01T00:00:00",
+    "Jmbg": "0101000244312",
+    "Phone": "0614563456",
+    "Address": "Balzakova 23",
+    "Email": "sladjanac@gmail.com",
+    "Gender": 0
+  }
+]

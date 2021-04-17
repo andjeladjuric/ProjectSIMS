@@ -24,7 +24,7 @@ namespace HospitalService.View.ManagerUI
     {
         public Room room { get; set; }
         RoomFileStorage storage;
-        public static List<String> roomTypes = Enum.GetNames(typeof(Model.RoomType)).ToList();
+        public static List<String> roomTypes = Enum.GetNames(typeof(RoomType)).ToList();
         public DataGrid bind;
         Regex checker = new Regex(@"[A-Za-z]+([\s][A-Za-z]*[1-9]*)*$");
         public RoomEdit(Room r, DataGrid dg, RoomFileStorage st)

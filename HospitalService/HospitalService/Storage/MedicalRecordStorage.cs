@@ -44,5 +44,18 @@ namespace Storage
             File.WriteAllText(FileLocation, JsonConvert.SerializeObject(records));
         }
 
+        public void Edit(MedicalRecord mr)
+        {
+            for (int i = 0; i < records.Count; i++)
+            {
+                if (records[i].Id == mr.Id)
+                {
+                    records[i] = mr;
+                    break;
+                }
+            }
+            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(records));
+        }
+
     }
 }
