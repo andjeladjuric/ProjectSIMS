@@ -17,7 +17,18 @@
         <TextBox ToolTipService.ToolTip="Correct Format: 12:00" Name="StartBox" HorizontalAlignment="Left" Height="31" Margin="159,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
         <TextBox ToolTipService.ToolTip="Correct Format: 12:00" Name="EndBox" HorizontalAlignment="Left" Height="31" Margin="159,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
         <ComboBox Name="PatientBox" HorizontalAlignment="Left" Margin="525,165,0,0" VerticalAlignment="Top" Width="129" Height="35">
-            <ComboBoxItem Content="Sladjana Colakovic"></ComboBoxItem>
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="Name"/>
+                                <Binding Path="Surname"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
         </ComboBox>
         <ComboBox Name="RoomBox" HorizontalAlignment="Left" Margin="525,35,0,0" VerticalAlignment="Top" Width="129" Height="35" RenderTransformOrigin="2.602,-6.764">
         </ComboBox>
