@@ -57,10 +57,15 @@ namespace HospitalService.View.DoctorUI
                 a.EndTime = Convert.ToDateTime(kraj);
             }
             catch (Exception) { }
-            a.room.Id = comboBox.Text;
-            baza.Edit(a.Id, a.StartTime, a.EndTime, a.room);
-            DoctorWindow.refresh();
-            this.Close();
+            if (baza.IsTaken(a.StartTime, a.EndTime, DoctorWindow.doctor))
+                MessageBox.Show("Termin je zauzet.");
+            else
+            {
+                a.room.Id = comboBox.Text;
+                baza.Edit(a.Id, a.StartTime, a.EndTime, a.room);
+                DoctorWindow.refresh();
+                this.Close();
+            }
 
         }
 

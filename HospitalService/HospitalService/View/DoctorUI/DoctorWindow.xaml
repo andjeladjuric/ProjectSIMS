@@ -91,7 +91,7 @@
                             <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}" Width="*"/>
                             <DataGridTextColumn Header="JMBG" Binding="{Binding Jmbg}" Width="*"/>
                             <DataGridTextColumn Header="Datum rođenja" Binding="{Binding DateOfBirth, StringFormat={}{0:MM/dd/yyyy}}" Width="*"/>
-                            <DataGridTextColumn Header="Karton" Width="*"/>
+                            <DataGridTextColumn Header="Karton"  Binding="{Binding medicalRecordId}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DockPanel>
