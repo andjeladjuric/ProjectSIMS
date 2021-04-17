@@ -92,5 +92,11 @@ namespace Model
             File.WriteAllText(FileLocation, JsonConvert.SerializeObject(patients));
         }
 
+        public void addRecord(String jmbg, String id)
+        {
+            Patient patient = patients.Find(x => x.Jmbg == jmbg);
+            patient.medicalRecordId = id;
+            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(patients));
+        }
     }
 }

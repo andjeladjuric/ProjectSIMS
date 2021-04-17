@@ -1,0 +1,16 @@
+﻿<Window x:Class="HospitalService.View.SecretaryUI.MedicalRecordWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
+        mc:Ignorable="d"
+        Title="MedicalRecordWindow" Height="450" Width="800">
+    <Grid>
+        <Button Name="dodaj" Content="Add medical record" HorizontalAlignment="Left" Margin="25,21,0,0" VerticalAlignment="Top" Height="42" Width="128" Click="Add_Click"/>
+
+        <Label Content="ID:" HorizontalAlignment="Left" Height="28" Margin="25,74,0,0" VerticalAlignment="Top" Width="1200" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
+        <TextBox Name="idkarton" HorizontalAlignment="Left" Height="20" Margin="66,82,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
+
+    </Grid>
+</Window>

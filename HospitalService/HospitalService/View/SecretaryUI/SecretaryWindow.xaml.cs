@@ -73,5 +73,20 @@ namespace HospitalService.View.SecretaryUI
             this.Close();
         }
 
+
+        private void MedicalRecord_Click(object sender, RoutedEventArgs e)
+        {
+            Patient patient = (Patient)tableBinding.SelectedItem;
+            if (patient == null)
+            {
+                MessageBox.Show("You must select one item!");
+            }
+            else
+            {
+                MedicalRecordWindow record = new MedicalRecordWindow(patient, storage);
+                record.Show();
+            }
+        }
+
     }
 }
