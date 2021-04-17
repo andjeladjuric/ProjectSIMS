@@ -1,7 +1,4 @@
-﻿using HospitalService.Storage;
-using Model;
-using Storage;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -12,92 +9,98 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HospitalService.Storage;
+using Model;
+using Storage;
 
 namespace HospitalService.View.PatientUI
 {
     /// <summary>
-    /// Interaction logic for AddAppointmentToPatient.xaml
+    /// Interaction logic for UrgentAppointment.xaml
     /// </summary>
-    public partial class AddAppointmentToPatient : Window
+    public partial class UrgentAppointment : Window
     {
-        public AppointmentStorage baza { get; set; }
-        public RoomFileStorage sobe { get; set; }
-
-        public DoctorStorage ds { get; set; }
         public Patient pacijent { get; set; }
 
         public List<Appointment> termini { get; set; }
-
         public List<Doctor> doktori { get; set; }
-        
         public List<Room> sale { get; set; }
-        public AddAppointmentToPatient(Patient pac)
+
+        public AppointmentStorage bazaTermina { get; set; }
+        public UrgentAppointment(Patient pac)
+
         {
             InitializeComponent();
-
-
-            sobe = new RoomFileStorage();
-            sale = sobe.GetAll();
-            baza = new AppointmentStorage();
-            termini = baza.GetAll();
+            this.DataContext = this;
             pacijent = pac;
-            ds = new DoctorStorage();
-            doktori = ds.GetAll();
-            
-            DoctorBox.ItemsSource = doktori;
+            bazaTermina = new AppointmentStorage();
+            termini = bazaTermina.GetAll();
+            DoctorStorage bazaDoktora = new DoctorStorage();
+            doktori = bazaDoktora.GetAll();
+            RoomFileStorage bazaSala = new RoomFileStorage();
+            sale = bazaSala.GetAll();
             
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ConfirmClick(object sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            String start = StartBox.Text;
-            String end = EndBox.Text;
-            String date = DateBox.Text;
+            String start = tb1.Text;
+            String end = tb2.Text;
+            String date = dp.Text;
             String pocetak = date + " " + start + ":00";
             String kraj = date + " " + end + ":00";
             DateTime st = Convert.ToDateTime(pocetak);
             DateTime et = Convert.ToDateTime(kraj);
-            Doctor selectedDoctor = (Doctor)DoctorBox.SelectedItem;
-            Patient patient = new Patient() { Name = pacijent.Name, Surname = pacijent.Surname, Jmbg=pacijent.Jmbg, Username=pacijent.Username,DateOfBirth=pacijent.DateOfBirth };
 
-            int k = 1;
-            for (int i = 0; i < termini.Count; i++)
-            {
+            int k = 0;
+            int s = 1;
+            Doctor d = new Doctor();
+            for (int i = 0; i < doktori.Count; i++) {
+                s = 1;
+                for (int j = 0; j < termini.Count; j++) {
 
-                if ((DateTime.Compare(termini[i].StartTime, st) == 0 || DateTime.Compare(termini[i].EndTime, et) == 0) && termini[i].doctor.Jmbg.Equals(selectedDoctor.Jmbg))
+                    if (DateTime.Compare(termini[j].StartTime, st) == 0 || DateTime.Compare(termini[j].EndTime, et) == 0)
+                    {
+                        if (termini[j].doctor.Jmbg.Equals(doktori[i].Jmbg))
+                        {
+                           s = 0;
+                           break;
+                        }
+                        
+                    }
+                    else if (st >= termini[j].StartTime && st < termini[j].EndTime)
+                    {
+                        if (termini[j].doctor.Jmbg.Equals(doktori[i].Jmbg))
+                        {
+                            s = 0;
+                            break;
+                        }      
+                    }
+                    else if (et >= termini[j].StartTime && et < termini[j].EndTime) {
+                        if (termini[j].doctor.Jmbg.Equals(doktori[i].Jmbg))
+                        {
+                            s = 0;
+                            break;
+                        }       
+                    }
+                               
+                }
+                if (s == 1)
                 {
-
-                    k = 0;
+                    d = doktori[i];
+                    k = 1;
                     break;
                 }
-                else if (st >= termini[i].StartTime && st < termini[i].EndTime && termini[i].doctor.Jmbg.Equals(selectedDoctor.Jmbg))
-                {
-
-                    k = 0;
-                    break;
-
-                }
-                else if (et >= termini[i].StartTime && et < termini[i].EndTime && termini[i].doctor.Jmbg.Equals(selectedDoctor.Jmbg))
-                {
-
-                    k = 0;
-                    break;
-
-                }
-
             }
+
             if (k == 0)
             {
+                MessageBox.Show("Nema slobodnog doktora!");
 
-                MessageBox.Show("Doktor je zauzet!");
             }
             else
             {
+
                 int f = 0;
                 int v = 1;
                 Room r = new Room();
@@ -148,32 +151,38 @@ namespace HospitalService.View.PatientUI
                     MessageBox.Show("Nema slobodnih sala!");
 
                 }
-                else {
+                else
+                {
+
+                    int brojTermina = termini.Count;
+                    int idTerm = brojTermina + 1;
+                    String id = idTerm.ToString();
 
                     Appointment newAppointment = new Appointment()
                     {
-                        Id = IdBox.Text,
-                        StartTime =st,
+                        Id = id,
+                        StartTime = st,
                         EndTime = et,
                         Type = AppointmentType.Pregled,
-                        doctor = selectedDoctor,
+                        doctor = d,
                         room = r,
-                        patient = patient
+                        patient = pacijent
 
                     };
-                    baza.Save(newAppointment);
+                    bazaTermina.Save(newAppointment);
                     this.Close();
 
-
                 }
-
-
-
-
             }
 
-            
+
+
+
+        }
+
+        private void CancelClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
-

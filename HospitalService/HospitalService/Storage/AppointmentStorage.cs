@@ -124,7 +124,7 @@ namespace Storage
         }
 
 
-        public void Move(String id, DateTime st, DateTime et)
+        public void Move(String id, DateTime st, DateTime et, Room r)
         {
             Appointment a;
             for (int i = 0; i < appointments.Count; i++)
@@ -134,6 +134,7 @@ namespace Storage
                 {
                     a.StartTime = st;
                     a.EndTime = et;
+                    a.room = r;
                     File.WriteAllText(FileLocation, JsonConvert.SerializeObject(appointments,
                        new JsonSerializerSettings()
                        {

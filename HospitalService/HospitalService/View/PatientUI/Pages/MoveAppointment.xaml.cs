@@ -27,6 +27,10 @@ namespace HospitalService.View.PatientUI.Pages
         public AppointmentStorage baza { get; set; }
 
         public Patient pacijent { get; set; }
+
+        public List<Appointment> termini { get; set; }
+
+        public List<Room> sale { get; set; }
         public MoveAppointment(Appointment a, DataGrid t, AppointmentStorage st,Patient pa)
         {
             InitializeComponent();
@@ -35,6 +39,9 @@ namespace HospitalService.View.PatientUI.Pages
             Table = t;
             baza = st;
             pacijent = pa;
+            termini = baza.GetAll();
+            RoomFileStorage bazaSala = new RoomFileStorage();
+            sale = bazaSala.GetAll();
         }
 
         private void ConfirmClick(object sender, RoutedEventArgs e)
@@ -48,15 +55,138 @@ namespace HospitalService.View.PatientUI.Pages
             DateTime et = Convert.ToDateTime(kraj);
             if ((st.Date - A.StartTime.Date).TotalDays <= 2)
             {
+                int k = 1;
+                for (int i = 0; i < termini.Count; i++) {
 
-                baza.Move(A.Id, st, et);
-                Table.Items.Refresh();
-                this.NavigationService.Navigate(new ViewAppointment(pacijent));
+                    if ((DateTime.Compare(termini[i].StartTime, st) == 0 || DateTime.Compare(termini[i].EndTime, et) == 0) && termini[i].doctor.Jmbg.Equals(A.doctor.Jmbg)) {
 
+                        k = 0;
+                        break;
+                    }
+                    else if (st >= termini[i].StartTime && st < termini[i].EndTime && termini[i].doctor.Jmbg.Equals(A.doctor.Jmbg)) {
+
+                        k = 0;
+                        break;
+
+                    } else if (et >= termini[i].StartTime && et < termini[i].EndTime && termini[i].doctor.Jmbg.Equals(A.doctor.Jmbg)) {
+
+                        k = 0;
+                        break;
+                    
+                    }
+
+                }
+                if (k == 0)
+                {
+
+                    MessageBox.Show("Doktor je zauzet!");
+                }
+                else
+                {
+                    int l = 1;
+                    for (int i = 0; i < termini.Count; i++)
+                    {
+
+                        if ((DateTime.Compare(termini[i].StartTime, st) == 0 || DateTime.Compare(termini[i].EndTime, et) == 0) && termini[i].room.Id.Equals(A.room.Id))
+                        {
+
+                            l = 0;
+                            break;
+                        }
+                        else if (st >= termini[i].StartTime && st < termini[i].EndTime && termini[i].room.Id.Equals(A.room.Id))
+                        {
+
+                            l = 0;
+                            break;
+
+                        }
+                        else if (et >= termini[i].StartTime && et < termini[i].EndTime && termini[i].room.Id.Equals(A.room.Id))
+                        {
+
+                            l = 0;
+                            break;
+
+                        }
+
+                    }
+
+                    if (l == 1)
+                    {
+                        
+                        baza.Move(A.Id, st, et, A.room);
+                        Table.Items.Refresh();
+                        this.NavigationService.Navigate(new ViewAppointment(pacijent));
+
+
+                    }
+                    else
+                    {
+
+
+                        int f = 0;
+                        int v = 1;
+                        Room r = new Room();
+                        for (int i = 0; i < sale.Count; i++)
+                        {
+                            v = 1;
+                            for (int j = 0; j < termini.Count; j++)
+                            {
+
+                                if (DateTime.Compare(termini[j].StartTime, st) == 0 || DateTime.Compare(termini[j].EndTime, et) == 0)
+                                {
+                                    if (termini[j].room.Id.Equals(sale[i].Id))
+                                    {
+                                        v = 0;
+                                        break;
+                                    }
+
+                                }
+                                else if (st >= termini[j].StartTime && st < termini[j].EndTime)
+                                {
+                                    if (termini[j].room.Id.Equals(sale[i].Id))
+                                    {
+                                        v = 0;
+                                        break;
+                                    }
+                                }
+                                else if (et >= termini[j].StartTime && et < termini[j].EndTime)
+                                {
+                                    if (termini[j].room.Id.Equals(sale[i].Id))
+                                    {
+                                        v = 0;
+                                        break;
+                                    }
+                                }
+
+                            }
+                            if (v == 1)
+                            {
+                                r = sale[i];
+                                f = 1;
+                                break;
+
+                            }
+                        }
+
+                        if (f == 0)
+                        {
+                            MessageBox.Show("Nema slobodnih sala!");
+
+                        }
+                        else
+                        {
+
+                            baza.Move(A.Id, st, et,r);
+                            Table.Items.Refresh();
+                            this.NavigationService.Navigate(new ViewAppointment(pacijent));
+
+                        }
+                    }
+                }
             }
             else
             {
-                MessageBox.Show("More than two days between appointments!");
+                MessageBox.Show("Vise od dva dana izmedju termina!");
                 
             }
         }

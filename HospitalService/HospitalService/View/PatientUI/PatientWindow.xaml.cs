@@ -40,5 +40,11 @@ namespace HospitalService.View.PatientUI
             new MainWindow().Show();
             this.Close();
         }
+
+        private void addAppointmentClick(object sender, RoutedEventArgs e)
+        {
+            addApp.Background = Brushes.CornflowerBlue;
+            Main.Content = new PreferencesForAppointment(patient);
+        }
     }
 }
