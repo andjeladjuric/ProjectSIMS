@@ -44,7 +44,7 @@ namespace HospitalService.View.DoctorUI
             RoomBox.ItemsSource = ids;
             DateBox.SelectedDate = DateTime.Today;
             PatientBox.ItemsSource = Patients;
-
+            IdBox.Text = baza.GetNextId();
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
