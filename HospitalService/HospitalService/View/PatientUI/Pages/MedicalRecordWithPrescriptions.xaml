@@ -39,7 +39,7 @@
                 <ColumnDefinition Width="187.5"/>
                 <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Height="45" Width="300" Content="Podesavanje podsjetnika" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue"/>
+            <Button Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Height="45" Width="300" Content="Podesavanje podsjetnika" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue" Click="setReminder"/>
 
         </Grid>
         <DataGrid x:Name="tablePrescriptions" IsReadOnly="True" 
