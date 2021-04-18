@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI"
         mc:Ignorable="d"
          Title="Medicinski karton" Height="673" Width="1200" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" FontSize="22" FontFamily="Gill Sans MT">
-    <Grid Height="673" Width="1200">
+    <Grid Height="673" Width="1200" Background="Lavender">
         <ListView Name="IstorijaList" Margin="13,310,819,97" FontSize="20">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -26,11 +26,10 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBox Name="brKartonaTB" IsEnabled="False" HorizontalAlignment="Left" Margin="41,109,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="311" Height="37"/>
-        <Label Content="BROJ KARTONA" HorizontalAlignment="Left" Margin="91,49,0,0" VerticalAlignment="Top" Width="179"/>
+        <Label Content="Broj kartona:" HorizontalAlignment="Left" Margin="33,152,0,0" VerticalAlignment="Top" Width="126"/>
         <Label Content="Istorija" HorizontalAlignment="Left" Margin="141,269,0,0" VerticalAlignment="Top"/>
-        <Label Content="Terapija" HorizontalAlignment="Left" Margin="594,269,0,0" VerticalAlignment="Top"/>
-        <Label Content="Osnovne informacije" HorizontalAlignment="Left" Margin="801,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Terapija" HorizontalAlignment="Left" Margin="589,269,0,0" VerticalAlignment="Top"/>
+        <Label Content="Osnovne informacije" HorizontalAlignment="Left" Margin="780,10,0,0" VerticalAlignment="Top"/>
         <ListView Margin="874,310,25,97">
             <ListView.View>
                 <GridView>
@@ -39,8 +38,26 @@
             </ListView.View>
         </ListView>
         <Label Content="Alergije" HorizontalAlignment="Left" Margin="985,269,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.689,0.368"/>
-        <Button Content="Izdaj recept" HorizontalAlignment="Left" Margin="594,603,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.517,1.029" Click="Prescription_Click"/>
-        <Button Content="Izmjeni" HorizontalAlignment="Left" Margin="143,603,0,0" VerticalAlignment="Top" Click="Edit_Click"/>
+        <Button Background="DimGray" Content="Izdaj recept" HorizontalAlignment="Left" Margin="589,603,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.517,1.029" Click="Prescription_Click" Width="118">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button Background="DimGray" Content="Izmjeni" HorizontalAlignment="Left" Margin="138,603,0,0" VerticalAlignment="Top" Click="Edit_Click" Width="73" RenderTransformOrigin="0.355,0.445">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <TextBox Name="MedicalRecordNum" IsEnabled="False" HorizontalAlignment="Left" Margin="177,153,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.363,-0.245" Height="35" Width="77"/>
+        <Label FontSize="26" Name="NameLbl" HorizontalAlignment="Left" Margin="76,51,0,0" VerticalAlignment="Top" Width="270" Height="52"/>
+        <Label Content="Datum rođenja: " HorizontalAlignment="Left" Margin="635,67,0,0" VerticalAlignment="Top"/>
+        <Label Content="JMBG: " HorizontalAlignment="Left" Margin="635,108,0,0" VerticalAlignment="Top"/>
+        <Label Content="Adresa: " HorizontalAlignment="Left" Margin="635,149,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.508,1.882"/>
+        <Label Content="Kontakt: " HorizontalAlignment="Left" Margin="635,190,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.508,1.882"/>
+        <TextBox Name="DateOfBirthTB" IsEnabled="False" HorizontalAlignment="Left" Margin="874,71,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
+        <TextBox Name="JmbgTB" IsEnabled="False" HorizontalAlignment="Left" Margin="874,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
+        <TextBox Name="AddressTB" IsEnabled="False"  HorizontalAlignment="Left" Margin="874,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
+        <TextBox Name="ContactTB" IsEnabled="False" HorizontalAlignment="Left" Margin="874,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
 
     </Grid>
 </Window>

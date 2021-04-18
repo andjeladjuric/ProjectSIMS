@@ -24,9 +24,14 @@ namespace HospitalService.View.DoctorUI
         {
             InitializeComponent();
             Karton = md;
-            brKartonaTB.Text = md.Id;
+            MedicalRecordNum.Text = md.Id;
             IstorijaList.ItemsSource = md.Diagnoses;
             TerapijaList.ItemsSource = md.Prescriptions;
+            NameLbl.Content = md.Patient.Name + " " + md.Patient.Surname;
+            DateOfBirthTB.Text = md.Patient.DateOfBirth.HasValue ? md.Patient.DateOfBirth.Value.ToString("MM/dd/yyyy") : " ";
+            JmbgTB.Text = md.Patient.Jmbg;
+            AddressTB.Text = md.Patient.Address;
+            ContactTB.Text = md.Patient.Phone;
 
         }
 

@@ -16,9 +16,17 @@
         <TextBox Name="PatientTB" HorizontalAlignment="Left" Margin="197,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" IsEnabled="False"/>
         <TextBox Name="DiagnosisTB" HorizontalAlignment="Left" Margin="197,158,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
         <TextBox Name="SymptomsTB" HorizontalAlignment="Left" Margin="197,209,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
-        <Button Click="Cancel_Click" Foreground="#FF696969" Content="Odustani" HorizontalAlignment="Left" Margin="109,450,0,0" VerticalAlignment="Top" Width="83"/>
-        <Button Click="Apply_Click" Foreground="#FF696969" Content="Potvrdi" HorizontalAlignment="Left" Margin="246,450,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.527,1.175" Width="87"/>
-        <TextBox Name="AnamnesisTB" HorizontalAlignment="Left" Margin="59,346,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="323" Height="74"/>
+        <Button Click="Cancel_Click" Foreground="#FF696969" Content="Odustani" HorizontalAlignment="Left" Margin="109,450,0,0" VerticalAlignment="Top" Width="83">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button Click="Apply_Click" Foreground="#FF696969" Content="Potvrdi" HorizontalAlignment="Left" Margin="246,450,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.527,1.175" Width="87">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <TextBox Background="WhiteSmoke" Name="AnamnesisTB" HorizontalAlignment="Left" Margin="59,346,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="323" Height="74"/>
         <DatePicker Name="DateBox" IsEnabled="False" Foreground="#FF696969" HorizontalAlignment="Left" Margin="197,260,0,0" VerticalAlignment="Top" Width="185"/>
     </Grid>
 </Window>
