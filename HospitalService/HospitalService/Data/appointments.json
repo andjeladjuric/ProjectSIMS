@@ -369,17 +369,17 @@
     }
   },
   {
-    "StartTime": "2021-04-19T10:00:00",
-    "EndTime": "2021-04-19T11:00:00",
+    "StartTime": "2021-04-23T14:00:00",
+    "EndTime": "2021-04-18T15:00:00",
     "Type": 0,
-    "Id": "10",
+    "Id": "9",
     "Status": 0,
     "room": {
       "Type": 0,
-      "Id": "102",
+      "Id": "330",
       "Name": "Bolnička soba 1",
       "IsFree": true,
-      "inventory": { "110": 5 }
+      "inventory": {}
     },
     "doctor": {
       "DoctorType": 1,
@@ -406,47 +406,6 @@
       "Phone": null,
       "Address": null,
       "Email": null,
-      "Gender": 0
-    }
-  },
-  {
-    "StartTime": "2021-04-19T10:00:00",
-    "EndTime": "2021-04-19T11:00:00",
-    "Type": 0,
-    "Id": "11",
-    "Status": 0,
-    "room": {
-      "Type": 1,
-      "Id": "203",
-      "Name": "Operaciona sala 1",
-      "IsFree": false,
-      "inventory": {}
-    },
-    "doctor": {
-      "DoctorType": 1,
-      "Username": "drana",
-      "Password": "123",
-      "Name": "Ana",
-      "Surname": "Petrovic",
-      "DateOfBirth": "1999-01-01T00:00:00",
-      "Jmbg": "0102000241577",
-      "Phone": "0614553321",
-      "Address": "Nikole Pasica 4",
-      "Email": "anap@gmail.com",
-      "Gender": 0
-    },
-    "patient": {
-      "PatientType": 1,
-      "medicalRecordId": "1234",
-      "Username": "sladjana",
-      "Password": "123",
-      "Name": "Sladjana",
-      "Surname": "Colakovic",
-      "DateOfBirth": "1999-01-01T00:00:00",
-      "Jmbg": "0101000244312",
-      "Phone": "0614563456",
-      "Address": "Balzakova 23",
-      "Email": "sladjanac@gmail.com",
       "Gender": 0
     }
   }

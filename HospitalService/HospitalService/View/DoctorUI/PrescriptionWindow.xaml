@@ -17,8 +17,16 @@
         <TextBox Name="MedicationTB" HorizontalAlignment="Left" Margin="197,158,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
         <TextBox Name="DaysTB" HorizontalAlignment="Left" Margin="197,258,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
         <TextBox Name="HoursTB" HorizontalAlignment="Left" Margin="197,209,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-        <Button Click="Cancel_Click" Foreground="#FF696969" Content="Odustani" HorizontalAlignment="Left" Margin="109,450,0,0" VerticalAlignment="Top" Width="83"/>
-        <Button Click="Apply_Click" Foreground="#FF696969" Content="Potvrdi" HorizontalAlignment="Left" Margin="246,450,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.527,1.175" Width="87"/>
-        <TextBox Name="InfoTB" HorizontalAlignment="Left" Margin="59,346,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="323" Height="74"/>
+        <Button Click="Cancel_Click" Foreground="#FF696969" Content="Odustani" HorizontalAlignment="Left" Margin="109,450,0,0" VerticalAlignment="Top" Width="83">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button Click="Apply_Click" Foreground="#FF696969" Content="Potvrdi" HorizontalAlignment="Left" Margin="246,450,0,0" VerticalAlignment="Top" Width="87">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <TextBox Background="WhiteSmoke" Name="InfoTB" HorizontalAlignment="Left" Margin="59,346,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="323" Height="74"/>
     </Grid>
 </Window>

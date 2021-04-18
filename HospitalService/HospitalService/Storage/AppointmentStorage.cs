@@ -178,6 +178,20 @@ namespace Storage
             return false;
         }
 
+        public void SetIds()
+        {
+            int j = 0;
+            for (int i = 0; i < appointments.Count; i++)
+            {
+                appointments[i].Id = (++j).ToString();
+            }
+            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(appointments));
+        }
 
+        public string GetNextId()
+        {
+            int id = appointments.Count;
+            return (++id).ToString();
+        }
     }
 }

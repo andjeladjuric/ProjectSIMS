@@ -49,16 +49,25 @@
                             <Button.Background>
                                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
                             </Button.Background>
+                            <Button.Effect>
+                                <DropShadowEffect/>
+                            </Button.Effect>
                         </Button>
                         <Button Margin="30,0,0,0" Width="58" Click="Edit_Click">Izmjeni
                             <Button.Background>
                                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
                             </Button.Background>
+                            <Button.Effect>
+                                <DropShadowEffect/>
+                            </Button.Effect>
                         </Button>
-                        <Button  Margin="30,0,0,0" Width="147" RenderTransformOrigin="0.49,0.111" Click="AddAppointment_Click" Content="Dodaj termin">
+                        <Button  Margin="30,0,0,0" Width="69" RenderTransformOrigin="0.49,0.111" Click="AddAppointment_Click" Content="Zakaži">
                             <Button.Background>
                                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
                             </Button.Background>
+                            <Button.Effect>
+                                <DropShadowEffect/>
+                            </Button.Effect>
                         </Button>
                     </StackPanel>
                     <DataGrid x:Name="AppointmentsTable" IsReadOnly="True" 
@@ -83,7 +92,10 @@
                             <Button.Background>
                                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
                             </Button.Background>
-                        </Button>
+                        <Button.Effect>
+                            <DropShadowEffect/>
+                        </Button.Effect>
+                    </Button>
                     <DataGrid x:Name="PatientsTable" IsReadOnly="True" 
                   SelectionMode="Single" AutoGenerateColumns="False" Height="300" Width="760" Margin="0,0,0,20">
                         <DataGrid.Columns>

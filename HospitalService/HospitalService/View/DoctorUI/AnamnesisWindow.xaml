@@ -8,10 +8,13 @@
        Title="Anamneza" Height="400" Width="500" WindowStartupLocation="CenterScreen" FontSize="16" SizeToContent="WidthAndHeight" ResizeMode="NoResize" FontFamily="Gill Sans MT">
     <Grid Height="400" Width="500">
         <Border BorderThickness="1" BorderBrush="Black" Margin="42,62,42,85" Height="237" Width="416">
-            <TextBlock Name="AnamnesisTB" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Height="217" Width="396"/>
+            <TextBlock Background="WhiteSmoke" Name="AnamnesisTB" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Height="217" Width="396"/>
         </Border>
         <Label Content="Anamneza:" HorizontalAlignment="Left" Margin="42,28,0,0" VerticalAlignment="Top"/>
         <Button Click="Edit_Click" Content="Izmjeni" HorizontalAlignment="Center" Margin="0,330,0,0" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.5,0.5">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
         </Button>
 
     </Grid>

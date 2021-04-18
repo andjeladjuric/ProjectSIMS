@@ -20,12 +20,16 @@ namespace HospitalService.View.DoctorUI
     {
         public DoctorWindow DoctorWindow { get; set; }
         public AppointmentStorage baza { get; set; }
+        public PatientStorage patientStorage { get; set; }
+        public List<Patient> Patients { get; set; }
         public static List<String> appointmentsType = Enum.GetNames(typeof(AppointmentType)).ToList();
 
         public AddAppointmentToDoctor(DoctorWindow dw)
         {
             DoctorWindow = dw;
             baza = dw.baza;
+            patientStorage = new PatientStorage();
+            Patients = patientStorage.GetAll();
             InitializeComponent();
             AppointmentTypeBox.ItemsSource = appointmentsType;
             List<Room> r = dw.sobe.GetAll();
@@ -39,7 +43,8 @@ namespace HospitalService.View.DoctorUI
 
             RoomBox.ItemsSource = ids;
             DateBox.SelectedDate = DateTime.Today;
-
+            PatientBox.ItemsSource = Patients;
+            IdBox.Text = baza.GetNextId();
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -56,7 +61,7 @@ namespace HospitalService.View.DoctorUI
             String kraj = date + " " + end + ":00";
             String ime = PatientBox.Text;
             String[] name = ime.Split(' ');
-            Patient selectedPatient = new Patient() { Name = name[0], Surname = name[1] }; // dodaji iz baze ili cuvaj samo id?
+            Patient selectedPatient = (Patient)PatientBox.SelectedItem;
             Room selectedRoom = new Room() { Id = RoomBox.Text }; // dodaji iz baze ili cuvaj samo id?
             Doctor defaultDoctor = DoctorWindow.doctor;
             if (baza.AlreadyExists(IdBox.Text))

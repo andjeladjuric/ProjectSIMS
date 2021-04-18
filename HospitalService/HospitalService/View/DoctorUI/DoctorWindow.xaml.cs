@@ -79,6 +79,7 @@ namespace HospitalService.View.DoctorUI
                 if (Result == MessageBoxResult.Yes)
                 {
                     baza.Delete(a.Id);
+                    baza.SetIds();
                     this.refresh();
                 }
             }

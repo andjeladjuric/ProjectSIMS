@@ -16,8 +16,16 @@
                 <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat={}{0:MM/dd/yyyy}}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Click="Anamnesis_Click" Content="Anamneza" HorizontalAlignment="Left" Margin="169,373,0,0" VerticalAlignment="Top"  Height="29" Width="85"/>
-        <Button Content="Daj dijagnozu" HorizontalAlignment="Left" Margin="326,373,0,0" VerticalAlignment="Top"  Width="99" Height="29" Click="AddDiagnosis_Click"/>
+        <Button Click="Anamnesis_Click" Content="Anamneza" HorizontalAlignment="Left" Margin="169,373,0,0" VerticalAlignment="Top"  Height="29" Width="85">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button Content="Daj dijagnozu" HorizontalAlignment="Left" Margin="326,373,0,0" VerticalAlignment="Top"  Width="99" Height="29" Click="AddDiagnosis_Click">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
 
     </Grid>
 </Window>

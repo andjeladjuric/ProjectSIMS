@@ -8,12 +8,19 @@
           Title="Anamneza" Height="400" Width="500" WindowStartupLocation="CenterScreen" FontSize="16" SizeToContent="WidthAndHeight" ResizeMode="NoResize" FontFamily="Gill Sans MT">
     <Grid Height="400" Width="500">
         <Border BorderThickness="1" BorderBrush="Black" Margin="42,62,42,85" Height="237" Width="416">
-            <TextBox Name="EditAnamnesisTB" TextWrapping="Wrap"/>
+            <TextBox Background="WhiteSmoke" Name="EditAnamnesisTB" TextWrapping="Wrap"/>
         </Border>
         <Label Content="Anamneza:" HorizontalAlignment="Left" Margin="42,28,0,0" VerticalAlignment="Top"/>
         <Button Click="Apply_Click" Content="Potvrdi" HorizontalAlignment="Left" Margin="271,336,0,0" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.5,0.5">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
         </Button>
-        <Button Click="Cancel_Click" Content="Odustani" HorizontalAlignment="Left" Margin="150,336,0,0" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.5,0.5"/>
+        <Button Click="Cancel_Click" Content="Odustani" HorizontalAlignment="Left" Margin="150,336,0,0" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.5,0.5">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
 
     </Grid>
 </Window>
