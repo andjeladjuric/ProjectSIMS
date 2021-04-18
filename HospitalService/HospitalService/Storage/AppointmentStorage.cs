@@ -147,6 +147,37 @@ namespace Storage
 
         }
 
+        public Boolean AlreadyExists(String id)
+        {
+            if (appointments.Find(x => x.Id == id) == null)
+                return false;
+            else
+                return true;
+
+        }
+
+        public Boolean IsTaken(DateTime start, DateTime end, Doctor d)
+        {
+            Appointment a;
+            List<Appointment> termini = this.getByDoctor(d, start);
+            for (int i = 0; i < termini.Count; i++)
+            {
+                a = termini[i];
+                if (DateTime.Compare(a.StartTime, start) == 0)
+                {
+                    return true;
+                }
+                else if (DateTime.Compare(a.StartTime, start) < 0)
+                {
+                    if (DateTime.Compare(a.EndTime, start) > 0)
+                        return true;
+                }
+                else if (DateTime.Compare(a.StartTime, start) > 0 && DateTime.Compare(end, a.StartTime) > 0)
+                    return true;
+            }
+            return false;
+        }
+
 
     }
 }

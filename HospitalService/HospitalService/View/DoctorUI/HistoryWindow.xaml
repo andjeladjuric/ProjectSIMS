@@ -1,0 +1,23 @@
+﻿<Window x:Class="HospitalService.View.DoctorUI.HistoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalService.View.DoctorUI"
+        mc:Ignorable="d"
+        Title="Istorija" Height="450" Width="600" WindowStartupLocation="CenterScreen" FontSize="16" SizeToContent="WidthAndHeight" ResizeMode="NoResize" FontFamily="Gill Sans MT">
+    <Grid Height="450" Width="600">
+        <Label Content="Dijagnoze:" HorizontalAlignment="Left" Margin="85,33,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.217,0.569"/>
+        <DataGrid Name="DiagnosisTable" IsReadOnly="True" 
+                  SelectionMode="Single" AutoGenerateColumns="False" Margin="85,77,85,98">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Dijagnoza" Binding="{Binding Illness}" Width="*"/>
+                <DataGridTextColumn Header="Simptomi" Binding="{Binding Symptoms}" Width="*"/>
+                <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat={}{0:MM/dd/yyyy}}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Click="Anamnesis_Click" Content="Anamneza" HorizontalAlignment="Left" Margin="169,373,0,0" VerticalAlignment="Top"  Height="29" Width="85"/>
+        <Button Content="Daj dijagnozu" HorizontalAlignment="Left" Margin="326,373,0,0" VerticalAlignment="Top"  Width="99" Height="29" Click="AddDiagnosis_Click"/>
+
+    </Grid>
+</Window>

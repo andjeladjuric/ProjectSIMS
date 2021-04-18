@@ -25,7 +25,7 @@ namespace HospitalService.View.ManagerUI
         public Inventory item { get; set; }
         InventoryFileStorage storage;
         DataGrid bind;
-        public static List<String> equipment = Enum.GetNames(typeof(Model.Equipment)).ToList();
+        public static List<String> equipment = Enum.GetNames(typeof(Equipment)).ToList();
         Regex checkName = new Regex(@"[A-Za-z]+([\s][A-Za-z]*[1-9]*)*$");
         Regex checkId = new Regex(@"[0-9]$");
         public NewItem(DataGrid dg, InventoryFileStorage st)

@@ -20,7 +20,7 @@ namespace HospitalService.View.SecretaryUI
     {
         private PatientStorage storage;
         private Secretary secretary;
-        public List<Model.Patient> patients { get; set; }
+        public List<Patient> patients { get; set; }
 
         public SecretaryWindow(Secretary s)
         {
@@ -41,7 +41,7 @@ namespace HospitalService.View.SecretaryUI
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            Model.Patient p = (Model.Patient)tableBinding.SelectedItem;
+            Patient p = (Patient)tableBinding.SelectedItem;
             if (p == null)
             {
                 MessageBox.Show("You must select one item");
@@ -55,7 +55,7 @@ namespace HospitalService.View.SecretaryUI
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            Model.Patient patient = (Model.Patient)tableBinding.SelectedItem;
+            Patient patient = (Patient)tableBinding.SelectedItem;
             if (patient == null)
             {
                 MessageBox.Show("You must select one item!");

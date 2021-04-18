@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace HospitalService.View.DoctorUI
 {
-   
+
     public partial class AddAppointmentToDoctor : Window
     {
         public DoctorWindow DoctorWindow { get; set; }
@@ -56,23 +56,29 @@ namespace HospitalService.View.DoctorUI
             String kraj = date + " " + end + ":00";
             String ime = PatientBox.Text;
             String[] name = ime.Split(' ');
-            Patient selectedPatient = new Patient() { Name = name[0], Surname = name[1] };
-            Room selectedRoom = new Room() { Id = RoomBox.Text };
-            Doctor defaultDoctor = new Doctor() { Name = "Petra", Surname = "Jovic", Jmbg= "0101000234567" };
-            Appointment newAppointment = new Appointment()
+            Patient selectedPatient = new Patient() { Name = name[0], Surname = name[1] }; // dodaji iz baze ili cuvaj samo id?
+            Room selectedRoom = new Room() { Id = RoomBox.Text }; // dodaji iz baze ili cuvaj samo id?
+            Doctor defaultDoctor = DoctorWindow.doctor;
+            if (baza.AlreadyExists(IdBox.Text))
+                MessageBox.Show("Termin vec postoji.");
+            else if (baza.IsTaken(Convert.ToDateTime(pocetak), Convert.ToDateTime(kraj), DoctorWindow.doctor))
+                MessageBox.Show("Termin je zauzet.");
+            else
             {
-                Id = IdBox.Text,
-                StartTime = Convert.ToDateTime(pocetak),
-                EndTime = Convert.ToDateTime(kraj),
-                Type = (AppointmentType)AppointmentTypeBox.SelectedIndex,
-                patient = selectedPatient,
-                room = selectedRoom,
-                doctor = defaultDoctor
-            };
-            baza.Save(newAppointment);
-            DoctorWindow.refresh();
-            this.Close();
+                Appointment newAppointment = new Appointment()
+                {
+                    Id = IdBox.Text,
+                    StartTime = Convert.ToDateTime(pocetak),
+                    EndTime = Convert.ToDateTime(kraj),
+                    Type = (AppointmentType)AppointmentTypeBox.SelectedIndex,
+                    patient = selectedPatient,
+                    room = selectedRoom,
+                    doctor = defaultDoctor
+                };
+                baza.Save(newAppointment);
+                DoctorWindow.refresh();
+                this.Close();
+            }
         }
-
     }
 }

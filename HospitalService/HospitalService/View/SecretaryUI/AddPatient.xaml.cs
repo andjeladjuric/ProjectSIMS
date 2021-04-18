@@ -32,7 +32,7 @@ namespace HospitalService.View.SecretaryUI
             String dat = date.Text;
             if (dat == "")
             {
-                Model.Patient p2 = new Model.Patient
+                Patient p2 = new Patient
                 {
                     Username = username.Text,
                     Password = password.Text,
@@ -50,7 +50,7 @@ namespace HospitalService.View.SecretaryUI
             }
             else
             {
-                Model.Patient p1 = new Model.Patient
+                Patient p1 = new Patient
                 {
                     Username = username.Text,
                     Password = password.Text,

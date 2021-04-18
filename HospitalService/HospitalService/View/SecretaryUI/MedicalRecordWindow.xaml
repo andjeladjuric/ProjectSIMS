@@ -6,11 +6,39 @@
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
         Title="MedicalRecordWindow" Height="450" Width="800">
-    <Grid>
-        <Button Name="dodaj" Content="Add medical record" HorizontalAlignment="Left" Margin="25,21,0,0" VerticalAlignment="Top" Height="42" Width="128" Click="Add_Click"/>
-
+    <Grid Height="450" Width="800">
+        <Button Name="dodaj" Content="Dodaj medicinski karton" HorizontalAlignment="Left" Margin="25,21,0,0" VerticalAlignment="Top" Height="42" Width="128" Click="Add_Click"/>
+       
+        <Label Name="ist" Content="Istorija" HorizontalAlignment="Left" Margin="25,127,0,0" VerticalAlignment="Top"/>
+        <Label Name="ter" Content="Terapija" HorizontalAlignment="Left" Margin="220,127,0,0" VerticalAlignment="Top"/>
         <Label Content="ID:" HorizontalAlignment="Left" Height="28" Margin="25,74,0,0" VerticalAlignment="Top" Width="1200" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
         <TextBox Name="idkarton" HorizontalAlignment="Left" Height="20" Margin="66,82,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-
+        <Label Name="aler" Content="Alergije" HorizontalAlignment="Left" Margin="460,127,0,0" VerticalAlignment="Top"/>
+        <ListView Name="IstorijaList" Margin="25,158,607,79" FontSize="14">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="{Binding Illness}" />
+                        <TextBlock Text=" (" />
+                        <TextBlock Text="{Binding Datum, StringFormat={}{0:MM/dd/yyyy}}" />
+                        <TextBlock Text=")" />
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView Name="TerapijaList" Margin="220,158,421,79" FontSize="14">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Medication}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView Name="AlergijaList" Margin="415,158,220,79">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

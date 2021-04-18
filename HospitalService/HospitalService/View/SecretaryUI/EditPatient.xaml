@@ -7,16 +7,16 @@
         mc:Ignorable="d"
         Title="EditPatient" Height="450" Width="400" WindowStartupLocation="CenterScreen">
     <Grid  x:Name="editGrid">
-        <Label Content="Type:" HorizontalAlignment="Left" Height="29" Margin="24,10,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Name:" HorizontalAlignment="Left" Height="29" Margin="24,39,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Surname: " HorizontalAlignment="Left" Height="29" Margin="24,73,0,0" VerticalAlignment="Top" Width="1200" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
+        <Label Content="Tip:" HorizontalAlignment="Left" Height="29" Margin="24,10,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
+        <Label Content="Ime:" HorizontalAlignment="Left" Height="29" Margin="24,39,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
+        <Label Content="Prezime: " HorizontalAlignment="Left" Height="29" Margin="24,73,0,0" VerticalAlignment="Top" Width="1200" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
         <Label Content="JMBG:" HorizontalAlignment="Left" Height="29" Margin="24,107,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Gender:" HorizontalAlignment="Left" Height="29" Margin="24,136,0,0" VerticalAlignment="Top" Width="1200" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Username:" HorizontalAlignment="Left" Height="29" Margin="24,165,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Password:" HorizontalAlignment="Left" Height="29" Margin="24,194,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Date of birth:" HorizontalAlignment="Left" Height="29" Margin="24,223,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Address:" HorizontalAlignment="Left" Height="29" Margin="24,252,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Phone:" HorizontalAlignment="Left" Height="29" Margin="24,281,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
+        <Label Content="Pol:" HorizontalAlignment="Left" Height="29" Margin="24,136,0,0" VerticalAlignment="Top" Width="1200" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
+        <Label Content="Korisničko ime:" HorizontalAlignment="Left" Height="29" Margin="24,165,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
+        <Label Content="Lozinka:" HorizontalAlignment="Left" Height="29" Margin="24,194,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
+        <Label Content="Datum rodjenja:" HorizontalAlignment="Left" Height="29" Margin="24,223,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
+        <Label Content="Adresa:" HorizontalAlignment="Left" Height="29" Margin="24,252,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
+        <Label Content="Telefon:" HorizontalAlignment="Left" Height="29" Margin="24,281,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
         <Label Content="Email:" HorizontalAlignment="Left" Height="29" Margin="24,310,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
 
         <TextBox IsReadOnly="True" Text="{Binding Path=patient.Name}" HorizontalAlignment="Left" Height="20" Margin="144,47,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
@@ -34,12 +34,12 @@
         <ComboBox IsReadOnly="True" HorizontalAlignment="Left" Margin="144,140,0,0" VerticalAlignment="Top" Width="127" Height="20">
             <ComboBoxItem Content="{Binding Path=patient.Gender}" IsSelected="True"></ComboBoxItem>
         </ComboBox>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="80,365,0,0" VerticalAlignment="Top" Width="113" Height="30" Click="Save_Click">
+        <Button Content="Sačuvaj" HorizontalAlignment="Left" Margin="80,365,0,0" VerticalAlignment="Top" Width="113" Height="30" Click="Save_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="237,365,0,0" VerticalAlignment="Top" Width="113" Height="30" Click="Cancel_Click">
+        <Button Content="Otkaži" HorizontalAlignment="Left" Margin="237,365,0,0" VerticalAlignment="Top" Width="113" Height="30" Click="Cancel_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>

@@ -21,6 +21,7 @@ namespace HospitalService.View.DoctorUI
         public AppointmentStorage baza { get; set; }
         public RoomFileStorage sobe { get; set; }
         public PatientStorage patientsBase { get; set; }
+        public MedicalRecordStorage Records { get; set; }
         public Doctor doctor { get; set; }
         public List<Appointment> appointments { get; set; }
 
@@ -34,6 +35,7 @@ namespace HospitalService.View.DoctorUI
             doctor = d;
             appointments = baza.getByDoctor(doctor, DateTime.Now);
             sobe = new RoomFileStorage();
+            Records = new MedicalRecordStorage();
 
             AppointmentsTable.ItemsSource = appointments;
             PatientsTable.ItemsSource = patients;
@@ -93,6 +95,21 @@ namespace HospitalService.View.DoctorUI
             {
                 EditAppointmentForDoctor editAppointmentWindow = new EditAppointmentForDoctor(a, this);
                 editAppointmentWindow.Show();
+            }
+        }
+
+        private void MedicalRecord_Click(object sender, RoutedEventArgs e)
+        {
+            Patient p = (Patient)PatientsTable.SelectedItem;
+            if (p == null)
+            {
+                MessageBox.Show("Morate izabrati pacijenta.");
+            }
+            else
+            {
+                MedicalRecord mr = Records.GetOne(p.medicalRecordId);
+                MedicalRecordDoctorWindow medicalRecordWindow = new MedicalRecordDoctorWindow(mr);
+                medicalRecordWindow.ShowDialog();
             }
         }
     }
