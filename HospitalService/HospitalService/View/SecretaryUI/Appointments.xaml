@@ -9,7 +9,7 @@
 
     <StackPanel Margin="10">
         <Calendar Name="cldSample" SelectionMode="SingleDate" />
-        <Button Click="Button_Click" Content="Uvid u termine" Width="182"/>
+        <Button Click="Button_Click" Content="Vidi termine" Width="182"/>
     </StackPanel>
 
 </Window>
