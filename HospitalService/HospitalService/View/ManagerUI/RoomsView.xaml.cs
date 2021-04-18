@@ -68,8 +68,17 @@ namespace HospitalService.View.ManagerUI
 
         private void inventory_Click(object sender, RoutedEventArgs e)
         {
+            invStorage.analyzeRequests();
             Room r = (Room)tableBinding.SelectedItem;
-            newFrame.Content = new ManageRoomInventory(r);
+
+            if (r != null)
+            {
+                newFrame.Content = new ManageRoomInventory(r);
+            }
+            else
+            {
+                MessageBox.Show("Morate izabrati sobu!");
+            }
         }
     }
 

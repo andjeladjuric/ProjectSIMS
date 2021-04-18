@@ -19,30 +19,12 @@ namespace HospitalService.View.ManagerUI
     /// <summary>
     /// Interaction logic for ManageRoomInventory.xaml
     /// </summary>
-    public partial class ManageRoomInventory : Page, INotifyPropertyChanged
+    public partial class ManageRoomInventory : Page
     {
         InventoryFileStorage invStorage = new InventoryFileStorage();
         RoomFileStorage roomStorage = new RoomFileStorage();
-       // ObservableCollection<Inventory> roomInventory = new ObservableCollection<Inventory>();
+        List<Inventory> roomInventory;
         Room r;
-
-        private ObservableCollection<Inventory> _roomInv;
-        public ObservableCollection<Inventory> roomInventory
-        {
-            get { return _roomInv; }
-            set { _roomInv = value; OnPropertyChanged("roomInventory"); }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
         public ManageRoomInventory(Room room)
         {
             InitializeComponent();
@@ -52,22 +34,20 @@ namespace HospitalService.View.ManagerUI
             IDBox.Text = r.Id;
             invStorage.analyzeRequests();
 
-            roomInventory = new ObservableCollection<Inventory>();
+            roomInventory = new List<Inventory>();
 
-            foreach (int i in r.inventory.Keys)
+            foreach (var item in r.inventory)
             {
-                foreach(Inventory inv in invStorage.GetAll())
+                foreach (Inventory inv in invStorage.GetAll())
                 {
-                    if(i == inv.Id)
+                    if (item.Key == inv.Id)
                     {
-                        inv.Quantity = r.inventory[i];
-                        roomInventory.Add(inv);
+                        roomInventory.Add(new Inventory { Id = item.Key, Quantity = item.Value, Name = inv.Name, EquipmentType = inv.EquipmentType });
                     }
                 }
             }
 
-            tableBinding.Items.Refresh();
-
+            tableBinding.ItemsSource = roomInventory;
         }
 
         private void Premesti_Click(object sender, RoutedEventArgs e)

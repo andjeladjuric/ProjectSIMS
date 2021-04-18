@@ -26,7 +26,7 @@ namespace HospitalService.View.ManagerUI
         public Room room;
         InventoryFileStorage invStorage = new InventoryFileStorage();
         RoomFileStorage roomStorage;
-       // ObservableCollection<Inventory> roomInventory;
+        List<Inventory> roomInventory;
         public DataGrid bind;
         public MovingRequests m = new MovingRequests();
         public List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
@@ -42,13 +42,6 @@ namespace HospitalService.View.ManagerUI
             }
         }
 
-        private ObservableCollection<Inventory> _roomInv;
-        public ObservableCollection<Inventory> roomInventory
-        {
-            get { return _roomInv; }
-            set { _roomInv = value; OnPropertyChanged("roomInventory"); }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
         {
@@ -57,7 +50,7 @@ namespace HospitalService.View.ManagerUI
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-        public MoveInventory(Room r, DataGrid dg, ObservableCollection<Inventory> inv)
+        public MoveInventory(Room r, DataGrid dg, List<Inventory> inv)
         {
             InitializeComponent();
 
@@ -81,7 +74,7 @@ namespace HospitalService.View.ManagerUI
             }
 
             comboBox.ItemsSource = roomNames;
-            //tableBinding.ItemsSource = inv;
+            tableBinding.ItemsSource = inv;
         }
 
         private void save_Click(object sender, RoutedEventArgs e)
@@ -104,13 +97,50 @@ namespace HospitalService.View.ManagerUI
             String time = TimeBox.Text;
             String date = datePicker.Text;
 
-            foreach (Inventory i in invStorage.GetAll())
+            foreach (Inventory stavka in roomInventory)
             {
-                if (inventoryId == i.Id)
+                if (inventoryId == stavka.Id)
                 {
-                    if (i.EquipmentType == Equipment.Dynamic)
+                    if (stavka.EquipmentType == Equipment.Dynamic)
                     {
-                        invStorage.moveDynamicInventory(sendToThisRoom, room, quantity, inventoryId, roomInventory, roomStorage);
+                        if (stavka.Quantity == quantity)
+                        {
+                            roomInventory.Remove(stavka);
+                            room.inventory.Remove(stavka.Id);
+                            roomStorage.editRoom(room);
+
+                            if (sendToThisRoom.inventory.ContainsKey(stavka.Id))
+                            {
+                                sendToThisRoom.inventory[stavka.Id] += quantity;
+                                File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
+                            }
+                            else
+                            {
+                                sendToThisRoom.inventory.Add(stavka.Id, quantity);
+                                File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
+                            }
+                        }
+                        else if (quantity > stavka.Quantity)
+                            MessageBox.Show("Ne postoji dovoljno stavki za premeštanje!");
+                        else
+                        {
+                            stavka.Quantity = stavka.Quantity - quantity;
+                            room.inventory[stavka.Id] = stavka.Quantity;
+                            roomStorage.editRoom(room);
+
+                            if (sendToThisRoom.inventory.ContainsKey(stavka.Id))
+                            {
+                                sendToThisRoom.inventory[stavka.Id] += quantity;
+                                File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
+                            }
+                            else
+                            {
+                                sendToThisRoom.inventory.Add(stavka.Id, quantity);
+                                File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
+                            }
+                        }
+
+                        //newFrame.Content = new ManageRoomInventory(room);
                         break;
                     }
                     else

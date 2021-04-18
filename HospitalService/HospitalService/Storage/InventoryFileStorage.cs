@@ -369,53 +369,6 @@ namespace Model
             return inventoryList.Find(x => x.Id == id);
         }
 
-        public void  moveDynamicInventory(Room sendToThisRoom, Room moveFromThisRoom, int quantity, int inventoryId , ObservableCollection<Inventory> roomInventory, RoomFileStorage roomStorage)
-        {
-            foreach (Inventory stavka in roomInventory)
-            {
-                if (stavka.Id == inventoryId)
-                {
-                    if (stavka.Quantity == quantity)
-                    {
-                        roomInventory.Remove(stavka);
-                        moveFromThisRoom.inventory.Remove(stavka.Id);
-                        storage.editRoom(moveFromThisRoom);
-
-                        if (sendToThisRoom.inventory.ContainsKey(stavka.Id))
-                        {
-                            sendToThisRoom.inventory[stavka.Id] += quantity;
-                            File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
-                        }
-                        else
-                        {
-                            sendToThisRoom.inventory.Add(stavka.Id, quantity);
-                            File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
-                        }
-                    }
-                    else if (quantity > stavka.Quantity)
-                        MessageBox.Show("Ne postoji dovoljno stavki za premeštanje!");
-                    else
-                    {
-                        stavka.Quantity = stavka.Quantity - quantity;
-                        moveFromThisRoom.inventory[stavka.Id] = stavka.Quantity;
-                        storage.editRoom(moveFromThisRoom);
-
-                        if (sendToThisRoom.inventory.ContainsKey(stavka.Id))
-                        {
-                            sendToThisRoom.inventory[stavka.Id] += quantity;
-                            File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
-                        }
-                        else
-                        {
-                            sendToThisRoom.inventory.Add(stavka.Id, quantity);
-                            File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
-                        }
-                    }
-                    break;
-                }
-            }
-        }
-
         public void analyzeRequests()
         {
             requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));

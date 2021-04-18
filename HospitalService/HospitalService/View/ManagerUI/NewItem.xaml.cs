@@ -38,6 +38,15 @@ namespace HospitalService.View.ManagerUI
 
         private void save_Click(object sender, RoutedEventArgs e)
         {
+            foreach(Inventory inv in storage.GetAll())
+            {
+                if(inv.Id == int.Parse(IDBox.Text))
+                {
+                    MessageBox.Show("ID već postoji!");
+                    return;
+                }
+            }
+
             item = new Inventory();
             item.EquipmentType = (Equipment)comboBox.SelectedIndex;
             item.Id = Int32.Parse(IDBox.Text);
@@ -63,20 +72,8 @@ namespace HospitalService.View.ManagerUI
             }
             else
             {
-                for (int i = 0; i < storage.GetAll().Count; i++)
-                {
-                    if (storage.GetAll()[i].Id.Equals(Int32.Parse(IDBox.Text)))
-                    {
-                        label1.Visibility = Visibility.Visible;
-                        save.IsEnabled = false;
-                    }
-                    else
-                    {
-                        label1.Visibility = Visibility.Hidden;
-                    }
-                }
-
                 label.Visibility = Visibility.Hidden;
+                save.IsEnabled = true;
             }
 
         }
@@ -104,6 +101,7 @@ namespace HospitalService.View.ManagerUI
             else
             {
                 label3.Visibility = Visibility.Hidden;
+                save.IsEnabled = true;
             }
         }
     }
