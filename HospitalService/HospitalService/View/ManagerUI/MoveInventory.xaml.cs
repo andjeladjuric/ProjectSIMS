@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
@@ -23,10 +24,12 @@ namespace HospitalService.View.ManagerUI
     public partial class MoveInventory : Page, INotifyPropertyChanged 
     {
         public Room room;
-        InventoryFileStorage invStorage;
+        InventoryFileStorage invStorage = new InventoryFileStorage();
         RoomFileStorage roomStorage;
         List<Inventory> roomInventory;
         public DataGrid bind;
+        public MovingRequests m = new MovingRequests();
+        public List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
 
         private Inventory _i;
         public Inventory selectedInv
@@ -56,13 +59,12 @@ namespace HospitalService.View.ManagerUI
             room = r;
             bind = dg;
             roomInventory = inv;
-            //grid.DataContext = this;
 
             List<String> roomNames = new List<string>();
             String source = "";
             roomStorage = new RoomFileStorage();
 
-            foreach(Room soba in roomStorage.GetAll())
+            foreach (Room soba in roomStorage.GetAll())
             {
                 if (soba.Id != r.Id)
                 {
@@ -81,7 +83,6 @@ namespace HospitalService.View.ManagerUI
             string selectedId = splitId[0];
 
             Room sendToThisRoom = null;
-
             foreach (Room r in roomStorage.GetAll())
             {
                 if (r.Id == selectedId)
@@ -92,12 +93,15 @@ namespace HospitalService.View.ManagerUI
             }
 
             int quantity = int.Parse(quantityBox.Text);
+            int inventoryId = int.Parse(IDBox.Text);
+            String time = TimeBox.Text;
+            String date = datePicker.Text;
 
-            if (tableBinding.SelectedItem != null)
+            foreach (Inventory stavka in roomInventory)
             {
-                foreach(Inventory stavka in roomInventory)
+                if (inventoryId == stavka.Id)
                 {
-                    if(stavka.Id == int.Parse(IDBox.Text))
+                    if (stavka.EquipmentType == Equipment.Dynamic)
                     {
                         if (stavka.Quantity == quantity)
                         {
@@ -136,16 +140,45 @@ namespace HospitalService.View.ManagerUI
                             }
                         }
 
-                        newFrame.Content = new ManageRoomInventory(room);
+                        //newFrame.Content = new ManageRoomInventory(room);
                         break;
                     }
+                    else
+                    {
+                        m.inventoryId = inventoryId;
+                        m.moveFromThisRoom = room.Id;
+                        m.sendToThisRoom = sendToThisRoom.Id;
+                        m.movingTime = Convert.ToDateTime(time + " " + date);
+                        m.quantity = quantity;
+                        m.isDone = false;
+                        requests.Add(m);
+                        File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
+                        break;
+                    }
+
                 }
-            }
+            }       
+
+            newFrame.Content = new ManageRoomInventory(room);
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
             newFrame.Content = new ManageRoomInventory(room);
+        }
+
+        private void selectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (selectedInv.EquipmentType == Equipment.Dynamic)
+            {
+                datePicker.IsEnabled = false;
+                TimeBox.IsEnabled = false;
+            }
+            else
+            {
+                datePicker.IsEnabled = true;
+                TimeBox.IsEnabled = true;
+            }
         }
     }
 }

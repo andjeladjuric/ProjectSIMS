@@ -1,6 +1,8 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,34 +21,32 @@ namespace HospitalService.View.ManagerUI
     /// </summary>
     public partial class ManageRoomInventory : Page
     {
-        InventoryFileStorage invStorage;
-        RoomFileStorage roomStorage;
+        InventoryFileStorage invStorage = new InventoryFileStorage();
+        RoomFileStorage roomStorage = new RoomFileStorage();
         List<Inventory> roomInventory;
         Room r;
         public ManageRoomInventory(Room room)
         {
             InitializeComponent();
-            this.DataContext = this;
 
-            roomStorage = new RoomFileStorage();
-            invStorage = new InventoryFileStorage();
+            this.DataContext = this; 
             r = room;
             IDBox.Text = r.Id;
+            invStorage.analyzeRequests();
 
             roomInventory = new List<Inventory>();
 
-            foreach (int i in r.inventory.Keys)
+            foreach (var item in r.inventory)
             {
-                foreach(Inventory inv in invStorage.GetAll())
+                foreach (Inventory inv in invStorage.GetAll())
                 {
-                    if(i == inv.Id)
+                    if (item.Key == inv.Id)
                     {
-                        inv.Quantity = r.inventory[i];
-                        roomInventory.Add(inv);
+                        roomInventory.Add(new Inventory { Id = item.Key, Quantity = item.Value, Name = inv.Name, EquipmentType = inv.EquipmentType });
                     }
                 }
             }
-            
+
             tableBinding.ItemsSource = roomInventory;
         }
 
