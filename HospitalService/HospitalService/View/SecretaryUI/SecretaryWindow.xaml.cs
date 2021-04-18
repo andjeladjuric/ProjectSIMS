@@ -18,54 +18,17 @@ namespace HospitalService.View.SecretaryUI
     /// </summary>
     public partial class SecretaryWindow : Window
     {
-        private PatientStorage storage;
-        private Secretary secretary;
-        public List<Patient> patients { get; set; }
+
 
         public SecretaryWindow(Secretary s)
         {
             InitializeComponent();
             this.DataContext = this;
-            secretary = s;
-            storage = new PatientStorage();
-            patients = storage.GetAll();
-            tableBinding.ItemsSource = patients;
+            
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e)
-        {
-            AddPatient addWindow = new AddPatient(storage, tableBinding);
-            addWindow.Show();
-
-        }
-
-        private void Edit_Click(object sender, RoutedEventArgs e)
-        {
-            Patient p = (Patient)tableBinding.SelectedItem;
-            if (p == null)
-            {
-                MessageBox.Show("You must select one item");
-            }
-            else
-            {
-                EditPatient windowEdit = new EditPatient(p, storage, tableBinding);
-                windowEdit.Show();
-            }
-        }
-
-        private void Delete_Click(object sender, RoutedEventArgs e)
-        {
-            Patient patient = (Patient)tableBinding.SelectedItem;
-            if (patient == null)
-            {
-                MessageBox.Show("You must select one item!");
-            }
-            else
-            {
-                storage.Delete(patient.Jmbg);
-                tableBinding.Items.Refresh();
-            }
-        }
+        
+       
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
@@ -74,20 +37,6 @@ namespace HospitalService.View.SecretaryUI
         }
 
 
-        private void MedicalRecord_Click(object sender, RoutedEventArgs e)
-        {
-            Patient patient = (Patient)tableBinding.SelectedItem;
-            if (patient == null)
-            {
-                MessageBox.Show("You must select one item!");
-            }
-            else
-            {
-                MedicalRecordWindow record = new MedicalRecordWindow(patient, storage);
-                record.Show();
-            }
-        }
-
         private void Appointments_Click(object sender, RoutedEventArgs e)
         {
             Appointments appointments = new Appointments();
@@ -95,5 +44,10 @@ namespace HospitalService.View.SecretaryUI
 
         }
 
+        private void Patients_Click(object sender, RoutedEventArgs e)
+        {
+            Pacijenti patients = new Pacijenti();
+            patients.Show();
+        }
     }
 }
