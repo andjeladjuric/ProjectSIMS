@@ -52,6 +52,7 @@ namespace HospitalService.View.PatientUI.Pages
             else
             { 
                 baza.Delete(a.Id);
+                baza.SetIds();
                 tableViewAppointment.ItemsSource = null;
                 tableViewAppointment.ItemsSource = baza.getByPatient(patient);
                 

@@ -45,7 +45,9 @@ namespace HospitalService.View.PatientUI
             doktori = ds.GetAll();
             
             DoctorBox.ItemsSource = doktori;
-            
+            IdBox.Text = baza.GetNextId();
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
