@@ -88,5 +88,12 @@ namespace HospitalService.View.SecretaryUI
             }
         }
 
+        private void Appointments_Click(object sender, RoutedEventArgs e)
+        {
+            Appointments appointments = new Appointments();
+            appointments.ShowDialog();
+
+        }
+
     }
 }
