@@ -13,7 +13,8 @@
 
         <DataGrid SelectedItem="{Binding selectedInv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="tableBinding" IsReadOnly="True"  Margin="16,0,0,0"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
-                  Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14" SelectionChanged="selectionChanged">
+                  Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14" SelectionChanged="selectionChanged"
+                  ItemsSource="{Binding roomInventory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#f8f5ee"/>

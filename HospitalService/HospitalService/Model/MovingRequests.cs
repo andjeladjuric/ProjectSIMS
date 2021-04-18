@@ -9,8 +9,9 @@ namespace Model
     {
         public DateTime movingTime { get; set; }
         public int quantity { get; set; }
-        public Room moveFromThisRoom { get; set; }
-        public Room sendToThisRoom { get; set; }
+        public string moveFromThisRoom { get; set; }
+        public string sendToThisRoom { get; set; }
         public int inventoryId { get; set; }
+        public Boolean isDone { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
@@ -25,7 +26,7 @@ namespace HospitalService.View.ManagerUI
         public Room room;
         InventoryFileStorage invStorage = new InventoryFileStorage();
         RoomFileStorage roomStorage;
-        List<Inventory> roomInventory;
+       // ObservableCollection<Inventory> roomInventory;
         public DataGrid bind;
         public MovingRequests m = new MovingRequests();
         public List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
@@ -41,6 +42,13 @@ namespace HospitalService.View.ManagerUI
             }
         }
 
+        private ObservableCollection<Inventory> _roomInv;
+        public ObservableCollection<Inventory> roomInventory
+        {
+            get { return _roomInv; }
+            set { _roomInv = value; OnPropertyChanged("roomInventory"); }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
         {
@@ -49,7 +57,7 @@ namespace HospitalService.View.ManagerUI
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-        public MoveInventory(Room r, DataGrid dg, List<Inventory> inv)
+        public MoveInventory(Room r, DataGrid dg, ObservableCollection<Inventory> inv)
         {
             InitializeComponent();
 
@@ -58,13 +66,12 @@ namespace HospitalService.View.ManagerUI
             room = r;
             bind = dg;
             roomInventory = inv;
-            //grid.DataContext = this;
 
             List<String> roomNames = new List<string>();
             String source = "";
             roomStorage = new RoomFileStorage();
 
-            foreach(Room soba in roomStorage.GetAll())
+            foreach (Room soba in roomStorage.GetAll())
             {
                 if (soba.Id != r.Id)
                 {
@@ -74,8 +81,7 @@ namespace HospitalService.View.ManagerUI
             }
 
             comboBox.ItemsSource = roomNames;
-            tableBinding.ItemsSource = inv;
-            invStorage.analyzeRequests();
+            //tableBinding.ItemsSource = inv;
         }
 
         private void save_Click(object sender, RoutedEventArgs e)
@@ -110,10 +116,11 @@ namespace HospitalService.View.ManagerUI
                     else
                     {
                         m.inventoryId = inventoryId;
-                        m.moveFromThisRoom = room;
-                        m.sendToThisRoom = sendToThisRoom;
+                        m.moveFromThisRoom = room.Id;
+                        m.sendToThisRoom = sendToThisRoom.Id;
                         m.movingTime = Convert.ToDateTime(time + " " + date);
                         m.quantity = quantity;
+                        m.isDone = false;
                         requests.Add(m);
                         File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
                         break;

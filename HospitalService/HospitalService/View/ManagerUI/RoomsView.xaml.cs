@@ -21,6 +21,7 @@ namespace HospitalService.View.ManagerUI
     public partial class RoomsView : Page
     {
         RoomFileStorage storage;
+        InventoryFileStorage invStorage = new InventoryFileStorage();
         public RoomsView()
         {
             InitializeComponent();
@@ -42,12 +43,11 @@ namespace HospitalService.View.ManagerUI
             Room r = (Room)tableBinding.SelectedItem;
             if (r == null)
             {
-                MessageBox.Show("You must select an item!");
+                MessageBox.Show("Morate izabrati sobu!");
             }
             else
             {
                 newFrame.Content = new RoomEdit(r, tableBinding, storage);
-                //this.NavigationService.Navigate(new RoomEdit(r));
             }
         }
 

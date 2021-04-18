@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -13,7 +14,6 @@ namespace Model
         private List<Inventory> inventoryList;
         RoomFileStorage storage = new RoomFileStorage();
         List<MovingRequests> requests = new List<MovingRequests>();
-
 
         public InventoryFileStorage()
         {
@@ -369,7 +369,7 @@ namespace Model
             return inventoryList.Find(x => x.Id == id);
         }
 
-        public void  moveDynamicInventory(Room sendToThisRoom, Room moveFromThisRoom, int quantity, int inventoryId , List<Inventory> roomInventory, RoomFileStorage roomStorage)
+        public void  moveDynamicInventory(Room sendToThisRoom, Room moveFromThisRoom, int quantity, int inventoryId , ObservableCollection<Inventory> roomInventory, RoomFileStorage roomStorage)
         {
             foreach (Inventory stavka in roomInventory)
             {
@@ -419,21 +419,41 @@ namespace Model
         public void analyzeRequests()
         {
             requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-            List<Inventory> roomInventory = new List<Inventory>();
+            ObservableCollection<Inventory> roomInventory = new ObservableCollection<Inventory>();
+            Room moveToThisRoom = null;
+            Room sentToThisRoom = null;
 
             if (requests != null && requests.Count != 0)
             {
                 foreach (MovingRequests m in requests)
                 {
-                    if (DateTime.Compare(m.movingTime, DateTime.Now) < 0)
+                    foreach (Room r in storage.GetAll())
                     {
-                        foreach (int i in m.moveFromThisRoom.inventory.Keys)
+                        if (r.Id.Equals(m.moveFromThisRoom))
+                        {
+                            moveToThisRoom = r;
+                            break;
+                        }
+                    }
+
+                    foreach (Room r in storage.GetAll())
+                    {
+                        if (r.Id.Equals(m.sendToThisRoom))
+                        {
+                            sentToThisRoom = r;
+                            break;
+                        }
+                    }
+
+                    if (DateTime.Compare(m.movingTime, DateTime.Now) <= 0 && m.isDone == false)
+                    {
+                        foreach (int i in moveToThisRoom.inventory.Keys)
                         {
                             foreach (Inventory inv in inventoryList)
                             {
                                 if (i == inv.Id)
                                 {
-                                    inv.Quantity = m.moveFromThisRoom.inventory[i];
+                                    inv.Quantity = moveToThisRoom.inventory[i];
                                     roomInventory.Add(inv);
                                 }
                             }
@@ -446,18 +466,18 @@ namespace Model
                                 if (stavka.Quantity == m.quantity)
                                 {
                                     roomInventory.Remove(stavka);
-                                    m.moveFromThisRoom.inventory.Remove(stavka.Id);
-                                    storage.editRoom(m.moveFromThisRoom);
+                                    moveToThisRoom.inventory.Remove(stavka.Id);
+                                    storage.editRoom(moveToThisRoom);
 
-                                    if (m.sendToThisRoom.inventory.ContainsKey(stavka.Id))
+                                    if (sentToThisRoom.inventory.ContainsKey(stavka.Id))
                                     {
-                                        m.sendToThisRoom.inventory[stavka.Id] += m.quantity;
-                                        storage.editRoom(m.sendToThisRoom);
+                                        sentToThisRoom.inventory[stavka.Id] += m.quantity;
+                                        storage.editRoom(sentToThisRoom);
                                     }
                                     else
                                     {
-                                        m.sendToThisRoom.inventory.Add(stavka.Id, m.quantity);
-                                        storage.editRoom(m.sendToThisRoom);
+                                        sentToThisRoom.inventory.Add(stavka.Id, m.quantity);
+                                        storage.editRoom(sentToThisRoom);
                                     }
                                 }
                                 else if (m.quantity > stavka.Quantity)
@@ -465,23 +485,26 @@ namespace Model
                                 else
                                 {
                                     stavka.Quantity = stavka.Quantity - m.quantity;
-                                    m.moveFromThisRoom.inventory[stavka.Id] = stavka.Quantity;
-                                    storage.editRoom(m.moveFromThisRoom);
+                                    moveToThisRoom.inventory[stavka.Id] = stavka.Quantity;
+                                    storage.editRoom(moveToThisRoom);
 
-                                    if (m.sendToThisRoom.inventory.ContainsKey(stavka.Id))
+                                    if (sentToThisRoom.inventory.ContainsKey(stavka.Id))
                                     {
-                                        m.sendToThisRoom.inventory[stavka.Id] += m.quantity;
-                                        storage.editRoom(m.sendToThisRoom);
+                                        sentToThisRoom.inventory[stavka.Id] += m.quantity;
+                                        storage.editRoom(sentToThisRoom);
                                     }
                                     else
                                     {
-                                        m.sendToThisRoom.inventory.Add(stavka.Id, m.quantity);
-                                        storage.editRoom(m.sendToThisRoom);
+                                        sentToThisRoom.inventory.Add(stavka.Id, m.quantity);
+                                        storage.editRoom(sentToThisRoom);
                                     }
                                 }
                                 break;
                             }
                         }
+
+                        m.isDone = true;
+                        File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
                     }
                 }
 
