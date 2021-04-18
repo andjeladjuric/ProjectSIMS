@@ -1,0 +1,19 @@
+﻿<Window x:Class="HospitalService.View.SecretaryUI.PomeriTermin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		 xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
+        mc:Ignorable="d"
+        Title="PomeriTermin" Height="450" Width="617">
+    <StackPanel Margin="100,50,100,50">
+        <wpfTool:DateTimePicker x:Name="datum" Format="Custom" FormatString="MM/dd/yyyy "/>
+        <wpfTool:TimePicker x:Name="vreme"  Margin="10" Height="41"/>
+        <ComboBox x:Name="sala" DisplayMemberPath="Id" Margin="10" Height="26"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+            <Button   Margin="10" Height="32" Width="100" Content="Sacuvaj" Click="Button_Click"/>
+            <Button   Margin="10" Height="32" Width="100" Content="Odustani" Click="Button1_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
