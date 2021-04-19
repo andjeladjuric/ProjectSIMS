@@ -76,7 +76,7 @@ namespace HospitalService.View.SecretaryUI
                 }
 
                 new AppointmentStorage().Save(appointment);
-                MessageBox.Show("Uspesno ste zakazeli termin.");
+                MessageBox.Show("Uspesno ste zakazali termin.");
                 this.Close();
             }
             catch { MessageBox.Show("Niste uneli sva polja"); }
