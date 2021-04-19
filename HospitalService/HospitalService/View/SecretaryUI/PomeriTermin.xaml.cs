@@ -27,6 +27,8 @@ namespace HospitalService.View.SecretaryUI
 
             InitializeComponent();
             sala.ItemsSource = romms;
+            vreme.StartTime = new TimeSpan(8, 0, 0);
+            vreme.EndTime = new TimeSpan(20, 0, 0);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
