@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Storage;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -89,7 +90,9 @@ namespace Model
         {
             Patient patient = patients.Find(x => x.Jmbg == jmbg);
             patients.Remove(patient);
+            new MedicalRecordStorage().Delete(patient.medicalRecordId);
             File.WriteAllText(FileLocation, JsonConvert.SerializeObject(patients));
+
         }
 
         public void addRecord(String jmbg, String id)
