@@ -9,7 +9,7 @@
       Title="Doctor"  UseLayoutRounding="True" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Grid>
         <DockPanel Height="600" Width="950">
-            <Menu DockPanel.Dock="Top" Height="40" FontSize="16" FontFamily="Gill Sans MT">
+            <Menu DockPanel.Dock="Top" Height="40" FontSize="16" FontFamily="Open Sans">
                 <MenuItem Header="Profil" Width="65">
                     <MenuItem Header="Posjeti profil"/>
                     <MenuItem Header="Log Out" Click="LogOut_Click"/>
@@ -22,7 +22,7 @@
             </Menu>
             <StackPanel></StackPanel>
         </DockPanel>
-        <TabControl TabStripPlacement="Left" Margin="0,41,0,0" FontFamily="Gill Sans MT" FontSize="16" >
+        <TabControl TabStripPlacement="Left" Margin="0,41,0,0" FontFamily="Open Sans" FontSize="16" >
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabItem}">
                     <Setter Property="HeaderTemplate">
@@ -108,8 +108,8 @@
                     </DataGrid>
                 </DockPanel>
             </TabItem>
-            <TabItem Header="Lijekovi" Margin="-6,18,-2,-27" RenderTransformOrigin="0.516,0.695" />
-            <TabItem Header="Notifikacije" Margin="-3,27,0,-36" RenderTransformOrigin="0.473,0.895"/>
+            <TabItem Header="Lijekovi" Margin="-6,17,0,-26" RenderTransformOrigin="0.516,0.695" />
+            <TabItem Header="Notifikacije" Margin="-2,24,0,-33" RenderTransformOrigin="0.473,0.895"/>
         </TabControl>
 
     </Grid>

@@ -5,28 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI"
         mc:Ignorable="d"
-       Title="Recept" Height="520" Width="450" FontSize="18"  FontFamily="Gill Sans MT" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
-    <Grid Height="520" Width="450">
-        <Label Foreground="#FF696969" Content="Recept" FontSize="24" HorizontalAlignment="Left" Margin="189,22,0,0" VerticalAlignment="Top"/>
-        <Label Foreground="#FF696969" Content="Pacijent:" HorizontalAlignment="Left" Margin="57,98,0,0" VerticalAlignment="Top"/>
-        <Label Foreground="#FF696969" Content="Lijek*:" HorizontalAlignment="Left" Margin="57,150,0,0" VerticalAlignment="Top"/>
-        <Label Foreground="#FF696969" Content="Na koliko sati*:" HorizontalAlignment="Left" Margin="57,201,0,0" VerticalAlignment="Top"/>
-        <Label Foreground="#FF696969"  Content="Koliko dana*:" HorizontalAlignment="Left" Margin="59,254,0,0" VerticalAlignment="Top"/>
-        <Label Foreground="#FF696969" Content="Dodatne napomene:" HorizontalAlignment="Left" Margin="57,308,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="PatientTB" HorizontalAlignment="Left" Margin="197,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" IsEnabled="False"/>
-        <TextBox Name="MedicationTB" HorizontalAlignment="Left" Margin="197,158,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
-        <TextBox Name="DaysTB" HorizontalAlignment="Left" Margin="197,258,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-        <TextBox Name="HoursTB" HorizontalAlignment="Left" Margin="197,209,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-        <Button Click="Cancel_Click" Foreground="#FF696969" Content="Odustani" HorizontalAlignment="Left" Margin="109,450,0,0" VerticalAlignment="Top" Width="83">
+       Title="Recept" Height="600" Width="450" FontSize="18"  FontFamily="Open Sans" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Grid Height="600" Width="450" Margin="0,0,0,-6" RenderTransformOrigin="0.482,0.924">
+        <Label  Content="Recept" FontSize="24" HorizontalAlignment="Left" Margin="189,22,0,0" VerticalAlignment="Top"/>
+        <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="57,98,0,0" VerticalAlignment="Top"/>
+        <Label  Content="Lijek*:" HorizontalAlignment="Left" Margin="57,150,0,0" VerticalAlignment="Top"/>
+        <Label  Content="Na koliko sati*:" HorizontalAlignment="Left" Margin="57,201,0,0" VerticalAlignment="Top"/>
+        <Label   Content="Koliko dana*:" HorizontalAlignment="Left" Margin="59,254,0,0" VerticalAlignment="Top"/>
+        <Label  Content="Dodatne napomene:" HorizontalAlignment="Left" Margin="59,381,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="PatientTB" HorizontalAlignment="Left" Margin="210,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" IsEnabled="False"/>
+        <TextBox Name="MedicationTB" HorizontalAlignment="Left" Margin="210,150,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="185" />
+        <TextBox Name="DaysTB" HorizontalAlignment="Left" Margin="210,258,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+        <TextBox Name="HoursTB" HorizontalAlignment="Left" Margin="210,207,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70" />
+        <Button Click="Cancel_Click"  Content="Odustani" HorizontalAlignment="Left" Margin="113,532,0,0" VerticalAlignment="Top" Width="83">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button Click="Apply_Click" Foreground="#FF696969" Content="Potvrdi" HorizontalAlignment="Left" Margin="246,450,0,0" VerticalAlignment="Top" Width="87">
+        <Button Click="Apply_Click" Content="Potvrdi" HorizontalAlignment="Left" Margin="246,532,0,0" VerticalAlignment="Top" Width="87" RenderTransformOrigin="0.528,0.804">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <TextBox Background="WhiteSmoke" Name="InfoTB" HorizontalAlignment="Left" Margin="59,346,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="323" Height="74"/>
+        <TextBox Background="WhiteSmoke" Name="InfoTB" HorizontalAlignment="Left" Margin="71,417,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="324" Height="74"/>
+        <Label   Content="Datum  početka*:" HorizontalAlignment="Left" Margin="57,313,0,0" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" Margin="210,315,0,0" VerticalAlignment="Top" Width="123"/>
     </Grid>
 </Window>

@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI"
         mc:Ignorable="d"
-        Title="Izmjena termina" Height="490" Width="514" WindowStartupLocation="CenterScreen">
-    <Grid x:Name="editGrid" Margin="0,0,4,-39">
+        Title="Izmjena termina" Height="490" Width="514" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" FontSize="16">
+    <Grid x:Name="editGrid" Margin="0,0,4,-6">
         <TextBox  Name="IdTB" IsReadOnly="True" HorizontalAlignment="Left" Height="35" Margin="252,40,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168" RenderTransformOrigin="0.485,-0.456"/>
         <TextBox Name="startTB" HorizontalAlignment="Left" Height="37" Margin="254,148,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168" RenderTransformOrigin="1.684,0.193"/>
         <TextBox Name="endTB" HorizontalAlignment="Left" Height="36" Margin="254,211,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168"/>
