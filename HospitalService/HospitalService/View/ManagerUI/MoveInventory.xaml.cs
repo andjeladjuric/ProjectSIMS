@@ -42,6 +42,39 @@ namespace HospitalService.View.ManagerUI
             }
         }
 
+        private string _time;
+        public string Time
+        {
+            get { return _time; }
+            set
+            {
+                _time = value;
+                OnPropertyChanged("Time");
+            }
+        }
+
+        private string _date;
+        public string Date
+        {
+            get { return _date; }
+            set
+            {
+                _date = value;
+                OnPropertyChanged("Date");
+            }
+        }
+
+        private int _enteredQuantity;
+        public int EnteredQuantity
+        {
+            get { return _enteredQuantity; }
+            set
+            {
+                _enteredQuantity = value;
+                OnPropertyChanged("EnteredQuantity");
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
         {
@@ -74,6 +107,7 @@ namespace HospitalService.View.ManagerUI
             }
 
             comboBox.ItemsSource = roomNames;
+            quantityBox.Text = "";
             tableBinding.ItemsSource = inv;
         }
 
@@ -92,10 +126,10 @@ namespace HospitalService.View.ManagerUI
                 }
             }
 
-            int quantity = int.Parse(quantityBox.Text);
+            int quantity = EnteredQuantity;
             int inventoryId = int.Parse(IDBox.Text);
-            String time = TimeBox.Text;
-            String date = datePicker.Text;
+            String time = Time;
+            String date = Date;
 
             foreach (Inventory stavka in roomInventory)
             {
@@ -164,7 +198,7 @@ namespace HospitalService.View.ManagerUI
 
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
-            newFrame.Content = new ManageRoomInventory(room);
+            NavigationService.Navigate(new Page());
         }
 
         private void selectionChanged(object sender, SelectionChangedEventArgs e)
