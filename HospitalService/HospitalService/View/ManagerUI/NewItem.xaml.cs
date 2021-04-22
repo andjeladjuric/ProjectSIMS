@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -20,17 +21,79 @@ namespace HospitalService.View.ManagerUI
     /// <summary>
     /// Interaction logic for NewItem.xaml
     /// </summary>
-    public partial class NewItem : Page
+    public partial class NewItem : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        private string _itemId;
+        public string ItemId
+        {
+            get
+            {
+                return _itemId;
+            }
+            set
+            {
+                if (value != _itemId)
+                {
+                    _itemId = value;
+                    OnPropertyChanged("ItemId");
+                }
+            }
+        }
+
+        private string _itemName;
+        public string ItemName
+        {
+            get
+            {
+                return _itemName;
+            }
+            set
+            {
+                if (value != _itemName)
+                {
+                    _itemName = value;
+                    OnPropertyChanged("ItemName");
+                }
+            }
+        }
+
+        private string _quantity;
+        public string ItemQuantity
+        {
+            get
+            {
+                return _quantity;
+            }
+            set
+            {
+                if (value != _quantity)
+                {
+                    _quantity = value;
+                    OnPropertyChanged("ItemQuantity");
+                }
+            }
+        }
+
         public Inventory item { get; set; }
         InventoryFileStorage storage;
         DataGrid bind;
         public static List<String> equipment = Enum.GetNames(typeof(Equipment)).ToList();
         Regex checkName = new Regex(@"[A-Za-z]+([\s][A-Za-z]*[1-9]*)*$");
         Regex checkId = new Regex(@"[0-9]$");
+
         public NewItem(DataGrid dg, InventoryFileStorage st)
         {
             InitializeComponent();
+            this.DataContext = this;
             bind = dg;
             storage = st;
             comboBox.ItemsSource = equipment;
@@ -38,20 +101,11 @@ namespace HospitalService.View.ManagerUI
 
         private void save_Click(object sender, RoutedEventArgs e)
         {
-            foreach(Inventory inv in storage.GetAll())
-            {
-                if(inv.Id == int.Parse(IDBox.Text))
-                {
-                    MessageBox.Show("ID već postoji!");
-                    return;
-                }
-            }
-
             item = new Inventory();
             item.EquipmentType = (Equipment)comboBox.SelectedIndex;
             item.Id = Int32.Parse(IDBox.Text);
             item.Name = NameBox.Text;
-            item.Quantity = Int32.Parse(KolicinaBox.Text);
+            item.Quantity = Int32.Parse(QuantityBox.Text);
 
             storage.Save(item);
             bind.Items.Refresh();
@@ -61,48 +115,6 @@ namespace HospitalService.View.ManagerUI
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Page());
-        }
-
-        private void idTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!checkId.IsMatch(IDBox.Text))
-            {
-                label.Visibility = Visibility.Visible;
-                save.IsEnabled = false;
-            }
-            else
-            {
-                label.Visibility = Visibility.Hidden;
-                save.IsEnabled = true;
-            }
-
-        }
-
-        private void nameTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!checkName.IsMatch(NameBox.Text))
-            {
-                label2.Visibility = Visibility.Visible;
-                save.IsEnabled = false;
-            }
-            else
-            {
-                label2.Visibility = Visibility.Hidden;
-            }
-        }
-
-        private void KolicinaBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!checkId.IsMatch(KolicinaBox.Text))
-            {
-                label3.Visibility = Visibility.Visible;
-                save.IsEnabled = false;
-            }
-            else
-            {
-                label3.Visibility = Visibility.Hidden;
-                save.IsEnabled = true;
-            }
         }
     }
 

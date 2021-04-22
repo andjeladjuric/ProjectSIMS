@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.ManagerUI"
+      xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations"
       mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="969"
       Title="RoomEdit">
@@ -68,25 +69,58 @@
         <Grid x:Name="grid" Margin="590,101,0,105">
             <Rectangle HorizontalAlignment="Left" Height="447" Stroke="Black" VerticalAlignment="Top" Width="350" Margin="12,35,0,0"/>
 
-            <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="52,188,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="30"/>
-            <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="52,242,0,0" VerticalAlignment="Top" Width="112" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="32"/>
-            <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="52,297,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
-            <TextBox x:Name="IDBox" IsReadOnly="True"  HorizontalAlignment="Left" Height="30" Margin="170,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
-            <TextBox x:Name="NameBox"  HorizontalAlignment="Left" Height="32" Margin="170,242,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" TextChanged="textChanged" />
-            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="30" Margin="169,297,0,0" VerticalAlignment="Top" Width="154">
+            <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="59,167,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="30"/>
+            <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="59,221,0,0" VerticalAlignment="Top" Width="112" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="32"/>
+            <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="59,276,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
+            <TextBox x:Name="IDBox" IsReadOnly="True"  Text="{Binding roomId}"  HorizontalAlignment="Left" Height="30" Margin="177,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
+            <TextBox x:Name="NameBox"  HorizontalAlignment="Left" Height="32" Margin="177,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154">
+                <TextBox.Text>
+                    <Binding Path="roomName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validation:NameValidation ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="textBox"/>
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020" ToolTip="Pravilan format: Soba 1, Operaciona sala"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="30" Margin="176,276,0,0" VerticalAlignment="Top" Width="154">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource comboConvert}}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="83,416,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="saveClick" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="207,416,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="cancelClick" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+            <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="90,395,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="saveClick" 
+                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=NameBox, Path=Text}" Value="">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=NameBox, Path=(Validation.HasError)}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="214,395,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="cancelClick" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
             <Label x:Name="label" Visibility="Hidden" Content="Wrong format!" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="280,128,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="34,61,0,0" Text="Izmeni sobu" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
-            <Label x:Name="availability" Content="Dostupnost" HorizontalAlignment="Left" Margin="52,342,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
-            <RadioButton x:Name="available" Content="Da" HorizontalAlignment="Left" Margin="170,350,0,0" VerticalAlignment="Top" FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14"/>
-            <RadioButton x:Name="notAvailable" Content="Ne" HorizontalAlignment="Left" Margin="220,350,0,0" VerticalAlignment="Top" FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14" RenderTransformOrigin="-0.412,0.308"/>
+            <Label x:Name="availability" Content="Dostupnost" HorizontalAlignment="Left" Margin="59,321,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
+            <RadioButton x:Name="available" Content="Da" HorizontalAlignment="Left" Margin="177,329,0,0" VerticalAlignment="Top" FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14"/>
+            <RadioButton x:Name="notAvailable" Content="Ne" HorizontalAlignment="Left" Margin="227,329,0,0" VerticalAlignment="Top" FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14" RenderTransformOrigin="-0.412,0.308"/>
 
         </Grid>
     </Grid>
