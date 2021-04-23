@@ -13,7 +13,8 @@
 
     <Grid Background="White">
 
-        <DataGrid SelectedItem="{Binding selectedInv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="tableBinding" IsReadOnly="True"  Margin="16,0,0,0"
+        <DataGrid ItemsSource="{Binding roomInventory}" SelectedItem="{Binding selectedInv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                  x:Name="tableBinding" IsReadOnly="True"  Margin="16,0,0,0"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
                   Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14" SelectionChanged="selectionChanged">
             <DataGrid.Resources>
@@ -67,8 +68,10 @@
         <Grid x:Name="grid" Margin="590,101,0,105">
             <Rectangle HorizontalAlignment="Left" Height="442" Stroke="Black" VerticalAlignment="Center" Width="350" Margin="12,0,0,0"/>
 
-            <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="45,281,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="30"/>
-            <Label x:Name="quantity" Content="Količina" HorizontalAlignment="Left" Margin="45,334,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
+            <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="45,281,0,0" VerticalAlignment="Top" 
+                   Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="30"/>
+            <Label x:Name="quantity" Content="Količina" HorizontalAlignment="Left" Margin="45,334,0,0" VerticalAlignment="Top" 
+                   Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
             <TextBox x:Name="quantityBox" HorizontalAlignment="Left" Height="32" Margin="169,335,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154">
                 <TextBox.Resources>
                     <validation:MaxInventoryProxy x:Key="proxy" Data="{Binding}"/>
@@ -94,7 +97,7 @@
                 </Validation.ErrorTemplate>
             </TextBox>
 
-            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="30" Margin="169,280,0,0" VerticalAlignment="Top" Width="154"/>
+            <ComboBox x:Name="comboBox" ItemsSource="{Binding roomNames}" HorizontalAlignment="Left" Height="30" Margin="169,280,0,0" VerticalAlignment="Top" Width="154"/>
             <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="82,399,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="save_Click" 
                     Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14">
                 <Button.Style>
@@ -122,7 +125,8 @@
             <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="206,399,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="36,49,0,0" Text="Premesti stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
             <Label x:Name="Stavka" Content="Izabrana stavka" HorizontalAlignment="Left" Margin="45,138,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
-            <TextBox x:Name="IDBox" Text="{Binding selectedInv.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" HorizontalAlignment="Left" Height="32" Margin="169,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" />
+            <TextBox x:Name="IDBox" Text="{Binding selectedInv.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" 
+                     HorizontalAlignment="Left" Height="32" Margin="169,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" />
             <DatePicker x:Name="datePicker" DisplayDate="{Binding Date}" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Left" Margin="169,236,0,0" VerticalAlignment="Top" Width="154" Height="30"/>
             <Label x:Name="time" Content="Vreme" HorizontalAlignment="Left" Margin="45,188,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="30"/>
             <Label x:Name="date" Content="Datum" HorizontalAlignment="Left" Margin="45,232,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="30"/>

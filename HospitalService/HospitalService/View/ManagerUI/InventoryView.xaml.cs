@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,20 +20,23 @@ namespace HospitalService.View.ManagerUI
     /// </summary>
     public partial class InventoryView : Page
     {
-        InventoryFileStorage storage;
+        InventoryFileStorage storage = new InventoryFileStorage();
+        public ObservableCollection<Inventory> InventoryList { get; set; }
         public InventoryView()
         {
             InitializeComponent();
-
-            storage = new InventoryFileStorage();
-            List<Inventory> inventoryList = storage.GetAll();
             this.DataContext = this;
-            tableBinding.ItemsSource = inventoryList;
+            InventoryList = new ObservableCollection<Inventory>();
+
+            foreach (Inventory i in storage.GetAll())
+            {
+                InventoryList.Add(i);
+            }
         }
 
         private void create_Click(object sender, RoutedEventArgs e)
         {
-            newFrame.Content = new NewItem(tableBinding, storage);
+            newFrame.Content = new NewItem(InventoryList, storage);
         }
 
         private void update_Click(object sender, RoutedEventArgs e)
@@ -44,7 +48,7 @@ namespace HospitalService.View.ManagerUI
             }
             else
             {
-                newFrame.Content = new EditInventory(item, tableBinding, storage);
+                newFrame.Content = new EditInventory(item, InventoryList, storage);
             }
         }
 
@@ -58,6 +62,7 @@ namespace HospitalService.View.ManagerUI
             else
             {
                 storage.Delete(item.Id);
+                InventoryList.Remove(item);
                 tableBinding.Items.Refresh();
 
             }

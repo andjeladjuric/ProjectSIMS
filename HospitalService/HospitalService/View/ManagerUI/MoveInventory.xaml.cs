@@ -26,8 +26,8 @@ namespace HospitalService.View.ManagerUI
         public Room room;
         InventoryFileStorage invStorage = new InventoryFileStorage();
         RoomFileStorage roomStorage;
-        List<Inventory> roomInventory;
-        public DataGrid bind;
+        public ObservableCollection<Inventory> roomInventory { get; set; }
+        public List<String> roomNames { get; set; }
         public MovingRequests m = new MovingRequests();
         public List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
 
@@ -64,8 +64,8 @@ namespace HospitalService.View.ManagerUI
             }
         }
 
-        private int _enteredQuantity;
-        public int EnteredQuantity
+        private string _enteredQuantity;
+        public string EnteredQuantity
         {
             get { return _enteredQuantity; }
             set
@@ -83,20 +83,18 @@ namespace HospitalService.View.ManagerUI
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-        public MoveInventory(Room r, DataGrid dg, List<Inventory> inv)
+        public MoveInventory(Room r, ObservableCollection<Inventory> inv)
         {
             InitializeComponent();
 
             this.DataContext = this;
 
             room = r;
-            bind = dg;
             roomInventory = inv;
 
-            List<String> roomNames = new List<string>();
             String source = "";
             roomStorage = new RoomFileStorage();
-
+            roomNames = new List<string>();
             foreach (Room soba in roomStorage.GetAll())
             {
                 if (soba.Id != r.Id)
@@ -105,10 +103,6 @@ namespace HospitalService.View.ManagerUI
                     roomNames.Add(source);
                 }
             }
-
-            comboBox.ItemsSource = roomNames;
-            quantityBox.Text = "";
-            tableBinding.ItemsSource = inv;
         }
 
         private void save_Click(object sender, RoutedEventArgs e)
@@ -126,7 +120,7 @@ namespace HospitalService.View.ManagerUI
                 }
             }
 
-            int quantity = EnteredQuantity;
+            int quantity = Int32.Parse(EnteredQuantity);
             int inventoryId = int.Parse(IDBox.Text);
             String time = Time;
             String date = Date;

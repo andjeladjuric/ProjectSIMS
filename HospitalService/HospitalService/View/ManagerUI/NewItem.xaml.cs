@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -85,18 +86,14 @@ namespace HospitalService.View.ManagerUI
 
         public Inventory item { get; set; }
         InventoryFileStorage storage;
-        DataGrid bind;
-        public static List<String> equipment = Enum.GetNames(typeof(Equipment)).ToList();
-        Regex checkName = new Regex(@"[A-Za-z]+([\s][A-Za-z]*[1-9]*)*$");
-        Regex checkId = new Regex(@"[0-9]$");
+        ObservableCollection<Inventory> invList { get; set; }
 
-        public NewItem(DataGrid dg, InventoryFileStorage st)
+        public NewItem(ObservableCollection<Inventory> inv, InventoryFileStorage st)
         {
             InitializeComponent();
             this.DataContext = this;
-            bind = dg;
+            invList = inv;
             storage = st;
-            comboBox.ItemsSource = equipment;
         }
 
         private void save_Click(object sender, RoutedEventArgs e)
@@ -108,7 +105,7 @@ namespace HospitalService.View.ManagerUI
             item.Quantity = Int32.Parse(QuantityBox.Text);
 
             storage.Save(item);
-            bind.Items.Refresh();
+            invList.Add(item);
             NavigationService.Navigate(new Page());
         }
 

@@ -23,7 +23,7 @@ namespace HospitalService.View.ManagerUI
     {
         InventoryFileStorage invStorage = new InventoryFileStorage();
         RoomFileStorage roomStorage = new RoomFileStorage();
-        List<Inventory> roomInventory;
+        public ObservableCollection<Inventory> roomInventory { get; set; }
         Room r;
         public ManageRoomInventory(Room room)
         {
@@ -34,25 +34,16 @@ namespace HospitalService.View.ManagerUI
             IDBox.Text = r.Id;
             invStorage.analyzeRequests();
 
-            roomInventory = new List<Inventory>();
-
-            foreach (var item in r.inventory)
+            roomInventory = new ObservableCollection<Inventory>();
+            foreach (Inventory i in invStorage.getInventoryForRoom(r))
             {
-                foreach (Inventory inv in invStorage.GetAll())
-                {
-                    if (item.Key == inv.Id)
-                    {
-                        roomInventory.Add(new Inventory { Id = item.Key, Quantity = item.Value, Name = inv.Name, EquipmentType = inv.EquipmentType });
-                    }
-                }
+                roomInventory.Add(i);
             }
-
-            tableBinding.ItemsSource = roomInventory;
         }
 
         private void Premesti_Click(object sender, RoutedEventArgs e)
         {
-            newFrame.Content = new MoveInventory(r, tableBinding, roomInventory);
+            newFrame.Content = new MoveInventory(r, roomInventory);
         }
 
         private void goBack_Click(object sender, RoutedEventArgs e)

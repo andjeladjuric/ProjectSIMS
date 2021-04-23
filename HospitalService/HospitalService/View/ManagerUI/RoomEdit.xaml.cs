@@ -33,34 +33,6 @@ namespace HospitalService.View.ManagerUI
             }
         }
 
-        private Room _r;
-        public Room selectedRoom
-        {
-            get { return _r; }
-            set
-            {
-                _r = value;
-                OnPropertyChanged("selectedRoom");
-            }
-        }
-
-        /*private string _id;
-        public string roomId
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                if (value != _id)
-                {
-                    _id = value;
-                    OnPropertyChanged("roomId");
-                }
-            }
-        }
-
         private string _name;
         public string roomName
         {
@@ -76,9 +48,9 @@ namespace HospitalService.View.ManagerUI
                     OnPropertyChanged("roomName");
                 }
             }
-        }*/
-
+        }
         public Room room { get; set; }
+  
         RoomFileStorage storage;
         public ObservableCollection<Room> roomList { get; set; }
         public RoomEdit(Room r, ObservableCollection<Room> rooms, RoomFileStorage st)
@@ -88,13 +60,6 @@ namespace HospitalService.View.ManagerUI
             room = r;
             roomList = rooms;
             storage = st;
-
-            if (room.IsFree)
-                available.IsChecked = true;
-            else
-                notAvailable.IsChecked = true;
-            selectedRoom = storage.getOne(room.Id);
-            tableBinding.SelectedItem = selectedRoom;
         }
 
         private void saveClick(object sender, RoutedEventArgs e)
@@ -103,6 +68,7 @@ namespace HospitalService.View.ManagerUI
             string id = room.Id;
             string neki = NameBox.Text;
             Boolean slobodan;
+
             if ((bool)available.IsChecked)
             {
                 slobodan = true;
@@ -113,12 +79,12 @@ namespace HospitalService.View.ManagerUI
             }
 
             storage.Edit(id, neki, tip, slobodan);
-            NavigationService.Navigate(new Page());
+            newFrame.NavigationService.Navigate(new RoomsView());
         }
 
         private void cancelClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Page());
+            newFrame.NavigationService.Navigate(new RoomsView());
         }
     }
 }

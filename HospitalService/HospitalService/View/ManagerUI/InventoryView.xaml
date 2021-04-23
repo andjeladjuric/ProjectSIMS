@@ -13,9 +13,10 @@
     </Page.Resources>
 
     <Grid Background="White">
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="202,56,0,0" Text="Inventar" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="46" FontStyle="Italic" TextAlignment="Left"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="202,56,0,0" Text="Inventar" 
+                   TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="46" FontStyle="Italic" TextAlignment="Left"/>
 
-        <DataGrid x:Name="tableBinding" IsReadOnly="True"
+        <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding InventoryList}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
                   Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14">
             <DataGrid.Resources>

@@ -166,10 +166,27 @@ namespace Model
             return inventoryList.Find(x => x.Id == id);
         }
 
+        public List<Inventory> getInventoryForRoom(Room r)
+        {
+            List<Inventory> roomInventory = new List<Inventory>();
+
+            foreach (var item in r.inventory)
+            {
+                foreach (Inventory inv in inventoryList)
+                {
+                    if (item.Key == inv.Id)
+                    {
+                        roomInventory.Add(new Inventory { Id = item.Key, Quantity = item.Value, Name = inv.Name, EquipmentType = inv.EquipmentType });
+                    }
+                }
+            }
+
+            return roomInventory;
+        }
         public void analyzeRequests()
         {
             requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-            ObservableCollection<Inventory> roomInventory = new ObservableCollection<Inventory>();
+            List<Inventory> roomInventory = new List<Inventory>();
             Room moveToThisRoom = null;
             Room sentToThisRoom = null;
 
@@ -177,37 +194,27 @@ namespace Model
             {
                 foreach (MovingRequests m in requests)
                 {
-                    foreach (Room r in storage.GetAll())
-                    {
-                        if (r.Id.Equals(m.moveFromThisRoom))
-                        {
-                            moveToThisRoom = r;
-                            break;
-                        }
-                    }
-
-                    foreach (Room r in storage.GetAll())
-                    {
-                        if (r.Id.Equals(m.sendToThisRoom))
-                        {
-                            sentToThisRoom = r;
-                            break;
-                        }
-                    }
-
                     if (DateTime.Compare(m.movingTime, DateTime.Now) <= 0 && m.isDone == false)
                     {
-                        foreach (int i in moveToThisRoom.inventory.Keys)
+                        foreach (Room r in storage.GetAll())
                         {
-                            foreach (Inventory inv in inventoryList)
+                            if (r.Id.Equals(m.moveFromThisRoom))
                             {
-                                if (i == inv.Id)
-                                {
-                                    inv.Quantity = moveToThisRoom.inventory[i];
-                                    roomInventory.Add(inv);
-                                }
+                                moveToThisRoom = r;
+                                break;
                             }
                         }
+
+                        foreach (Room r in storage.GetAll())
+                        {
+                            if (r.Id.Equals(m.sendToThisRoom))
+                            {
+                                sentToThisRoom = r;
+                                break;
+                            }
+                        }
+
+                        roomInventory = getInventoryForRoom(moveToThisRoom);
 
                         foreach (Inventory stavka in roomInventory)
                         {

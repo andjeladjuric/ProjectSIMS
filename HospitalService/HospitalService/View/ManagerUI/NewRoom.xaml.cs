@@ -50,9 +50,26 @@ namespace HospitalService.View.ManagerUI
              }
          }
 
+        private string _roomName;
+        public string RoomName
+        {
+            get
+            {
+                return _roomName;
+            }
+            set
+            {
+                if (value != _roomName)
+                {
+                    _roomName = value;
+                    OnPropertyChanged("RoomName");
+                }
+            }
+        }
+
         public Room room { get; set; }
         RoomFileStorage storage;
-        ObservableCollection<Room> bind;
+        ObservableCollection<Room> bind { get; set; }
 
         public NewRoom(ObservableCollection<Room> r, RoomFileStorage st)
         {

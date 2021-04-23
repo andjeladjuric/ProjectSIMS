@@ -14,7 +14,7 @@
     </Page.Resources>
 
     <Grid Background="White">
-        <DataGrid x:Name="tableBinding" IsReadOnly="True"
+        <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding roomInventory}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
                   Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14">
             <DataGrid.Resources>

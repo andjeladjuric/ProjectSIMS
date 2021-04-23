@@ -44,14 +44,7 @@ namespace HospitalService.View.ManagerUI
         private void update_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             Room r = (Room)tableBinding.SelectedItem;
-            if (r == null)
-            {
-                MessageBox.Show("Morate izabrati sobu!");
-            }
-            else
-            {
-                newFrame.Content = new RoomEdit(r, rooms, storage);
-            }
+            newFrame.Content = new RoomEdit(r, rooms, storage);
         }
 
         private void delete_Click(object sender, System.Windows.RoutedEventArgs e)
