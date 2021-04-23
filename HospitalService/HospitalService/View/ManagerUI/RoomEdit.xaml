@@ -71,16 +71,17 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Grid x:Name="grid" Margin="590,101,0,105" DataContext="{Binding ElementName=tableBinding, Path=SelectedItem}">
+        <Grid x:Name="grid" Margin="590,101,0,105">
             <Rectangle HorizontalAlignment="Left" Height="447" Stroke="Black" VerticalAlignment="Top" Width="350" Margin="12,35,0,0"/>
 
             <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="59,167,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="30"/>
             <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="59,221,0,0" VerticalAlignment="Top" Width="112" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="32"/>
             <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="59,276,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
-            <TextBox x:Name="IDBox" IsReadOnly="True" Text="{Binding Path=Id, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Height="30" Margin="177,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
-            <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="32" Margin="177,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154">
+            <TextBox x:Name="IDBox" IsReadOnly="True" Text="{Binding room.Id, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Height="30" Margin="177,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
+            <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="32" Margin="177,221,0,0" TextWrapping="Wrap" 
+                     VerticalAlignment="Top" Width="154">
                 <TextBox.Text>
-                    <Binding Path="Name" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="roomName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validation:NameValidation ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules>
@@ -97,7 +98,7 @@
             </TextBox>
 
             <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
-                      SelectedItem="{Binding Path=Type, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding room.Type, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       HorizontalAlignment="Left" Height="30" Margin="176,276,0,0" VerticalAlignment="Top" Width="154">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -127,7 +128,7 @@
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="34,61,0,0" Text="Izmeni sobu" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
             
             <Label x:Name="availability" Content="Dostupnost" HorizontalAlignment="Left" Margin="59,321,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
-            <RadioButton x:Name="available" IsChecked="{Binding IsFree, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <RadioButton x:Name="available" IsChecked="{Binding room.IsFree, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                          Content="Da" HorizontalAlignment="Left" Margin="177,329,0,0" VerticalAlignment="Top" 
                          FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14"/>
             <RadioButton x:Name="notAvailable" Content="Ne" HorizontalAlignment="Left" Margin="227,329,0,0" VerticalAlignment="Top" 

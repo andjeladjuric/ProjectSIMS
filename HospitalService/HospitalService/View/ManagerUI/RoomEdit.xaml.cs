@@ -42,15 +42,11 @@ namespace HospitalService.View.ManagerUI
             }
             set
             {
-                if (value != _name)
-                {
-                    _name = value;
-                    OnPropertyChanged("roomName");
-                }
+                _name = value;
+                OnPropertyChanged("roomName");
             }
         }
         public Room room { get; set; }
-  
         RoomFileStorage storage;
         public ObservableCollection<Room> roomList { get; set; }
         public RoomEdit(Room r, ObservableCollection<Room> rooms, RoomFileStorage st)
@@ -60,6 +56,8 @@ namespace HospitalService.View.ManagerUI
             room = r;
             roomList = rooms;
             storage = st;
+
+            roomName = room.Name;
         }
 
         private void saveClick(object sender, RoutedEventArgs e)
@@ -84,6 +82,7 @@ namespace HospitalService.View.ManagerUI
 
         private void cancelClick(object sender, RoutedEventArgs e)
         {
+            NameBox.Visibility = Visibility.Hidden;
             newFrame.NavigationService.Navigate(new RoomsView());
         }
     }
