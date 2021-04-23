@@ -1,55 +1,74 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Model
 {
-    public class Room
+    public class Room : INotifyPropertyChanged
     {
-        public RoomType Type { get; set; }
-        public String Id { get; set; }
-        public String Name { get; set; }
-        public Boolean IsFree { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        private RoomType _type;
+        private string _id;
+        private string _name;
+        private Boolean _isFree;
+
+        public RoomType Type 
+        { 
+            get { return _type; }
+            set
+            {
+                if(value != _type)
+                {
+                    _type = value;
+                    OnPropertyChanged("Type");
+                }
+            }
+        }
+        public string Id
+        {
+            get { return _id; }
+            set
+            {
+                if (value != _id)
+                {
+                    _id = value;
+                    OnPropertyChanged("Id");
+                }
+            }
+        }
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
+        public Boolean IsFree
+        {
+            get { return _isFree; }
+            set
+            {
+                if (value != _isFree)
+                {
+                    _isFree = value;
+                    OnPropertyChanged("IsFree");
+                }
+            }
+        }
 
         public Dictionary<int, int> inventory { get; set; }
-
-        /*public System.Collections.ArrayList GetInventory()
-        {
-            if (inventory == null)
-                inventory = new System.Collections.ArrayList();
-            return inventory;
-        }
-
-        public void SetInventory(System.Collections.ArrayList newInventory)
-        {
-            RemoveAllInventory();
-            foreach (Inventory oInventory in newInventory)
-                AddInventory(oInventory);
-        }
-
-        public void AddInventory(Inventory newInventory)
-        {
-            if (newInventory == null)
-                return;
-            if (this.inventory == null)
-                this.inventory = new System.Collections.ArrayList();
-            if (!this.inventory.Contains(newInventory))
-                this.inventory.Add(newInventory);
-        }
-
-        public void RemoveInventory(Inventory oldInventory)
-        {
-            if (oldInventory == null)
-                return;
-            if (this.inventory != null)
-                if (this.inventory.Contains(oldInventory))
-                    this.inventory.Remove(oldInventory);
-        }
-
-        public void RemoveAllInventory()
-        {
-            if (inventory != null)
-                inventory.Clear();
-        }*/
-
     }
 }

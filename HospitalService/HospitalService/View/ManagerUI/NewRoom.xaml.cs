@@ -2,6 +2,7 @@
 using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -33,52 +34,33 @@ namespace HospitalService.View.ManagerUI
         }
 
         private string _roomId;
-        public string RoomId
-        {
-            get
-            {
-                return _roomId;
-            }
-            set
-            {
-                if (value != _roomId)
-                {
-                    _roomId = value;
-                    OnPropertyChanged("RoomId");
-                }
-            }
-        }
-
-        private string _name;
-        public string roomName
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    OnPropertyChanged("roomName");
-                }
-            }
-        }
+         public string RoomId
+         {
+             get
+             {
+                 return _roomId;
+             }
+             set
+             {
+                 if (value != _roomId)
+                 {
+                     _roomId = value;
+                     OnPropertyChanged("RoomId");
+                 }
+             }
+         }
 
         public Room room { get; set; }
         RoomFileStorage storage;
-        DataGrid bind;
-        public static List<String> roomTypes = Enum.GetNames(typeof(RoomType)).ToList();
+        ObservableCollection<Room> bind;
 
-        public NewRoom(DataGrid dg, RoomFileStorage st)
+        public NewRoom(ObservableCollection<Room> r, RoomFileStorage st)
         {
             InitializeComponent();
             this.DataContext = this;
 
-            bind = dg;
+            bind = r;
             storage = st;
-            comboBox.ItemsSource = roomTypes;
         }
 
         private void save_Click(object sender, RoutedEventArgs e)
@@ -88,6 +70,7 @@ namespace HospitalService.View.ManagerUI
             room.Id = IDBox.Text;
             room.Name = NameBox.Text;
             room.inventory = new Dictionary<int, int>();
+
             if ((bool)available.IsChecked)
             {
                 room.IsFree = true;
@@ -98,7 +81,7 @@ namespace HospitalService.View.ManagerUI
             }
 
             storage.Save(room);
-            bind.Items.Refresh();
+            bind.Add(room);
             NavigationService.Navigate(new Page());
         }
 

@@ -29,11 +29,48 @@ namespace Model
         public void Delete(string roomId)
         {
             Room r;
+            InventoryFileStorage invStorage = new InventoryFileStorage();
+            List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
             for (int i = 0; i < rooms.Count; i++)
             {
                 r = rooms[i];
                 if (r.Id.Equals(roomId))
                 {
+                    foreach(int k in r.inventory.Keys)
+                    {
+                        foreach (Room soba in getByType(RoomType.StorageRoom))
+                        {
+                            if (soba.inventory.ContainsKey(k))
+                            {
+                                soba.inventory[k] += r.inventory[k];
+                                break;
+                            }
+                            else
+                            {
+                                soba.inventory.Add(k, r.inventory[k]);
+                                break;
+                            }
+                        }
+                    }
+
+                    MovingRequests mr;
+                    for (int m = 0; m < requests.Count; m++)
+                    {
+                        mr = requests[m];
+                        if (r.Id.Equals(mr.moveFromThisRoom))
+                        {
+                            requests.RemoveAt(m);
+                            File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
+                            continue;
+                        }
+                        else if (r.Id.Equals(mr.sendToThisRoom))
+                        {
+                            requests.RemoveAt(m);
+                            File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
+                            continue;
+                        }
+                    }
+
                     rooms.RemoveAt(i);
                     File.WriteAllText(FileLocation, JsonConvert.SerializeObject(rooms));
                     break;

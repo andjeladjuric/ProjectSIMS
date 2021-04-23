@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text;
 using System.Windows;
@@ -20,22 +21,24 @@ namespace HospitalService.View.ManagerUI
     /// </summary>
     public partial class RoomsView : Page
     {
-        RoomFileStorage storage;
+        RoomFileStorage storage = new RoomFileStorage();
         InventoryFileStorage invStorage = new InventoryFileStorage();
+        public ObservableCollection<Room> rooms { get; set; }
         public RoomsView()
         {
             InitializeComponent();
             this.DataContext = this;
-            storage = new RoomFileStorage();
-            List<Room> rooms = storage.GetAll();
-
-            tableBinding.ItemsSource = rooms;
-
+            rooms = new ObservableCollection<Room>();
+            
+            foreach (Room r in storage.GetAll())
+            {
+                rooms.Add(r);
+            }
         }
 
         private void create_Click(object sender, RoutedEventArgs e)
         {
-            newFrame.Content = new NewRoom(tableBinding, storage);
+            newFrame.Content = new NewRoom(rooms, storage);
         }
 
         private void update_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -47,7 +50,7 @@ namespace HospitalService.View.ManagerUI
             }
             else
             {
-                newFrame.Content = new RoomEdit(r, tableBinding, storage);
+                newFrame.Content = new RoomEdit(r, rooms, storage);
             }
         }
 
@@ -61,8 +64,7 @@ namespace HospitalService.View.ManagerUI
             else
             {
                 storage.Delete(r.Id);
-                tableBinding.Items.Refresh();
-
+                rooms.Remove(r);
             }
         }
 

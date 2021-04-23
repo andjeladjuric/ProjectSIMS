@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -32,7 +33,18 @@ namespace HospitalService.View.ManagerUI
             }
         }
 
-        private string _id;
+        private Room _r;
+        public Room selectedRoom
+        {
+            get { return _r; }
+            set
+            {
+                _r = value;
+                OnPropertyChanged("selectedRoom");
+            }
+        }
+
+        /*private string _id;
         public string roomId
         {
             get
@@ -64,37 +76,31 @@ namespace HospitalService.View.ManagerUI
                     OnPropertyChanged("roomName");
                 }
             }
-        }
+        }*/
 
         public Room room { get; set; }
         RoomFileStorage storage;
-        public static List<String> roomTypes = Enum.GetNames(typeof(RoomType)).ToList();
-        public DataGrid bind;
-        public RoomEdit(Room r, DataGrid dg, RoomFileStorage st)
+        public ObservableCollection<Room> roomList { get; set; }
+        public RoomEdit(Room r, ObservableCollection<Room> rooms, RoomFileStorage st)
         {
             InitializeComponent();
-            room = r;
-            bind = dg;
-            storage = st;
             this.DataContext = this;
-            comboBox.ItemsSource = roomTypes;
-            comboBox.SelectedItem = room.Type.ToString();
-            roomId = room.Id;
-            roomName = room.Name;
+            room = r;
+            roomList = rooms;
+            storage = st;
 
             if (room.IsFree)
                 available.IsChecked = true;
             else
                 notAvailable.IsChecked = true;
-
-            tableBinding.ItemsSource = storage.GetAll();
-            tableBinding.SelectedItem = storage.getOne(roomId);
+            selectedRoom = storage.getOne(room.Id);
+            tableBinding.SelectedItem = selectedRoom;
         }
 
         private void saveClick(object sender, RoutedEventArgs e)
         {
             RoomType tip = (RoomType)comboBox.SelectedIndex;
-            string id = IDBox.Text;
+            string id = room.Id;
             string neki = NameBox.Text;
             Boolean slobodan;
             if ((bool)available.IsChecked)
@@ -108,7 +114,6 @@ namespace HospitalService.View.ManagerUI
 
             storage.Edit(id, neki, tip, slobodan);
             NavigationService.Navigate(new Page());
-            bind.Items.Refresh();
         }
 
         private void cancelClick(object sender, RoutedEventArgs e)

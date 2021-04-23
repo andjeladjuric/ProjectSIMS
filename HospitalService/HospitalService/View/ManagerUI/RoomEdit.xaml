@@ -5,17 +5,25 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.ManagerUI"
       xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
+      xmlns:model="clr-namespace:Model"
       mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="969"
       Title="RoomEdit">
 
     <Page.Resources>
         <local:EnumValueConverter x:Key="comboConvert"/>
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:RoomType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </Page.Resources>
 
     <Grid Background="White">
-
-        <DataGrid x:Name="tableBinding" IsReadOnly="True"  Margin="16,0,0,0"
+        <!--SelectedItem="{Binding selectedRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
+        <DataGrid x:Name="tableBinding" IsReadOnly="True"  Margin="16,0,0,0" ItemsSource="{Binding roomList}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
                   Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14">
             <DataGrid.Resources>
@@ -72,10 +80,10 @@
             <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="59,167,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="30"/>
             <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="59,221,0,0" VerticalAlignment="Top" Width="112" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="32"/>
             <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="59,276,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
-            <TextBox x:Name="IDBox" IsReadOnly="True"  Text="{Binding roomId}"  HorizontalAlignment="Left" Height="30" Margin="177,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
-            <TextBox x:Name="NameBox"  HorizontalAlignment="Left" Height="32" Margin="177,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154">
+            <TextBox x:Name="IDBox" IsReadOnly="True" Text="{Binding selectedRoom.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Height="30" Margin="177,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
+            <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="32" Margin="177,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154">
                 <TextBox.Text>
-                    <Binding Path="roomName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="selectedRoom.Name" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validation:NameValidation ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules>
@@ -91,7 +99,9 @@
                 </Validation.ErrorTemplate>
             </TextBox>
 
-            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="30" Margin="176,276,0,0" VerticalAlignment="Top" Width="154">
+            <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
+                      SelectedItem="{Binding selectedRoom.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      HorizontalAlignment="Left" Height="30" Margin="176,276,0,0" VerticalAlignment="Top" Width="154">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource comboConvert}}"/>
@@ -119,8 +129,10 @@
             <Label x:Name="label" Visibility="Hidden" Content="Wrong format!" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="280,128,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="34,61,0,0" Text="Izmeni sobu" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
             <Label x:Name="availability" Content="Dostupnost" HorizontalAlignment="Left" Margin="59,321,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
-            <RadioButton x:Name="available" Content="Da" HorizontalAlignment="Left" Margin="177,329,0,0" VerticalAlignment="Top" FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14"/>
-            <RadioButton x:Name="notAvailable" Content="Ne" HorizontalAlignment="Left" Margin="227,329,0,0" VerticalAlignment="Top" FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14" RenderTransformOrigin="-0.412,0.308"/>
+            <RadioButton x:Name="available" Content="Da" HorizontalAlignment="Left" Margin="177,329,0,0" VerticalAlignment="Top" 
+                         FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14"/>
+            <RadioButton x:Name="notAvailable" Content="Ne" HorizontalAlignment="Left" Margin="227,329,0,0" VerticalAlignment="Top" 
+                         FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14" RenderTransformOrigin="-0.412,0.308"/>
 
         </Grid>
     </Grid>

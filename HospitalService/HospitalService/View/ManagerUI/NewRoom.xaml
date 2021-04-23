@@ -5,12 +5,20 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.ManagerUI"
       xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
+      xmlns:model="clr-namespace:Model"
       mc:Ignorable="d" 
      d:DesignHeight="718" d:DesignWidth="969"
       Title="NewRoom">
 
     <Page.Resources>
         <local:EnumValueConverter x:Key="comboConvert"/>
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:RoomType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </Page.Resources>
 
     <Grid Background="White">
@@ -30,7 +38,7 @@
                 <ControlTemplate>
                     <StackPanel>
                         <AdornedElementPlaceholder x:Name="textBox"/>
-                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020" ToolTip="Pravilan format: 101a, 202, 303, 405b"/>
+                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020" ToolTip="Pravilan format: Soba 1, Operaciona sala"/>
                     </StackPanel>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
@@ -39,7 +47,7 @@
 
         <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="35" Margin="468,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172">
             <TextBox.Text>
-                <Binding Path="roomName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="Name" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validation:NameValidation ValidationStep="RawProposedValue"/>
                     </Binding.ValidationRules>
@@ -54,8 +62,9 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </TextBox>
-            
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="34" Margin="468,0,0,0" VerticalAlignment="Center" Width="172">
+
+        <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
+                  HorizontalAlignment="Left" Height="34" Margin="468,0,0,0" VerticalAlignment="Center" Width="172">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource comboConvert}}"/>
