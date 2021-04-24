@@ -32,7 +32,7 @@ namespace HospitalService.View.ManagerUI
             this.DataContext = this; 
             r = room;
             IDBox.Text = r.Id;
-            invStorage.analyzeRequests();
+            //invStorage.analyzeRequests();
 
             roomInventory = new ObservableCollection<Inventory>();
             foreach (Inventory i in invStorage.getInventoryForRoom(r))
@@ -49,6 +49,11 @@ namespace HospitalService.View.ManagerUI
         private void goBack_Click(object sender, RoutedEventArgs e)
         {
             newFrame.Content = new RoomsView();
+        }
+
+        private void changeQuantity_Click(object sender, RoutedEventArgs e)
+        {
+            newFrame.Content = new ChangeInventoryQuantity(r, roomInventory);
         }
     }
 }

@@ -71,6 +71,9 @@
         <Button x:Name="goBack" Click="goBack_Click" Background="{x:Null}" BorderThickness="0" Margin="0,78,737,610" HorizontalAlignment="Right" Width="30" Height="30">
             <materialDesign:PackIcon Kind="ArrowLeft" Width="30" Height="30" HorizontalAlignment="Center" />
         </Button>
+        <Button Background="#adc5d0" x:Name="changeQuantity" Content="Izmeni stanje" HorizontalAlignment="Left" Margin="331,606,0,0" 
+                VerticalAlignment="Top" Height="26" Width="112" Click="changeQuantity_Click" 
+                Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
 
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
 

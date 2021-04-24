@@ -21,7 +21,7 @@
         </ObjectDataProvider>
     </Page.Resources>
 
-    <Grid Background="White" Margin="0,68,0,-68">
+    <Grid Background="White">
         <Rectangle HorizontalAlignment="Center" Height="442" Stroke="Black" VerticalAlignment="Top" Width="398" Margin="0,133,0,0"/>
 
         <Label x:Name="id" Content="ID" HorizontalAlignment="Left" Margin="332,217,0,0" VerticalAlignment="Top" Width="130" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="34"/>
@@ -120,11 +120,8 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </TextBox>
-        
-        
-        
-        
+   
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="332,56,0,0" Text="Dodaj stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
-
+        <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>

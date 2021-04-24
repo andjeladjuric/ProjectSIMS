@@ -44,7 +44,12 @@ namespace HospitalService.View.ManagerUI
         private void update_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             Room r = (Room)tableBinding.SelectedItem;
-            newFrame.Content = new RoomEdit(r, rooms, storage);
+            if (r == null)
+            {
+                MessageBox.Show("Morate izabrati stavku!");
+            }
+            else
+                newFrame.Content = new RoomEdit(r, rooms, storage);
         }
 
         private void delete_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -63,7 +68,7 @@ namespace HospitalService.View.ManagerUI
 
         private void inventory_Click(object sender, RoutedEventArgs e)
         {
-            invStorage.analyzeRequests();
+            invStorage.AnalyzeRequests();
             Room r = (Room)tableBinding.SelectedItem;
 
             if (r != null)

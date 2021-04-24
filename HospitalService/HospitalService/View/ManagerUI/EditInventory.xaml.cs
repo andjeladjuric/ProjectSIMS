@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,8 +21,50 @@ namespace HospitalService.View.ManagerUI
     /// <summary>
     /// Interaction logic for EditInventory.xaml
     /// </summary>
-    public partial class EditInventory : Page
+    public partial class EditInventory : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        private string _itemName;
+        public string ItemName
+        {
+            get
+            {
+                return _itemName;
+            }
+            set
+            {
+                if (value != _itemName)
+                {
+                    _itemName = value;
+                    OnPropertyChanged("ItemName");
+                }
+            }
+        }
+
+        private string _enteredQuantity;
+        public string EnteredQuantity
+        {
+            get
+            {
+                return _enteredQuantity;
+            }
+            set
+            {
+                if (value != _enteredQuantity)
+                {
+                    _enteredQuantity = value;
+                    OnPropertyChanged("EnteredQuantity");
+                }
+            }
+        }
         public Inventory item { get; set; }
         InventoryFileStorage storage;
         public ObservableCollection<Inventory> invList { get; set; }
@@ -32,6 +75,9 @@ namespace HospitalService.View.ManagerUI
             invList = inv;
             storage = st;
             this.DataContext = this;
+
+            EnteredQuantity = item.Quantity.ToString();
+            ItemName = item.Name;
         }
 
         private void save_Click(object sender, RoutedEventArgs e)
@@ -42,13 +88,14 @@ namespace HospitalService.View.ManagerUI
             int kol = Int32.Parse(KolicinaBox.Text);
 
             storage.Edit(id, neki, tip, kol);
-            NavigationService.Navigate(new Page());
-            //bind.Items.Refresh();
+            newFrame.NavigationService.Navigate(new InventoryView());
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Page());
+            NameBox.Visibility = Visibility.Hidden;
+            KolicinaBox.Visibility = Visibility.Hidden;
+            newFrame.NavigationService.Navigate(new InventoryView());
         }
     }
 }

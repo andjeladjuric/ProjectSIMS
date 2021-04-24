@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace HospitalService.View.ManagerUI
 {
@@ -24,7 +26,7 @@ namespace HospitalService.View.ManagerUI
         {
             InitializeComponent();
             manager = m;
-            invStorage.analyzeRequests();
+            invStorage.AnalyzeRequests();
         }
 
         private void openButtonClick(object sender, RoutedEventArgs e)

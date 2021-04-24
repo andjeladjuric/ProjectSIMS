@@ -85,4 +85,58 @@ namespace HospitalService.View.ManagerUI.Validations
         public static readonly DependencyProperty DataProperty = DependencyProperty.Register("Data", typeof(object),
             typeof(MaxInventoryProxy), new PropertyMetadata(null));
     }
+
+    public class EditQuantityValidation : ValidationRule
+    {
+        public MinInventoryWrapper Wrapper { get; set; }
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            try
+            {
+                if (value.ToString().Equals(String.Empty))
+                    return new ValidationResult(false, "Polje ne sme biti prazno!");
+
+                if (Wrapper != null)
+                {
+                    if (Int32.Parse(value.ToString()) < Wrapper.Min)
+                        return new ValidationResult(false, "Količinu možete smanjiti iz sobe!");
+                }
+
+                return new ValidationResult(true, null);
+            }
+            catch
+            {
+                return new ValidationResult(false, "Samo celi brojevi!");
+            }
+        }
+    }
+
+    public class MinInventoryWrapper : DependencyObject
+    {
+        public static readonly DependencyProperty MinInventoryProperty = DependencyProperty.Register("Min", typeof(int),
+            typeof(MinInventoryWrapper), new FrameworkPropertyMetadata(0));
+
+        public int Min
+        {
+            get { return (int)GetValue(MinInventoryProperty); }
+            set { SetValue(MinInventoryProperty, value); }
+        }
+    }
+
+    public class MinInventoryProxy : Freezable
+    {
+        protected override Freezable CreateInstanceCore()
+        {
+            return new MinInventoryProxy();
+        }
+
+        public object Data
+        {
+            get { return (object)GetValue(DataProperty); }
+            set { SetValue(DataProperty, value); }
+        }
+
+        public static readonly DependencyProperty DataProperty = DependencyProperty.Register("Data", typeof(object),
+            typeof(MinInventoryProxy), new PropertyMetadata(null));
+    }
 }

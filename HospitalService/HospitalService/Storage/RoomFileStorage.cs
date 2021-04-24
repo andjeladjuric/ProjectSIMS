@@ -7,13 +7,23 @@ namespace Model
 {
     public class RoomFileStorage
     {
-        private String FileLocation = @"..\..\..\Data\rooms.json";
+        private string FileLocation = @"..\..\..\Data\rooms.json";
         private List<Room> rooms;
 
         public RoomFileStorage()
         {
             rooms = new List<Room>();
             rooms = JsonConvert.DeserializeObject<List<Room>>(File.ReadAllText(FileLocation));
+        }
+
+        public void SerializeRooms()
+        {
+            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(rooms));
+        }
+
+        public List<Room> DeserializeRooms()
+        {
+            return JsonConvert.DeserializeObject<List<Room>>(File.ReadAllText(FileLocation));
         }
         public List<Room> GetAll()
         {

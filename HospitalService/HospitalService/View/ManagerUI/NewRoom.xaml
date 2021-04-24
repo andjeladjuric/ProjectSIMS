@@ -38,7 +38,7 @@
                 <ControlTemplate>
                     <StackPanel>
                         <AdornedElementPlaceholder x:Name="textBox"/>
-                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020" ToolTip="Pravilan format: Soba 1, Operaciona sala"/>
+                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020" ToolTip="Pravilan format: 101a, 202, 303, 400b, itd."/>
                     </StackPanel>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
@@ -102,6 +102,7 @@
         <RadioButton x:Name="notAvailable" Content="Ne" HorizontalAlignment="Left" Margin="533,403,0,0" VerticalAlignment="Top" 
                      FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14" RenderTransformOrigin="-0.412,0.308"/>
 
+        <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>
 

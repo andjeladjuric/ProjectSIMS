@@ -83,28 +83,36 @@ namespace HospitalService.View.ManagerUI
         private void save_Click(object sender, RoutedEventArgs e)
         {
             room = new Room();
-            room.Type = (RoomType)comboBox.SelectedIndex;
-            room.Id = IDBox.Text;
-            room.Name = NameBox.Text;
-            room.inventory = new Dictionary<int, int>();
-
-            if ((bool)available.IsChecked)
-            {
-                room.IsFree = true;
-            }
+            if (comboBox.SelectedIndex == -1)
+                MessageBox.Show("Izaberite vrstu sobe!");
             else
             {
-                room.IsFree = false;
-            }
+                room.Type = (RoomType)comboBox.SelectedIndex;
 
-            storage.Save(room);
-            bind.Add(room);
-            NavigationService.Navigate(new Page());
+                room.Id = IDBox.Text;
+                room.Name = NameBox.Text;
+                room.inventory = new Dictionary<int, int>();
+
+                if ((bool)available.IsChecked)
+                {
+                    room.IsFree = true;
+                }
+                else
+                {
+                    room.IsFree = false;
+                }
+
+                storage.Save(room);
+                bind.Add(room);
+                newFrame.NavigationService.Navigate(new RoomsView());
+            }
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Page());
+            IDBox.Visibility = Visibility.Hidden;
+            NameBox.Visibility = Visibility.Hidden;
+            newFrame.NavigationService.Navigate(new RoomsView());
         }
     }
 }

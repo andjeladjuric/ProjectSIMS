@@ -1,9 +1,11 @@
 ﻿using Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -99,19 +101,28 @@ namespace HospitalService.View.ManagerUI
         private void save_Click(object sender, RoutedEventArgs e)
         {
             item = new Inventory();
-            item.EquipmentType = (Equipment)comboBox.SelectedIndex;
-            item.Id = Int32.Parse(IDBox.Text);
-            item.Name = NameBox.Text;
-            item.Quantity = Int32.Parse(QuantityBox.Text);
+            if (comboBox.SelectedIndex == -1)
+                MessageBox.Show("Izaberite vrstu opreme!");
+            else
+            {
+                item.EquipmentType = (Equipment)comboBox.SelectedIndex;
 
-            storage.Save(item);
-            invList.Add(item);
-            NavigationService.Navigate(new Page());
+                item.Id = Int32.Parse(IDBox.Text);
+                item.Name = NameBox.Text;
+                item.Quantity = Int32.Parse(QuantityBox.Text);
+
+                storage.Save(item);
+                invList.Add(item);
+                newFrame.NavigationService.Navigate(new InventoryView());
+            }
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Page());
+            IDBox.Visibility = Visibility.Hidden;
+            NameBox.Visibility = Visibility.Hidden;
+            QuantityBox.Visibility = Visibility.Hidden;
+            newFrame.NavigationService.Navigate(new InventoryView());
         }
     }
 
