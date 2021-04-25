@@ -68,7 +68,6 @@ namespace HospitalService.View.ManagerUI
 
         private void inventory_Click(object sender, RoutedEventArgs e)
         {
-            invStorage.AnalyzeRequests();
             Room r = (Room)tableBinding.SelectedItem;
 
             if (r != null)

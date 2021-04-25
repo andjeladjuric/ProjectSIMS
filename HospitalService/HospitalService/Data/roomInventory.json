@@ -1,12 +1,1 @@
-[
-  {
-    "RoomId": "105",
-    "ItemId": 858,
-    "Quantity": 40
-  },
-  {
-    "RoomId": "102",
-    "ItemId": 858,
-    "Quantity": 20
-  }
-]
+[{"RoomId":"105","ItemId":554,"Quantity":50},{"RoomId":"105","ItemId":321,"Quantity":15},{"RoomId":"330","ItemId":321,"Quantity":20},{"RoomId":"105","ItemId":780,"Quantity":25}]

@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalService.View.ManagerUI.Logic;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,9 +36,21 @@ namespace HospitalService.View.ManagerUI
             //invStorage.analyzeRequests();
 
             roomInventory = new ObservableCollection<Inventory>();
-            foreach (Inventory i in invStorage.getInventoryForRoom(r))
+            FunctionsForRoomInventory f = new FunctionsForRoomInventory();
+
+            foreach(RoomInventory ri in f.GetAll())
             {
-                roomInventory.Add(i);
+                if (ri.RoomId.Equals(r.Id))
+                {
+                    foreach(Inventory i in invStorage.GetAll())
+                    {
+                        if(ri.ItemId == i.Id)
+                        {
+                            roomInventory.Add(new Inventory(ri.ItemId, i.Name, i.EquipmentType, ri.Quantity));
+                            break;
+                        }
+                    }
+                }
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalService.View.ManagerUI.Logic;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,7 +27,6 @@ namespace HospitalService.View.ManagerUI
         {
             InitializeComponent();
             manager = m;
-            invStorage.AnalyzeRequests();
         }
 
         private void openButtonClick(object sender, RoutedEventArgs e)
@@ -85,6 +85,12 @@ namespace HospitalService.View.ManagerUI
         private void Help_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            FunctionsForRoomInventory f = new FunctionsForRoomInventory();
+            f.CheckRequests();
         }
     }
 }

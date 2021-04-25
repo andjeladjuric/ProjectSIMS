@@ -1,1 +1,20 @@
-[{"Id":110,"Name":"Makaze","EquipmentType":1,"Quantity":50},{"Id":265,"Name":"Krevet","EquipmentType":0,"Quantity":10},{"Id":432,"Name":"Stetoskop","EquipmentType":1,"Quantity":16},{"Id":55,"Name":"Stolica","EquipmentType":0,"Quantity":15},{"Id":858,"Name":"nesto","EquipmentType":1,"Quantity":60}]
+[
+  {
+    "Id": 554,
+    "Name": "Makaze",
+    "EquipmentType": 1,
+    "Quantity": 50
+  },
+  {
+    "Id": 321,
+    "Name": "Krevet",
+    "EquipmentType": 0,
+    "Quantity": 35
+  },
+  {
+    "Id": 780,
+    "Name": "Stolica",
+    "EquipmentType": 0,
+    "Quantity": 25
+  }
+]

@@ -10,5 +10,17 @@ namespace Model
         public string Name { get; set; }
         public Equipment EquipmentType { get; set; }
         public int Quantity { get; set; }
+
+        public Inventory()
+        {
+        }
+
+        public Inventory(int id, string name, Equipment equipmentType, int quantity)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.EquipmentType = equipmentType;
+            this.Quantity = quantity;
+        }
     }
 }

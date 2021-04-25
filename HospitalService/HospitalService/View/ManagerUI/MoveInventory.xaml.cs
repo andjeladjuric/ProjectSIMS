@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalService.View.ManagerUI.Logic;
+using Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace HospitalService.View.ManagerUI
         RoomFileStorage roomStorage;
         public ObservableCollection<Inventory> roomInventory { get; set; }
         public List<String> roomNames { get; set; }
+        FunctionsForRoomInventory functions = new FunctionsForRoomInventory();
         public MovingRequests m = new MovingRequests();
         public List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
 
@@ -53,8 +55,8 @@ namespace HospitalService.View.ManagerUI
             }
         }
 
-        private string _date;
-        public string Date
+        private DateTime _date;
+        public DateTime Date
         {
             get { return _date; }
             set
@@ -64,8 +66,8 @@ namespace HospitalService.View.ManagerUI
             }
         }
 
-        private string _enteredQuantity;
-        public string EnteredQuantity
+        private int _enteredQuantity;
+        public int EnteredQuantity
         {
             get { return _enteredQuantity; }
             set
@@ -124,70 +126,43 @@ namespace HospitalService.View.ManagerUI
                     }
                 }
 
-                int quantity = Int32.Parse(EnteredQuantity);
-                int inventoryId = int.Parse(IDBox.Text);
-                String time = Time;
-                String date = Date;
+                //int quantity = EnteredQuantity);
+                int inventoryId = Int32.Parse(IDBox.Text);
 
-                foreach (Inventory stavka in roomInventory)
+                /*if (selectedInv.EquipmentType == Equipment.Dynamic)
                 {
-                    if (inventoryId == stavka.Id)
+                    functions.AnalyzeRequests(new MovingRequests(DateTime.Now, EnteredQuantity, room.Id, sendToThisRoom.Id, inventoryId));
+                }
+                else
+                {
+                    TimeSpan selectedTime = TimeSpan.ParseExact(Time, "c", null);
+                    Date = Date.Add(selectedTime);
+                    MovingRequests request = new MovingRequests(Date, EnteredQuantity, room.Id, sendToThisRoom.Id, selectedInv.Id);
+                    functions.StartMoving(request);
+                }*/
+
+                foreach (Inventory i in roomInventory)
+                {
+                    if(i.Id == inventoryId)
                     {
-                        if (stavka.EquipmentType == Equipment.Dynamic)
+                        if (i.EquipmentType.Equals(Equipment.Dynamic))
                         {
-                            if (stavka.Quantity == quantity)
-                            {
-                                roomInventory.Remove(stavka);
-                                room.inventory.Remove(stavka.Id);
-                                roomStorage.editRoom(room);
-
-                                if (sendToThisRoom.inventory.ContainsKey(stavka.Id))
-                                {
-                                    sendToThisRoom.inventory[stavka.Id] += quantity;
-                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
-                                }
-                                else
-                                {
-                                    sendToThisRoom.inventory.Add(stavka.Id, quantity);
-                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
-                                }
-                            }
-                            else if (quantity > stavka.Quantity)
-                                MessageBox.Show("Ne postoji dovoljno stavki za premeštanje!");
-                            else
-                            {
-                                stavka.Quantity = stavka.Quantity - quantity;
-                                room.inventory[stavka.Id] = stavka.Quantity;
-                                roomStorage.editRoom(room);
-
-                                if (sendToThisRoom.inventory.ContainsKey(stavka.Id))
-                                {
-                                    sendToThisRoom.inventory[stavka.Id] += quantity;
-                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
-                                }
-                                else
-                                {
-                                    sendToThisRoom.inventory.Add(stavka.Id, quantity);
-                                    File.WriteAllText(@"..\..\..\Data\rooms.json", JsonConvert.SerializeObject(roomStorage.GetAll()));
-                                }
-                            }
-
-                            //newFrame.Content = new ManageRoomInventory(room);
-                            break;
+                            functions.AnalyzeRequests(new MovingRequests(DateTime.Now, EnteredQuantity, room.Id, sendToThisRoom.Id, inventoryId));
                         }
                         else
                         {
-                            m.inventoryId = inventoryId;
-                            m.moveFromThisRoom = room.Id;
-                            m.sendToThisRoom = sendToThisRoom.Id;
-                            m.movingTime = Convert.ToDateTime(time + " " + date);
-                            m.quantity = quantity;
-                            m.isDone = false;
-                            requests.Add(m);
-                            File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
-                            break;
-                        }
+                            TimeSpan selectedTime = TimeSpan.ParseExact(Time, "c", null);
+                            Date = Convert.ToDateTime(selectedTime + " " + datePicker.Text);
+                            //Date = Date.Add(selectedTime);
+                            MovingRequests request = new MovingRequests();
+                            request.movingTime = Date;
+                            request.quantity = EnteredQuantity;
+                            request.moveFromThisRoom = room.Id;
+                            request.sendToThisRoom = sendToThisRoom.Id;
+                            request.inventoryId = inventoryId;
+                            functions.StartMoving(request);
 
+                        }
                     }
                 }
             }
