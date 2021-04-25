@@ -79,7 +79,7 @@ namespace HospitalService.View.ManagerUI.Logic
             }
 
             requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-            mr.isDone = true;
+            requests.Remove(mr);
             File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
             SerializeRoomInventory();
         }
@@ -93,7 +93,7 @@ namespace HospitalService.View.ManagerUI.Logic
                 for(int i = 0; i < requests.Count; i++)
                 {
                     mr = requests[i];
-                    if(DateTime.Compare(mr.movingTime, DateTime.Now) <= 0 && mr.isDone == false)
+                    if(DateTime.Compare(mr.movingTime, DateTime.Now) <= 0)
                     {
                         AnalyzeRequests(mr);
                     }
@@ -102,18 +102,9 @@ namespace HospitalService.View.ManagerUI.Logic
                         Task t = new Task(() => mr.RunThread());
                         t.Start();
                     }
-
-                    if (mr.isDone == true)
-                        requests.RemoveAt(i);
                 }
             }
         }
-
-        /*public void RunTask(MovingRequests mr)
-        {
-            Task t = new Task(() => mr.RunThread());
-            t.Start();
-        }*/
 
         public void StartMoving(MovingRequests mr)
         {
@@ -123,15 +114,5 @@ namespace HospitalService.View.ManagerUI.Logic
             Task t = new Task(() => mr.RunThread());
             t.Start();
         }
-
-        /*public void RunThread(MovingRequests mr)
-        {
-            TimeSpan time = mr.movingTime.Subtract(DateTime.Now);
-
-            if(time > new TimeSpan(0,0,0))
-                Thread.Sleep(time);
-            
-            AnalyzeRequests(mr);
-        }*/
     }
 }
