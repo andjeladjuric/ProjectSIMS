@@ -30,9 +30,9 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox Name="RoomBox" HorizontalAlignment="Left" Margin="525,35,0,0" VerticalAlignment="Top" Width="129" Height="35" RenderTransformOrigin="2.602,-6.764">
+        <ComboBox Name="RoomBox" HorizontalAlignment="Left" Margin="525,102,0,0" VerticalAlignment="Top" Width="129" Height="35" RenderTransformOrigin="2.602,-6.764">
         </ComboBox>
-        <ComboBox  Name="AppointmentTypeBox" HorizontalAlignment="Left" Margin="525,102,0,0" VerticalAlignment="Top" Width="129" Height="35"/>
+        <ComboBox SelectionChanged="AppointmentTypeBox_SelectionChanged" Name="AppointmentTypeBox" HorizontalAlignment="Left" Margin="525,37,0,0" VerticalAlignment="Top" Width="129" Height="35"/>
         <Label Content="Do:" HorizontalAlignment="Left" Margin="40,234,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <DatePicker Name="DateBox" HorizontalAlignment="Left" Margin="159,102,0,0" VerticalAlignment="Top" Width="129" Height="28"/>
         <Button Content="Odustani" HorizontalAlignment="Left" Margin="224,347,0,0" VerticalAlignment="Top" Width="126" Height="36" Click="Cancel_Click">

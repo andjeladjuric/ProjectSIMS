@@ -193,5 +193,34 @@ namespace Storage
             int id = appointments.Count;
             return (++id).ToString();
         }
+
+        public List<Room> GetAvailableRooms(RoomType roomType, DateTime startTime, DateTime endTime)
+        {
+            List<Room> availableRooms = new RoomFileStorage().getByType(roomType);
+            foreach(Appointment appointment in appointments) 
+            {
+                bool pom = false;
+                if (DateTime.Compare(appointment.StartTime, startTime) == 0)
+                {
+                    pom = true;
+                }
+                else if (DateTime.Compare(appointment.StartTime, startTime) < 0)
+                {
+                    if (DateTime.Compare(appointment.EndTime, startTime) > 0)
+                        pom = true;
+
+                }
+                else if (DateTime.Compare(appointment.StartTime, startTime) > 0 && DateTime.Compare(endTime, appointment.StartTime) > 0)
+                    pom = true;
+
+                if (pom)
+                {
+                    if (appointment.room.Type == roomType)
+                        availableRooms.Remove(appointment.room);
+                }
+                   
+            }
+            return availableRooms;
+        }
     }
 }

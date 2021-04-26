@@ -17,7 +17,7 @@
         <TextBox Name="MedicationTB" HorizontalAlignment="Left" Margin="210,150,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="185" />
         <TextBox Name="DaysTB" HorizontalAlignment="Left" Margin="210,258,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
         <TextBox Name="HoursTB" HorizontalAlignment="Left" Margin="210,207,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70" />
-        <Button Click="Cancel_Click"  Content="Odustani" HorizontalAlignment="Left" Margin="113,532,0,0" VerticalAlignment="Top" Width="83">
+        <Button Click="Cancel_Click"  Content="Odustani" HorizontalAlignment="Left" Margin="113,532,0,0" VerticalAlignment="Top" Width="83" >
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>

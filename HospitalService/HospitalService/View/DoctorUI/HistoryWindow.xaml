@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI"
         mc:Ignorable="d"
-        Title="Istorija" Height="450" Width="600" WindowStartupLocation="CenterScreen" FontSize="16" SizeToContent="WidthAndHeight" ResizeMode="NoResize" FontFamily="Gill Sans MT">
+        Title="Istorija" Height="450" Width="600" WindowStartupLocation="CenterScreen" FontSize="16" SizeToContent="WidthAndHeight" ResizeMode="NoResize" FontFamily="Open Sans">
     <Grid Height="450" Width="600">
         <Label Content="Dijagnoze:" HorizontalAlignment="Left" Margin="85,33,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.217,0.569"/>
         <DataGrid Name="DiagnosisTable" IsReadOnly="True" 
@@ -21,7 +21,7 @@
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button Content="Daj dijagnozu" HorizontalAlignment="Left" Margin="326,373,0,0" VerticalAlignment="Top"  Width="99" Height="29" Click="AddDiagnosis_Click">
+        <Button Content="Daj dijagnozu" HorizontalAlignment="Left" Margin="326,373,0,0" VerticalAlignment="Top"  Width="103" Height="29" Click="AddDiagnosis_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
