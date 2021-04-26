@@ -29,16 +29,6 @@ namespace Model
             this.inventoryId = inventoryId;
         }
 
-        public void RunThread()
-        {
-            FunctionsForRoomInventory f = new FunctionsForRoomInventory();
-            TimeSpan time = movingTime.Subtract(DateTime.Now);
-
-            if (time > new TimeSpan(0, 0, 0))
-                Thread.Sleep(time);
-
-            f.AnalyzeRequests(this);
-        }
     }
 
 

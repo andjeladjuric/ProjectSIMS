@@ -7,6 +7,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HospitalService.View.ManagerUI.Logic
 {
@@ -31,7 +32,7 @@ namespace HospitalService.View.ManagerUI.Logic
  
         public RoomInventory GetRoomInventoryByIds(string roomId, int itemId)
         {
-            RoomInventory roomInventory = new RoomInventory();
+            RoomInventory roomInventory = null;
 
             foreach(RoomInventory r in roomInventories)
             {
@@ -67,21 +68,25 @@ namespace HospitalService.View.ManagerUI.Logic
 
             if(sendHere == null)
             {
-                RoomInventory ri = new RoomInventory();
-                ri.RoomId = mr.sendToThisRoom;
-                ri.ItemId = mr.inventoryId;
-                ri.Quantity = mr.quantity;
-                roomInventories.Add(ri);
+                roomInventories.Add(new RoomInventory(mr.sendToThisRoom, mr.inventoryId, mr.quantity));
             }
             else
             {
                 sendHere.Quantity += mr.quantity;
             }
 
-            requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-            requests.Remove(mr);
-            File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
             SerializeRoomInventory();
+            requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
+            
+            for(int i = 0; i < requests.Count; i++)
+            {
+                if (requests[i].movingTime == mr.movingTime)
+                {
+                    requests.RemoveAt(i);
+                }
+            }
+            
+            File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
         }
 
         public void CheckRequests()
@@ -99,11 +104,21 @@ namespace HospitalService.View.ManagerUI.Logic
                     }
                     else
                     {
-                        Task t = new Task(() => mr.RunThread());
+                        Task t = new Task(() => RunThread(mr));
                         t.Start();
                     }
                 }
             }
+        }
+        public void RunThread(MovingRequests mr)
+        {
+            FunctionsForRoomInventory f = new FunctionsForRoomInventory();
+            TimeSpan time = mr.movingTime.Subtract(DateTime.Now);
+
+            if (time > new TimeSpan(0, 0, 0))
+                Thread.Sleep(time);
+
+            f.AnalyzeRequests(mr);
         }
 
         public void StartMoving(MovingRequests mr)
@@ -111,7 +126,7 @@ namespace HospitalService.View.ManagerUI.Logic
             requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
             requests.Add(mr);
             File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
-            Task t = new Task(() => mr.RunThread());
+            Task t = new Task(() => RunThread(mr));
             t.Start();
         }
     }

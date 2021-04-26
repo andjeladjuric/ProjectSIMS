@@ -1,8 +1,11 @@
-﻿using Model;
+﻿using HospitalService.View.ManagerUI.Logic;
+using Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -75,6 +78,61 @@ namespace HospitalService.View.ManagerUI
         private void save_Click(object sender, RoutedEventArgs e)
         {
             int quantity = Int32.Parse(quantityBox.Text);
+
+            Inventory item;
+            for (int i = 0; i < invStorage.GetAll().Count; i++)
+            {
+                item = invStorage.GetAll()[i];
+                if (item.Id == selectedInv.Id)
+                {
+                    if (item.Quantity == quantity)
+                    {
+                        invStorage.GetAll().RemoveAt(i);
+                        break;
+                    }
+                    else
+                    {
+                        item.Quantity -= quantity;
+                        break;
+                    }
+                }
+            }
+
+            FunctionsForRoomInventory f = new FunctionsForRoomInventory();
+            RoomInventory ri = f.GetRoomInventoryByIds(room.Id, selectedInv.Id);
+
+            if (ri.Quantity == quantity)
+            {
+                f.GetAll().Remove(ri);
+            }
+            else
+            {
+                ri.Quantity -= quantity;
+            }
+
+            for (int i = 0; i < roomInventory.Count; i++)
+            {
+                item = roomInventory[i];
+                if (item.Id == selectedInv.Id)
+                {
+                    if (item.Quantity == quantity)
+                    {
+                        roomInventory.RemoveAt(i);
+                        break;
+                    }
+                    else
+                    {
+                        item.Quantity -= quantity;
+                        break;
+                    }
+                }
+            }
+
+            f.SerializeRoomInventory();
+            File.WriteAllText(@"..\..\..\Data\inventory.json", JsonConvert.SerializeObject(invStorage.GetAll()));
+
+
+            newFrame.Content = new ManageRoomInventory(room);
         }
     }
 }

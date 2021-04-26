@@ -66,9 +66,10 @@
 
         <Grid x:Name="grid" Margin="590,101,0,105">
             <Rectangle HorizontalAlignment="Left" Height="442" Stroke="Black" VerticalAlignment="Center" Width="350" Margin="12,0,0,0"/>
-            <Label x:Name="quantity" Content="Količina" HorizontalAlignment="Left" Margin="54,253,0,0" VerticalAlignment="Top" 
-                   Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
-            <TextBox x:Name="quantityBox" HorizontalAlignment="Left" Height="32" Margin="178,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154">
+            <Label x:Name="quantity" Content="Potrošena količina" HorizontalAlignment="Left" Margin="36,253,0,0" VerticalAlignment="Top" 
+                   Width="139" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
+            <TextBox x:Name="quantityBox" HorizontalAlignment="Left" Height="32" Margin="187,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
+                     Width="154">
                 <TextBox.Resources>
                     <validation:MaxInventoryProxy x:Key="proxy" Data="{Binding}"/>
                 </TextBox.Resources>
@@ -99,9 +100,9 @@
 
             <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="215,318,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0,110,0,0" Text="Izmeni stanje" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
-            <Label x:Name="Stavka" Content="Izabrana stavka" HorizontalAlignment="Left" Margin="54,190,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
+            <Label x:Name="Stavka" Content="Izabrana stavka" HorizontalAlignment="Left" Margin="36,191,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
             <TextBox x:Name="IDBox" Text="{Binding selectedInv.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" 
-                     HorizontalAlignment="Left" Height="32" Margin="178,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" />
+                     HorizontalAlignment="Left" Height="32" Margin="187,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" />
 
         </Grid>
 

@@ -153,13 +153,7 @@ namespace HospitalService.View.ManagerUI
                         {
                             TimeSpan selectedTime = TimeSpan.ParseExact(Time, "c", null);
                             Date = Convert.ToDateTime(selectedTime + " " + datePicker.Text);
-                            //Date = Date.Add(selectedTime);
-                            MovingRequests request = new MovingRequests();
-                            request.movingTime = Date;
-                            request.quantity = EnteredQuantity;
-                            request.moveFromThisRoom = room.Id;
-                            request.sendToThisRoom = sendToThisRoom.Id;
-                            request.inventoryId = inventoryId;
+                            MovingRequests request = new MovingRequests(Date, EnteredQuantity, room.Id, sendToThisRoom.Id, inventoryId);
                             functions.StartMoving(request);
 
                         }
