@@ -134,6 +134,9 @@
                             <DataTrigger Binding="{Binding ElementName=KolicinaBox, Path=(Validation.HasError)}" Value="True">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=comboBox, Path=SelectedIndex}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
@@ -144,7 +147,7 @@
             <TextBox x:Name="KolicinaBox" HorizontalAlignment="Left" Height="36" Margin="168,268,0,0" TextWrapping="Wrap" 
                      VerticalAlignment="Top" Width="168">
                 <TextBox.Resources>
-                    <validation:MaxInventoryProxy x:Key="proxy" Data="{Binding}"/>
+                    <validation:MinInventoryProxy x:Key="proxy" Data="{Binding}"/>
                 </TextBox.Resources>
                 <TextBox.Text>
                     <Binding Path="EnteredQuantity" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">

@@ -1,3 +1,4 @@
+using HospitalService.Storage;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -40,50 +41,61 @@ namespace Model
         {
             Room r;
             InventoryFileStorage invStorage = new InventoryFileStorage();
-            List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
             for (int i = 0; i < rooms.Count; i++)
             {
                 r = rooms[i];
                 if (r.Id.Equals(roomId))
                 {
-                    foreach(int k in r.inventory.Keys)
-                    {
-                        foreach (Room soba in getByType(RoomType.StorageRoom))
-                        {
-                            if (soba.inventory.ContainsKey(k))
-                            {
-                                soba.inventory[k] += r.inventory[k];
-                                break;
-                            }
-                            else
-                            {
-                                soba.inventory.Add(k, r.inventory[k]);
-                                break;
-                            }
-                        }
-                    }
-
-                    MovingRequests mr;
-                    for (int m = 0; m < requests.Count; m++)
-                    {
-                        mr = requests[m];
-                        if (r.Id.Equals(mr.moveFromThisRoom))
-                        {
-                            requests.RemoveAt(m);
-                            File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
-                            continue;
-                        }
-                        else if (r.Id.Equals(mr.sendToThisRoom))
-                        {
-                            requests.RemoveAt(m);
-                            File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
-                            continue;
-                        }
-                    }
-
+                    MoveItemsToStorage(roomId);
+                    DeleteRequests(roomId);
                     rooms.RemoveAt(i);
                     File.WriteAllText(FileLocation, JsonConvert.SerializeObject(rooms));
                     break;
+                }
+            }
+        }
+
+        private void DeleteRequests(string roomId)
+        {
+            List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
+            MovingRequests mr;
+            for (int i = 0; i < requests.Count; i++)
+            {
+                mr = requests[i];
+                if (roomId.Equals(mr.moveFromThisRoom) || roomId.Equals(mr.sendToThisRoom))
+                {
+                    requests.RemoveAt(i);
+                    File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
+                    continue;
+                }
+            }
+        }
+
+        private void MoveItemsToStorage(string roomId)
+        {
+            RoomInventoryStorage roomInv = new RoomInventoryStorage();
+            for (int j = 0; j < roomInv.GetAll().Count; j++)
+            {
+                RoomInventory ri = roomInv.GetAll()[j];
+                if (ri.RoomId.Equals(roomId))
+                {
+                    foreach (Room soba in getByType(RoomType.StorageRoom))
+                    {
+                        RoomInventory nova = roomInv.GetRoomInventoryByIds(soba.Id, ri.ItemId);
+                        if (nova == null)
+                        {
+                            roomInv.GetAll().Add(new RoomInventory(soba.Id, ri.ItemId, ri.Quantity));
+                            break;
+                        }
+                        else
+                        {
+                            nova.Quantity += ri.Quantity;
+                            break;
+                        }
+                    }
+
+                    roomInv.GetAll().RemoveAt(j);
+                    File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(roomInv.GetAll()));
                 }
             }
         }
@@ -105,8 +117,9 @@ namespace Model
             }
         }
 
-        public Room getOne(string id)
+        public static Room getOne(string id)
         {
+            List<Room> rooms = JsonConvert.DeserializeObject<List<Room>>(File.ReadAllText(@"..\..\..\Data\rooms.json"));
             return rooms.Find(x => x.Id == id);
         }
 

@@ -1,4 +1,4 @@
-﻿using HospitalService.View.ManagerUI.Logic;
+﻿using HospitalService.Storage;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -89,8 +89,8 @@ namespace HospitalService.View.ManagerUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            FunctionsForRoomInventory f = new FunctionsForRoomInventory();
-            f.CheckRequests();
+            RoomInventoryStorage r = new RoomInventoryStorage();
+            r.CheckRequests();
         }
     }
 }

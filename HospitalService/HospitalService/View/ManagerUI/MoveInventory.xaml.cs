@@ -1,4 +1,4 @@
-﻿using HospitalService.View.ManagerUI.Logic;
+﻿using HospitalService.Storage;
 using Model;
 using Newtonsoft.Json;
 using System;
@@ -29,7 +29,7 @@ namespace HospitalService.View.ManagerUI
         RoomFileStorage roomStorage;
         public ObservableCollection<Inventory> roomInventory { get; set; }
         public List<String> roomNames { get; set; }
-        FunctionsForRoomInventory functions = new FunctionsForRoomInventory();
+        RoomInventoryStorage functions = new RoomInventoryStorage();
         public MovingRequests m = new MovingRequests();
         public List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
 
@@ -77,6 +77,17 @@ namespace HospitalService.View.ManagerUI
             }
         }
 
+        private TimeSpan _currentTime;
+        public TimeSpan currentTime
+        {
+            get { return _currentTime; }
+            set
+            {
+                _currentTime = value;
+                OnPropertyChanged("currentTime");
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
         {
@@ -105,6 +116,8 @@ namespace HospitalService.View.ManagerUI
                     roomNames.Add(source);
                 }
             }
+
+            currentTime = new TimeSpan(0, 0, 0);
         }
 
         private void save_Click(object sender, RoutedEventArgs e)
@@ -126,20 +139,7 @@ namespace HospitalService.View.ManagerUI
                     }
                 }
 
-                //int quantity = EnteredQuantity);
                 int inventoryId = Int32.Parse(IDBox.Text);
-
-                /*if (selectedInv.EquipmentType == Equipment.Dynamic)
-                {
-                    functions.AnalyzeRequests(new MovingRequests(DateTime.Now, EnteredQuantity, room.Id, sendToThisRoom.Id, inventoryId));
-                }
-                else
-                {
-                    TimeSpan selectedTime = TimeSpan.ParseExact(Time, "c", null);
-                    Date = Date.Add(selectedTime);
-                    MovingRequests request = new MovingRequests(Date, EnteredQuantity, room.Id, sendToThisRoom.Id, selectedInv.Id);
-                    functions.StartMoving(request);
-                }*/
 
                 foreach (Inventory i in roomInventory)
                 {

@@ -1,4 +1,4 @@
-﻿using HospitalService.View.ManagerUI.Logic;
+﻿using HospitalService.Storage;
 using Model;
 using Newtonsoft.Json;
 using System;
@@ -98,7 +98,7 @@ namespace HospitalService.View.ManagerUI
                 }
             }
 
-            FunctionsForRoomInventory f = new FunctionsForRoomInventory();
+            RoomInventoryStorage f = new RoomInventoryStorage();
             RoomInventory ri = f.GetRoomInventoryByIds(room.Id, selectedInv.Id);
 
             if (ri.Quantity == quantity)

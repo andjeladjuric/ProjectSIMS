@@ -13,7 +13,7 @@
 
     <Grid Background="White">
 
-        <DataGrid ItemsSource="{Binding roomInventory}" SelectedItem="{Binding selectedInv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        <DataGrid ItemsSource="{Binding roomInventory}" SelectedItem="{Binding selectedInv, Mode=TwoWay}" 
                   x:Name="tableBinding" IsReadOnly="True"  Margin="16,0,0,0"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
                   Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14" SelectionChanged="selectionChanged">
@@ -79,7 +79,7 @@
                 <TextBox.Text>
                     <Binding Path="EnteredQuantity" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <validation:MoveQuantityValidation ValidationStep="RawProposedValue" Min="1">
+                            <validation:MoveQuantityValidation ValidationStep="RawProposedValue">
                                 <validation:MoveQuantityValidation.Wrapper>
                                     <validation:MaxInventoryWrapper Max ="{Binding Path=Data.selectedInv.Quantity, Source={StaticResource proxy}}"/>
                                 </validation:MoveQuantityValidation.Wrapper>
@@ -104,18 +104,36 @@
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="IsEnabled" Value="True"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=TimeBox, Path=Text}" Value="">
+                            <DataTrigger Binding="{Binding ElementName=quantityBox, Path=Text}" Value="">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding ElementName=TimeBox, Path=(Validation.HasError)}" Value="True">
+                            <DataTrigger Binding="{Binding ElementName=quantityBox, Path=(Validation.HasError)}" Value="True">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding ElementName=QuantityBox, Path=Text}" Value="">
+                            <DataTrigger Binding="{Binding ElementName=comboBox, Path=SelectedIndex}" Value="-1">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding ElementName=QuantityBox, Path=(Validation.HasError)}" Value="True">
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=TimeBox, Path=IsEnabled}" Value="True"/>
+                                    <Condition Binding="{Binding ElementName=TimeBox, Path=Text}" Value=""/>
+                                </MultiDataTrigger.Conditions>
                                 <Setter Property="IsEnabled" Value="False"/>
-                            </DataTrigger>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=TimeBox, Path=IsEnabled}" Value="True"/>
+                                    <Condition Binding="{Binding ElementName=TimeBox, Path=(Validation.HasError)}" Value="True"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=datePicker, Path=IsEnabled}" Value="True"/>
+                                    <Condition Binding="{Binding ElementName=datePicker, Path=Text}" Value=""/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </MultiDataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
@@ -130,7 +148,7 @@
             <DatePicker x:Name="datePicker" DisplayDate="{Binding Date}" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Left" Margin="169,236,0,0" VerticalAlignment="Top" Width="154" Height="30"/>
             <Label x:Name="time" Content="Vreme" HorizontalAlignment="Left" Margin="45,188,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="30"/>
             <Label x:Name="date" Content="Datum" HorizontalAlignment="Left" Margin="45,232,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="30"/>
-            <TextBox x:Name="TimeBox"  HorizontalAlignment="Left" Height="32" Margin="169,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" >
+            <TextBox x:Name="TimeBox" HorizontalAlignment="Left" Height="32" Margin="169,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" >
                 <TextBox.Text>
                     <Binding Path="Time" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>

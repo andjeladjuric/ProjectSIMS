@@ -10,6 +10,5 @@ namespace Model
         public string Id { get; set; }
         public string Name { get; set; }
         public Boolean IsFree { get; set; }
-        public Dictionary<int, int> inventory { get; set; }
     }
 }

@@ -101,20 +101,14 @@ namespace HospitalService.View.ManagerUI
         private void save_Click(object sender, RoutedEventArgs e)
         {
             item = new Inventory();
-            if (comboBox.SelectedIndex == -1)
-                MessageBox.Show("Izaberite vrstu opreme!");
-            else
-            {
-                item.EquipmentType = (Equipment)comboBox.SelectedIndex;
+            item.EquipmentType = (Equipment)comboBox.SelectedIndex;
+            item.Id = Int32.Parse(IDBox.Text);
+            item.Name = NameBox.Text;
+            item.Quantity = Int32.Parse(QuantityBox.Text);
 
-                item.Id = Int32.Parse(IDBox.Text);
-                item.Name = NameBox.Text;
-                item.Quantity = Int32.Parse(QuantityBox.Text);
-
-                storage.Save(item);
-                invList.Add(item);
-                newFrame.NavigationService.Navigate(new InventoryView());
-            }
+            storage.Save(item);
+            invList.Add(item);
+            newFrame.NavigationService.Navigate(new InventoryView());
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)

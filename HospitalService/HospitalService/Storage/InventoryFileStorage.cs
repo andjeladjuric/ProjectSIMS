@@ -1,4 +1,4 @@
-﻿using HospitalService.View.ManagerUI.Logic;
+﻿using HospitalService.Storage;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -105,26 +105,47 @@ namespace Model
         public void Delete(int invId)
         {
             Inventory item;
-            FunctionsForRoomInventory f = new FunctionsForRoomInventory();
             for (int i = 0; i < inventoryList.Count; i++)
             {
                 item = inventoryList[i];
                 if (item.Id.Equals(invId))
                 {
-                    RoomInventory r;
-                    for ( int j = 0; j < f.GetAll().Count; j++)
-                    {
-                        r = f.GetAll()[j];
-                        if (r.ItemId == invId)
-                        {
-                            f.GetAll().RemoveAt(j);
-                            f.SerializeRoomInventory();
-                        }
-                    }
-
+                    DeleteInventoryInRoom(invId);
+                    DeleteRequests(invId);
                     inventoryList.RemoveAt(i);
                     File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
                     break;
+                }
+            }
+        }
+
+        private void DeleteInventoryInRoom(int itemId)
+        {
+            RoomInventory r;
+            RoomInventoryStorage f = new RoomInventoryStorage();
+            for (int j = 0; j < f.GetAll().Count; j++)
+            {
+                r = f.GetAll()[j];
+                if (r.ItemId == itemId)
+                {
+                    f.GetAll().RemoveAt(j);
+                    f.SerializeRoomInventory();
+                }
+            }
+        }
+
+        private void DeleteRequests(int itemId)
+        {
+            List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
+            MovingRequests mr;
+            for (int i = 0; i < requests.Count; i++)
+            {
+                mr = requests[i];
+                if (itemId == mr.inventoryId)
+                {
+                    requests.RemoveAt(i);
+                    File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
+                    continue;
                 }
             }
         }
@@ -147,7 +168,7 @@ namespace Model
                     if(item.Quantity < quantity) // dodavanje
                     {
                         temp = quantity - item.Quantity;
-                        FunctionsForRoomInventory f = new FunctionsForRoomInventory();
+                        RoomInventoryStorage f = new RoomInventoryStorage();
 
                         foreach(Room room in storage.getByType(RoomType.StorageRoom))
                         {
@@ -167,28 +188,10 @@ namespace Model
             }
         }
 
-        public Inventory getOne(int id)
+        public static Inventory getOne(int id)
         {
+            List<Inventory> inventoryList = JsonConvert.DeserializeObject<List<Inventory>>(File.ReadAllText(@"..\..\..\Data\inventory.json"));
             return inventoryList.Find(x => x.Id == id);
-        }
-
-        public List<Inventory> getInventoryForRoom(Room r)
-        {
-            List<Inventory> roomInventory = new List<Inventory>();
-
-            foreach (var item in r.inventory)
-            {
-                foreach (Inventory inv in inventoryList)
-                {
-                    if (item.Key == inv.Id)
-                    {
-                        roomInventory.Add(new Inventory { Id = item.Key, Quantity = item.Value, 
-                            Name = inv.Name, EquipmentType = inv.EquipmentType });
-                    }
-                }
-            }
-
-            return roomInventory;
         }
     }
 }

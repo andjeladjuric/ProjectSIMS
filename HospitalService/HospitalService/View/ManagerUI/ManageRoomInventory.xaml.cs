@@ -1,4 +1,4 @@
-﻿using HospitalService.View.ManagerUI.Logic;
+﻿using HospitalService.Storage;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -36,7 +36,7 @@ namespace HospitalService.View.ManagerUI
             //invStorage.analyzeRequests();
 
             roomInventory = new ObservableCollection<Inventory>();
-            FunctionsForRoomInventory f = new FunctionsForRoomInventory();
+            RoomInventoryStorage f = new RoomInventoryStorage();
 
             foreach(RoomInventory ri in f.GetAll())
             {

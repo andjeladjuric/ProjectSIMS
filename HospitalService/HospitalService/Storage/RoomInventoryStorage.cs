@@ -1,5 +1,4 @@
-﻿using HospitalService.Storage;
-using Model;
+﻿using Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,15 +6,14 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 
-namespace HospitalService.View.ManagerUI.Logic
+namespace HospitalService.Storage
 {
-    public class FunctionsForRoomInventory
+    class RoomInventoryStorage
     {
         public List<RoomInventory> roomInventories { get; set; }
         public List<MovingRequests> requests { get; set; }
-        public FunctionsForRoomInventory()
+        public RoomInventoryStorage()
         {
             roomInventories = new List<RoomInventory>();
             roomInventories = JsonConvert.DeserializeObject<List<RoomInventory>>(File.ReadAllText(@"..\..\..\Data\roomInventory.json"));
@@ -29,12 +27,12 @@ namespace HospitalService.View.ManagerUI.Logic
         {
             File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(roomInventories));
         }
- 
+
         public RoomInventory GetRoomInventoryByIds(string roomId, int itemId)
         {
             RoomInventory roomInventory = null;
 
-            foreach(RoomInventory r in roomInventories)
+            foreach (RoomInventory r in roomInventories)
             {
                 if (r.RoomId.Equals(roomId) && r.ItemId == itemId)
                     roomInventory = r;
@@ -45,48 +43,53 @@ namespace HospitalService.View.ManagerUI.Logic
 
         public void AnalyzeRequests(MovingRequests mr)
         {
-            RoomInventory moveFromHere = GetRoomInventoryByIds(mr.moveFromThisRoom, mr.inventoryId);
-            RoomInventory sendHere = GetRoomInventoryByIds(mr.sendToThisRoom, mr.inventoryId);
+            if (RoomFileStorage.getOne(mr.moveFromThisRoom) != null && RoomFileStorage.getOne(mr.sendToThisRoom) != null
+                && InventoryFileStorage.getOne(mr.inventoryId) != null)
 
-            if(moveFromHere.Quantity == mr.quantity)
             {
-                RoomInventory r;
-                for (int i = 0; i < roomInventories.Count; i++)
+                RoomInventory moveFromHere = GetRoomInventoryByIds(mr.moveFromThisRoom, mr.inventoryId);
+                RoomInventory sendHere = GetRoomInventoryByIds(mr.sendToThisRoom, mr.inventoryId);
+
+                if (moveFromHere.Quantity == mr.quantity)
                 {
-                    r = roomInventories[i];
-                    if (r.Equals(moveFromHere))
+                    RoomInventory r;
+                    for (int i = 0; i < roomInventories.Count; i++)
                     {
-                        roomInventories.RemoveAt(i);
-                        break;
+                        r = roomInventories[i];
+                        if (r.Equals(moveFromHere))
+                        {
+                            roomInventories.RemoveAt(i);
+                            break;
+                        }
                     }
                 }
-            }
-            else
-            {
-                moveFromHere.Quantity -= mr.quantity;
-            }
-
-            if(sendHere == null)
-            {
-                roomInventories.Add(new RoomInventory(mr.sendToThisRoom, mr.inventoryId, mr.quantity));
-            }
-            else
-            {
-                sendHere.Quantity += mr.quantity;
-            }
-
-            SerializeRoomInventory();
-            requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-            
-            for(int i = 0; i < requests.Count; i++)
-            {
-                if (requests[i].movingTime == mr.movingTime)
+                else
                 {
-                    requests.RemoveAt(i);
+                    moveFromHere.Quantity -= mr.quantity;
                 }
+
+                if (sendHere == null)
+                {
+                    roomInventories.Add(new RoomInventory(mr.sendToThisRoom, mr.inventoryId, mr.quantity));
+                }
+                else
+                {
+                    sendHere.Quantity += mr.quantity;
+                }
+
+                SerializeRoomInventory();
+                requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
+
+                for (int i = 0; i < requests.Count; i++)
+                {
+                    if (requests[i].movingTime == mr.movingTime)
+                    {
+                        requests.RemoveAt(i);
+                    }
+                }
+
+                File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
             }
-            
-            File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
         }
 
         public void CheckRequests()
@@ -95,10 +98,10 @@ namespace HospitalService.View.ManagerUI.Logic
             if (requests.Count != 0)
             {
                 MovingRequests mr;
-                for(int i = 0; i < requests.Count; i++)
+                for (int i = 0; i < requests.Count; i++)
                 {
                     mr = requests[i];
-                    if(DateTime.Compare(mr.movingTime, DateTime.Now) <= 0)
+                    if (DateTime.Compare(mr.movingTime, DateTime.Now) <= 0)
                     {
                         AnalyzeRequests(mr);
                     }
@@ -112,13 +115,12 @@ namespace HospitalService.View.ManagerUI.Logic
         }
         public void RunThread(MovingRequests mr)
         {
-            FunctionsForRoomInventory f = new FunctionsForRoomInventory();
             TimeSpan time = mr.movingTime.Subtract(DateTime.Now);
 
             if (time > new TimeSpan(0, 0, 0))
                 Thread.Sleep(time);
 
-            f.AnalyzeRequests(mr);
+            AnalyzeRequests(mr);
         }
 
         public void StartMoving(MovingRequests mr)
@@ -131,3 +133,4 @@ namespace HospitalService.View.ManagerUI.Logic
         }
     }
 }
+

@@ -96,6 +96,9 @@
                         <DataTrigger Binding="{Binding ElementName=QuantityBox, Path=(Validation.HasError)}" Value="True">
                             <Setter Property="IsEnabled" Value="False"/>
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=comboBox, Path=SelectedIndex}" Value="-1">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Button.Style>
