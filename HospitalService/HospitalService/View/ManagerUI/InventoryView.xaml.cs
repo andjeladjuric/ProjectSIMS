@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalService.Storage;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -63,9 +64,98 @@ namespace HospitalService.View.ManagerUI
             {
                 storage.Delete(item.Id);
                 InventoryList.Remove(item);
+                tableBinding.ItemsSource = InventoryList;
+                InventoryType.SelectedIndex = -1;
+                textBox.Text = "";
                 tableBinding.Items.Refresh();
-
             }
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(InventoryType.SelectedIndex != -1)
+            {
+                ObservableCollection<Inventory> filtered = new ObservableCollection<Inventory>();
+
+                if(InventoryType.SelectedIndex == 0)
+                {
+                    filtered = InventoryList;
+                }
+                else if(InventoryType.SelectedIndex == 1)
+                {
+                    foreach(Inventory i in InventoryList)
+                    {
+                        if (i.EquipmentType.Equals(Equipment.Static))
+                            filtered.Add(i);
+                    }
+                }
+                else
+                {
+                    foreach (Inventory i in InventoryList)
+                    {
+                        if (i.EquipmentType.Equals(Equipment.Dynamic))
+                            filtered.Add(i);
+                    }
+                }
+
+                tableBinding.ItemsSource = filtered;
+            }
+        }
+
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            String enteredText = textBox.Text.ToLower();
+            RoomInventoryStorage roomInv = new RoomInventoryStorage();
+            RoomFileStorage rooms = new RoomFileStorage();
+            List<Inventory> filtered = new List<Inventory>();
+
+            if (enteredText != "")
+            {
+                foreach (Inventory i in InventoryList)
+                {
+                    if (i.Name.ToLower().Contains(enteredText) || i.Id.ToString().Contains(enteredText))
+                    {
+                        filtered.Add(i);
+                    }
+                    else
+                    {
+                        foreach (Room r in rooms.GetAll())
+                        {
+                            if (r.Name.ToLower().Contains(enteredText))
+                            {
+                                filtered = GetInventoryForRoom(r.Id);
+                            }
+                        }
+                    }
+                }
+
+                tableBinding.ItemsSource = null;
+                tableBinding.ItemsSource = filtered;
+            }
+            else
+            {
+                tableBinding.ItemsSource = InventoryList;
+            }
+        }
+
+        private List<Inventory> GetInventoryForRoom(string roomId)
+        {
+            List<Inventory> inv = new List<Inventory>();
+            RoomInventoryStorage roomInv = new RoomInventoryStorage();
+            foreach (RoomInventory r in roomInv.GetAll())
+            {
+                if (r.RoomId.Equals(roomId))
+                {
+                    foreach(Inventory i in storage.GetAll())
+                    {
+                        if (r.ItemId == i.Id)
+                            inv.Add(i);
+                    }
+                }
+                    
+            }
+
+            return inv;
         }
     }
 }

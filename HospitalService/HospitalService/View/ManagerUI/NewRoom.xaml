@@ -12,16 +12,24 @@
       Title="NewRoom">
 
     <Page.Resources>
-        <local:EnumValueConverter x:Key="comboConvert"/>
-        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+        <ResourceDictionary>
+            <local:EnumValueConverter x:Key="comboConvert"/>
+            <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
                             ObjectType="{x:Type System:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="model:RoomType"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="model:RoomType"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="White">
+    <Grid Background="#f5f5f5">
         <Rectangle HorizontalAlignment="Center" Height="442" Stroke="Black" VerticalAlignment="Top" Width="398" Margin="0,133,0,0"/>
         <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="336,217,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="36"/>
         <Label x:Name="name" Content="Ime" HorizontalAlignment="Left" Margin="336,280,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
@@ -99,9 +107,9 @@
 
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="509,456,0,0" VerticalAlignment="Top" Height="26" Width="90" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="332,56,0,0" Text="Dodaj stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
-        <Label x:Name="availability" Content="Dostupnost" HorizontalAlignment="Left" Margin="336,395,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
-        <RadioButton x:Name="available" Content="Da" HorizontalAlignment="Left" Margin="469,400,0,0" VerticalAlignment="Top" 
-                     FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14"/>
+        <Label x:Name="availability" Content="Dostupnost" HorizontalAlignment="Left" Margin="336,400,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
+        <RadioButton x:Name="available" Content="Da" HorizontalAlignment="Left" Margin="468,403,0,0" VerticalAlignment="Top" 
+                     FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14" RenderTransformOrigin="0.847,0.757"/>
         <RadioButton x:Name="notAvailable" Content="Ne" HorizontalAlignment="Left" Margin="533,403,0,0" VerticalAlignment="Top" 
                      FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14" RenderTransformOrigin="-0.412,0.308"/>
 

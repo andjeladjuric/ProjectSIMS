@@ -12,24 +12,33 @@
       Title="EditInventory">
 
     <Page.Resources>
-        <local:InventoryTypeConverter x:Key="invConverter"/>
-        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+        <ResourceDictionary>
+            <local:InventoryTypeConverter x:Key="invConverter"/>
+            <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
                             ObjectType="{x:Type System:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="model:Equipment"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="model:Equipment"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="White">
+    <Grid Background="#f5f5f5">
         <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding invList}" SelectedItem="{Binding item, Mode=TwoWay}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
-                  Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14" Margin="19,0,0,0">
+                  Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14" Margin="19,0,0,0"
+                  SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#f8f5ee"/>
+                    <Setter Property="Background" Value="#dadfe3"/>
                     <Setter Property="Foreground" Value="#5b7886"/>
-                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="Height" Value="34"/>
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     <Setter Property="VerticalContentAlignment" Value="Center"/>
                 </Style>
@@ -37,7 +46,8 @@
                 <Style TargetType="{x:Type DataGridCell}">
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="#bad6e4" />
+                            <Setter Property="Background" Value="#e0e0e0" />
+                            <Setter Property="BorderThickness" Value="0"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -143,7 +153,6 @@
             </Button>
 
             <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="214,416,0,0" VerticalAlignment="Top" Height="35" Width="88" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" RenderTransformOrigin="0.522,0.406"/>
-            <Label x:Name="label2" Visibility="Hidden" Content="Pogrešan format!" HorizontalAlignment="Left" Margin="269,222,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
             <TextBox x:Name="KolicinaBox" HorizontalAlignment="Left" Height="36" Margin="168,268,0,0" TextWrapping="Wrap" 
                      VerticalAlignment="Top" Width="168">
                 <TextBox.Resources>

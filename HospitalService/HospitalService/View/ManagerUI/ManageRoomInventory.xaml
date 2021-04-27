@@ -11,17 +11,26 @@
 
     <Page.Resources>
         <local:InventoryTypeConverter x:Key="typeConverter"/>
+        <ResourceDictionary x:Key="Dictionary">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="White">
+    <Grid Background="#f5f5f5" Resources="{StaticResource Dictionary}">
         <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding roomInventory}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
-                  Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14">
+                  Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14"
+                  SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#f8f5ee"/>
+                    <Setter Property="Background" Value="#dadfe3"/>
                     <Setter Property="Foreground" Value="#5b7886"/>
-                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="Height" Value="34"/>
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     <Setter Property="VerticalContentAlignment" Value="Center"/>
                 </Style>
@@ -29,7 +38,8 @@
                 <Style TargetType="{x:Type DataGridCell}">
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="#bad6e4" />
+                            <Setter Property="Background" Value="#e0e0e0" />
+                            <Setter Property="BorderThickness" Value="0"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -66,12 +76,12 @@
         <Label x:Name="Room" Content="Soba:" HorizontalAlignment="Left" Margin="531,74,0,0" VerticalAlignment="Top" Width="65" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="20" FontWeight="Bold" Height="30"/>
         <TextBox x:Name="IDBox" IsReadOnly="True"  HorizontalAlignment="Left" Height="30" Margin="614,78,0,0" TextWrapping="Wrap" 
                  TextAlignment="Center" VerticalContentAlignment="Center" FontFamily="GillSans MT" FontSize="16" VerticalAlignment="Top" Width="154"/>
-        <Button Background="#adc5d0" x:Name="Premesti" Content="Premesti inventar" HorizontalAlignment="Left" Margin="202,606,0,0" VerticalAlignment="Top" Height="26" Width="112" Click="Premesti_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Button Background="#adc5d0" x:Name="Premesti" Content="Premesti inventar" HorizontalAlignment="Left" Margin="202,606,0,0" VerticalAlignment="Top" Height="26" Width="134" Click="Premesti_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
 
         <Button x:Name="goBack" Click="goBack_Click" Background="{x:Null}" BorderThickness="0" Margin="0,78,737,610" HorizontalAlignment="Right" Width="30" Height="30">
-            <materialDesign:PackIcon Kind="ArrowLeft" Width="30" Height="30" HorizontalAlignment="Center" />
+            <materialDesign:PackIcon Kind="ArrowLeft" Width="30" Height="30" HorizontalAlignment="Center" Visibility="Visible"/>
         </Button>
-        <Button Background="#adc5d0" x:Name="changeQuantity" Content="Izmeni stanje" HorizontalAlignment="Left" Margin="331,606,0,0" 
+        <Button Background="#adc5d0" x:Name="changeQuantity" Content="Izmeni stanje" HorizontalAlignment="Left" Margin="360,606,0,0" 
                 VerticalAlignment="Top" Height="26" Width="112" Click="changeQuantity_Click" 
                 Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
 
