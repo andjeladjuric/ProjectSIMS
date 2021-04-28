@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Model;
 
 namespace HospitalService.Model
 {
@@ -13,5 +14,8 @@ namespace HospitalService.Model
         public String CareForPatient { get; set; }
         public String ProvidingInformation { get; set; }
         public String DevotedTime { get; set; }
+        public DateTime ExecutionTime { get; set; }
+        public Patient patient { get; set; }
+        public Doctor doctor { get; set; }
     }
 }
