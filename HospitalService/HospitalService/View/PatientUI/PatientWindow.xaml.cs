@@ -51,5 +51,10 @@ namespace HospitalService.View.PatientUI
         {
             Main.Content = new MedicalRecordWithPrescriptions(patient);
         }
+
+        private void SurveyClick(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new Surveys(patient);
+        }
     }
 }
