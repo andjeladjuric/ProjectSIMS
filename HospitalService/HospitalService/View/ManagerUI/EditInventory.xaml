@@ -86,19 +86,28 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
+                <DataGridTextColumn Header="Proizvođač" Width="*"  Binding="{Binding Supplier}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#5b7886"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
         <Grid x:Name="EditGrid" Margin="590,101,0,105">
             <Rectangle HorizontalAlignment="Left" Height="447" Stroke="Black" VerticalAlignment="Top" Width="350" Margin="12,35,0,0"/>
 
-            <Label x:Name="id" Content="ID" HorizontalAlignment="Left" Margin="42,143,0,0" VerticalAlignment="Top" Width="122" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="36"/>
-            <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="42,205,0,0" VerticalAlignment="Top" Width="122" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
-            <Label x:Name="kolicina" Content="Količina" HorizontalAlignment="Left" Margin="42,267,0,0" VerticalAlignment="Top" Width="122" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
-            <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="42,334,0,0" VerticalAlignment="Top" Width="122" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="35"/>
+            <Label x:Name="id" Content="ID" HorizontalAlignment="Left" Margin="42,121,0,0" VerticalAlignment="Top" Width="122" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="36"/>
+            <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="42,183,0,0" VerticalAlignment="Top" Width="122" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
+            <Label x:Name="kolicina" Content="Količina" HorizontalAlignment="Left" Margin="42,245,0,0" VerticalAlignment="Top" Width="122" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
+            <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="42,312,0,0" VerticalAlignment="Top" Width="122" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="35"/>
+            <Label x:Name="supplier" Content="Proizvođač" HorizontalAlignment="Left" Margin="42,376,0,0" VerticalAlignment="Top" Width="122" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="35"/>
             <TextBox x:Name="IDBox" Text="{Binding item.Id, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                     HorizontalAlignment="Left" Height="36" Margin="168,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" IsEnabled="False" TextAlignment="Left"/>
-            <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="36" Margin="168,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168">
+                     HorizontalAlignment="Left" Height="36" Margin="168,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" IsEnabled="False" TextAlignment="Left"/>
+            <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="36" Margin="168,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168">
                 <TextBox.Text>
                     <Binding Path="ItemName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -118,14 +127,14 @@
 
             <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
                       SelectedItem="{Binding item.EquipmentType, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      HorizontalAlignment="Left" Height="35" Margin="168,334,0,0" VerticalAlignment="Top" Width="168">
+                      HorizontalAlignment="Left" Height="35" Margin="168,312,0,0" VerticalAlignment="Top" Width="168">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource invConverter}}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="88,416,0,0" VerticalAlignment="Top" 
+            <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="88,426,0,0" VerticalAlignment="Top" 
                     Height="35" Width="90" Click="save_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE"
                     FontFamily="Gill Sans MT" FontSize="14">
                 <Button.Style>
@@ -144,6 +153,12 @@
                             <DataTrigger Binding="{Binding ElementName=KolicinaBox, Path=(Validation.HasError)}" Value="True">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=suppBox, Path=Text}" Value="">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=suppBox, Path=(Validation.HasError)}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
                             <DataTrigger Binding="{Binding ElementName=comboBox, Path=SelectedIndex}" Value="-1">
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
@@ -152,8 +167,8 @@
                 </Button.Style>
             </Button>
 
-            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="214,416,0,0" VerticalAlignment="Top" Height="35" Width="88" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" RenderTransformOrigin="0.522,0.406"/>
-            <TextBox x:Name="KolicinaBox" HorizontalAlignment="Left" Height="36" Margin="168,268,0,0" TextWrapping="Wrap" 
+            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="214,426,0,0" VerticalAlignment="Top" Height="35" Width="88" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" RenderTransformOrigin="0.522,0.406"/>
+            <TextBox x:Name="KolicinaBox" HorizontalAlignment="Left" Height="36" Margin="168,246,0,0" TextWrapping="Wrap" 
                      VerticalAlignment="Top" Width="168">
                 <TextBox.Resources>
                     <validation:MinInventoryProxy x:Key="proxy" Data="{Binding}"/>
@@ -178,8 +193,26 @@
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
-                
-            <Label x:Name="label3" Visibility="Hidden" Content="Pogrešan format!" HorizontalAlignment="Left" Margin="269,283,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
+
+            <TextBox x:Name="suppBox" HorizontalAlignment="Left" Height="34" Margin="168,367,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
+                     Width="168">
+                <TextBox.Text>
+                    <Binding Path="Supplier" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validation:ItemNameValidation ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="textBox"/>
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="34,61,0,0" Text="Izmeni stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
         </Grid>
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>

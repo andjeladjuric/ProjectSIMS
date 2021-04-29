@@ -79,6 +79,16 @@ namespace HospitalService.View.ManagerUI
                 MessageBox.Show("Morate izabrati sobu!");
             }
         }
+
+        private void tableBinding_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            /*Room r = (Room)tableBinding.SelectedItem;
+
+            if (r != null)
+            {
+                newFrame.Content = new ManageRoomInventory(r);
+            }*/
+        }
     }
 
     public class EnumValueConverter : IValueConverter

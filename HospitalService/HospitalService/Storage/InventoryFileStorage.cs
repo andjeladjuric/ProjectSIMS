@@ -150,7 +150,7 @@ namespace Model
             }
         }
 
-        public void Edit(int id, String name, Equipment type, int quantity)
+        public void Edit(int id, String name, Equipment type, int quantity, string supplier)
         {
             Inventory item;
             for (int i = 0; i < inventoryList.Count; i++)
@@ -183,6 +183,7 @@ namespace Model
 
                     item.Name = name;
                     item.EquipmentType = type;
+                    item.Supplier = supplier;
                     File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
                 }
             }

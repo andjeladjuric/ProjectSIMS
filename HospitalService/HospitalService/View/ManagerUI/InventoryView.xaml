@@ -79,7 +79,14 @@
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#5b7886"/>
                         </Style>
-
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Proizvođač" Width="*"  Binding="{Binding Supplier}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#5b7886"/>
+                        </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
@@ -96,12 +103,38 @@
             <ComboBoxItem Content="Statička oprema"/>
             <ComboBoxItem Content="Dinamička oprema"/>
         </ComboBox>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="658,97,0,0"
-                 materialDesign:HintAssist.Hint="search..."
+
+        <materialDesign:PopupBox x:Name="Popup" PlacementMode="RightAndAlignTopEdges" Width="32" Height="30" StaysOpen="True" Margin="768,94,0,594">
+            <materialDesign:PopupBox.ToggleContent>
+                <materialDesign:PackIcon Kind="Search" Height="30" Width="30" />
+            </materialDesign:PopupBox.ToggleContent>
+            <StackPanel Width="150" Height="160">
+                <TextBox x:Name="searchId"
+                 materialDesign:HintAssist.Hint="šifra..."
                  materialDesign:HintAssist.HintOpacity=".26"
-                 TextWrapping="Wrap" VerticalAlignment="Top" Width="140"
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                 Height="22" TextChanged="textBox_TextChanged"/>
+                 TextChanged="textBox_TextChanged"/>
+                <Separator/>
+                <TextBox x:Name="searchName"
+                 materialDesign:HintAssist.Hint="naziv..."
+                 materialDesign:HintAssist.HintOpacity=".26"
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                 TextChanged="textBox_TextChanged"/>
+                <Separator/>
+                <TextBox x:Name="searchSupplier"
+                 materialDesign:HintAssist.Hint="proizvođač..."
+                 materialDesign:HintAssist.HintOpacity=".26"
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                 TextChanged="textBox_TextChanged"/>
+                <Separator/>
+                <Button Click="Button_Click" Content="Poništi pretragu" FontFamily="Gill Sans MT" Foreground="Black"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </materialDesign:PopupBox>
+
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>

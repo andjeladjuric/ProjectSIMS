@@ -66,7 +66,6 @@ namespace HospitalService.View.ManagerUI
                 InventoryList.Remove(item);
                 tableBinding.ItemsSource = InventoryList;
                 InventoryType.SelectedIndex = -1;
-                textBox.Text = "";
                 tableBinding.Items.Refresh();
             }
         }
@@ -104,32 +103,23 @@ namespace HospitalService.View.ManagerUI
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            String enteredText = textBox.Text.ToLower();
+            string id = searchId.Text.ToLower().Trim();
+            string name = searchName.Text.ToLower().Trim();
+            string supplier = searchSupplier.Text.ToLower().Trim();
             RoomInventoryStorage roomInv = new RoomInventoryStorage();
             RoomFileStorage rooms = new RoomFileStorage();
             List<Inventory> filtered = new List<Inventory>();
 
-            if (enteredText != "")
+            if (id != "" || name != "" || supplier != "")
             {
                 foreach (Inventory i in InventoryList)
                 {
-                    if (i.Name.ToLower().Contains(enteredText) || i.Id.ToString().Contains(enteredText))
+                    if (i.Name.ToLower().Contains(name) && i.Id.ToString().Contains(id)
+                        && i.Supplier.ToLower().Contains(supplier))
                     {
                         filtered.Add(i);
                     }
-                    else
-                    {
-                        foreach (Room r in rooms.GetAll())
-                        {
-                            if (r.Name.ToLower().Contains(enteredText))
-                            {
-                                filtered = GetInventoryForRoom(r.Id);
-                            }
-                        }
-                    }
                 }
-
-                tableBinding.ItemsSource = null;
                 tableBinding.ItemsSource = filtered;
             }
             else
@@ -156,6 +146,15 @@ namespace HospitalService.View.ManagerUI
             }
 
             return inv;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Popup.IsPopupOpen = false;
+            searchId.Text = "";
+            searchName.Text = "";
+            searchSupplier.Text = "";
+            tableBinding.ItemsSource = InventoryList;
         }
     }
 }

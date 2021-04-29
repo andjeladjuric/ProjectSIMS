@@ -65,6 +65,23 @@ namespace HospitalService.View.ManagerUI
                 }
             }
         }
+        
+        private string _supplier;
+        public string Supplier
+        {
+            get
+            {
+                return _supplier;
+            }
+            set
+            {
+                if (value != _supplier)
+                {
+                    _supplier = value;
+                    OnPropertyChanged("Supplier");
+                }
+            }
+        }
         public Inventory item { get; set; }
         InventoryFileStorage storage;
         public ObservableCollection<Inventory> invList { get; set; }
@@ -78,6 +95,7 @@ namespace HospitalService.View.ManagerUI
 
             EnteredQuantity = item.Quantity.ToString();
             ItemName = item.Name;
+            Supplier = item.Supplier;
         }
 
         private void save_Click(object sender, RoutedEventArgs e)
@@ -86,8 +104,9 @@ namespace HospitalService.View.ManagerUI
             int id = Int32.Parse(IDBox.Text);
             string neki = NameBox.Text;
             int kol = Int32.Parse(KolicinaBox.Text);
+            string supplier = suppBox.Text;
 
-            storage.Edit(id, neki, tip, kol);
+            storage.Edit(id, neki, tip, kol, supplier);
             newFrame.NavigationService.Navigate(new InventoryView());
         }
 
@@ -95,6 +114,7 @@ namespace HospitalService.View.ManagerUI
         {
             NameBox.Visibility = Visibility.Hidden;
             KolicinaBox.Visibility = Visibility.Hidden;
+            suppBox.Visibility = Visibility.Hidden;
             newFrame.NavigationService.Navigate(new InventoryView());
         }
     }

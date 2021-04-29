@@ -69,6 +69,23 @@ namespace HospitalService.View.ManagerUI
             }
         }
 
+        private string _supplier;
+        public string Supplier
+        {
+            get
+            {
+                return _supplier;
+            }
+            set
+            {
+                if (value != _supplier)
+                {
+                    _supplier = value;
+                    OnPropertyChanged("Supplier");
+                }
+            }
+        }
+
         private string _quantity;
         public string ItemQuantity
         {
@@ -105,6 +122,7 @@ namespace HospitalService.View.ManagerUI
             item.Id = Int32.Parse(IDBox.Text);
             item.Name = NameBox.Text;
             item.Quantity = Int32.Parse(QuantityBox.Text);
+            item.Supplier = suppBox.Text;
 
             storage.Save(item);
             invList.Add(item);
@@ -116,6 +134,7 @@ namespace HospitalService.View.ManagerUI
             IDBox.Visibility = Visibility.Hidden;
             NameBox.Visibility = Visibility.Hidden;
             QuantityBox.Visibility = Visibility.Hidden;
+            suppBox.Visibility = Visibility.Hidden;
             newFrame.NavigationService.Navigate(new InventoryView());
         }
     }

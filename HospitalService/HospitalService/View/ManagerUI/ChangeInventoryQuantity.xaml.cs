@@ -66,7 +66,13 @@ namespace HospitalService.View.ManagerUI
             this.DataContext = this;
 
             room = r;
-            roomInventory = inv;
+
+            roomInventory = new ObservableCollection<Inventory>();
+            foreach(Inventory i in inv)
+            {
+                if (i.EquipmentType == Equipment.Dynamic)
+                    roomInventory.Add(i);
+            }
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)
@@ -133,6 +139,41 @@ namespace HospitalService.View.ManagerUI
 
 
             newFrame.Content = new ManageRoomInventory(room);
+        }
+
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string id = searchId.Text.ToLower().Trim();
+            string name = searchName.Text.ToLower().Trim();
+            string supplier = searchSupplier.Text.ToLower().Trim();
+            RoomInventoryStorage roomInv = new RoomInventoryStorage();
+            RoomFileStorage rooms = new RoomFileStorage();
+            List<Inventory> filtered = new List<Inventory>();
+
+            if (id != "" || name != "" || supplier != "")
+            {
+                foreach (Inventory i in roomInventory)
+                {
+                    if (i.Name.ToLower().Contains(name) && i.Id.ToString().Contains(id)
+                        && i.Supplier.ToLower().Contains(supplier))
+                    {
+                        filtered.Add(i);
+                    }
+                }
+                tableBinding.ItemsSource = filtered;
+            }
+            else
+            {
+                tableBinding.ItemsSource = roomInventory;
+            }
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Popup.IsPopupOpen = false;
+            searchId.Text = "";
+            searchName.Text = "";
+            searchSupplier.Text = "";
+            tableBinding.ItemsSource = roomInventory;
         }
     }
 }
