@@ -5,19 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI"
         mc:Ignorable="d"
-        Title="Uputnica" Height="480" Width="450" WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight" ResizeMode="NoResize" FontFamily="Open Sans" FontSize="18">
-    <Grid Width="450" Margin="0,0,0,-30">
+        Title="Uputnica" Height="600" Width="450" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize" FontFamily="Open Sans" FontSize="18">
+    <Grid Height="600" Width="450">
         <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="59,73,0,0" VerticalAlignment="Top"/>
         <Label Content="Odjeljenje*:" HorizontalAlignment="Left" Margin="59,128,0,0" VerticalAlignment="Top"/>
         <Label Content="Doktor*:" HorizontalAlignment="Left" Margin="59,187,0,0" VerticalAlignment="Top"/>
         <Label Content="Hitno*:" HorizontalAlignment="Left" Margin="59,303,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.541,-0.72"/>
         <Label Content="Datum izdavanja:" HorizontalAlignment="Left" Margin="59,242,0,0" VerticalAlignment="Top"/>
         <Label Content="Uputnica" FontSize="24" HorizontalAlignment="Left" Margin="165,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.541,-0.72"/>
-        <TextBox HorizontalAlignment="Left" Margin="204,75,0,0" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="30"/>
-        <DatePicker HorizontalAlignment="Left" Margin="227,243,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.072,0.934"/>
+        <TextBox Name="PatientTB" IsEnabled="False" HorizontalAlignment="Left" Margin="204,75,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="30"/>
+        <DatePicker Name="DateOfIssueDP" HorizontalAlignment="Left" Margin="227,243,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.072,0.934"/>
         <RadioButton Content="DA" HorizontalAlignment="Center" Margin="0,309,0,0" VerticalAlignment="Top"/>
         <RadioButton Content="NE" HorizontalAlignment="Left" Margin="294,308,0,0" VerticalAlignment="Top"/>
-        <Button Content="Odustani" Margin="107,408,245,59" Width="87" Height="27">
+        <Button Content="Odustani" Margin="118,524,245,48" Width="87" Height="27" Click="Cancel_Click">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -30,13 +30,28 @@
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button Content="Potvrdi" Width="87" Height="27" Margin="251,408,112,59">
+        <Button Content="Potvrdi" Width="87" Height="27" Margin="249,524,114,48" Click="Apply_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <ComboBox HorizontalAlignment="Left" Margin="204,132,0,0" VerticalAlignment="Top" Width="190" Height="30"/>
-        <ComboBox HorizontalAlignment="Left" Margin="204,187,0,0" VerticalAlignment="Top" Width="190" Height="30"/>
+        <ComboBox SelectionChanged="DepartmentOptions_SelectionChanged" Name="DepartmentOptions" HorizontalAlignment="Left" Margin="204,132,0,0" VerticalAlignment="Top" Width="190" Height="30"/>
+        <ComboBox HorizontalAlignment="Left" Margin="204,187,0,0" VerticalAlignment="Top" Width="190" Height="30" IsEnabled="False" Name="DoctorOptions">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="Name"/>
+                                <Binding Path="Surname"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label Content="Razlog:" HorizontalAlignment="Left" Margin="59,367,0,0" VerticalAlignment="Top"/>
+        <TextBox  Background="WhiteSmoke" HorizontalAlignment="Left" Margin="59,404,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="335" Height="89" Name="ReasonTextBox"/>
 
     </Grid>
 </Window>

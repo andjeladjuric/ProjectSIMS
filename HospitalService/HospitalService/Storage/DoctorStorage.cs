@@ -27,5 +27,16 @@ namespace HospitalService.Storage
             return doctors.Find(x => x.Username == username);
         }
 
+        public List<Doctor> GetByDepartment(DoctorType department)
+        {
+            List<Doctor> foundDoctors = new List<Doctor>();
+            foreach(Doctor doctor in doctors)
+            {
+                if (doctor.DoctorType.Equals(department))
+                    foundDoctors.Add(doctor);
+            }
+            return foundDoctors;
+        }
+
     }
 }

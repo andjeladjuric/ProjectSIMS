@@ -55,5 +55,11 @@ namespace HospitalService.View.DoctorUI
             IstorijaList.Items.Refresh();
             TerapijaList.Items.Refresh();
         }
+
+        private void Referral_Click(object sender, RoutedEventArgs e)
+        {
+            ReferralWindow referralWindow = new ReferralWindow(this);
+            referralWindow.ShowDialog();
+        }
     }
 }

@@ -58,6 +58,11 @@
         <TextBox Name="JmbgTB" IsEnabled="False" HorizontalAlignment="Left" Margin="874,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
         <TextBox Name="AddressTB" IsEnabled="False"  HorizontalAlignment="Left" Margin="874,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
         <TextBox Name="ContactTB" IsEnabled="False" HorizontalAlignment="Left" Margin="874,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
+        <Button Click="Referral_Click" Background="DimGray" Content="Izdaj uput" HorizontalAlignment="Left" Margin="985,603,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.517,1.029"  Width="118">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
 
     </Grid>
 </Window>

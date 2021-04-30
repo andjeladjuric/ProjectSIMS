@@ -1,5 +1,9 @@
-﻿using System;
+﻿using HospitalService.Model;
+using HospitalService.Storage;
+using Model;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,9 +21,33 @@ namespace HospitalService.View.DoctorUI
     /// </summary>
     public partial class ReferralWindow : Window
     {
-        public ReferralWindow()
+        private Patient patient;
+        private List<Doctor> doctors;
+
+
+        public ReferralWindow(MedicalRecordDoctorWindow medicalRecord)
         {
             InitializeComponent();
+            patient = medicalRecord.Karton.Patient;
+            PatientTB.Text = patient.Name + " " + patient.Surname;
+            DepartmentOptions.ItemsSource = Enum.GetValues(typeof(DoctorType)).Cast<DoctorType>();
+            DateOfIssueDP.SelectedDate = DateTime.Now;
+        }
+
+        private void DepartmentOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            doctors = new DoctorStorage().GetByDepartment((DoctorType)DepartmentOptions.SelectedItem);
+            DoctorOptions.IsEnabled = true;
+            DoctorOptions.ItemsSource = doctors;
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Apply_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

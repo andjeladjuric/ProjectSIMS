@@ -11,6 +11,7 @@ namespace Model
         public Patient Patient { get; set; }
         public List<Diagnosis> Diagnoses { get; set; }
         public List<Prescription> Prescriptions { get; set; }
+        public List<Referral> Referrals { get; set; }
 
         public MedicalRecord() {
             Diagnoses = new List<Diagnosis>();
