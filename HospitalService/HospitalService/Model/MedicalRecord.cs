@@ -15,7 +15,8 @@ namespace Model
 
         public MedicalRecord() {
             Diagnoses = new List<Diagnosis>();
-            Prescriptions = new List<Prescription>(); ;
+            Prescriptions = new List<Prescription>(); 
+            Referrals = new List<Referral>();
         }
 
         public MedicalRecord(string s, List<Diagnosis> ds, List<Prescription> ps)

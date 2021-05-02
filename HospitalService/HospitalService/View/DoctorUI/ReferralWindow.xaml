@@ -15,7 +15,7 @@
         <Label Content="Uputnica" FontSize="24" HorizontalAlignment="Left" Margin="165,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.541,-0.72"/>
         <TextBox Name="PatientTB" IsEnabled="False" HorizontalAlignment="Left" Margin="204,75,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="30"/>
         <DatePicker Name="DateOfIssueDP" HorizontalAlignment="Left" Margin="227,243,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.072,0.934"/>
-        <RadioButton Content="DA" HorizontalAlignment="Center" Margin="0,309,0,0" VerticalAlignment="Top"/>
+        <RadioButton Name="YesButton" Content="DA" HorizontalAlignment="Center" Margin="0,309,0,0" VerticalAlignment="Top"/>
         <RadioButton Content="NE" HorizontalAlignment="Left" Margin="294,308,0,0" VerticalAlignment="Top"/>
         <Button Content="Odustani" Margin="118,524,245,48" Width="87" Height="27" Click="Cancel_Click">
             <Button.RenderTransform>
@@ -51,7 +51,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <Label Content="Razlog:" HorizontalAlignment="Left" Margin="59,367,0,0" VerticalAlignment="Top"/>
-        <TextBox  Background="WhiteSmoke" HorizontalAlignment="Left" Margin="59,404,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="335" Height="89" Name="ReasonTextBox"/>
+        <TextBox  Name="ReasonTextBox" Background="WhiteSmoke" HorizontalAlignment="Left" Margin="59,404,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="335" Height="89"/>
 
     </Grid>
 </Window>
