@@ -5,6 +5,8 @@ namespace Model
     {
         Finished,
         Canceled,
-        Missed
+        Missed,
+        Moved,
+        Active
     }
 }

@@ -60,7 +60,7 @@
                                 <TextBlock Text="Uvid u recepte" Foreground="White" FontStyle="Italic" FontSize="14"/>
                             </StackPanel>
                         </Button>
-                        <Button Grid.Row="6" Background="RoyalBlue">
+                        <Button Grid.Row="6" Background="RoyalBlue" Click="SurveyClick">
                             <StackPanel>
                                 <Image Source="/View/PatientUI/Images/ankete.png" Height="35" Width="70"/>
                                 <TextBlock Text="Aktivne ankete" Foreground="White" FontStyle="Italic" FontSize="14"/>

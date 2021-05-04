@@ -1,0 +1,51 @@
+﻿<Page x:Class="HospitalService.View.PatientUI.Pages.LastFinishedHospitalSurvey"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HospitalService.View.PatientUI.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="830"
+      Title="LastFinishedHospitalSurvey">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="230"/>
+            <ColumnDefinition Width="20"/>
+
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="1" Grid.Column="1" Content="Anketa je vec radjena!"  FontStyle="Italic" FontSize="20"/>
+        <Label Grid.Row="1" Grid.Column="2" Content="Datum radjenja ankete:" FontStyle="Italic" FontSize="20"/>
+        <Label x:Name="lbDate" Grid.Row="1" Grid.Column="3" FontStyle="Italic" FontSize="18"/>
+        <Label Grid.Row="3" Grid.Column="1" Content="Strucnost osoblja:" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
+        <Label x:Name="lbProf" Grid.Row="3" Grid.Column="2" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
+        <Label Grid.Row="4" Grid.Column="1" Content="Ljubaznost osoblja:" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
+        <Label x:Name="lbCourtesy" Grid.Row="4" Grid.Column="2" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
+        <Label Grid.Row="5" Grid.Column="1" Content="Duzina cekanja na prijem:" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
+        <Label x:Name="lbTime" Grid.Row="5" Grid.Column="2" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
+        <Label Grid.Row="6" Grid.Column="1" Content="Higijena prostorija:" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
+        <Label x:Name="lbHygiene" Grid.Row="6" Grid.Column="2" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
+        <Label Grid.Row="7" Grid.Column="1" Content="Kvalitet nasih usluga:" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
+        <Label x:Name="lbService" Grid.Row="7" Grid.Column="2" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
+        <Label Grid.Row="8" Grid.Column="1" Content="Cijene usluga bolnice:" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
+        <Label x:Name="lbPrise" Grid.Row="8" Grid.Column="2" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
+    </Grid>
+</Page>
