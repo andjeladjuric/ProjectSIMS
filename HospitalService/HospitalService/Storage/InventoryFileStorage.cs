@@ -12,91 +12,86 @@ namespace Model
     public class InventoryFileStorage
     {
         private String FileLocation = @"..\..\..\Data\inventory.json";
-        private List<Inventory> inventoryList;
-        RoomFileStorage storage = new RoomFileStorage();
+        private List<Inventory> inventory;
+        private RoomFileStorage roomStorage = new RoomFileStorage();
         public List<MovingRequests> requests { get; set; }
 
         public InventoryFileStorage()
         {
-            inventoryList = new List<Inventory>();
-            inventoryList = JsonConvert.DeserializeObject<List<Inventory>>(File.ReadAllText(FileLocation));
+            inventory = new List<Inventory>();
+            inventory = JsonConvert.DeserializeObject<List<Inventory>>(File.ReadAllText(FileLocation));
         }
         public void SerializeInventory()
         {
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
-        }
-
-        public List<Inventory> DeserializeInventory()
-        {
-            return JsonConvert.DeserializeObject<List<Inventory>>(File.ReadAllText(FileLocation));
+            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventory));
         }
 
         public List<Inventory> GetAll()
         {
-            return inventoryList;
+            return inventory;
         }
 
         public void Save(Inventory newItem)
         {
-            List<RoomInventory> roomInventories = JsonConvert.DeserializeObject<List<RoomInventory>>(File.ReadAllText(@"..\..\..\Data\roomInventory.json"));
+            List<RoomInventory> inventoryInRooms = JsonConvert.DeserializeObject<List<RoomInventory>>(File.ReadAllText(@"..\..\..\Data\roomInventory.json"));
 
-            if (storage.GetAll().Count == 0)
+            if (roomStorage.GetAll().Count == 0)
             {
                 MessageBox.Show("Ne postoji soba u koju možete ubaciti inventar!");
             }
 
-            foreach (Room r in storage.GetAll())
+            foreach (Room r in roomStorage.GetAll())
             {
                 if (r.Type == RoomType.StorageRoom)
                 {
                     RoomInventory roomInventory = new RoomInventory(r.Id, newItem.Id, newItem.Quantity);
-                    roomInventories.Add(roomInventory);
-                    inventoryList.Add(newItem);
+                    inventoryInRooms.Add(roomInventory);
+                    inventory.Add(newItem);
 
-                    File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(roomInventories));
-                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                    File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(inventoryInRooms));
+                    SerializeInventory();
                     return;
                 }
             }
 
-            foreach (Room r in storage.GetAll())
+            foreach (Room r in roomStorage.GetAll())
             {
                 if (r.Type == RoomType.ExaminationRoom)
                 {
                     RoomInventory roomInventory = new RoomInventory(r.Id, newItem.Id, newItem.Quantity);
-                    roomInventories.Add(roomInventory);
-                    inventoryList.Add(newItem);
+                    inventoryInRooms.Add(roomInventory);
+                    inventory.Add(newItem);
 
-                    File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(roomInventories));
-                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                    File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(inventoryInRooms));
+                    SerializeInventory();
                     return;
                 }
             }
 
-            foreach (Room r in storage.GetAll())
+            foreach (Room r in roomStorage.GetAll())
             {
                 if (r.Type == RoomType.PatientRoom)
                 {
                     RoomInventory roomInventory = new RoomInventory(r.Id, newItem.Id, newItem.Quantity);
-                    roomInventories.Add(roomInventory);
-                    inventoryList.Add(newItem);
+                    inventoryInRooms.Add(roomInventory);
+                    inventory.Add(newItem);
 
-                    File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(roomInventories));
-                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                    File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(inventoryInRooms));
+                    SerializeInventory();
                     return;
                 }
             }
 
-            foreach (Room r in storage.GetAll())
+            foreach (Room r in roomStorage.GetAll())
             {
                 if (r.Type == RoomType.OperatingRoom)
                 {
                     RoomInventory roomInventory = new RoomInventory(r.Id, newItem.Id, newItem.Quantity);
-                    roomInventories.Add(roomInventory);
-                    inventoryList.Add(newItem);
+                    inventoryInRooms.Add(roomInventory);
+                    inventory.Add(newItem);
 
-                    File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(roomInventories));
-                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                    File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(inventoryInRooms));
+                    SerializeInventory();
                     return;
                 }
             }
@@ -105,15 +100,15 @@ namespace Model
         public void Delete(int invId)
         {
             Inventory item;
-            for (int i = 0; i < inventoryList.Count; i++)
+            for (int i = 0; i < inventory.Count; i++)
             {
-                item = inventoryList[i];
+                item = inventory[i];
                 if (item.Id.Equals(invId))
                 {
                     DeleteInventoryInRoom(invId);
                     DeleteRequests(invId);
-                    inventoryList.RemoveAt(i);
-                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                    inventory.RemoveAt(i);
+                    SerializeInventory();
                     break;
                 }
             }
@@ -122,14 +117,14 @@ namespace Model
         private void DeleteInventoryInRoom(int itemId)
         {
             RoomInventory r;
-            RoomInventoryStorage f = new RoomInventoryStorage();
-            for (int j = 0; j < f.GetAll().Count; j++)
+            RoomInventoryStorage roomInventoryStorage = new RoomInventoryStorage();
+            for (int j = 0; j < roomInventoryStorage.GetAll().Count; j++)
             {
-                r = f.GetAll()[j];
+                r = roomInventoryStorage.GetAll()[j];
                 if (r.ItemId == itemId)
                 {
-                    f.GetAll().RemoveAt(j);
-                    f.SerializeRoomInventory();
+                    roomInventoryStorage.GetAll().RemoveAt(j);
+                    roomInventoryStorage.SerializeRoomInventory();
                 }
             }
         }
@@ -137,11 +132,11 @@ namespace Model
         private void DeleteRequests(int itemId)
         {
             List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-            MovingRequests mr;
+            MovingRequests movingRequest;
             for (int i = 0; i < requests.Count; i++)
             {
-                mr = requests[i];
-                if (itemId == mr.inventoryId)
+                movingRequest = requests[i];
+                if (itemId == movingRequest.inventoryId)
                 {
                     requests.RemoveAt(i);
                     File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
@@ -153,30 +148,30 @@ namespace Model
         public void Edit(int id, String name, Equipment type, int quantity, string supplier)
         {
             Inventory item;
-            for (int i = 0; i < inventoryList.Count; i++)
+            for (int i = 0; i < inventory.Count; i++)
             {
-                item = inventoryList[i];
+                item = inventory[i];
                 if (item.Id.Equals(id))
                 { 
                     int temp = 0;
 
-                    if(storage.GetAll().Count == 0)
+                    if(roomStorage.GetAll().Count == 0)
                     {
                         MessageBox.Show("Ne postoje sobe u kojima inventar može da se izmeni!");
                     }
                      
-                    if(item.Quantity < quantity) // dodavanje
+                    if(item.Quantity < quantity)
                     {
                         temp = quantity - item.Quantity;
-                        RoomInventoryStorage f = new RoomInventoryStorage();
+                        RoomInventoryStorage roomInventoryStorage = new RoomInventoryStorage();
 
-                        foreach(Room room in storage.getByType(RoomType.StorageRoom))
+                        foreach(Room room in roomStorage.getByType(RoomType.StorageRoom))
                         {
-                            RoomInventory r = f.GetRoomInventoryByIds(room.Id, item.Id);
+                            RoomInventory r = roomInventoryStorage.GetRoomInventoryByIds(room.Id, item.Id);
                             r.Quantity += temp;
                             item.Quantity = quantity;
-                            f.SerializeRoomInventory();
-                            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                            roomInventoryStorage.SerializeRoomInventory();
+                            SerializeInventory();
                             return;
                         }
                     }
@@ -184,15 +179,15 @@ namespace Model
                     item.Name = name;
                     item.EquipmentType = type;
                     item.Supplier = supplier;
-                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(inventoryList));
+                    SerializeInventory();
                 }
             }
         }
 
-        public static Inventory getOne(int id)
+        public Inventory getOne(int id)
         {
-            List<Inventory> inventoryList = JsonConvert.DeserializeObject<List<Inventory>>(File.ReadAllText(@"..\..\..\Data\inventory.json"));
-            return inventoryList.Find(x => x.Id == id);
+            List<Inventory> inventory= JsonConvert.DeserializeObject<List<Inventory>>(File.ReadAllText(@"..\..\..\Data\inventory.json"));
+            return inventory.Find(x => x.Id == id);
         }
     }
 }

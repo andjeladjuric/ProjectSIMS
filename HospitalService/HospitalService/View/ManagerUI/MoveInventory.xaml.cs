@@ -25,12 +25,11 @@ namespace HospitalService.View.ManagerUI
     public partial class MoveInventory : Page, INotifyPropertyChanged 
     {
         public Room room;
-        InventoryFileStorage invStorage = new InventoryFileStorage();
-        RoomFileStorage roomStorage;
+        private InventoryFileStorage invStorage = new InventoryFileStorage();
+        private RoomFileStorage roomStorage;
         public ObservableCollection<Inventory> roomInventory { get; set; }
         public List<String> roomNames { get; set; }
-        RoomInventoryStorage functions = new RoomInventoryStorage();
-        public MovingRequests m = new MovingRequests();
+        private RoomInventoryStorage roomInventoryStorage = new RoomInventoryStorage();
         public List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
 
         private Inventory _i;
@@ -139,22 +138,22 @@ namespace HospitalService.View.ManagerUI
                     }
                 }
 
-                int inventoryId = Int32.Parse(IDBox.Text);
+                int itemId = Int32.Parse(IDBox.Text);
 
                 foreach (Inventory i in roomInventory)
                 {
-                    if(i.Id == inventoryId)
+                    if(i.Id == itemId)
                     {
                         if (i.EquipmentType.Equals(Equipment.Dynamic))
                         {
-                            functions.AnalyzeRequests(new MovingRequests(DateTime.Now, EnteredQuantity, room.Id, sendToThisRoom.Id, inventoryId));
+                            roomInventoryStorage.AnalyzeRequests(new MovingRequests(DateTime.Now, EnteredQuantity, room.Id, sendToThisRoom.Id, itemId));
                         }
                         else
                         {
                             TimeSpan selectedTime = TimeSpan.ParseExact(Time, "c", null);
                             Date = Convert.ToDateTime(selectedTime + " " + datePicker.Text);
-                            MovingRequests request = new MovingRequests(Date, EnteredQuantity, room.Id, sendToThisRoom.Id, inventoryId);
-                            functions.StartMoving(request);
+                            MovingRequests request = new MovingRequests(Date, EnteredQuantity, room.Id, sendToThisRoom.Id, itemId);
+                            roomInventoryStorage.StartMoving(request);
 
                         }
                     }

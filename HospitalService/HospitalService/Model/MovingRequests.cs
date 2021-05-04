@@ -13,7 +13,6 @@ namespace Model
         public string moveFromThisRoom { get; set; }
         public string sendToThisRoom { get; set; }
         public int inventoryId { get; set; }
-        public Boolean isDone { get; set; }
 
         public MovingRequests()
         {

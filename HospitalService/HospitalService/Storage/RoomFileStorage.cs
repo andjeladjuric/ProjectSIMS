@@ -22,10 +22,6 @@ namespace Model
             File.WriteAllText(FileLocation, JsonConvert.SerializeObject(rooms));
         }
 
-        public List<Room> DeserializeRooms()
-        {
-            return JsonConvert.DeserializeObject<List<Room>>(File.ReadAllText(FileLocation));
-        }
         public List<Room> GetAll()
         {
             return rooms;
@@ -34,7 +30,7 @@ namespace Model
         public void Save(Room newRoom)
         {
             rooms.Add(newRoom);
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(rooms));
+            SerializeRooms();
         }
 
         public void Delete(string roomId)
@@ -49,7 +45,7 @@ namespace Model
                     MoveItemsToStorage(roomId);
                     DeleteRequests(roomId);
                     rooms.RemoveAt(i);
-                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(rooms));
+                    SerializeRooms();
                     break;
                 }
             }
@@ -58,11 +54,11 @@ namespace Model
         private void DeleteRequests(string roomId)
         {
             List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-            MovingRequests mr;
+            MovingRequests movingRequest;
             for (int i = 0; i < requests.Count; i++)
             {
-                mr = requests[i];
-                if (roomId.Equals(mr.moveFromThisRoom) || roomId.Equals(mr.sendToThisRoom))
+                movingRequest = requests[i];
+                if (roomId.Equals(movingRequest.moveFromThisRoom) || roomId.Equals(movingRequest.sendToThisRoom))
                 {
                     requests.RemoveAt(i);
                     File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
@@ -73,29 +69,29 @@ namespace Model
 
         private void MoveItemsToStorage(string roomId)
         {
-            RoomInventoryStorage roomInv = new RoomInventoryStorage();
-            for (int j = 0; j < roomInv.GetAll().Count; j++)
+            RoomInventoryStorage roomInventoryStorage = new RoomInventoryStorage();
+            for (int j = 0; j < roomInventoryStorage.GetAll().Count; j++)
             {
-                RoomInventory ri = roomInv.GetAll()[j];
+                RoomInventory ri = roomInventoryStorage.GetAll()[j];
                 if (ri.RoomId.Equals(roomId))
                 {
                     foreach (Room soba in getByType(RoomType.StorageRoom))
                     {
-                        RoomInventory nova = roomInv.GetRoomInventoryByIds(soba.Id, ri.ItemId);
-                        if (nova == null)
+                        RoomInventory inventoryById = roomInventoryStorage.GetRoomInventoryByIds(soba.Id, ri.ItemId);
+                        if (inventoryById == null)
                         {
-                            roomInv.GetAll().Add(new RoomInventory(soba.Id, ri.ItemId, ri.Quantity));
+                            roomInventoryStorage.GetAll().Add(new RoomInventory(soba.Id, ri.ItemId, ri.Quantity));
                             break;
                         }
                         else
                         {
-                            nova.Quantity += ri.Quantity;
+                            inventoryById.Quantity += ri.Quantity;
                             break;
                         }
                     }
 
-                    roomInv.GetAll().RemoveAt(j);
-                    File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(roomInv.GetAll()));
+                    roomInventoryStorage.GetAll().RemoveAt(j);
+                    File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(roomInventoryStorage.GetAll()));
                 }
             }
         }
@@ -111,13 +107,13 @@ namespace Model
                     r.Name = name;
                     r.Type = type;
                     r.IsFree = free;
-                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(rooms));
+                    SerializeRooms();
                     break;
                 }
             }
         }
 
-        public static Room getOne(string id)
+        public Room getOne(string id)
         {
             List<Room> rooms = JsonConvert.DeserializeObject<List<Room>>(File.ReadAllText(@"..\..\..\Data\rooms.json"));
             return rooms.Find(x => x.Id == id);
@@ -125,17 +121,17 @@ namespace Model
 
         public List<Room> getByType(RoomType type)
         {
-            List<Room> listByType = new List<Room>();
+            List<Room> roomsByType = new List<Room>();
             Room r;
 
             for( int i = 0; i < rooms.Count; i++)
             {
                 r = rooms[i];
                 if (r.Type == type)
-                    listByType.Add(r);
+                    roomsByType.Add(r);
             }
 
-            return listByType;
+            return roomsByType;
 
         }
 
@@ -149,7 +145,7 @@ namespace Model
                     break;
                 }
             }
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(rooms));
+            SerializeRooms();
         }
 
     }

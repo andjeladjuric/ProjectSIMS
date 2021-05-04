@@ -11,40 +11,43 @@ namespace HospitalService.Storage
 {
     class RoomInventoryStorage
     {
-        public List<RoomInventory> roomInventories { get; set; }
+        public List<RoomInventory> roomInventory { get; set; }
         public List<MovingRequests> requests { get; set; }
         public RoomInventoryStorage()
         {
-            roomInventories = new List<RoomInventory>();
-            roomInventories = JsonConvert.DeserializeObject<List<RoomInventory>>(File.ReadAllText(@"..\..\..\Data\roomInventory.json"));
+            roomInventory = new List<RoomInventory>();
+            roomInventory = JsonConvert.DeserializeObject<List<RoomInventory>>(File.ReadAllText(@"..\..\..\Data\roomInventory.json"));
         }
 
         public List<RoomInventory> GetAll()
         {
-            return roomInventories;
+            return roomInventory;
         }
         public void SerializeRoomInventory()
         {
-            File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(roomInventories));
+            File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(roomInventory));
         }
 
         public RoomInventory GetRoomInventoryByIds(string roomId, int itemId)
         {
-            RoomInventory roomInventory = null;
+            RoomInventory inventoryInRoom = null;
 
-            foreach (RoomInventory r in roomInventories)
+            foreach (RoomInventory r in roomInventory)
             {
                 if (r.RoomId.Equals(roomId) && r.ItemId == itemId)
-                    roomInventory = r;
+                    inventoryInRoom = r;
             }
 
-            return roomInventory;
+            return inventoryInRoom;
         }
 
         public void AnalyzeRequests(MovingRequests mr)
         {
-            if (RoomFileStorage.getOne(mr.moveFromThisRoom) != null && RoomFileStorage.getOne(mr.sendToThisRoom) != null
-                && InventoryFileStorage.getOne(mr.inventoryId) != null)
+            RoomFileStorage roomStorage = new RoomFileStorage();
+            InventoryFileStorage inventoryStorage = new InventoryFileStorage();
+
+            if (roomStorage.getOne(mr.moveFromThisRoom) != null && roomStorage.getOne(mr.sendToThisRoom) != null
+                && inventoryStorage.getOne(mr.inventoryId) != null)
 
             {
                 RoomInventory moveFromHere = GetRoomInventoryByIds(mr.moveFromThisRoom, mr.inventoryId);
@@ -53,12 +56,12 @@ namespace HospitalService.Storage
                 if (moveFromHere.Quantity == mr.quantity)
                 {
                     RoomInventory r;
-                    for (int i = 0; i < roomInventories.Count; i++)
+                    for (int i = 0; i < roomInventory.Count; i++)
                     {
-                        r = roomInventories[i];
+                        r = roomInventory[i];
                         if (r.Equals(moveFromHere))
                         {
-                            roomInventories.RemoveAt(i);
+                            roomInventory.RemoveAt(i);
                             break;
                         }
                     }
@@ -70,7 +73,7 @@ namespace HospitalService.Storage
 
                 if (sendHere == null)
                 {
-                    roomInventories.Add(new RoomInventory(mr.sendToThisRoom, mr.inventoryId, mr.quantity));
+                    roomInventory.Add(new RoomInventory(mr.sendToThisRoom, mr.inventoryId, mr.quantity));
                 }
                 else
                 {
