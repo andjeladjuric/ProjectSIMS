@@ -1,6 +1,8 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -19,29 +21,81 @@ namespace HospitalService.View.ManagerUI
     /// <summary>
     /// Interaction logic for EditInventory.xaml
     /// </summary>
-    public partial class EditInventory : Page
+    public partial class EditInventory : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        private string _itemName;
+        public string ItemName
+        {
+            get
+            {
+                return _itemName;
+            }
+            set
+            {
+                if (value != _itemName)
+                {
+                    _itemName = value;
+                    OnPropertyChanged("ItemName");
+                }
+            }
+        }
+
+        private string _enteredQuantity;
+        public string EnteredQuantity
+        {
+            get
+            {
+                return _enteredQuantity;
+            }
+            set
+            {
+                if (value != _enteredQuantity)
+                {
+                    _enteredQuantity = value;
+                    OnPropertyChanged("EnteredQuantity");
+                }
+            }
+        }
+        
+        private string _supplier;
+        public string Supplier
+        {
+            get
+            {
+                return _supplier;
+            }
+            set
+            {
+                if (value != _supplier)
+                {
+                    _supplier = value;
+                    OnPropertyChanged("Supplier");
+                }
+            }
+        }
         public Inventory item { get; set; }
         InventoryFileStorage storage;
-        DataGrid bind;
-        public static List<String> equipment = Enum.GetNames(typeof(Equipment)).ToList();
-        Regex checkName = new Regex(@"[A-Za-z]+([\s][A-Za-z]*[1-9]*)*$");
-        Regex checkQuantity = new Regex(@"[0-9]$");
-        public EditInventory(Inventory i, DataGrid dg, InventoryFileStorage st)
+        public ObservableCollection<Inventory> invList { get; set; }
+        public EditInventory(Inventory i, ObservableCollection<Inventory> inv, InventoryFileStorage st)
         {
             InitializeComponent();
             item = i;
-            bind = dg;
+            invList = inv;
             storage = st;
-            EditGrid.DataContext = this;
-            comboBox.ItemsSource = equipment;
-            comboBox.SelectedItem = item.EquipmentType.ToString();
-            IDBox.Text = item.Id.ToString();
-            NameBox.Text = item.Name;
-            KolicinaBox.Text = item.Quantity.ToString();
+            this.DataContext = this;
 
-            tableBinding.ItemsSource = storage.GetAll();
-            tableBinding.SelectedItem = storage.getOne(item.Id);
+            EnteredQuantity = item.Quantity.ToString();
+            ItemName = item.Name;
+            Supplier = item.Supplier;
         }
 
         private void save_Click(object sender, RoutedEventArgs e)
@@ -50,43 +104,18 @@ namespace HospitalService.View.ManagerUI
             int id = Int32.Parse(IDBox.Text);
             string neki = NameBox.Text;
             int kol = Int32.Parse(KolicinaBox.Text);
+            string supplier = suppBox.Text;
 
-            storage.Edit(id, neki, tip, kol);
-            NavigationService.Navigate(new Page());
-            bind.Items.Refresh();
+            storage.Edit(id, neki, tip, kol, supplier);
+            newFrame.NavigationService.Navigate(new InventoryView());
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Page());
-        }
-
-        private void NameBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!checkName.IsMatch(NameBox.Text))
-            {
-                label2.Visibility = Visibility.Visible;
-                save.IsEnabled = false;
-            }
-            else
-            {
-                label2.Visibility = Visibility.Hidden;
-            }
-        }
-
-        private void KolicinaBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!checkQuantity.IsMatch(KolicinaBox.Text))
-            {
-                label3.Visibility = Visibility.Visible;
-                save.IsEnabled = false;
-            }
-            else
-            {
-                label3.Visibility = Visibility.Hidden;
-                if (label2.Visibility == Visibility.Hidden)
-                    save.IsEnabled = true;
-            }
+            NameBox.Visibility = Visibility.Hidden;
+            KolicinaBox.Visibility = Visibility.Hidden;
+            suppBox.Visibility = Visibility.Hidden;
+            newFrame.NavigationService.Navigate(new InventoryView());
         }
     }
 }

@@ -10,18 +10,27 @@
       Title="ManageRoomInventory">
 
     <Page.Resources>
-        <local:InventoryTypeConverter x:Key="typeConverter"/>
+        <ResourceDictionary>
+            <local:InventoryTypeConverter x:Key="typeConverter"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="White">
-        <DataGrid x:Name="tableBinding" IsReadOnly="True"
+    <Grid Background="#f5f5f5">
+        <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding roomInventory}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
-                  Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14">
+                  Height="450" VerticalAlignment="Center" Width="635" FontFamily="Gill Sans MT" FontSize="14"
+                  SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#f8f5ee"/>
+                    <Setter Property="Background" Value="#dadfe3"/>
                     <Setter Property="Foreground" Value="#5b7886"/>
-                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="Height" Value="34"/>
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     <Setter Property="VerticalContentAlignment" Value="Center"/>
                 </Style>
@@ -29,13 +38,22 @@
                 <Style TargetType="{x:Type DataGridCell}">
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="#bad6e4" />
+                            <Setter Property="Background" Value="#e0e0e0" />
+                            <Setter Property="BorderThickness" Value="0"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
 
             </DataGrid.Resources>
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Šifra" Width="*"  Binding="{Binding Id}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#5b7886"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Naziv" Width="*"  Binding="{Binding Name}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
@@ -60,17 +78,66 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
+                <DataGridTextColumn Header="Proizvođač" Width="*"  Binding="{Binding Supplier}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#5b7886"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label x:Name="Room" Content="Soba:" HorizontalAlignment="Left" Margin="531,74,0,0" VerticalAlignment="Top" Width="65" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="20" FontWeight="Bold" Height="30"/>
-        <TextBox x:Name="IDBox" IsReadOnly="True"  HorizontalAlignment="Left" Height="30" Margin="614,78,0,0" TextWrapping="Wrap" 
-                 TextAlignment="Center" VerticalContentAlignment="Center" FontFamily="GillSans MT" FontSize="16" VerticalAlignment="Top" Width="154"/>
-        <Button Background="#adc5d0" x:Name="Premesti" Content="Premesti inventar" HorizontalAlignment="Left" Margin="202,606,0,0" VerticalAlignment="Top" Height="26" Width="112" Click="Premesti_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Label x:Name="Room" Content="Inventar sobe:" HorizontalAlignment="Left" Margin="344,36,0,0" VerticalAlignment="Top" Width="152" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="20" FontWeight="Bold" Height="31"/>
+        <TextBox x:Name="IDBox" IsReadOnly="True"  HorizontalAlignment="Left" Height="30" Margin="518,37,0,0" TextWrapping="Wrap" 
+                 TextAlignment="Center" VerticalContentAlignment="Center" FontFamily="GillSans MT" FontSize="16" VerticalAlignment="Top" Width="154" />
+        <Button Background="#adc5d0" x:Name="Premesti" Content="Premesti inventar" HorizontalAlignment="Left" Margin="167,606,0,0" VerticalAlignment="Top" Height="26" Width="134" Click="Premesti_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
 
         <Button x:Name="goBack" Click="goBack_Click" Background="{x:Null}" BorderThickness="0" Margin="0,78,737,610" HorizontalAlignment="Right" Width="30" Height="30">
-            <materialDesign:PackIcon Kind="ArrowLeft" Width="30" Height="30" HorizontalAlignment="Center" />
+            <materialDesign:PackIcon Kind="ArrowLeft" Width="30" Height="30" HorizontalAlignment="Center" Visibility="Visible"/>
         </Button>
+        <Button Background="#adc5d0" x:Name="changeQuantity" Content="Izmena stanja dinamičke opreme" HorizontalAlignment="Left" Margin="333,606,0,0" 
+                VerticalAlignment="Top" Height="26" Width="221" Click="changeQuantity_Click" 
+                Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+
+        <ComboBox x:Name="InventoryType"
+                  HorizontalAlignment="Left" Margin="170,97,0,0" VerticalAlignment="Top" 
+                  Width="140" SelectionChanged="comboBox_SelectionChanged">
+            <ComboBoxItem Content="Sva oprema"/>
+            <ComboBoxItem Content="Statička oprema"/>
+            <ComboBoxItem Content="Dinamička oprema"/>
+        </ComboBox>
+        <materialDesign:PopupBox x:Name="Popup" PlacementMode="RightAndAlignTopEdges" Width="32" Height="30" StaysOpen="True" Margin="768,94,0,594">
+            <materialDesign:PopupBox.ToggleContent>
+                <materialDesign:PackIcon Kind="Search" Height="30" Width="30" />
+            </materialDesign:PopupBox.ToggleContent>
+            <StackPanel Width="150" Height="160">
+                <TextBox x:Name="searchId"
+                 materialDesign:HintAssist.Hint="šifra..."
+                 materialDesign:HintAssist.HintOpacity=".26"
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                 TextChanged="textBox_TextChanged"/>
+                <Separator/>
+                <TextBox x:Name="searchName"
+                 materialDesign:HintAssist.Hint="naziv..."
+                 materialDesign:HintAssist.HintOpacity=".26"
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                 TextChanged="textBox_TextChanged"/>
+                <Separator/>
+                <TextBox x:Name="searchSupplier"
+                 materialDesign:HintAssist.Hint="proizvođač..."
+                 materialDesign:HintAssist.HintOpacity=".26"
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                 TextChanged="textBox_TextChanged"/>
+                <Separator/>
+                <Button Click="Button_Click" Content="Poništi pretragu" FontFamily="Gill Sans MT" Foreground="Black"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </materialDesign:PopupBox>
 
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
 
