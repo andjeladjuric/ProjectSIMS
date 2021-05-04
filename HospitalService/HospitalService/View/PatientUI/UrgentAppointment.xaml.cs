@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -154,23 +155,33 @@ namespace HospitalService.View.PatientUI
                 else
                 {
 
-                    int brojTermina = termini.Count;
-                    int idTerm = brojTermina + 1;
-                    String id = idTerm.ToString();
-
-                    Appointment newAppointment = new Appointment()
+                    List<Appointment> la = bazaTermina.GetAll();
+                    List<Appointment> filteredApp = la.Where(ap => ap.patient.Jmbg.Equals(pacijent.Jmbg) && st.ToShortDateString().Equals(ap.StartTime.ToShortDateString())).ToList();
+                    int b = filteredApp.Count;
+                    if (b > 1)
                     {
-                        Id = id,
-                        StartTime = st,
-                        EndTime = et,
-                        Type = AppointmentType.Pregled,
-                        doctor = d,
-                        room = r,
-                        patient = pacijent
+                        MessageBox.Show("Vise od dva termina u jednom danu!");
+                    }
+                    else
+                    {
+                        int brojTermina = termini.Count;
+                        int idTerm = brojTermina + 1;
+                        String id = idTerm.ToString();
 
-                    };
-                    bazaTermina.Save(newAppointment);
-                    this.Close();
+                        Appointment newAppointment = new Appointment()
+                        {
+                            Id = id,
+                            StartTime = st,
+                            EndTime = et,
+                            Type = AppointmentType.Pregled,
+                            doctor = d,
+                            room = r,
+                            patient = pacijent
+
+                        };
+                        bazaTermina.Save(newAppointment);
+                        this.Close();
+                    }
 
                 }
             }

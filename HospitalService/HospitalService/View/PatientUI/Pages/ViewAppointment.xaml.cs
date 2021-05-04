@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -69,9 +70,18 @@ namespace HospitalService.View.PatientUI.Pages
             }
             else
             {
-
-                this.NavigationService.Navigate(new MoveAppointment(a, tableViewAppointment, baza, patient));
-                   
+                List<Appointment> la = baza.GetAll();
+                List<Appointment> filterApp = la.Where(ap => ap.patient.Jmbg.Equals(patient.Jmbg) && ap.Status == Status.Moved).ToList();
+                int b = filterApp.Count;
+                if (a.Status == Status.Moved || b>=3)
+                {
+                    String st = "Termin je vec pomjeran, ne mozete ga pomjeriti ponovo" + "\n" + "(Moguce i da ste prekoracili dozvoljen broj pomjerenih termina!)";
+                    MessageBox.Show(st);
+                }
+                else
+                {
+                    this.NavigationService.Navigate(new MoveAppointment(a, tableViewAppointment, baza, patient));
+                } 
             }
         }
 

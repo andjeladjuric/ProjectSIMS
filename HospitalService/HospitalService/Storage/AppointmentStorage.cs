@@ -49,7 +49,18 @@ namespace Storage
         public Appointment GetOne(String id)
         {
             // TODO: implement
-            return null;
+            Appointment a = new Appointment();
+            for (int i = 0; i < appointments.Count; i++)
+            {
+                a = appointments[i];
+                if (a.Id.Equals(id))
+                {
+                    break;
+                }
+            }
+
+            return a;
+            
         }
 
         public void Edit(String id, DateTime startTime, DateTime endTime, Room room)
@@ -135,6 +146,7 @@ namespace Storage
                     a.StartTime = st;
                     a.EndTime = et;
                     a.room = r;
+                    a.Status = Status.Moved;
                     File.WriteAllText(FileLocation, JsonConvert.SerializeObject(appointments,
                        new JsonSerializerSettings()
                        {
