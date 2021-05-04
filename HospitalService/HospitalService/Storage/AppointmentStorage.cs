@@ -1,3 +1,4 @@
+using HospitalService.Storage;
 using Model;
 using Newtonsoft.Json;
 using System;
@@ -215,12 +216,24 @@ namespace Storage
 
                 if (pom)
                 {
-                    if (appointment.room.Type == roomType)
-                        availableRooms.Remove(appointment.room);
+                    for (int i = 0; i < availableRooms.Count; i++)
+                        if (availableRooms[i] == appointment.room)
+                            availableRooms.RemoveAt(i);
                 }
                    
             }
             return availableRooms;
+        }
+
+        public List<Doctor> GetAvailableDoctors(DoctorType doctorType, DateTime startTime, DateTime endTime)
+        {
+            List<Doctor> availableDoctors = new DoctorStorage().GetByDepartment(doctorType);
+            for (int i = 0; i < availableDoctors.Count; i++)
+            {
+                if (IsTaken(startTime, endTime, availableDoctors[i]))
+                    availableDoctors.RemoveAt(i);
+            }
+            return availableDoctors;
         }
     }
 }

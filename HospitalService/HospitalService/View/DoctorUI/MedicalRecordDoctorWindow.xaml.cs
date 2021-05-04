@@ -61,5 +61,11 @@ namespace HospitalService.View.DoctorUI
             ReferralWindow referralWindow = new ReferralWindow(this);
             referralWindow.ShowDialog();
         }
+
+        private void UrgentOperation_Click(object sender, RoutedEventArgs e)
+        {
+            OperationWindow newOperationWindow = new OperationWindow(Karton.Patient);
+            newOperationWindow.ShowDialog();
+        }
     }
 }

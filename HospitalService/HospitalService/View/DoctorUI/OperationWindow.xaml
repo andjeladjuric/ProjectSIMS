@@ -9,7 +9,7 @@
     <Grid  Height="500" Width="430">
 
         <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="50,30,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="PatientTextBox" HorizontalAlignment="Left" Margin="182,36,0,0" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
+        <TextBox Name="PatientTextBox" HorizontalAlignment="Left" Margin="182,36,0,0" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Top" Width="184"/>
         <Label Content="Datum*:" HorizontalAlignment="Left" Margin="50,80,0,0" VerticalAlignment="Top"/>
         <Label Content="Pocetak*:" HorizontalAlignment="Left" Margin="50,130,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.435,2.682"/>
         <Label Content="Kraj*:" HorizontalAlignment="Left" Margin="50,180,0,0" VerticalAlignment="Top"/>
@@ -19,15 +19,29 @@
         <TextBox Name="OperationStart" HorizontalAlignment="Left" Margin="182,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
         <TextBox Name="OperationEnd" HorizontalAlignment="Left" Margin="182,184,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
         <DatePicker Name="OperationDate" HorizontalAlignment="Left" Margin="182,81,0,0" VerticalAlignment="Top" Width="152"/>
-        <ComboBox Name="DepartmentOptions" HorizontalAlignment="Left" Margin="182,233,0,0" VerticalAlignment="Top" Width="152"/>
-        <ComboBox Name="AvailableDoctors" HorizontalAlignment="Left" Margin="182,282,0,0" VerticalAlignment="Top" Width="152" IsEnabled="False"/>
-        <ComboBox Name="AvailableRooms" HorizontalAlignment="Left" Margin="182,332,0,0" VerticalAlignment="Top" Width="150"/>
-        <Button Content="Odustani" Width="87" Height="27" HorizontalAlignment="Left" Margin="92,427,0,0" VerticalAlignment="Top">
+        <ComboBox Name="DepartmentOptions" HorizontalAlignment="Left" Margin="182,233,0,0" VerticalAlignment="Top" Width="152" SelectionChanged="DepartmentOptions_SelectionChanged"/>
+        <ComboBox Name="AvailableDoctors" HorizontalAlignment="Left" Margin="182,282,0,0" VerticalAlignment="Top" Width="152" IsEnabled="False">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="Name"/>
+                                <Binding Path="Surname"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ComboBox Name="AvailableRooms" HorizontalAlignment="Left" Margin="182,332,0,0" VerticalAlignment="Top" Width="150">
+        </ComboBox>
+        <Button Content="Odustani" Width="87" Height="27" HorizontalAlignment="Left" Margin="92,427,0,0" VerticalAlignment="Top" Click="Cancel_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button Content="Potvrdi" Width="87" Height="27" HorizontalAlignment="Left" Margin="230,427,0,0" VerticalAlignment="Top">
+        <Button Content="Potvrdi" Width="87" Height="27" HorizontalAlignment="Left" Margin="230,427,0,0" VerticalAlignment="Top" Click="Apply_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
