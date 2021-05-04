@@ -3,6 +3,7 @@ using Model;
 using Storage;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -152,20 +153,29 @@ namespace HospitalService.View.PatientUI
                 }
                 else {
 
-                    Appointment newAppointment = new Appointment()
+                    List<Appointment> la = baza.GetAll();
+                    List<Appointment> filteredApp= la.Where(ap => ap.patient.Jmbg.Equals(patient.Jmbg) && st.ToShortDateString().Equals(ap.StartTime.ToShortDateString())).ToList();
+                    int b = filteredApp.Count;
+                    if (b > 1)
                     {
-                        Id = IdBox.Text,
-                        StartTime =st,
-                        EndTime = et,
-                        Type = AppointmentType.Pregled,
-                        doctor = selectedDoctor,
-                        room = r,
-                        patient = patient
+                        MessageBox.Show("Vise od dva termina u jednom danu!");
+                    }
+                    else
+                    {
+                        Appointment newAppointment = new Appointment()
+                        {
+                            Id = IdBox.Text,
+                            StartTime = st,
+                            EndTime = et,
+                            Type = AppointmentType.Pregled,
+                            doctor = selectedDoctor,
+                            room = r,
+                            patient = patient
 
-                    };
-                    baza.Save(newAppointment);
-                    this.Close();
-
+                        };
+                        baza.Save(newAppointment);
+                        this.Close();
+                    }
 
                 }
 
