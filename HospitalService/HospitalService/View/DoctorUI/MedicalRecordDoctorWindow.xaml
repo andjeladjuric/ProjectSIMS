@@ -63,7 +63,7 @@
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button  Background="DimGray" Content="Zakazi operaciju" HorizontalAlignment="Left" Margin="964,546,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.517,1.029"  Width="160">
+        <Button  Background="DimGray" Content="Hitna operacija" HorizontalAlignment="Left" Margin="964,546,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.517,1.029"  Width="160">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
