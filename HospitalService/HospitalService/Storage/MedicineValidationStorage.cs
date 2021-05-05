@@ -27,5 +27,16 @@ namespace HospitalService.Storage
         {
             return requests;
         }
+
+        public List<MedicineValidationRequest> GetForDoctor(String jmbg)
+        {
+            List<MedicineValidationRequest> validationRequests = new List<MedicineValidationRequest>();
+            foreach (MedicineValidationRequest request in requests)
+            {
+                if (request.doctorsJMBG.Equals(jmbg))
+                    validationRequests.Add(request);
+            }
+            return validationRequests;
+        }
     }
 }

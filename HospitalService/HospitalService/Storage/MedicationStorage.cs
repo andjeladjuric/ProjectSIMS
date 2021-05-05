@@ -71,5 +71,13 @@ namespace Model
             return medications.Find(x => x.Id == id);
         }
 
+        public List<Medication> GetForApproval(List<MedicineValidationRequest> validationRequests)
+        {
+            List<Medication> medicationsForApproval = new List<Medication>();
+            foreach (MedicineValidationRequest request in validationRequests)
+                medicationsForApproval.Add(meds.Find(x => x.Id == request.MedicineId));
+            return medicationsForApproval;
+        }
+
     }
 }
