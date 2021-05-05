@@ -1,7 +1,9 @@
 ﻿using HospitalService.View.PatientUI.Pages;
 using Model;
+using Storage;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,13 +45,29 @@ namespace HospitalService.View.PatientUI
 
         private void addAppointmentClick(object sender, RoutedEventArgs e)
         {
-            
-            Main.Content = new PreferencesForAppointment(patient);
+            AppointmentStorage apps = new AppointmentStorage();
+            List<Appointment> la = apps.GetAll();
+            List<Appointment> filteredApp = la.Where(ap => ap.patient.Jmbg.Equals(patient.Jmbg) && ap.StartTime>=DateTime.Now).ToList();
+            int b = filteredApp.Count;
+            if (b >= 5)
+            {
+                MessageBox.Show("Prekoracen maksimalan broj termina koje mozete da zakazete!");
+            }
+            else
+            {
+
+                Main.Content = new PreferencesForAppointment(patient);
+            }
         }
 
         private void viewPrescriptions(object sender, RoutedEventArgs e)
         {
             Main.Content = new MedicalRecordWithPrescriptions(patient);
+        }
+
+        private void SurveyClick(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new Surveys(patient);
         }
     }
 }

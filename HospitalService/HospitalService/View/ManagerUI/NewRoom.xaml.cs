@@ -1,6 +1,9 @@
-﻿using Model;
+﻿using HospitalService.View.ManagerUI.Validations;
+using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -19,20 +22,62 @@ namespace HospitalService.View.ManagerUI
     /// <summary>
     /// Interaction logic for NewRoom.xaml
     /// </summary>
-    public partial class NewRoom : Page
+    public partial class NewRoom : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        private string _roomId;
+        public string RoomId
+        {
+            get
+            {
+                return _roomId;
+            }
+            set
+            {
+                if (value != _roomId)
+                {
+                    _roomId = value;
+                    OnPropertyChanged("RoomId");
+                }
+            }
+        }
+
+        private string _roomName;
+        public string RoomName
+        {
+            get
+            {
+                return _roomName;
+            }
+            set
+            {
+                if (value != _roomName)
+                {
+                    _roomName = value;
+                    OnPropertyChanged("RoomName");
+                }
+            }
+        }
+
         public Room room { get; set; }
         RoomFileStorage storage;
-        DataGrid bind;
-        public static List<String> roomTypes = Enum.GetNames(typeof(RoomType)).ToList();
-        Regex checkName = new Regex(@"[A-Za-z]+([\s][A-Za-z]*[1-9]*)*$");
-        Regex checkId = new Regex(@"[1-4]{1}[0-9]{2}[A-Za-z]{0,1}$");
-        public NewRoom(DataGrid dg, RoomFileStorage st)
+        ObservableCollection<Room> bind { get; set; }
+
+        public NewRoom(ObservableCollection<Room> r, RoomFileStorage st)
         {
             InitializeComponent();
-            bind = dg;
+            this.DataContext = this;
+
+            bind = r;
             storage = st;
-            comboBox.ItemsSource = roomTypes;
         }
 
         private void save_Click(object sender, RoutedEventArgs e)
@@ -41,7 +86,7 @@ namespace HospitalService.View.ManagerUI
             room.Type = (RoomType)comboBox.SelectedIndex;
             room.Id = IDBox.Text;
             room.Name = NameBox.Text;
-            room.inventory = new Dictionary<int, int>();
+
             if ((bool)available.IsChecked)
             {
                 room.IsFree = true;
@@ -52,41 +97,15 @@ namespace HospitalService.View.ManagerUI
             }
 
             storage.Save(room);
-            bind.Items.Refresh();
-            NavigationService.Navigate(new Page());
+            bind.Add(room);
+            newFrame.NavigationService.Navigate(new RoomsView());
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Page());
-        }
-
-        private void idTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!checkId.IsMatch(IDBox.Text))
-            {
-                label2.Visibility = Visibility.Visible;
-                save.IsEnabled = false;
-            }
-            else
-            {
-                label2.Visibility = Visibility.Hidden;
-            }
-
-        }
-
-        private void nameTextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!checkName.IsMatch(NameBox.Text))
-            {
-                label.Visibility = Visibility.Visible;
-                save.IsEnabled = false;
-            }
-            else
-            {
-                label.Visibility = Visibility.Hidden;
-                save.IsEnabled = true;
-            }
+            IDBox.Visibility = Visibility.Hidden;
+            NameBox.Visibility = Visibility.Hidden;
+            newFrame.NavigationService.Navigate(new RoomsView());
         }
     }
 }

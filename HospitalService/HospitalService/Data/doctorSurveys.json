@@ -1,0 +1,111 @@
+[
+    {
+        "Communication": "Zadovoljan/na",
+        "Professionalism": "Zadovoljan/na",
+        "Courtesy": "Zadovoljan/na",
+        "CareForPatient": "Zadovoljan/na",
+        "ProvidingInformation": "Zadovoljan/na",
+        "DevotedTime": "Zadovoljan/na",
+        "ExecutionTime": "2021-04-24T12:00:00",
+        "patient": {
+            "PatientType": 0,
+            "medicalRecordId": null,
+            "Username": "sladjana",
+            "Password": null,
+            "Name": "Sladjana",
+            "Surname": "Colakovic",
+            "DateOfBirth": "1999-01-01T00:00:00",
+            "Jmbg": "0101000244312",
+            "Phone": null,
+            "Address": null,
+            "Email": null,
+            "Gender": 0
+        },
+        "doctor": {
+            "DoctorType": 1,
+            "Username": "drpetra",
+            "Password": "123",
+            "Name": "Petra",
+            "Surname": "Jovic",
+            "DateOfBirth": "1999-01-01T00:00:00",
+            "Jmbg": "0101000234567",
+            "Phone": "0614563456",
+            "Address": "Balzakova 23",
+            "Email": "sladjanac@gmail.com",
+            "Gender": 0
+        }
+    },
+    {
+        "Communication": "Nezadovoljan/na",
+        "Professionalism": "Zadovoljan/na",
+        "Courtesy": "Djelimicno zadovoljan/na",
+        "CareForPatient": "Zadovoljan/na",
+        "ProvidingInformation": "Djelimicno zadovoljan/na",
+        "DevotedTime": "Djelimicno zadovoljan/na",
+        "ExecutionTime": "2021-04-28T18:20:52.8038405+02:00",
+        "patient": {
+            "PatientType": 1,
+            "medicalRecordId": "1234",
+            "Username": "sladjana",
+            "Password": "123",
+            "Name": "Sladjana",
+            "Surname": "Colakovic",
+            "DateOfBirth": "1999-01-01T00:00:00",
+            "Jmbg": "0101000244312",
+            "Phone": "0614563456",
+            "Address": "Balzakova 23",
+            "Email": "sladjanac@gmail.com",
+            "Gender": 0
+        },
+        "doctor": {
+            "DoctorType": 1,
+            "Username": "drpetra",
+            "Password": "123",
+            "Name": "Petra",
+            "Surname": "Jovic",
+            "DateOfBirth": "1999-01-01T00:00:00",
+            "Jmbg": "0101000234567",
+            "Phone": "0614563456",
+            "Address": "Balzakova 23",
+            "Email": "sladjanac@gmail.com",
+            "Gender": 0
+        }
+    },
+    {
+        "Communication": "Djelimicno zadovoljan/na",
+        "Professionalism": "Zadovoljan/na",
+        "Courtesy": "Djelimicno zadovoljan/na",
+        "CareForPatient": "Nezadovoljan/na",
+        "ProvidingInformation": "Djelimicno zadovoljan/na",
+        "DevotedTime": "Djelimicno zadovoljan/na",
+        "ExecutionTime": "2021-04-19T18:00:00",
+        "patient": {
+            "PatientType": 1,
+            "medicalRecordId": "1234",
+            "Username": "sladjana",
+            "Password": "123",
+            "Name": "Sladjana",
+            "Surname": "Colakovic",
+            "DateOfBirth": "1999-01-01T00:00:00",
+            "Jmbg": "0101000244312",
+            "Phone": "0614563456",
+            "Address": "Balzakova 23",
+            "Email": "sladjanac@gmail.com",
+            "Gender": 0
+        },
+        "doctor": {
+            "DoctorType": 1,
+            "Username": "drana",
+            "Password": "123",
+            "Name": "Ana",
+            "Surname": "Petrovic",
+            "DateOfBirth": "1999-01-01T00:00:00",
+            "Jmbg": "0102000241577",
+            "Phone": "0614553321",
+            "Address": "Nikole Pasica 4",
+            "Email": "anap@gmail.com",
+            "Gender": 0
+        }
+    }
+
+]
