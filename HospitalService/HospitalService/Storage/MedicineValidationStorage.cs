@@ -38,5 +38,13 @@ namespace HospitalService.Storage
             }
             return validationRequests;
         }
+
+        public void Delete(String medicineId)
+        {
+            for (int i = 0; i < requests.Count; i++)
+                if (requests[i].MedicineId.Equals(medicineId))
+                    requests.RemoveAt(i);
+            SerializeValidationRequests();
+        }
     }
 }

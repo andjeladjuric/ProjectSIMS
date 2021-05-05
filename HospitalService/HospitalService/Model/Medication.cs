@@ -28,5 +28,7 @@ namespace Model
             Ingredients = ingredients;
             Format = format;
         }
+
+
     }
 }

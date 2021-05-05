@@ -53,7 +53,7 @@ namespace Model
         {
             MedicineValidationRequest validationRequest;
             MedicineValidationStorage validationStorage = new MedicineValidationStorage();
-            for(int i = 0; i < validationStorage.GetAll().Count; i++)
+            for (int i = 0; i < validationStorage.GetAll().Count; i++)
             {
                 validationRequest = validationStorage.GetAll()[i];
                 if (validationRequest.MedicineId.Equals(medicineId))
@@ -77,6 +77,14 @@ namespace Model
             foreach (MedicineValidationRequest request in validationRequests)
                 medicationsForApproval.Add(meds.Find(x => x.Id == request.MedicineId));
             return medicationsForApproval;
+        }
+
+        public void Update(Medication updatedMedication)
+        {
+            for (int i = 0; i < meds.Count; i++)
+                if (meds[i].Id.Equals(updatedMedication.Id))
+                    meds[i] = updatedMedication;
+            SerializeMedication();
         }
 
     }
