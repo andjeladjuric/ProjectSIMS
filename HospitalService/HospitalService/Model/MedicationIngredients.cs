@@ -7,5 +7,14 @@ namespace Model
     public class MedicationIngredients
     {
         public string IngredientName { get; set; }
+
+        public MedicationIngredients(string ingredientName)
+        {
+            IngredientName = ingredientName;
+        }
+
+        public MedicationIngredients()
+        {
+        }
     }
 }

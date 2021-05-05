@@ -22,13 +22,13 @@ namespace HospitalService.View.ManagerUI
     {
         public Medication medication { get; set; }
         private ObservableCollection<string> items {get; set;}
-        public MedicationDetails(Medication m)
+        DataGrid dg { get; set; }
+        public MedicationDetails(Medication m, DataGrid grid)
         {
             InitializeComponent();
             this.DataContext = this;
             medication = m;
-
-            formatBox.Text = m.Format;
+            dg = grid;
             items = new ObservableCollection<string>();
 
             foreach (var item in m.Ingredients)
@@ -57,6 +57,9 @@ namespace HospitalService.View.ManagerUI
                 {
                     m.IsApproved = MedicineStatus.WaitingForApproval;
                     m.Ingredients = medication.Ingredients;
+                    m.Format = formatBox.Text;
+                    if(comboBox.SelectedIndex != -1)
+                        m.Type = (MedicationType)comboBox.SelectedItem;
                     break;
                 }
             }
@@ -65,11 +68,15 @@ namespace HospitalService.View.ManagerUI
 
         private void resend_Click(object sender, RoutedEventArgs e)
         {
-            MedicineValidationRequest validationRequest = new MedicineValidationRequest(medication.Id, "0101000234567");
+            DoctorStorage ds = new DoctorStorage();
+            Doctor drpetra = ds.GetOne("drpetra");
+            MedicineValidationRequest validationRequest = new MedicineValidationRequest(medication.Id, drpetra.Jmbg);
             MedicineValidationStorage validationStorage = new MedicineValidationStorage();
             validationStorage.GetAll().Add(validationRequest);
             validationStorage.SerializeValidationRequests();
             SerializeEditedIngredients();
+            MedicationStorage medStorage = new MedicationStorage();
+            dg.ItemsSource = medStorage.GetAll();
             Close();
         }
 

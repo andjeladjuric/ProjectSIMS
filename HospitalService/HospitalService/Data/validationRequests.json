@@ -14,5 +14,9 @@
   {
     "MedicineId": "761",
     "doctorsJMBG": "0101000234567"
+  },
+  {
+    "MedicineId": "324",
+    "doctorsJMBG": "0101000234567"
   }
 ]

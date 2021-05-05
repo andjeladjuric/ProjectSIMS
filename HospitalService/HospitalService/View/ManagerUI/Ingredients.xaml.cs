@@ -24,6 +24,7 @@ namespace HospitalService.View.ManagerUI
     {
         private IngredientStorage ingredientStorage = new IngredientStorage();
         public ObservableCollection<MedicationIngredients> ingredients { get; set; }
+        public ObservableCollection<MedicationIngredients> currentIngredients { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
         {
@@ -56,14 +57,26 @@ namespace HospitalService.View.ManagerUI
             {
                 ingredients.Add(i);
             }
+
+            AddIngredientsToList();
+        }
+
+        private void AddIngredientsToList()
+        {
+            currentIngredients = new ObservableCollection<MedicationIngredients>();
+            foreach (var item in ing)
+            {
+                currentIngredients.Add(new MedicationIngredients(item.Key));
+            }
         }
 
         private void add_Click(object sender, RoutedEventArgs e)
         {
-            string name = ingredientBox.Text;
             int quantity = Int32.Parse(quantityBox.Text);
-
-            ing.Add(name, quantity);
+            MedicationIngredients m = (MedicationIngredients)Validation.SelectedItem;
+            ing.Add(m.IngredientName, quantity);
+            AddIngredientsToList();
+            currentMedIngredients.ItemsSource = currentIngredients;
             quantityBox.Text = "";
         }
 
@@ -84,18 +97,56 @@ namespace HospitalService.View.ManagerUI
             MedicationIngredients m = (MedicationIngredients)Validation.SelectedItem;
             if (m == null)
             {
-                MessageBox.Show("Morate izabrati sobu!");
+                MessageBox.Show("Morate izabrati sastojak!");
             }
             else
             {
+                if (ing.ContainsKey(m.IngredientName))
+                {
+                    ing.Remove(m.IngredientName);
+                    AddIngredientsToList();
+                    currentMedIngredients.ItemsSource = currentIngredients;
+                }
+                DeleteIngredientsFromMedication(m);
                 ingredientStorage.Delete(m.IngredientName);
                 ingredients.Remove(m);
+            }
+        }
+
+        private static void DeleteIngredientsFromMedication(MedicationIngredients m)
+        {
+            MedicationStorage medStorage = new MedicationStorage();
+            Medication med;
+            for (int i = 0; i < medStorage.GetAll().Count; i++)
+            {
+                med = medStorage.GetAll()[i];
+                if (med.Ingredients.ContainsKey(m.IngredientName))
+                {
+                    med.Ingredients.Remove(m.IngredientName);
+                    medStorage.SerializeMedication();
+                }
             }
         }
 
         private void addNewIngredient_Click(object sender, RoutedEventArgs e)
         {
             newFrame.Content = new AddIngredient(ingredients);
+        }
+
+        private void removeIng_Click(object sender, RoutedEventArgs e)
+        {
+            MedicationIngredients m = (MedicationIngredients)currentMedIngredients.SelectedItem;
+            if (m == null)
+            {
+                MessageBox.Show("Morate izabrati sastojak!");
+            }
+            else
+            {
+                ing.Remove(m.IngredientName);
+                AddIngredientsToList();
+                currentMedIngredients.ItemsSource = currentIngredients;
+                DeleteIngredientsFromMedication(m);
+            }
         }
     }
 }

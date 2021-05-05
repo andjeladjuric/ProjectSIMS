@@ -57,7 +57,7 @@ namespace HospitalService.View.ManagerUI
         private void tableBinding_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Medication med = (Medication)tableBinding.SelectedItem;
-            MedicationDetails m = new MedicationDetails(med);
+            MedicationDetails m = new MedicationDetails(med, tableBinding);
             m.ShowDialog();
         }
     }
