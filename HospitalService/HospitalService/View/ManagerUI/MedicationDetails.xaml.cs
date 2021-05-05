@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalService.Storage;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,11 +37,46 @@ namespace HospitalService.View.ManagerUI
             }
 
             Validation.ItemsSource = items;
+
+            if (medication.IsApproved == MedicineStatus.NotApproved)
+                resend.IsEnabled = true;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            SerializeEditedIngredients();
             Close();
+        }
+
+        private void SerializeEditedIngredients()
+        {
+            MedicationStorage medStorage = new MedicationStorage();
+            foreach (Medication m in medStorage.GetAll())
+            {
+                if (m.Id.Equals(medication.Id))
+                {
+                    m.IsApproved = MedicineStatus.WaitingForApproval;
+                    m.Ingredients = medication.Ingredients;
+                    break;
+                }
+            }
+            medStorage.SerializeMedication();
+        }
+
+        private void resend_Click(object sender, RoutedEventArgs e)
+        {
+            MedicineValidationRequest validationRequest = new MedicineValidationRequest(medication.Id, "0101000234567");
+            MedicineValidationStorage validationStorage = new MedicineValidationStorage();
+            validationStorage.GetAll().Add(validationRequest);
+            validationStorage.SerializeValidationRequests();
+            SerializeEditedIngredients();
+            Close();
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            Ingredients i = new Ingredients(medication.Ingredients, Validation);
+            i.ShowDialog();
         }
     }
 }

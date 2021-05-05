@@ -21,13 +21,13 @@
     </Window.Resources>
 
     <Grid x:Name="MainGrid" Background="#f5f5f5" Height="550" Width="450">
-        <TextBlock Text="{Binding medication.MedicineName}" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" 
-                               FontSize="24" Foreground="#FF5B7886" Height="50" Margin="59,33,224,467"/>
-        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="55,73,60,43"/>
+        <TextBlock Text="{Binding medication.MedicineName, Mode=TwoWay}" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" 
+                               FontSize="24" Foreground="#FF5B7886" Height="50" Margin="59,17,224,483"/>
+        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="57,68,58,26"/>
         <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="76,184,78,226"/>
-        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="78,372,78,75"/>
+        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="78,368,78,79"/>
         <TextBlock x:Name="CommentBox" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" 
-                               FontSize="14" Foreground="#FF5B7886" Text="{Binding medication.DoctorsComment}" Margin="87,380,87,82"/>
+                               FontSize="14" Foreground="#FF5B7886" Text="{Binding medication.DoctorsComment}" Margin="87,376,87,86"/>
         <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                  ItemsSource="{Binding items}"
@@ -48,15 +48,25 @@
         </ListBox>
 
         <Label x:Name="ingredients" Content="Sastojci leka" HorizontalAlignment="Left" Margin="78,148,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
-        <Label x:Name="comment" Content="Komentar doktora" HorizontalAlignment="Left" Margin="80,339,0,0" VerticalAlignment="Top" Width="150" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
+        <Label x:Name="comment" Content="Komentar doktora" HorizontalAlignment="Left" Margin="80,335,0,0" VerticalAlignment="Top" Width="150" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
         <Label x:Name="format" Content="Format leka" HorizontalAlignment="Left" Margin="78,107,0,0" VerticalAlignment="Top" Width="125" 
                FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
         <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="36" Margin="200,99,0,0" TextWrapping="Wrap" 
                  VerticalAlignment="Top" Width="172" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" FontSize="14" 
                  Foreground="#FF5B7886" HorizontalContentAlignment="Center"/>
 
-        <Button Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="325,33,60,482" Click="Button_Click">
-            <materialDesign:PackIcon Kind="Close" Foreground="Black" VerticalAlignment="Center" Height="35" Width="35"/>
+        <Button Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="327,15,58,500" Click="Button_Click">
+            <materialDesign:PackIcon Kind="Close" Foreground="Black" Height="35" Width="35"/>
         </Button>
+
+        <Button x:Name="Edit" Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="151,143,234,372" Click="Edit_Click">
+            <materialDesign:PackIcon Kind="EditOutline" Foreground="#FF5B7886" VerticalAlignment="Center" Height="20" Width="20"/>
+        </Button>
+
+        <Button Background="#adc5d0" x:Name="resend" Content="Šalji zahtjev" HorizontalAlignment="Center" Margin="0,486,0,0" 
+                VerticalAlignment="Top" Height="26" Width="102" Click="resend_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" 
+                FontFamily="Gill Sans MT" FontSize="14" IsEnabled="False"/>
+
+
     </Grid>
 </Window>

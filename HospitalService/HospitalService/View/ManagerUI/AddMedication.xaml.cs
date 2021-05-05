@@ -89,6 +89,7 @@ namespace HospitalService.View.ManagerUI
         {
             Random random = new Random();
             string id = random.Next(1000).ToString();
+
             string name = NameBox.Text;
             MedicationType type = (MedicationType)comboBox.SelectedItem;
 

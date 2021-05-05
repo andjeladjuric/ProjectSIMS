@@ -74,6 +74,7 @@ namespace HospitalService.View.ManagerUI
             {
                 items.Add(item.Key + " " + item.Value + " mg");
             }
+
             lb.ItemsSource = items;
             Close();
         }
