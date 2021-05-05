@@ -40,6 +40,13 @@ namespace HospitalService.View.ManagerUI
 
             if (medication.IsApproved == MedicineStatus.NotApproved)
                 resend.IsEnabled = true;
+
+            if (medication.IsApproved == MedicineStatus.Approved)
+            {
+                formatBox.IsReadOnly = true;
+                comboBox.IsHitTestVisible = false;
+                Edit.Visibility = Visibility.Hidden;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -55,11 +62,24 @@ namespace HospitalService.View.ManagerUI
             {
                 if (m.Id.Equals(medication.Id))
                 {
-                    m.IsApproved = MedicineStatus.WaitingForApproval;
                     m.Ingredients = medication.Ingredients;
                     m.Format = formatBox.Text;
                     if(comboBox.SelectedIndex != -1)
                         m.Type = (MedicationType)comboBox.SelectedItem;
+                    break;
+                }
+            }
+            medStorage.SerializeMedication();
+        }
+
+        private void ChangeMedStatus()
+        {
+            MedicationStorage medStorage = new MedicationStorage();
+            foreach (Medication m in medStorage.GetAll())
+            {
+                if (m.Id.Equals(medication.Id))
+                {
+                    m.IsApproved = MedicineStatus.WaitingForApproval;
                     break;
                 }
             }
@@ -75,6 +95,7 @@ namespace HospitalService.View.ManagerUI
             validationStorage.GetAll().Add(validationRequest);
             validationStorage.SerializeValidationRequests();
             SerializeEditedIngredients();
+            ChangeMedStatus();
             MedicationStorage medStorage = new MedicationStorage();
             dg.ItemsSource = medStorage.GetAll();
             Close();
