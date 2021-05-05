@@ -1,0 +1,56 @@
+﻿<Window x:Class="HospitalService.View.ManagerUI.MedicationDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalService.View.ManagerUI"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="MedicationDetails" Height="450" Width="700" WindowStartupLocation="CenterScreen" WindowStyle="None">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid x:Name="MainGrid" Background="#f5f5f5" Height="450" Width="700">
+        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="181,60,181,48"/>
+        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="200,171,196,72"/>
+        <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                 ItemsSource="{Binding items}"
+                 FontSize="14"
+                 x:Name="Validation" Margin="200,171,196,72">
+
+            <ListBox.ItemsPanel >
+                <ItemsPanelTemplate >
+                    <VirtualizingStackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock x:Name="Medicine" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" 
+                               FontSize="14" Foreground="#FF5B7886" Text="{Binding}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Label x:Name="ingredients" Content="Sastojci leka" HorizontalAlignment="Left" Margin="202,138,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
+        <Label x:Name="format" Content="Format leka" HorizontalAlignment="Left" Margin="202,96,0,0" VerticalAlignment="Top" Width="125" 
+               FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
+        <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="35" Margin="332,88,0,0" TextWrapping="Wrap" 
+                 VerticalAlignment="Top" Width="172" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" FontSize="14" 
+                 Foreground="#FF5B7886" HorizontalContentAlignment="Center"/>
+
+        <Button Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="452,18,183,397" Click="Button_Click">
+            <materialDesign:PackIcon Kind="Close" Foreground="Black" VerticalAlignment="Center" Height="35" Width="35"/>
+        </Button>
+
+    </Grid>
+</Window>

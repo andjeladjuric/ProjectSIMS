@@ -34,8 +34,8 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock x:Name="Medicine" FontFamily="Gill Sans MT" FontSize="15" 
-                               FontWeight="Light" Text="{Binding Path = IngredientName}" />
+                    <TextBlock x:Name="Medicine" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" 
+                               FontSize="14" Foreground="#FF5B7886" Text="{Binding Path = IngredientName}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

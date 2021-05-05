@@ -32,11 +32,10 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
-        <Rectangle HorizontalAlignment="Left" Height="442" Stroke="Black" VerticalAlignment="Top" Width="398" Margin="284,132,0,0"/>
+        <Rectangle HorizontalAlignment="Left" Height="495" Stroke="Black" VerticalAlignment="Top" Width="398" Margin="284,132,0,0"/>
         <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="336,168,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
-        <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="336,230,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
-        <Label x:Name="doctors" Content="Doktor" HorizontalAlignment="Left" Margin="336,296,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
-        <Label x:Name="ingredients" Content="Sastojci" HorizontalAlignment="Left" Margin="336,402,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
+        <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="336,282,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
+        <Label x:Name="doctors" Content="Doktor" HorizontalAlignment="Left" Margin="336,348,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
 
         <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="35" Margin="468,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172">
             <TextBox.Text>
@@ -56,7 +55,7 @@
             </Validation.ErrorTemplate>
         </TextBox>
 
-        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="370,524,0,0" VerticalAlignment="Top" 
+        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="370,570,0,0" VerticalAlignment="Top" 
                 Height="26" Width="91" Click="save_Click" 
                 Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14">
             <Button.Style>
@@ -80,7 +79,7 @@
             </Button.Style>
         </Button>
 
-        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="509,524,0,0" 
+        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="509,570,0,0" 
                 VerticalAlignment="Top" Height="26" Width="90" Click="cancel_Click" Background="#adc5d0"
                 Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
 
@@ -89,10 +88,10 @@
                    FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
 
         <ComboBox x:Name="doctorsBox" Opacity="100"
-                  HorizontalAlignment="Left" Height="34" Margin="468,288,0,0" Width="172" VerticalAlignment="Top"/>
+                  HorizontalAlignment="Left" Height="34" Margin="468,340,0,0" Width="172" VerticalAlignment="Top"/>
 
         <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
-                  HorizontalAlignment="Left" Height="34" Margin="468,226,0,0" VerticalAlignment="Top" Width="172">
+                  HorizontalAlignment="Left" Height="34" Margin="468,278,0,0" VerticalAlignment="Top" Width="172">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource comboConvert}}"/>
@@ -100,10 +99,10 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="461,367,316,242"/>
+        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="461,413,316,196"/>
         <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontSize="14"
-                 x:Name="Validation" Margin="461,367,316,242">
+                 x:Name="Validation" Margin="461,413,316,196">
 
             <ListBox.ItemsPanel >
                 <ItemsPanelTemplate >
@@ -112,15 +111,32 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock x:Name="Medicine" FontFamily="Gill Sans MT" FontSize="12" 
-                               FontWeight="Light" Text="{Binding}"/>
+                    <TextBlock x:Name="Medicine" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" 
+                               FontSize="14" Foreground="#FF5B7886" Text="{Binding}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        
-        <Button x:Name="addIngredients" Content="Dodaj" HorizontalAlignment="Left" Margin="336,436,0,0" 
-            VerticalAlignment="Top" Height="26" Width="90" Click="Sastojci_Click" Background="#adc5d0"
+
+        <Button x:Name="addIngredients" Content="Dodaj sastojke" HorizontalAlignment="Left" Margin="324,454,0,0" 
+            VerticalAlignment="Top" Height="26" Width="120" Click="Sastojci_Click" Background="#adc5d0"
             Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Label x:Name="format" Content="Format leka" HorizontalAlignment="Left" Margin="336,229,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
+        <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="35" Margin="468,221,0,0" TextWrapping="Wrap" 
+                 VerticalAlignment="Top" Width="172">
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <StackPanel>
+                        <AdornedElementPlaceholder x:Name="textBox"/>
+                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020"/>
+                    </StackPanel>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+            <Binding Path="MedForm" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                <Binding.ValidationRules>
+                    <validation:ItemNameValidation ValidationStep="RawProposedValue"/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
 
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

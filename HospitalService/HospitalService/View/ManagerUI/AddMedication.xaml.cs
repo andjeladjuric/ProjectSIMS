@@ -53,6 +53,23 @@ namespace HospitalService.View.ManagerUI
             }
         }
 
+        private string _format;
+        public string MedForm
+        {
+            get
+            {
+                return _format;
+            }
+            set
+            {
+                if (value != _format)
+                {
+                    _format = value;
+                    OnPropertyChanged("MedForm");
+                }
+            }
+        }
+
         public AddMedication()
         {
             InitializeComponent();
@@ -94,6 +111,7 @@ namespace HospitalService.View.ManagerUI
             newMed.MedicineName = name;
             newMed.Type = type;
             newMed.Ingredients = dictionary;
+            newMed.Format = formatBox.Text;
             medStorage.Save(newMed);
 
             MedicineValidationRequest validationRequest = new MedicineValidationRequest(id, docJmbg);
@@ -114,6 +132,11 @@ namespace HospitalService.View.ManagerUI
         {
             Ingredients i = new Ingredients(dictionary, Validation);
             i.ShowDialog();
+        }
+
+        private void NameBox_Copy_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

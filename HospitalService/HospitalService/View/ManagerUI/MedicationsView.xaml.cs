@@ -45,13 +45,20 @@ namespace HospitalService.View.ManagerUI
             Medication m = (Medication)tableBinding.SelectedItem;
             if (m == null)
             {
-                MessageBox.Show("Morate izabrati sobu!");
+                MessageBox.Show("Morate izabrati lek!");
             }
             else
             {
                 medStorage.Delete(m.Id);
                 meds.Remove(m);
             }
+        }
+
+        private void tableBinding_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Medication med = (Medication)tableBinding.SelectedItem;
+            MedicationDetails m = new MedicationDetails(med);
+            m.ShowDialog();
         }
     }
 }
