@@ -1,1 +1,30 @@
-[{"Id":321,"Name":"Krevet","EquipmentType":0,"Quantity":35,"Supplier":"Ikea"},{"Id":780,"Name":"Stolica","EquipmentType":0,"Quantity":25,"Supplier":"Ikea"},{"Id":554,"Name":"Makaze","EquipmentType":1,"Quantity":50,"Supplier":"Proizvođač 2"},{"Id":758,"Name":"Stetoskop","EquipmentType":1,"Quantity":100,"Supplier":"Novi Proizvođač"}]
+[
+  {
+    "Id": 321,
+    "Name": "Krevet",
+    "EquipmentType": 0,
+    "Quantity": 35,
+    "Supplier": "Ikea"
+  },
+  {
+    "Id": 780,
+    "Name": "Stolica",
+    "EquipmentType": 0,
+    "Quantity": 25,
+    "Supplier": "Ikea"
+  },
+  {
+    "Id": 554,
+    "Name": "Makaze",
+    "EquipmentType": 1,
+    "Quantity": 50,
+    "Supplier": "Proizvođač 2"
+  },
+  {
+    "Id": 758,
+    "Name": "Stetoskop",
+    "EquipmentType": 1,
+    "Quantity": 100,
+    "Supplier": "Novi Proizvođač"
+  }
+]

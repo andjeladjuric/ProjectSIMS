@@ -106,7 +106,7 @@
         </Button>
 
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="509,456,0,0" VerticalAlignment="Top" Height="26" Width="90" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="332,56,0,0" Text="Dodaj stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="332,56,0,0" Text="Dodaj sobu" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
         <Label x:Name="availability" Content="Dostupnost" HorizontalAlignment="Left" Margin="336,400,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
         <RadioButton x:Name="available" Content="Da" HorizontalAlignment="Left" Margin="468,403,0,0" VerticalAlignment="Top" 
                      FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14" RenderTransformOrigin="0.847,0.757"/>

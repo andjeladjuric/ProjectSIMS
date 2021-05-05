@@ -73,6 +73,15 @@ namespace HospitalService.View.ManagerUI
 
                     MainFrame.Content = new InventoryView();
                 }
+                else if (MedicationsPage.IsSelected)
+                {
+                    if (GridMenu.Width == 200)
+                    {
+                        CloseMenuButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                    }
+
+                    MainFrame.Content = new MedicationsView();
+                }
             }
         }
 
