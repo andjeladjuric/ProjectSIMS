@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:HospitalService.View.ManagerUI"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MedicationDetails" Height="450" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="MedicationDetails" Background="#f5f5f5" Height="550" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="None"
+        SizeToContent="WidthAndHeight">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -19,17 +20,19 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid x:Name="MainGrid" Background="#f5f5f5" Height="450" Width="450">
-        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="55,31,60,25"/>
-        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="70,148,76,177"/>
-        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="72,336,76,53"/>
+    <Grid x:Name="MainGrid" Background="#f5f5f5" Height="550" Width="450">
+        <TextBlock Text="{Binding medication.MedicineName}" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" 
+                               FontSize="24" Foreground="#FF5B7886" Height="50" Margin="59,33,224,467"/>
+        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="55,73,60,43"/>
+        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="76,184,78,226"/>
+        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="78,372,78,75"/>
         <TextBlock x:Name="CommentBox" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" 
-                               FontSize="14" Foreground="#FF5B7886" Text="{Binding medication.DoctorsComment}" Margin="81,340,84,57"/>
+                               FontSize="14" Foreground="#FF5B7886" Text="{Binding medication.DoctorsComment}" Margin="87,380,87,82"/>
         <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                  ItemsSource="{Binding items}"
                  FontSize="14"
-                 x:Name="Validation" Margin="70,145,76,180">
+                 x:Name="Validation" Margin="76,181,78,226">
 
             <ListBox.ItemsPanel >
                 <ItemsPanelTemplate >
@@ -44,17 +47,16 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Label x:Name="ingredients" Content="Sastojci leka" HorizontalAlignment="Left" Margin="72,112,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
-        <Label x:Name="comment" Content="Komentar doktora" HorizontalAlignment="Left" Margin="74,303,0,0" VerticalAlignment="Top" Width="150" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
-        <Label x:Name="format" Content="Format leka" HorizontalAlignment="Left" Margin="72,62,0,0" VerticalAlignment="Top" Width="125" 
+        <Label x:Name="ingredients" Content="Sastojci leka" HorizontalAlignment="Left" Margin="78,148,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
+        <Label x:Name="comment" Content="Komentar doktora" HorizontalAlignment="Left" Margin="80,339,0,0" VerticalAlignment="Top" Width="150" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
+        <Label x:Name="format" Content="Format leka" HorizontalAlignment="Left" Margin="78,107,0,0" VerticalAlignment="Top" Width="125" 
                FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
-        <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="36" Margin="194,54,0,0" TextWrapping="Wrap" 
+        <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="36" Margin="200,99,0,0" TextWrapping="Wrap" 
                  VerticalAlignment="Top" Width="172" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" FontSize="14" 
                  Foreground="#FF5B7886" HorizontalContentAlignment="Center"/>
 
-        <Button Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="383,31,2,384" Click="Button_Click">
+        <Button Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="325,33,60,482" Click="Button_Click">
             <materialDesign:PackIcon Kind="Close" Foreground="Black" VerticalAlignment="Center" Height="35" Width="35"/>
         </Button>
-
     </Grid>
 </Window>

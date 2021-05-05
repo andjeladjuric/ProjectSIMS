@@ -20,8 +20,8 @@
 
     <Grid x:Name="MainGrid" Background="#f5f5f5" Height="450" Width="700">
         <Border Height="250" CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="46,100,316,100"/>
-        <ListBox Height="250" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+        <ListBox Height="250" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto" 
                  ItemsSource="{Binding ingredients}" 
                  SelectedItem="{Binding selectedIng, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  FontSize="14"
@@ -43,12 +43,12 @@
         <Border Height="250" CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="404,100,52,100"/>
 
         <Label x:Name="quantity" Content="Količina" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold"
-               Height="30" Margin="428,214,196,206"/>
-        <TextBox x:Name="quantityBox" Height="30" Margin="524,206,70,214"/>
+               Height="30" Margin="414,214,210,206"/>
+        <TextBox x:Name="quantityBox" Height="30" Margin="497,206,62,214"/>
 
-        <Label x:Name="Ingredient" Content="Sastojak" HorizontalAlignment="Left" Margin="428,161,0,0" VerticalAlignment="Top" Width="78"
+        <Label x:Name="Ingredient" Content="Sastojak" HorizontalAlignment="Left" Margin="414,160,0,0" VerticalAlignment="Top" Width="78"
                Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
-        <TextBox x:Name="ingredientBox" Height="30" Margin="524,151,70,269" IsReadOnly="True"
+        <TextBox x:Name="ingredientBox" Height="30" Margin="497,151,62,269" IsReadOnly="True"
                  Text="{Binding selectedIng.IngredientName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <Button x:Name="cancel" Content="Kraj" HorizontalAlignment="Left" Margin="536,294,0,0"
                 VerticalAlignment="Top" Height="26" Width="80" Click="cancel_Click" Background="#adc5d0" 
