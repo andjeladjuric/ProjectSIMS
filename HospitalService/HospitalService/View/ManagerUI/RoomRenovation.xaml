@@ -1,4 +1,4 @@
-﻿<Page x:Class="HospitalService.View.ManagerUI.RoomsView"
+﻿<Page x:Class="HospitalService.View.ManagerUI.RoomRenovation"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,13 +7,11 @@
       xmlns:conv="clr-namespace:HospitalService.View.ManagerUI.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="969"
-      Title="RoomsView">
-
+      Title="RoomRenovation">
 
     <Page.Resources>
         <ResourceDictionary>
-            <local:EnumValueConverter x:Key="enumConverter"/>
-            <conv:RoomAvailabilityConverter x:Key="availabilityConv"/>
+            <conv:DaysOfTheWeekConverter x:Key="enumConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
@@ -24,13 +22,11 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="202,56,0,0" Text="Sobe" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="46" FontStyle="Italic" TextAlignment="Left"/>
-
-        <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding rooms}"
-                  SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
-                  Height="450" VerticalAlignment="Center" Width="635" FontFamily="Gill Sans MT" FontSize="14"
+        <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding appointment}"
+                  SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
+                  Height="450" VerticalAlignment="Center" Width="507" FontFamily="Gill Sans MT" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5"
-                  SelectionChanged="tableBinding_SelectionChanged">
+                  Margin="41,0,0,0">
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#dadfe3"/>
@@ -51,7 +47,7 @@
 
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Broj sobe" Binding="{Binding Id}" Width="*">
+                <DataGridTextColumn Header="Datum" Binding="{Binding StartTime, StringFormat=dd.MM.yyyy.}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -59,7 +55,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Naziv" Width="*"  Binding="{Binding Name}">
+                <DataGridTextColumn Header="Dan" Width="*"  Binding="{Binding StartTime.DayOfWeek, Converter={StaticResource enumConverter}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -67,7 +63,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Tip sobe" Width="*"  Binding="{Binding Type, Converter={StaticResource enumConverter}}">
+                <DataGridTextColumn Header="Vreme" Width="*"  Binding="{Binding StartTime, StringFormat=HH:mm}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -75,24 +71,35 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Dostupnost" Width="*" Binding="{Binding IsFree, Converter={StaticResource availabilityConv}}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Background="#adc5d0"  x:Name="create" Content="Dodaj" HorizontalAlignment="Left" Margin="170,612,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="create_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Button Background="#adc5d0" x:Name="update" Content="Izmeni" HorizontalAlignment="Left" Margin="263,612,0,0" VerticalAlignment="Top" Height="26" Width="75" Click="update_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Button Background="#adc5d0" x:Name="delete" Content="Ukloni" HorizontalAlignment="Left" Margin="358,612,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="delete_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Button Background="#adc5d0" x:Name="inventory" Content="Inventar" HorizontalAlignment="Left" Margin="450,612,0,0" VerticalAlignment="Top" Height="26" Width="80" Click="inventory_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Button Background="#adc5d0" x:Name="renovation" Content="Renoviranje" HorizontalAlignment="Left" Margin="548,612,0,0" VerticalAlignment="Top" Height="26" Width="105" Click="renovation_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
 
+        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Height="447"
+                   VerticalAlignment="Top" Width="350" Margin="582,137,37,0"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="606,206,0,0" 
+                   Text="Zakaži renoviranje" TextWrapping="Wrap" VerticalAlignment="Top"
+                   Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" 
+                   TextAlignment="Center" Foreground="#FF5B7886"/>
+
+        <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="624,289,0,0" VerticalAlignment="Top" 
+               Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Light" FontSize="16" Height="35"/>
+        <Label x:Name="start" Content="Početak" HorizontalAlignment="Left" Margin="624,344,0,0" VerticalAlignment="Top" 
+               Width="112" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" FontSize="16" Foreground="#FF5B7886" Height="35"/>
+        <Label x:Name="end" Content="Kraj" HorizontalAlignment="Left" Margin="624,398,0,0" VerticalAlignment="Top" 
+               Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="16" FontWeight="Light" Height="35"/>
+
+        <TextBox x:Name="IDBox" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Center"
+                 Height="30" Margin="746,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"
+                 FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" FontSize="16" Foreground="#FF5B7886"/>
+
+
+        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="670,473,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="save_Click" 
+                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="765,473,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="cancel_Click" 
+                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <DatePicker x:Name="startPicker" HorizontalAlignment="Left" Margin="746,349,0,0" VerticalAlignment="Top" Width="154"/>
+        <DatePicker x:Name="endPicker" HorizontalAlignment="Left" Margin="746,403,0,0" VerticalAlignment="Top" Width="154"/>
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>
