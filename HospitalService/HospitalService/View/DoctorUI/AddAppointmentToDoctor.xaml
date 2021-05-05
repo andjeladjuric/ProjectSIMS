@@ -5,37 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI"
         mc:Ignorable="d"
-       Title="Novi termin" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+       Title="Novi termin" Height="450" Width="768" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" FontSize="16">
     <Grid>
         <Label Content="ID:" HorizontalAlignment="Left" Margin="40,35,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <Label Content="Od:" HorizontalAlignment="Left" Margin="40,161,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
-        <Label Content="Soba:" HorizontalAlignment="Left" Margin="397,39,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
+        <Label Content="Soba:" HorizontalAlignment="Left" Margin="400,103,0,0" VerticalAlignment="Top" Width="97" Height="34" RenderTransformOrigin="0.493,-2.289"/>
         <Label Content="Datum:" HorizontalAlignment="Left" Margin="40,102,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
-        <Label Content="Tip:" HorizontalAlignment="Left" Margin="397,102,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
-        <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="397,165,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
+        <Label Content="Tip:" HorizontalAlignment="Left" Margin="400,39,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
+        <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="400,165,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <TextBox IsEnabled="False" ToolTipService.ToolTip="Appointment's id" Name="IdBox"  HorizontalAlignment="Left" Height="31" Margin="159,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
         <TextBox ToolTipService.ToolTip="Correct Format: 12:00" Name="StartBox" HorizontalAlignment="Left" Height="31" Margin="159,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
         <TextBox ToolTipService.ToolTip="Correct Format: 12:00" Name="EndBox" HorizontalAlignment="Left" Height="31" Margin="159,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
         <ComboBox Name="PatientBox" HorizontalAlignment="Left" Margin="525,165,0,0" VerticalAlignment="Top" Width="129" Height="35">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock>
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} {1}">
-                                <Binding Path="Name"/>
-                                <Binding Path="Surname"/>
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox Name="RoomBox" HorizontalAlignment="Left" Margin="525,35,0,0" VerticalAlignment="Top" Width="129" Height="35" RenderTransformOrigin="2.602,-6.764">
+        <ComboBox Name="RoomBox" HorizontalAlignment="Left" Margin="525,102,0,0" VerticalAlignment="Top" Width="129" Height="35" RenderTransformOrigin="2.602,-6.764">
         </ComboBox>
-        <ComboBox  Name="AppointmentTypeBox" HorizontalAlignment="Left" Margin="525,102,0,0" VerticalAlignment="Top" Width="129" Height="35"/>
+        <ComboBox SelectionChanged="AppointmentTypeBox_SelectionChanged" Name="AppointmentTypeBox" HorizontalAlignment="Left" Margin="525,37,0,0" VerticalAlignment="Top" Width="129" Height="35"/>
         <Label Content="Do:" HorizontalAlignment="Left" Margin="40,234,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <DatePicker Name="DateBox" HorizontalAlignment="Left" Margin="159,102,0,0" VerticalAlignment="Top" Width="129" Height="28"/>
-        <Button Content="Odustani" HorizontalAlignment="Left" Margin="237,347,0,0" VerticalAlignment="Top" Width="127" Height="36" Click="Cancel_Click">
+        <Button Content="Odustani" HorizontalAlignment="Left" Margin="224,347,0,0" VerticalAlignment="Top" Width="126" Height="36" Click="Cancel_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>

@@ -11,10 +11,12 @@ namespace Model
         public Patient Patient { get; set; }
         public List<Diagnosis> Diagnoses { get; set; }
         public List<Prescription> Prescriptions { get; set; }
+        public List<Referral> Referrals { get; set; }
 
         public MedicalRecord() {
             Diagnoses = new List<Diagnosis>();
-            Prescriptions = new List<Prescription>(); ;
+            Prescriptions = new List<Prescription>(); 
+            Referrals = new List<Referral>();
         }
 
         public MedicalRecord(string s, List<Diagnosis> ds, List<Prescription> ps)
