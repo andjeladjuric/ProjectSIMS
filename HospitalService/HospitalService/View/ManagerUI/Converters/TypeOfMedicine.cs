@@ -7,7 +7,7 @@ using System.Windows.Data;
 
 namespace HospitalService.View.ManagerUI.Converters
 {
-    public class MedicationStatus : IValueConverter
+    public class TypeOfMedicine : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

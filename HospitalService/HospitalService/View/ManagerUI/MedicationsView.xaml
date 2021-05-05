@@ -11,7 +11,8 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <conv:MedicationStatus x:Key="statusConverter"/>
+            <conv:StatusConverter x:Key="statusConverter"/>
+            <conv:TypeOfMedicine x:Key="typeConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
@@ -56,7 +57,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Vrsta"  Binding="{Binding Type, Converter={StaticResource statusConverter}}" Width="*">
+                <DataGridTextColumn Header="Vrsta"  Binding="{Binding Type, Converter={StaticResource typeConverter}}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -64,13 +65,14 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTemplateColumn Header="Status" Width="*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <RadioButton HorizontalAlignment="Center" Focusable="False" IsHitTestVisible="False" IsChecked="{Binding IsApproved}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Status"  Binding="{Binding IsApproved, Converter={StaticResource statusConverter}}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#5b7886"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
 
             </DataGrid.Columns>
         </DataGrid>

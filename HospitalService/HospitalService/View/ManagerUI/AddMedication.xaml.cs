@@ -110,6 +110,7 @@ namespace HospitalService.View.ManagerUI
             newMed.Id = id;
             newMed.MedicineName = name;
             newMed.Type = type;
+            newMed.IsApproved = MedicineStatus.WaitingForApproval;
             newMed.Ingredients = dictionary;
             newMed.Format = formatBox.Text;
             medStorage.Save(newMed);

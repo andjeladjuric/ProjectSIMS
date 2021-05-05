@@ -15,7 +15,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <conv:MedicationStatus x:Key="comboConvert"/>
+            <conv:TypeOfMedicine x:Key="comboConvert"/>
             <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
                             ObjectType="{x:Type System:Enum}">
                 <ObjectDataProvider.MethodParameters>
