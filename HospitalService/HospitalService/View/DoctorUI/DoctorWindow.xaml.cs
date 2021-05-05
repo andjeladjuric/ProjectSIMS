@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalService.Storage;
+using Model;
 using Storage;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace HospitalService.View.DoctorUI
         public MedicalRecordStorage Records { get; set; }
         public Doctor doctor { get; set; }
         public List<Appointment> appointments { get; set; }
+        public List<MedicineValidationRequest> validationRequests { get; set; }
+        public List<Medication> medicationsForApproval { get; set; }
 
         public DoctorWindow(Doctor d)
         {
@@ -36,9 +39,12 @@ namespace HospitalService.View.DoctorUI
             appointments = baza.getByDoctor(doctor, DateTime.Now);
             sobe = new RoomFileStorage();
             Records = new MedicalRecordStorage();
+            validationRequests = new MedicineValidationStorage().GetForDoctor(d.Jmbg);
+            medicationsForApproval = new MedicationStorage().GetForApproval(validationRequests);
 
             AppointmentsTable.ItemsSource = appointments;
             PatientsTable.ItemsSource = patients;
+            ForApprovalListView.ItemsSource = medicationsForApproval;
             datePicker.SelectedDate = DateTime.Now.Date;
         }
 
@@ -64,6 +70,8 @@ namespace HospitalService.View.DoctorUI
             appointments = baza.getByDoctor(doctor, (DateTime)datePicker.SelectedDate);
             AppointmentsTable.ItemsSource = appointments;
             AppointmentsTable.Items.Refresh();
+            ForApprovalListView.ItemsSource = new MedicationStorage().GetForApproval(new MedicineValidationStorage().GetForDoctor(doctor.Jmbg));
+            ForApprovalListView.Items.Refresh();
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -112,6 +120,12 @@ namespace HospitalService.View.DoctorUI
                 MedicalRecordDoctorWindow medicalRecordWindow = new MedicalRecordDoctorWindow(mr);
                 medicalRecordWindow.ShowDialog();
             }
+        }
+
+        private void ForApprovalListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MedicineValidationWindow medicineValidationWindow = new MedicineValidationWindow((Medication)ForApprovalListView.SelectedItem, this);
+            medicineValidationWindow.ShowDialog();
         }
     }
 }
