@@ -20,7 +20,7 @@ namespace HospitalService.View.DoctorUI
     /// </summary>
     public partial class AboutMedicationWindow : Window
     {
-        private Medication medication;
+        public Medication medication { get; set; }
         private ObservableCollection<string> ingredients;
 
         public AboutMedicationWindow(Medication selected)
@@ -57,6 +57,38 @@ namespace HospitalService.View.DoctorUI
             medication.Replacement = med.Id;
             new MedicationStorage().Update(medication);
             this.Close();
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (IngredientsListView.SelectedItem == null)
+                MessageBox.Show("Morate izabrati sastojak.");
+            else
+            {
+                string[] ingredient = IngredientsListView.SelectedItem.ToString().Split();
+                new MedicationStorage().DeleteIngredient(ingredient[0], medication.Id);
+                RefreshView();
+            }
+        }
+
+        public void RefreshView()
+        {
+            String medicationId = medication.Id;
+            medication = new MedicationStorage().getOne(medicationId);
+            ingredients = new ObservableCollection<string>();
+
+            foreach (var item in medication.Ingredients)
+            {
+                ingredients.Add(item.Key + " " + item.Value + " mg");
+            }
+            IngredientsListView.ItemsSource = ingredients;
+            IngredientsListView.Items.Refresh();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            IngredientsWindow ingredientsWindow = new IngredientsWindow(this);
+            ingredientsWindow.ShowDialog();
         }
     }
 }

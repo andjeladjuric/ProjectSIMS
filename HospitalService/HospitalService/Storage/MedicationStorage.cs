@@ -96,5 +96,18 @@ namespace Model
             return approvedMeds;
         }
 
+        public void AddIngredient(string name, int grams, String medicationId)
+        {
+            meds.Find(x => x.Id == medicationId).Ingredients.Add(name, grams);
+            SerializeMedication();
+        }
+
+        public void DeleteIngredient(string name, String medicationId)
+        {
+            meds.Find(x => x.Id == medicationId).Ingredients.Remove(name);
+            SerializeMedication();
+        }
+
+
     }
 }

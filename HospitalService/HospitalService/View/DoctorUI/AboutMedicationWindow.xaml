@@ -43,12 +43,12 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <ComboBox Name="MedicationTypeOptions" HorizontalAlignment="Left" Margin="158,133,0,0" VerticalAlignment="Top" Width="165"/>
-        <Button Content="Obrisi" HorizontalAlignment="Left" Margin="440,353,0,0" VerticalAlignment="Top" Width="82">
+        <Button Content="Obrisi" HorizontalAlignment="Left" Margin="440,353,0,0" VerticalAlignment="Top" Width="82" Click="Delete_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button Content="Dodaj" HorizontalAlignment="Left" Margin="551,353,0,0" VerticalAlignment="Top" Width="82" >
+        <Button Content="Dodaj" HorizontalAlignment="Left" Margin="551,353,0,0" VerticalAlignment="Top" Width="82" Click="Button_Click" >
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
