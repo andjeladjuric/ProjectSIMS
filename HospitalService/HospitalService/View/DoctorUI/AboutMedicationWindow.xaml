@@ -20,12 +20,12 @@
         </ListView>
         <TextBox  Name="MedicationNameTB" HorizontalAlignment="Left" Margin="158,70,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
         <TextBox  Name="MedicationFormatTB" HorizontalAlignment="Left" Margin="158,203,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
-        <Button Content="Odustani" HorizontalAlignment="Left" Margin="219,441,0,0" VerticalAlignment="Top" Width="82"  >
+        <Button Content="Odustani" HorizontalAlignment="Left" Margin="219,441,0,0" VerticalAlignment="Top" Width="82" Click="Cancel_Click"  >
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="371,441,0,0" VerticalAlignment="Top" Width="83"  >
+        <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="371,441,0,0" VerticalAlignment="Top" Width="83" Click="Apply_Click"  >
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>

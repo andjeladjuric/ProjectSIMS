@@ -32,6 +32,8 @@ namespace HospitalService.View.DoctorUI
             MedicationTypeOptions.ItemsSource = Enum.GetValues(typeof(MedicationType)).Cast<MedicationType>();
             MedicationTypeOptions.SelectedItem = medication.Type;
             ReplacementOptions.ItemsSource = new MedicationStorage().GetAllApproved();
+            if (medication.Replacement != null)
+                ReplacementOptions.SelectedItem = new MedicationStorage().getOne(medication.Replacement);
             ingredients = new ObservableCollection<string>();
 
             foreach (var item in medication.Ingredients)
@@ -39,6 +41,22 @@ namespace HospitalService.View.DoctorUI
                 ingredients.Add(item.Key + " " + item.Value + " mg");
             }
             IngredientsListView.ItemsSource = ingredients;
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Apply_Click(object sender, RoutedEventArgs e)
+        {
+            medication.MedicineName = MedicationNameTB.Text;
+            medication.Format = MedicationFormatTB.Text;
+            medication.Type = (MedicationType)MedicationTypeOptions.SelectedItem;
+            Medication med = (Medication)ReplacementOptions.SelectedItem;
+            medication.Replacement = med.Id;
+            new MedicationStorage().Update(medication);
+            this.Close();
         }
     }
 }
