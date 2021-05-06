@@ -46,6 +46,7 @@ namespace HospitalService.View.DoctorUI
             PatientsTable.ItemsSource = patients;
             ForApprovalListView.ItemsSource = medicationsForApproval;
             datePicker.SelectedDate = DateTime.Now.Date;
+            ApprovedMedsListView.ItemsSource = new MedicationStorage().GetAllApproved();
         }
 
         public void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -72,6 +73,8 @@ namespace HospitalService.View.DoctorUI
             AppointmentsTable.Items.Refresh();
             ForApprovalListView.ItemsSource = new MedicationStorage().GetForApproval(new MedicineValidationStorage().GetForDoctor(doctor.Jmbg));
             ForApprovalListView.Items.Refresh();
+            ApprovedMedsListView.ItemsSource = new MedicationStorage().GetAllApproved();
+            ApprovedMedsListView.Items.Refresh();
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -126,6 +129,12 @@ namespace HospitalService.View.DoctorUI
         {
             MedicineValidationWindow medicineValidationWindow = new MedicineValidationWindow((Medication)ForApprovalListView.SelectedItem, this);
             medicineValidationWindow.ShowDialog();
+        }
+
+        private void ApprovedMedsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            AboutMedicationWindow medicationDetails = new AboutMedicationWindow((Medication)ApprovedMedsListView.SelectedItem);
+            medicationDetails.ShowDialog();
         }
     }
 }
