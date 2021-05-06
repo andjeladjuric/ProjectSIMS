@@ -1,1 +1,37 @@
-[{"RoomId":"105","ItemId":321,"Quantity":20},{"RoomId":"105","ItemId":780,"Quantity":15},{"RoomId":"330","ItemId":321,"Quantity":15},{"RoomId":"105","ItemId":554,"Quantity":50},{"RoomId":"330","ItemId":780,"Quantity":10},{"RoomId":"105","ItemId":758,"Quantity":100}]
+[
+  {
+    "RoomId": "105",
+    "ItemId": 321,
+    "Quantity": 10
+  },
+  {
+    "RoomId": "105",
+    "ItemId": 780,
+    "Quantity": 15
+  },
+  {
+    "RoomId": "330",
+    "ItemId": 321,
+    "Quantity": 15
+  },
+  {
+    "RoomId": "105",
+    "ItemId": 554,
+    "Quantity": 50
+  },
+  {
+    "RoomId": "330",
+    "ItemId": 780,
+    "Quantity": 10
+  },
+  {
+    "RoomId": "105",
+    "ItemId": 758,
+    "Quantity": 100
+  },
+  {
+    "RoomId": "102",
+    "ItemId": 321,
+    "Quantity": 10
+  }
+]

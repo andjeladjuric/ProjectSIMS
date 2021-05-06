@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalService.Storage;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,11 +24,13 @@ namespace HospitalService.View.ManagerUI
     {
         RoomFileStorage storage = new RoomFileStorage();
         InventoryFileStorage invStorage = new InventoryFileStorage();
+        private RenovationStorage renovationStorage = new RenovationStorage();
         public ObservableCollection<Room> rooms { get; set; }
         public RoomsView()
         {
             InitializeComponent();
             this.DataContext = this;
+            renovationStorage.CheckRenovationRequests();
             rooms = new ObservableCollection<Room>();
             
             foreach (Room r in storage.GetAll())

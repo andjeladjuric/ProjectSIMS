@@ -35,7 +35,7 @@ namespace HospitalService.View.ManagerUI
 
             foreach (Appointment a in storage.GetAll())
             {
-                if(a.StartTime >= DateTime.Now && a.room.Id.Equals(SelectedRoom.Id))
+                if (a.StartTime >= DateTime.Now && a.room.Id.Equals(SelectedRoom.Id))
                 {
                     appointment.Add(a);
                 }
@@ -50,6 +50,16 @@ namespace HospitalService.View.ManagerUI
             RenovationStorage renovationStorage = new RenovationStorage();
             DateTime startDate = Convert.ToDateTime(startPicker.Text);
             DateTime endDate = Convert.ToDateTime(endPicker.Text);
+
+            foreach (Appointment a in new AppointmentStorage().GetAll())
+            {
+                if (a.StartTime.Date == startDate || a.StartTime.Date == endDate || a.EndTime.Date == startDate || a.EndTime.Date == endDate)
+                {
+                    MessageBox.Show("U datom periodu postoje zakazani termini!");
+                    break;
+                }
+            }
+
             renovationStorage.Save(new Renovation(SelectedRoom.Id, startDate, endDate));
             renovationStorage.SerializeRenovations();
         }

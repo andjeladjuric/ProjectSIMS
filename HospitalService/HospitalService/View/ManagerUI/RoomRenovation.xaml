@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.ManagerUI"
       xmlns:conv="clr-namespace:HospitalService.View.ManagerUI.Converters"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="969"
       Title="RoomRenovation">
@@ -98,8 +99,10 @@
                     Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="765,473,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="cancel_Click" 
                     Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <DatePicker x:Name="startPicker" HorizontalAlignment="Left" Margin="746,349,0,0" VerticalAlignment="Top" Width="154"/>
-        <DatePicker x:Name="endPicker" HorizontalAlignment="Left" Margin="746,403,0,0" VerticalAlignment="Top" Width="154"/>
+        <DatePicker x:Name="startPicker" HorizontalAlignment="Left" Margin="746,349,0,0" VerticalAlignment="Top" Width="154"
+                    DisplayDateStart="{x:Static sys:DateTime.Today}"/>
+        <DatePicker x:Name="endPicker" HorizontalAlignment="Left" Margin="746,403,0,0" VerticalAlignment="Top" Width="154"
+                    DisplayDateStart="{x:Static sys:DateTime.Today}"/>
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>
