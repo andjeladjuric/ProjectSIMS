@@ -35,36 +35,35 @@ namespace HospitalService.Storage
             SerializeRenovations();
         }
 
-        public bool CheckExistingRenovations(string roomId, DateTime start, DateTime end)
+        public bool CheckExistingRenovations(string roomId, DateTime startReno, DateTime endReno)
         {
             renovations = JsonConvert.DeserializeObject<List<Renovation>>(File.ReadAllText(FileLocation));
             bool returnValue = true;
 
             if (renovations != null && renovations.Count != 0)
             {
-                foreach(Renovation r in renovations)
+                foreach(Renovation renovation in renovations)
                 {
-                    if (r.RoomId.Equals(roomId))
+                    if (renovation.RoomId.Equals(roomId))
                     {
-                        TimeSpan t = end - start;
-                        if (DateTime.Compare(start, r.Start) <= 0 && DateTime.Compare(end, r.End) >= 0)
+                        if (DateTime.Compare(startReno, renovation.Start) <= 0 && DateTime.Compare(endReno, renovation.End) >= 0)
                         {
                             returnValue = false;
                             break;
                         }
-                        else if (DateTime.Compare(start, r.Start) <= 0 && DateTime.Compare(end, r.End) <= 0 &&
-                            DateTime.Compare(end, r.Start) >= 0)
+                        else if (DateTime.Compare(startReno, renovation.Start) <= 0 && DateTime.Compare(endReno, renovation.End) <= 0 &&
+                            DateTime.Compare(endReno, renovation.Start) >= 0)
                         {
                             returnValue = false;
                             break;
                         }
-                        else if (DateTime.Compare(start, r.Start) >= 0 && DateTime.Compare(end, r.End) <= 0)
+                        else if (DateTime.Compare(startReno, renovation.Start) >= 0 && DateTime.Compare(endReno, renovation.End) <= 0)
                         {
                             returnValue = false;
                             break;
                         }
-                        else if (DateTime.Compare(start, r.Start) >= 0 && DateTime.Compare(end, r.End) >= 0 &&
-                            DateTime.Compare(start, r.End) <= 0)
+                        else if (DateTime.Compare(startReno, renovation.Start) >= 0 && DateTime.Compare(endReno, renovation.End) >= 0 &&
+                            DateTime.Compare(startReno, renovation.End) <= 0)
                         {
                             returnValue = false;
                             break;
@@ -74,7 +73,7 @@ namespace HospitalService.Storage
             }
 
             if (!returnValue)
-                MessageBox.Show("Vec postoji zakazano renoviranje u datom periodu!");
+                MessageBox.Show("Već postoji zakazano renoviranje u datom periodu!");
 
             return returnValue;
         }

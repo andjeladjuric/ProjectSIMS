@@ -56,6 +56,9 @@ namespace HospitalService.View.ManagerUI
                 renovationStorage.Save(new Renovation(SelectedRoom.Id, startDate, endDate));
                 renovationStorage.SerializeRenovations();
             }
+
+            startPicker.Text = "";
+            endPicker.Text = "";
         }
 
         private bool CheckDateEntry(DateTime startDate, DateTime endDate)
