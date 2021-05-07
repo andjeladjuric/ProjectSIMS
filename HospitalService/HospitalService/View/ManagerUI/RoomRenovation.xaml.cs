@@ -51,17 +51,34 @@ namespace HospitalService.View.ManagerUI
             DateTime startDate = Convert.ToDateTime(startPicker.Text);
             DateTime endDate = Convert.ToDateTime(endPicker.Text);
 
+            if(CheckDateEntry(startDate, endDate) && renovationStorage.CheckExistingRenovations(SelectedRoom.Id, startDate, endDate))
+            {
+                renovationStorage.Save(new Renovation(SelectedRoom.Id, startDate, endDate));
+                renovationStorage.SerializeRenovations();
+            }
+        }
+
+        private bool CheckDateEntry(DateTime startDate, DateTime endDate)
+        {
             foreach (Appointment a in new AppointmentStorage().GetAll())
             {
-                if (a.StartTime.Date == startDate || a.StartTime.Date == endDate || a.EndTime.Date == startDate || a.EndTime.Date == endDate)
+                if (a.room.Id.Equals(SelectedRoom.Id))
                 {
-                    MessageBox.Show("U datom periodu postoje zakazani termini!");
-                    break;
+                    if (DateTime.Compare(startDate.Date, a.StartTime.Date) <= 0 && DateTime.Compare(endDate.Date, a.StartTime.Date) >= 0)
+                    {
+                        MessageBox.Show("U datom periodu postoje zakazani termini!");
+                        return false;
+                    }
                 }
             }
 
-            renovationStorage.Save(new Renovation(SelectedRoom.Id, startDate, endDate));
-            renovationStorage.SerializeRenovations();
+            if(DateTime.Compare(startDate, endDate) > 0)
+            {
+                MessageBox.Show("Neispravan unos datuma!");
+                return false;
+            }
+
+            return true;
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)

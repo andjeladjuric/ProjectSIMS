@@ -35,6 +35,50 @@ namespace HospitalService.Storage
             SerializeRenovations();
         }
 
+        public bool CheckExistingRenovations(string roomId, DateTime start, DateTime end)
+        {
+            renovations = JsonConvert.DeserializeObject<List<Renovation>>(File.ReadAllText(FileLocation));
+            bool returnValue = true;
+
+            if (renovations != null && renovations.Count != 0)
+            {
+                foreach(Renovation r in renovations)
+                {
+                    if (r.RoomId.Equals(roomId))
+                    {
+                        TimeSpan t = end - start;
+                        if (DateTime.Compare(start, r.Start) <= 0 && DateTime.Compare(end, r.End) >= 0)
+                        {
+                            returnValue = false;
+                            break;
+                        }
+                        else if (DateTime.Compare(start, r.Start) <= 0 && DateTime.Compare(end, r.End) <= 0 &&
+                            DateTime.Compare(end, r.Start) >= 0)
+                        {
+                            returnValue = false;
+                            break;
+                        }
+                        else if (DateTime.Compare(start, r.Start) >= 0 && DateTime.Compare(end, r.End) <= 0)
+                        {
+                            returnValue = false;
+                            break;
+                        }
+                        else if (DateTime.Compare(start, r.Start) >= 0 && DateTime.Compare(end, r.End) >= 0 &&
+                            DateTime.Compare(start, r.End) <= 0)
+                        {
+                            returnValue = false;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (!returnValue)
+                MessageBox.Show("Vec postoji zakazano renoviranje u datom periodu!");
+
+            return returnValue;
+        }
+
         public void CheckRenovationRequests()
         {
             renovations = JsonConvert.DeserializeObject<List<Renovation>>(File.ReadAllText(FileLocation));
@@ -45,7 +89,7 @@ namespace HospitalService.Storage
                 {
                     if (DateTime.Compare(renovation.Start, DateTime.Now) <= 0)
                     {
-                        if (DateTime.Compare(renovation.End, DateTime.Now) > 0)
+                        if (DateTime.Compare(renovation.End, DateTime.Now) >= 0)
                         {
                             ChangeRoomAvailability(renovation, false);
                         }
@@ -54,6 +98,22 @@ namespace HospitalService.Storage
                             ChangeRoomAvailability(renovation, true);
                         }
                     }
+                }
+
+                DeleteRequestIfFinished(renovations);
+            }
+        }
+
+        private void DeleteRequestIfFinished(List<Renovation> renovations)
+        {
+            Renovation renovation;
+            for (int i = 0; i < renovations.Count; i++)
+            {
+                renovation = renovations[i];
+                if (DateTime.Compare(renovation.End, DateTime.Now) < 0)
+                {
+                    renovations.RemoveAt(i);
+                    SerializeRenovations();
                 }
             }
         }
@@ -71,7 +131,7 @@ namespace HospitalService.Storage
             }
         }
 
-        public bool CheckIfPossible(DateTime appointmentStart, DateTime appointmentEnd)
+        public bool IsRoomReservationPossible(DateTime appointmentStart, DateTime appointmentEnd)
         {
             renovations = JsonConvert.DeserializeObject<List<Renovation>>(File.ReadAllText(FileLocation));
 
