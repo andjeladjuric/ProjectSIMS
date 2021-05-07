@@ -22,8 +22,8 @@ namespace HospitalService.View.PatientUI.Pages
     public partial class ViewAppointment : Page
     {
         private int colNum = 0;
-        AppointmentStorage baza;
-        RoomFileStorage sobe;
+        AppointmentStorage appointmentStorage;
+        RoomFileStorage rooms;
         public Patient patient { get; set; }
 
         public List<Appointment> appointments
@@ -31,14 +31,14 @@ namespace HospitalService.View.PatientUI.Pages
             get;
             set;
         }
-        public ViewAppointment(Patient pac)
+        public ViewAppointment(Patient p)
         {
             InitializeComponent();
             this.DataContext = this;
-            patient = pac;
-            baza = new AppointmentStorage();
-            appointments = baza.getByPatient(patient);
-            sobe = new RoomFileStorage();
+            patient = p;
+            appointmentStorage = new AppointmentStorage();
+            appointments = appointmentStorage.getByPatient(patient);
+            rooms = new RoomFileStorage();
             tableViewAppointment.ItemsSource = appointments;
         }
 
@@ -48,14 +48,14 @@ namespace HospitalService.View.PatientUI.Pages
             Appointment a = (Appointment)tableViewAppointment.SelectedItem;
             if (a == null)
             {
-                MessageBox.Show("You must select one item");
+                MessageBox.Show("Morate odabrati jedan termin!");
             }
             else
             { 
-                baza.Delete(a.Id);
-                baza.SetIds();
+                appointmentStorage.Delete(a.Id);
+                appointmentStorage.SetIds();
                 tableViewAppointment.ItemsSource = null;
-                tableViewAppointment.ItemsSource = baza.getByPatient(patient);
+                tableViewAppointment.ItemsSource = appointmentStorage.getByPatient(patient);
                 
 
             }
@@ -63,39 +63,39 @@ namespace HospitalService.View.PatientUI.Pages
 
         private void MoveClick(object sender, RoutedEventArgs e)
         {
-            Appointment a = (Appointment)tableViewAppointment.SelectedItem;
-            if (a == null)
+            Appointment selectedAppointment = (Appointment)tableViewAppointment.SelectedItem;
+            if (selectedAppointment == null)
             {
-                MessageBox.Show("You must select an item");
+                MessageBox.Show("Morate odabrati jedan termin!");
             }
             else
             {
-                List<Appointment> la = baza.GetAll();
-                List<Appointment> filterApp = la.Where(ap => ap.patient.Jmbg.Equals(patient.Jmbg) && ap.Status == Status.Moved).ToList();
-                int b = filterApp.Count;
-                if (a.Status == Status.Moved || b>=3)
+                List<Appointment> la = appointmentStorage.GetAll();
+                List<Appointment> movedAppointments = la.Where(ap => ap.patient.Jmbg.Equals(patient.Jmbg) && ap.Status == Status.Moved).ToList();
+                
+                if (selectedAppointment.Status == Status.Moved || movedAppointments.Count >= 3)
                 {
                     String st = "Termin je vec pomjeran, ne mozete ga pomjeriti ponovo" + "\n" + "(Moguce i da ste prekoracili dozvoljen broj pomjerenih termina!)";
                     MessageBox.Show(st);
                 }
                 else
                 {
-                    this.NavigationService.Navigate(new MoveAppointment(a, tableViewAppointment, baza, patient));
+                    this.NavigationService.Navigate(new MoveAppointment(selectedAppointment, tableViewAppointment, appointmentStorage, patient));
                 } 
             }
         }
 
         private void EditClick(object sender, RoutedEventArgs e)
         {
-            Appointment a = (Appointment)tableViewAppointment.SelectedItem;
-            if (a == null)
+            Appointment selectedAppointent = (Appointment)tableViewAppointment.SelectedItem;
+            if (selectedAppointent == null)
             {
-                MessageBox.Show("You must select one item");
+                MessageBox.Show("Morate odabrati jedan termin!");
             }
             else
             {
-                EditAppointmentForPatient prozorIzmjena = new EditAppointmentForPatient(a, baza, tableViewAppointment, sobe);
-                prozorIzmjena.Show();
+                EditAppointmentForPatient windowForEdit = new EditAppointmentForPatient(selectedAppointent, appointmentStorage, tableViewAppointment, rooms);
+                windowForEdit.Show();
             }
         }
 

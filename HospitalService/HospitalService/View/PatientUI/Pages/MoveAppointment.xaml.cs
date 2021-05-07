@@ -21,154 +21,56 @@ namespace HospitalService.View.PatientUI.Pages
     public partial class MoveAppointment : Page
     {
 
-        public Appointment A { get; set; }
-        public DataGrid Table { get; set; }
-
-        public AppointmentStorage baza { get; set; }
-
-        public Patient pacijent { get; set; }
-
-        public List<Appointment> termini { get; set; }
-
-        public List<Room> sale { get; set; }
-        public MoveAppointment(Appointment a, DataGrid t, AppointmentStorage st,Patient pa)
+        public Appointment Appointment { get; set; }
+        public DataGrid TableOfPatientAppointments { get; set; }
+        public AppointmentStorage AppointmentStorage { get; set; }
+        public Patient Patient { get; set; }
+        public List<Appointment> Appointments { get; set; }
+        public List<Room> Rooms { get; set; }
+        public MoveAppointment(Appointment appointment, DataGrid appointmentTable, AppointmentStorage appointmentStorage, Patient patient)
         {
             InitializeComponent();
             this.DataContext = this;
-            A = a;
-            Table = t;
-            baza = st;
-            pacijent = pa;
-            termini = baza.GetAll();
+            Appointment = appointment;
+            TableOfPatientAppointments = appointmentTable;
+            AppointmentStorage = appointmentStorage;
+            Patient = patient;
+            Appointments = AppointmentStorage.GetAll();
             RoomFileStorage bazaSala = new RoomFileStorage();
-            sale = bazaSala.GetAll();
+            Rooms = bazaSala.GetAll();
         }
 
         private void ConfirmClick(object sender, RoutedEventArgs e)
         {
-            String start = tb1.Text;
-            String end = tb2.Text;
-            String date = dp.Text;
-            String pocetak = date + " " + start + ":00";
-            String kraj = date + " " + end + ":00";
-            DateTime st = Convert.ToDateTime(pocetak);
-            DateTime et = Convert.ToDateTime(kraj);
-            if ((st.Date - A.StartTime.Date).TotalDays <= 2)
+            String timeOfStart = tb1.Text;
+            String timeOfEnd = tb2.Text;
+            String appointmentDate = dp.Text;
+            DateTime startTimeOfAppointment = Convert.ToDateTime(appointmentDate + " " + timeOfStart + ":00");
+            DateTime endTimeOfAppointment = Convert.ToDateTime(appointmentDate + " " + timeOfEnd + ":00");
+            if (isLessThanTwoDaysBetween(startTimeOfAppointment))
             {
-                int k = 1;
-                for (int i = 0; i < termini.Count; i++) {
-
-                    if ((DateTime.Compare(termini[i].StartTime, st) == 0 || DateTime.Compare(termini[i].EndTime, et) == 0) && termini[i].doctor.Jmbg.Equals(A.doctor.Jmbg)) {
-
-                        k = 0;
-                        break;
-                    }
-                    else if (st >= termini[i].StartTime && st < termini[i].EndTime && termini[i].doctor.Jmbg.Equals(A.doctor.Jmbg)) {
-
-                        k = 0;
-                        break;
-
-                    } else if (et >= termini[i].StartTime && et < termini[i].EndTime && termini[i].doctor.Jmbg.Equals(A.doctor.Jmbg)) {
-
-                        k = 0;
-                        break;
-                    
-                    }
-
-                }
-                if (k == 0)
+               
+                if (!isDoctorAvailable(startTimeOfAppointment, endTimeOfAppointment))
                 {
 
                     MessageBox.Show("Doktor je zauzet!");
                 }
                 else
                 {
-                    int l = 1;
-                    for (int i = 0; i < termini.Count; i++)
+                  
+                    if (isCurrentRoomOfAppointmentAvailable(startTimeOfAppointment, endTimeOfAppointment))
                     {
 
-                        if ((DateTime.Compare(termini[i].StartTime, st) == 0 || DateTime.Compare(termini[i].EndTime, et) == 0) && termini[i].room.Id.Equals(A.room.Id))
-                        {
+                        AppointmentStorage.Move(Appointment.Id, startTimeOfAppointment, endTimeOfAppointment, Appointment.room);
+                        TableOfPatientAppointments.Items.Refresh();
+                        this.NavigationService.Navigate(new ViewAppointment(Patient));
 
-                            l = 0;
-                            break;
-                        }
-                        else if (st >= termini[i].StartTime && st < termini[i].EndTime && termini[i].room.Id.Equals(A.room.Id))
-                        {
-
-                            l = 0;
-                            break;
-
-                        }
-                        else if (et >= termini[i].StartTime && et < termini[i].EndTime && termini[i].room.Id.Equals(A.room.Id))
-                        {
-
-                            l = 0;
-                            break;
-
-                        }
-
-                    }
-
-                    if (l == 1)
-                    {
-                        
-                            baza.Move(A.Id, st, et, A.room);
-                            Table.Items.Refresh();
-                            this.NavigationService.Navigate(new ViewAppointment(pacijent));
-                       
 
                     }
                     else
                     {
-
-
-                        int f = 0;
-                        int v = 1;
-                        Room r = new Room();
-                        for (int i = 0; i < sale.Count; i++)
-                        {
-                            v = 1;
-                            for (int j = 0; j < termini.Count; j++)
-                            {
-
-                                if (DateTime.Compare(termini[j].StartTime, st) == 0 || DateTime.Compare(termini[j].EndTime, et) == 0)
-                                {
-                                    if (termini[j].room.Id.Equals(sale[i].Id))
-                                    {
-                                        v = 0;
-                                        break;
-                                    }
-
-                                }
-                                else if (st >= termini[j].StartTime && st < termini[j].EndTime)
-                                {
-                                    if (termini[j].room.Id.Equals(sale[i].Id))
-                                    {
-                                        v = 0;
-                                        break;
-                                    }
-                                }
-                                else if (et >= termini[j].StartTime && et < termini[j].EndTime)
-                                {
-                                    if (termini[j].room.Id.Equals(sale[i].Id))
-                                    {
-                                        v = 0;
-                                        break;
-                                    }
-                                }
-
-                            }
-                            if (v == 1)
-                            {
-                                r = sale[i];
-                                f = 1;
-                                break;
-
-                            }
-                        }
-
-                        if (f == 0)
+                        Room availableRoom= getFirstAvailableRoom(startTimeOfAppointment, endTimeOfAppointment);
+                        if (availableRoom==null)
                         {
                             MessageBox.Show("Nema slobodnih sala!");
 
@@ -176,9 +78,9 @@ namespace HospitalService.View.PatientUI.Pages
                         else
                         {
 
-                            baza.Move(A.Id, st, et,r);
-                            Table.Items.Refresh();
-                            this.NavigationService.Navigate(new ViewAppointment(pacijent));
+                            AppointmentStorage.Move(Appointment.Id, startTimeOfAppointment, endTimeOfAppointment, availableRoom);
+                            TableOfPatientAppointments.Items.Refresh();
+                            this.NavigationService.Navigate(new ViewAppointment(Patient));
 
                         }
                     }
@@ -187,14 +89,132 @@ namespace HospitalService.View.PatientUI.Pages
             else
             {
                 MessageBox.Show("Vise od dva dana izmedju termina!");
-                
+
             }
         }
+
+        private Room getFirstAvailableRoom(DateTime startTimeOfAppointment, DateTime endTimeOfAppointment)
+        {
+            int isFindAvailableRoom = 0;
+            int isRoomAvailable = 1;
+            Room availableRoom = new Room();
+            for (int i = 0; i < Rooms.Count; i++)
+            {
+                isRoomAvailable = 1;
+                for (int j = 0; j < Appointments.Count; j++)
+                {
+
+                    if (DateTime.Compare(Appointments[j].StartTime, startTimeOfAppointment) == 0 || DateTime.Compare(Appointments[j].EndTime, endTimeOfAppointment) == 0)
+                    {
+                        if (Appointments[j].room.Id.Equals(Rooms[i].Id))
+                        {
+                            isRoomAvailable = 0;
+                            break;
+                        }
+
+                    }
+                    else if (startTimeOfAppointment >= Appointments[j].StartTime && startTimeOfAppointment < Appointments[j].EndTime)
+                    {
+                        if (Appointments[j].room.Id.Equals(Rooms[i].Id))
+                        {
+                            isRoomAvailable = 0;
+                            break;
+                        }
+                    }
+                    else if (endTimeOfAppointment >= Appointments[j].StartTime && endTimeOfAppointment < Appointments[j].EndTime)
+                    {
+                        if (Appointments[j].room.Id.Equals(Rooms[i].Id))
+                        {
+                            isRoomAvailable = 0;
+                            break;
+                        }
+                    }
+
+                }
+                if (isRoomAvailable == 1)
+                {
+                    availableRoom = Rooms[i];
+                    isFindAvailableRoom = 1;
+                    break;
+
+                }
+            }
+            if (isFindAvailableRoom == 0) {
+                return null;
+            }
+            return availableRoom;
+        }
+
+        private bool isCurrentRoomOfAppointmentAvailable(DateTime startTimeOfAppointment, DateTime endTimeOfAppointment)
+        {
+           
+            for (int i = 0; i < Appointments.Count; i++)
+            {
+
+                if ((DateTime.Compare(Appointments[i].StartTime, startTimeOfAppointment) == 0 || DateTime.Compare(Appointments[i].EndTime, endTimeOfAppointment) == 0) && Appointments[i].room.Id.Equals(Appointment.room.Id))
+                {
+
+                    return false;
+                }
+                else if (startTimeOfAppointment > Appointments[i].StartTime && startTimeOfAppointment < Appointments[i].EndTime && Appointments[i].room.Id.Equals(Appointment.room.Id))
+                {
+
+                    return false;
+
+                }
+                else if (endTimeOfAppointment > Appointments[i].StartTime && endTimeOfAppointment < Appointments[i].EndTime && Appointments[i].room.Id.Equals(Appointment.room.Id))
+                {
+
+                    return false;
+
+                }
+
+            }
+
+            return true;
+        }
+
+        private bool isDoctorAvailable(DateTime startTimeOfAppointment, DateTime endTimeOfAppointment)
+        {
+           
+            for (int i = 0; i < Appointments.Count; i++)
+            {
+
+                if ((DateTime.Compare(Appointments[i].StartTime, startTimeOfAppointment) == 0 || DateTime.Compare(Appointments[i].EndTime, endTimeOfAppointment) == 0) && Appointments[i].doctor.Jmbg.Equals(Appointment.doctor.Jmbg))
+                {
+
+                    return false;
+                }
+                else if (startTimeOfAppointment > Appointments[i].StartTime && startTimeOfAppointment < Appointments[i].EndTime && Appointments[i].doctor.Jmbg.Equals(Appointment.doctor.Jmbg))
+                {
+
+                    return false;
+
+                }
+                else if (endTimeOfAppointment > Appointments[i].StartTime && endTimeOfAppointment < Appointments[i].EndTime && Appointments[i].doctor.Jmbg.Equals(Appointment.doctor.Jmbg))
+                {
+
+                    return false;
+
+                }
+
+            }
+            return true;
+
+           
+        }
+
+        private bool isLessThanTwoDaysBetween(DateTime startTimeOfAppointment)
+        {
+            return (startTimeOfAppointment.Date - Appointment.StartTime.Date).TotalDays <= 2;
+        }
+
+        
 
         private void CancelClick(object sender, RoutedEventArgs e)
         {
 
-            this.NavigationService.Navigate(new ViewAppointment(pacijent));
+            this.NavigationService.Navigate(new ViewAppointment(Patient));
         }
     }
 }

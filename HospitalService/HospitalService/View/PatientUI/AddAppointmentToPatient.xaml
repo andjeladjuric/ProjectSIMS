@@ -32,12 +32,12 @@
 
         <Label Content="End:" HorizontalAlignment="Left" Margin="40,234,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <DatePicker Name="DateBox" HorizontalAlignment="Left" Margin="159,102,0,0" VerticalAlignment="Top" Width="129" Height="28"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="237,347,0,0" VerticalAlignment="Top" Width="127" Height="36" Click="Button_Click">
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="237,347,0,0" VerticalAlignment="Top" Width="127" Height="36" Click="Cancel_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button Content="Add" HorizontalAlignment="Left" Margin="430,347,0,0" VerticalAlignment="Top" Width="127" Height="36" Click="Button_Click_1">
+        <Button Content="Add" HorizontalAlignment="Left" Margin="430,347,0,0" VerticalAlignment="Top" Width="127" Height="36" Click="Confirm_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>

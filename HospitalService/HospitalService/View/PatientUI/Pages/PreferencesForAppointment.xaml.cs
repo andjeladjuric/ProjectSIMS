@@ -20,26 +20,26 @@ namespace HospitalService.View.PatientUI.Pages
     public partial class PreferencesForAppointment : Page
     {
 
-        public Patient pac { get; set; }
+        public Patient Patient { get; set; }
         public PreferencesForAppointment(Patient patient)
         {
             InitializeComponent();
             this.DataContext = this;
-            pac = patient;
+            Patient = patient;
         }
 
         private void PreferenceClick(object sender, RoutedEventArgs e)
         {
             if (No.IsChecked == true)
             {
-                AddAppointmentToPatient dodajProzor = new AddAppointmentToPatient(pac);
-                dodajProzor.Show();
+                AddAppointmentToPatient aw = new AddAppointmentToPatient(Patient);
+                aw.Show();
             }
 
             if (Yes.IsChecked == true)
             {
-                UrgentAppointment hzt = new UrgentAppointment(pac);
-                hzt.Show();
+                UrgentAppointment uaw = new UrgentAppointment(Patient);
+                uaw.Show();
             }
         }
     }
