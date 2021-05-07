@@ -23,11 +23,11 @@ namespace HospitalService.View.PatientUI
     {
         
         public Patient patient { get; set; }
-        public PatientWindow(Patient pac)
+        public PatientWindow(Patient p)
         {
             InitializeComponent();
             this.DataContext = this;
-            patient = pac;
+            patient = p;
             
         }
 
@@ -45,11 +45,11 @@ namespace HospitalService.View.PatientUI
 
         private void addAppointmentClick(object sender, RoutedEventArgs e)
         {
-            AppointmentStorage apps = new AppointmentStorage();
-            List<Appointment> la = apps.GetAll();
-            List<Appointment> filteredApp = la.Where(ap => ap.patient.Jmbg.Equals(patient.Jmbg) && ap.StartTime>=DateTime.Now).ToList();
-            int b = filteredApp.Count;
-            if (b >= 5)
+            AppointmentStorage apst = new AppointmentStorage();
+            List<Appointment> la = apst.GetAll();
+            List<Appointment> notFinishedAppointment = la.Where(ap => ap.patient.Jmbg.Equals(patient.Jmbg) && ap.StartTime>=DateTime.Now).ToList();
+           
+            if (notFinishedAppointment.Count >= 5)
             {
                 MessageBox.Show("Prekoracen maksimalan broj termina koje mozete da zakazete!");
             }
