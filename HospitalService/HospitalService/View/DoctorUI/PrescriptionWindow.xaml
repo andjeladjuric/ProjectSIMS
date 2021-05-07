@@ -14,7 +14,6 @@
         <Label   Content="Koliko dana*:" HorizontalAlignment="Left" Margin="59,254,0,0" VerticalAlignment="Top"/>
         <Label  Content="Dodatne napomene:" HorizontalAlignment="Left" Margin="59,381,0,0" VerticalAlignment="Top"/>
         <TextBox Name="PatientTB" HorizontalAlignment="Left" Margin="210,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" IsEnabled="False"/>
-        <TextBox Name="MedicationTB" HorizontalAlignment="Left" Margin="210,150,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="185" />
         <TextBox Name="DaysTB" HorizontalAlignment="Left" Margin="210,258,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
         <TextBox Name="HoursTB" HorizontalAlignment="Left" Margin="210,207,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70" />
         <Button Click="Cancel_Click"  Content="Odustani" HorizontalAlignment="Left" Margin="113,532,0,0" VerticalAlignment="Top" Width="83" >
@@ -30,5 +29,16 @@
         <TextBox Background="WhiteSmoke" Name="InfoTB" HorizontalAlignment="Left" Margin="71,417,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="324" Height="74"/>
         <Label   Content="Datum  početka*:" HorizontalAlignment="Left" Margin="57,313,0,0" VerticalAlignment="Top"/>
         <DatePicker HorizontalAlignment="Left" Margin="210,315,0,0" VerticalAlignment="Top" Width="123"/>
+        <ComboBox Name="MedicationOptions" HorizontalAlignment="Left" Margin="213,154,0,0" VerticalAlignment="Top" Width="182">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <Binding Path="MedicineName"/>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
     </Grid>
 </Window>

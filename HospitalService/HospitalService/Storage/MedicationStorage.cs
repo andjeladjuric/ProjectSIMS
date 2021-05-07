@@ -108,6 +108,15 @@ namespace Model
             SerializeMedication();
         }
 
-
+        public List<Medication> GetAllAllowed(List<MedicationIngredients> allergies)
+        {
+            List<Medication> alloweMedications = new List<Medication>();
+            foreach (Medication medication in meds)
+            {
+                if (medication.IsAllergen(allergies) == false)
+                    alloweMedications.Add(medication);
+            }
+            return alloweMedications;
+        }
     }
 }

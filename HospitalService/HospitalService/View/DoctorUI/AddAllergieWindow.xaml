@@ -1,0 +1,29 @@
+﻿<Window x:Class="HospitalService.View.DoctorUI.AddAllergieWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalService.View.DoctorUI"
+        mc:Ignorable="d"
+        Title="Dodavanje alergije" Height="450" Width="400"  FontSize="18"  FontFamily="Open Sans" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Grid Height="450" Width="400">
+        <ListView  Name="IngredientsView" Margin="40,37,40,111">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding IngredientName}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button  Content="Odustani" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="83" Margin="86,379,0,0" Click="Cancel_Click" >
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button Content="Potvrdi" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87" Margin="217,379,0,0" Click="Apply_Click">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+
+    </Grid>
+</Window>
