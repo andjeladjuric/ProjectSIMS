@@ -24,7 +24,7 @@ namespace HospitalService.View.ManagerUI
     {
         private IngredientStorage ingredientStorage = new IngredientStorage();
         public ObservableCollection<MedicationIngredients> ingredients { get; set; }
-        public ObservableCollection<MedicationIngredients> currentIngredients { get; set; }
+        public ObservableCollection<string> currentIngredients { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
         {
@@ -52,6 +52,7 @@ namespace HospitalService.View.ManagerUI
             this.DataContext = this;
             ing = dict;
             lb = box;
+
             ingredients = new ObservableCollection<MedicationIngredients>();
             foreach (MedicationIngredients i in ingredientStorage.GetAll())
             {
@@ -63,10 +64,10 @@ namespace HospitalService.View.ManagerUI
 
         private void AddIngredientsToList()
         {
-            currentIngredients = new ObservableCollection<MedicationIngredients>();
+            currentIngredients = new ObservableCollection<string>();
             foreach (var item in ing)
             {
-                currentIngredients.Add(new MedicationIngredients(item.Key));
+                currentIngredients.Add(item.Key + " " + item.Value + " mg");
             }
         }
 
@@ -147,6 +148,34 @@ namespace HospitalService.View.ManagerUI
                 currentMedIngredients.ItemsSource = currentIngredients;
                 DeleteIngredientsFromMedication(m);
             }
+        }
+
+        private void currentMedIngredients_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string i = (string)currentMedIngredients.SelectedItem;
+            if (i != null) {
+                string[] split = i.Split(" ");
+                quantityBox.Text = split[1];
+            }
+        }
+
+        private void Validation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            currentMedIngredients.UnselectAll();
+            quantityBox.Text = "";
+        }
+
+        private void editIng_Click(object sender, RoutedEventArgs e)
+        {
+            string i = (string)currentMedIngredients.SelectedItem;
+            if (i != null)
+            {
+                string[] split = i.Split(" ");
+                ing[split[0]] = Int32.Parse(quantityBox.Text);
+            }
+            AddIngredientsToList();
+            currentMedIngredients.ItemsSource = currentIngredients;
+            quantityBox.Text = "";
         }
     }
 }

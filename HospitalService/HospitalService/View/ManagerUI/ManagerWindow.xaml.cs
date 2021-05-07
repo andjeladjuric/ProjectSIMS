@@ -23,10 +23,12 @@ namespace HospitalService.View.ManagerUI
     {
         private Manager manager;
         private InventoryFileStorage invStorage = new InventoryFileStorage();
+        private RenovationStorage renovationStorage = new RenovationStorage();
         public ManagerWindow(Manager m)
         {
             InitializeComponent();
             manager = m;
+            renovationStorage.CheckRenovationRequests();
         }
 
         private void openButtonClick(object sender, RoutedEventArgs e)

@@ -2,7 +2,7 @@
   {
     "Id": "324",
     "MedicineName": "Brufen",
-    "IsApproved": 2,
+    "IsApproved": 0,
     "Type": 3,
     "Ingredients": {
       "ibuprofen": 500,
@@ -25,10 +25,7 @@
     "MedicineName": "Vitamin",
     "IsApproved": 2,
     "Type": 4,
-    "Ingredients": {
-      "magnezijum": 50,
-      "cink": 200
-    },
+    "Ingredients": { "cink": 200 },
     "Format": "Kapsula",
     "DoctorsComment": null
   },

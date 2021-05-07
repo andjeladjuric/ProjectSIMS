@@ -142,10 +142,10 @@
 
             <Label x:Name="availability" Content="Dostupnost" HorizontalAlignment="Left" Margin="59,326,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
             <RadioButton x:Name="available" IsChecked="{Binding room.IsFree, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                         Content="Da" HorizontalAlignment="Left" Margin="177,329,0,0" VerticalAlignment="Top" 
+                         Content="Dostupna" HorizontalAlignment="Left" Margin="172,329,0,0" VerticalAlignment="Top" 
                          FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14"/>
-            <RadioButton x:Name="notAvailable" Content="Ne" HorizontalAlignment="Left" Margin="234,332,0,0" VerticalAlignment="Top" 
-                         FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14" Height="18" Width="40">
+            <RadioButton x:Name="notAvailable" Content="Renovira se" HorizontalAlignment="Left" Margin="256,332,0,0" VerticalAlignment="Top" 
+                         FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14" Height="18" Width="90">
                 <RadioButton.Style>
                     <Style TargetType="{x:Type RadioButton}">
                         <Setter Property="IsChecked" Value="False"/>
