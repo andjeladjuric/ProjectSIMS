@@ -12,11 +12,13 @@ namespace Model
         public List<Diagnosis> Diagnoses { get; set; }
         public List<Prescription> Prescriptions { get; set; }
         public List<Referral> Referrals { get; set; }
+        public List<MedicationIngredients> Allergies { get; set; }
 
         public MedicalRecord() {
             Diagnoses = new List<Diagnosis>();
             Prescriptions = new List<Prescription>(); 
             Referrals = new List<Referral>();
+            Allergies = new List<MedicationIngredients>();
         }
 
         public MedicalRecord(string s, List<Diagnosis> ds, List<Prescription> ps)
@@ -39,6 +41,26 @@ namespace Model
                 }
             }
             return Diagnoses;
+        }
+
+        public void deleteAllergie(MedicationIngredients allergie)
+        {
+            for (int i = 0; i < Allergies.Count; i++)
+                if (Allergies[i].IngredientName.Equals(allergie.IngredientName))
+                {
+                    Allergies.RemoveAt(i);
+                    break;
+                }
+        }
+
+        public bool AlreadyExists(MedicationIngredients allergie)
+        {
+            for (int i = 0; i < Allergies.Count; i++)
+            {
+                if (Allergies[i].IngredientName.Equals(allergie.IngredientName))
+                    return true;
+            }
+            return false;
         }
 
     }
