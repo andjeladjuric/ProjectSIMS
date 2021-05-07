@@ -14,7 +14,7 @@ namespace Model
         public Dictionary<string, int> Ingredients { get; set; }
         public string Format { get; set; }
         public string DoctorsComment { get; set; }
-
+        public string Replacement { get; set; }
         public Medication()
         {
         }
@@ -28,6 +28,7 @@ namespace Model
             Ingredients = ingredients;
             Format = format;
         }
+
 
 
     }

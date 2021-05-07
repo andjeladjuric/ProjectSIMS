@@ -87,5 +87,27 @@ namespace Model
             SerializeMedication();
         }
 
+        public List<Medication> GetAllApproved()
+        {
+            List<Medication> approvedMeds = new List<Medication>();
+            foreach (Medication medication in meds)
+                if (medication.IsApproved == MedicineStatus.Approved)
+                    approvedMeds.Add(medication);
+            return approvedMeds;
+        }
+
+        public void AddIngredient(string name, int grams, String medicationId)
+        {
+            meds.Find(x => x.Id == medicationId).Ingredients.Add(name, grams);
+            SerializeMedication();
+        }
+
+        public void DeleteIngredient(string name, String medicationId)
+        {
+            meds.Find(x => x.Id == medicationId).Ingredients.Remove(name);
+            SerializeMedication();
+        }
+
+
     }
 }
