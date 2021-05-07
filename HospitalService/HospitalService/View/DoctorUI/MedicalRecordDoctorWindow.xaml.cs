@@ -1,4 +1,5 @@
 ﻿using Model;
+using Storage;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,6 +28,7 @@ namespace HospitalService.View.DoctorUI
             MedicalRecordNum.Text = md.Id;
             IstorijaList.ItemsSource = md.Diagnoses;
             TerapijaList.ItemsSource = md.Prescriptions;
+            AllergiesListView.ItemsSource = md.Allergies;
             NameLbl.Content = md.Patient.Name + " " + md.Patient.Surname;
             DateOfBirthTB.Text = md.Patient.DateOfBirth.HasValue ? md.Patient.DateOfBirth.Value.ToString("MM/dd/yyyy") : " ";
             JmbgTB.Text = md.Patient.Jmbg;
@@ -52,8 +54,41 @@ namespace HospitalService.View.DoctorUI
         {
             IstorijaList.ItemsSource = Karton.Diagnoses;
             TerapijaList.ItemsSource = Karton.Prescriptions;
+            AllergiesListView.ItemsSource = Karton.Allergies;
             IstorijaList.Items.Refresh();
             TerapijaList.Items.Refresh();
+            AllergiesListView.Items.Refresh();
+        }
+
+        private void Referral_Click(object sender, RoutedEventArgs e)
+        {
+            ReferralWindow referralWindow = new ReferralWindow(this);
+            referralWindow.ShowDialog();
+        }
+
+        private void UrgentOperation_Click(object sender, RoutedEventArgs e)
+        {
+            OperationWindow newOperationWindow = new OperationWindow(Karton.Patient);
+            newOperationWindow.ShowDialog();
+        }
+
+        private void AddAllergie_Click(object sender, RoutedEventArgs e)
+        {
+            AddAllergieWindow addAllergie = new AddAllergieWindow(Karton, this);
+            addAllergie.ShowDialog();
+        }
+
+        private void DeleteAllergie_Click(object sender, RoutedEventArgs e)
+        {
+            MedicationIngredients allergie = (MedicationIngredients)AllergiesListView.SelectedItem;
+            if(allergie == null)
+                MessageBox.Show("Morate izabrati sastojak.");
+            else
+            {
+                Karton.deleteAllergie(allergie);
+                new MedicalRecordStorage().Edit(Karton);
+                Refresh();
+            }
         }
     }
 }

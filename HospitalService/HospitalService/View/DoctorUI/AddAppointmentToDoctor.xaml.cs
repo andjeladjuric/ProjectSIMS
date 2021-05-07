@@ -32,19 +32,10 @@ namespace HospitalService.View.DoctorUI
             Patients = patientStorage.GetAll();
             InitializeComponent();
             AppointmentTypeBox.ItemsSource = appointmentsType;
-            List<Room> r = dw.sobe.GetAll();
-            List<String> ids = new List<String>();
-            Room soba;
-            for (int i = 0; i < r.Count; i++)
-            {
-                soba = r[i];
-                ids.Add(soba.Id);
-            }
-
-            RoomBox.ItemsSource = ids;
             DateBox.SelectedDate = DateTime.Today;
             PatientBox.ItemsSource = Patients;
             IdBox.Text = baza.GetNextId();
+            RoomBox.IsEnabled = false;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -84,6 +75,36 @@ namespace HospitalService.View.DoctorUI
                 DoctorWindow.refresh();
                 this.Close();
             }
+        }
+
+        private void AppointmentTypeBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            String start = StartBox.Text;
+            String end = EndBox.Text;
+            String date = DateBox.Text;
+            String pocetak = date + " " + start + ":00";
+            String kraj = date + " " + end + ":00";
+            List<Room> r = new List<Room>();
+            RoomType roomType;
+            if (AppointmentTypeBox.SelectedItem.Equals("Pregled"))
+                roomType = RoomType.ExaminationRoom;
+            else
+                roomType = RoomType.OperatingRoom;
+
+            r = baza.GetAvailableRooms(roomType, Convert.ToDateTime(pocetak), Convert.ToDateTime(kraj));
+            List<String> ids = new List<String>();
+            Room soba;
+            String pom;
+            for (int i = 0; i < r.Count; i++)
+            {
+                soba = r[i];
+                pom = soba.Id + "-" + soba.Name;
+                ids.Add(pom);
+            }
+
+            RoomBox.ItemsSource = ids;
+            RoomBox.IsEnabled = true;
         }
     }
 }

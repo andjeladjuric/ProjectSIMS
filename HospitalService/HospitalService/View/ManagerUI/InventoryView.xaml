@@ -92,9 +92,9 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Background="#adc5d0" x:Name="create" HorizontalAlignment="Left" Content="Dodaj" Margin="202,612,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="create_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Button HorizontalAlignment="Left" Background="#adc5d0" x:Name="update" Content="Izmeni stavku" Margin="297,612,0,0" VerticalAlignment="Top" Height="26" Width="106" Click="update_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Button HorizontalAlignment="Right" Background="#adc5d0" x:Name="delete" Content="Ukloni" Margin="0,612,469,0" VerticalAlignment="Top" Height="26" Width="75" Click="delete_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" RenderTransformOrigin="-0.363,0.538"/>
+        <Button Background="#adc5d0" x:Name="create" HorizontalAlignment="Left" Content="Dodaj" Margin="170,612,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="create_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Button HorizontalAlignment="Left" Background="#adc5d0" x:Name="update" Content="Izmeni stavku" Margin="262,612,0,0" VerticalAlignment="Top" Height="26" Width="113" Click="update_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Button HorizontalAlignment="Right" Background="#adc5d0" x:Name="delete" Content="Ukloni" Margin="0,612,500,0" VerticalAlignment="Top" Height="26" Width="75" Click="delete_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" RenderTransformOrigin="-0.363,0.538"/>
 
         <ComboBox x:Name="InventoryType"
                   HorizontalAlignment="Left" Margin="167,97,0,0" VerticalAlignment="Top" 

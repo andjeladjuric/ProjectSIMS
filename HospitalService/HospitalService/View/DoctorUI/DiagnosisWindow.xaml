@@ -5,28 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI"
         mc:Ignorable="d"
-         Title="Dijagnoza" Height="520" Width="450" FontSize="18"  FontFamily="Gill Sans MT" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+         Title="Dijagnoza" Height="520" Width="450" FontSize="18"  FontFamily="Open Sans" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Grid Height="520" Width="450">
-        <Label Foreground="#FF696969" Content="Dijagnoza" FontSize="24" HorizontalAlignment="Left" Margin="168,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.349,0.494"/>
-        <Label Foreground="#FF696969" Content="Pacijent:" HorizontalAlignment="Left" Margin="57,98,0,0" VerticalAlignment="Top"/>
-        <Label Foreground="#FF696969" Content="Dijagnoza*:" HorizontalAlignment="Left" Margin="54,154,0,0" VerticalAlignment="Top"/>
-        <Label Foreground="#FF696969" Content="Simptomi*:" HorizontalAlignment="Left" Margin="56,205,0,0" VerticalAlignment="Top"/>
-        <Label Foreground="#FF696969"  Content="Datum*:" HorizontalAlignment="Left" Margin="59,259,0,0" VerticalAlignment="Top"/>
-        <Label Foreground="#FF696969" Content="Anamneza:" HorizontalAlignment="Left" Margin="57,308,0,0" VerticalAlignment="Top"/>
+        <Label Content="Dijagnoza" FontSize="24" HorizontalAlignment="Left" Margin="168,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.349,0.494"/>
+        <Label  Content="Pacijent:" HorizontalAlignment="Left" Margin="57,98,0,0" VerticalAlignment="Top"/>
+        <Label  Content="Dijagnoza*:" HorizontalAlignment="Left" Margin="54,154,0,0" VerticalAlignment="Top"/>
+        <Label  Content="Simptomi*:" HorizontalAlignment="Left" Margin="56,205,0,0" VerticalAlignment="Top"/>
+        <Label   Content="Datum*:" HorizontalAlignment="Left" Margin="59,259,0,0" VerticalAlignment="Top"/>
+        <Label  Content="Anamneza:" HorizontalAlignment="Left" Margin="57,308,0,0" VerticalAlignment="Top"/>
         <TextBox Name="PatientTB" HorizontalAlignment="Left" Margin="197,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" IsEnabled="False"/>
         <TextBox Name="DiagnosisTB" HorizontalAlignment="Left" Margin="197,158,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
         <TextBox Name="SymptomsTB" HorizontalAlignment="Left" Margin="197,209,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
-        <Button Click="Cancel_Click" Foreground="#FF696969" Content="Odustani" HorizontalAlignment="Left" Margin="109,450,0,0" VerticalAlignment="Top" Width="83">
+        <Button Click="Cancel_Click"  Content="Odustani" HorizontalAlignment="Left" Margin="109,450,0,0" VerticalAlignment="Top" Width="83">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button Click="Apply_Click" Foreground="#FF696969" Content="Potvrdi" HorizontalAlignment="Left" Margin="246,450,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.527,1.175" Width="87">
+        <Button Click="Apply_Click"  Content="Potvrdi" HorizontalAlignment="Left" Margin="246,450,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.527,1.175" Width="87">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
         <TextBox Background="WhiteSmoke" Name="AnamnesisTB" HorizontalAlignment="Left" Margin="59,346,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="323" Height="74"/>
-        <DatePicker Name="DateBox" IsEnabled="False" Foreground="#FF696969" HorizontalAlignment="Left" Margin="197,260,0,0" VerticalAlignment="Top" Width="185"/>
+        <DatePicker Name="DateBox" IsEnabled="False"  HorizontalAlignment="Left" Margin="197,260,0,0" VerticalAlignment="Top" Width="185"/>
     </Grid>
 </Window>

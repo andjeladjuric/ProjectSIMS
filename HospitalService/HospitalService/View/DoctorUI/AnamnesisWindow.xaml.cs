@@ -32,6 +32,7 @@ namespace HospitalService.View.DoctorUI
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             EditAnamnesisWindow editAnamnesisWindow = new EditAnamnesisWindow(this);
+            this.Close();
             editAnamnesisWindow.ShowDialog();
         }
 
