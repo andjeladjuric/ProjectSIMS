@@ -27,16 +27,17 @@ namespace HospitalService.View.DoctorUI
             InitializeComponent();
             medicalRecordWindow = mr;
             PatientTB.Text = mr.Karton.Patient.Name + " " + mr.Karton.Patient.Surname;
+            MedicationOptions.ItemsSource = new MedicationStorage().GetAllAllowed(mr.Karton.Allergies);
         }
 
         private void Apply_Click(object sender, RoutedEventArgs e)
         {
             MedicalRecordStorage baza = new MedicalRecordStorage();
-            string medication = MedicationTB.Text;
+            Medication medication = (Medication)MedicationOptions.SelectedItem;
             int howOften = int.Parse(HoursTB.Text);
             int howLong = int.Parse(DaysTB.Text);
             string info = InfoTB.Text;
-            Prescription prescription = new Prescription(medication, howOften, howLong, info, DateTime.Now);
+            Prescription prescription = new Prescription(medication.MedicineName, howOften, howLong, info, DateTime.Now);
             MedicalRecord mr = medicalRecordWindow.Karton;
             mr.Prescriptions.Add(prescription);
             baza.Edit(mr);

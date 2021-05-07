@@ -29,6 +29,17 @@ namespace Model
             Format = format;
         }
 
+        public bool IsAllergen(List<MedicationIngredients> allergies)
+        {
+            foreach (MedicationIngredients ingredient in allergies)
+            {
+                if (Ingredients.ContainsKey(ingredient.IngredientName))
+                    return true;
+
+            }
+            return false;
+        }
+
 
 
     }
