@@ -7,69 +7,69 @@
         mc:Ignorable="d"
       Title="Patient" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight">
 
-    <Grid Height="580" Width="960">
+    <Grid Height="620" Width="1100">
         <DockPanel>
             <DockPanel DockPanel.Dock="Left">
-                <Border  BorderBrush="Black" BorderThickness="1" Width="130" Height="580">
+                <Border  BorderBrush="Black" BorderThickness="1" Width="115" Height="620">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="69"/>
-                            <RowDefinition Height="69"/>
-                            <RowDefinition Height="69"/>
-                            <RowDefinition Height="69"/>
-                            <RowDefinition Height="69"/>
-                            <RowDefinition Height="69"/>
-                            <RowDefinition Height="69"/>
-                            <RowDefinition Height="28"/>
-                            <RowDefinition Height="69"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="140"/>
+                            <RowDefinition Height="60"/>
                         </Grid.RowDefinitions>
 
-                        <Button Grid.Row="0" Background="RoyalBlue">
+                        <Button Grid.Row="0" Background="RoyalBlue" Click="viewProfileClick">
                             <StackPanel>
-                                <Image Source="/View/PatientUI/Images/user.png" Height="35" Width="70"/>
-                                <TextBlock Text="Pregled profila" Foreground="White" FontStyle="Italic" FontSize="14"/>
+                                <Image Source="/View/PatientUI/Images/user.png" Height="32" Width="70"/>
+                                <TextBlock Text="Pregled profila" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
                         <Button Grid.Row="1" Background="RoyalBlue">
                             <StackPanel>
-                                <Image Source="/View/PatientUI/Images/edit.png" Height="35" Width="70"/>
-                                <TextBlock Text="Izmjena profila" Foreground="White" FontStyle="Italic" FontSize="14"/>
+                                <Image Source="/View/PatientUI/Images/edit.png" Height="32" Width="70"/>
+                                <TextBlock Text="Izmjena profila" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
                         <Button x:Name="addApp" Grid.Row="2" Background="RoyalBlue" Click="addAppointmentClick">
                             <StackPanel>
-                                <Image Source="/View/PatientUI/Images/plus.png" Height="35" Width="70"/>
-                                <TextBlock Text="Zakazivanje termina" Foreground="White" FontStyle="Italic" FontSize="14"/>
+                                <Image Source="/View/PatientUI/Images/plus.png" Height="32" Width="70"/>
+                                <TextBlock Text="Zakazivanje termina" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
                         <Button x:Name="viewApp" Grid.Row="3" Background="RoyalBlue" Click="ViewAppointmentsClick">
                           <StackPanel>
-                                <Image Source="/View/PatientUI/Images/calendar.png" Height="35" Width="70"/>
-                                <TextBlock Text="Pregled termina" Foreground="White" FontStyle="Italic" FontSize="14"/>
+                                <Image Source="/View/PatientUI/Images/calendar.png" Height="32" Width="70"/>
+                                <TextBlock Text="Pregled termina" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
                         <Button Grid.Row="4" Background="RoyalBlue">
                             <StackPanel>
-                                <Image Source="/View/PatientUI/Images/book.png" Height="35" Width="70"/>
-                                <TextBlock Text="Zdravstveni karton" Foreground="White" FontStyle="Italic" FontSize="14"/>
+                                <Image Source="/View/PatientUI/Images/book.png" Height="32" Width="70"/>
+                                <TextBlock Text="Zdravstveni karton" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
                         <Button Grid.Row="5" Background="RoyalBlue" Click="viewPrescriptions">
                             <StackPanel>
-                                <Image Source="/View/PatientUI/Images/survival.png" Height="35" Width="70"/>
-                                <TextBlock Text="Uvid u recepte" Foreground="White" FontStyle="Italic" FontSize="14"/>
+                                <Image Source="/View/PatientUI/Images/survival.png" Height="32" Width="70"/>
+                                <TextBlock Text="Uvid u recepte" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
                         <Button Grid.Row="6" Background="RoyalBlue" Click="SurveyClick">
                             <StackPanel>
-                                <Image Source="/View/PatientUI/Images/ankete.png" Height="35" Width="70"/>
-                                <TextBlock Text="Aktivne ankete" Foreground="White" FontStyle="Italic" FontSize="14"/>
+                                <Image Source="/View/PatientUI/Images/ankete.png" Height="32" Width="70"/>
+                                <TextBlock Text="Aktivne ankete" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
                         <Button Grid.Row="8" Background="RoyalBlue" Click="logOutClick">
                             <StackPanel>
-                                <Image Source="/View/PatientUI/Images/logout.png" Height="35" Width="70"/>
-                                <TextBlock Text="  Sign out" Foreground="White" FontStyle="Italic" FontSize="14"/>
+                                <Image Source="/View/PatientUI/Images/logout.png" Height="32" Width="70"/>
+                                <TextBlock Text="  Sign out" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
                     </Grid>
@@ -79,7 +79,7 @@
             </Grid>
 
         </DockPanel>
-        <Frame x:Name="Main" Margin="130,0,0,0" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2"/>
+        <Frame x:Name="Main" Margin="115,0,0,0" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>
 

@@ -5,20 +5,20 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.PatientUI.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="550" d:DesignWidth="830"
+      d:DesignHeight="620" d:DesignWidth="985"
       Title="ViewAppointment">
 
     <DockPanel>
 
         <Grid DockPanel.Dock="Top">
             <Grid.RowDefinitions>
-                <RowDefinition Height="10"/>
+                <RowDefinition Height="25"/>
                 <RowDefinition Height="60"/>
-                <RowDefinition Height="10"/>
+                <RowDefinition Height="25"/>
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="25"/>
                 <ColumnDefinition Width="240"/>
 
             </Grid.ColumnDefinitions>
@@ -28,15 +28,14 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="60"/>
-                
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40"/>
-                <ColumnDefinition Width="187.5"/>
-                <ColumnDefinition Width="187.5"/>
-                <ColumnDefinition Width="187.5"/>
-                <ColumnDefinition Width="187.5"/>
+                <ColumnDefinition Width="226.25"/>
+                <ColumnDefinition Width="226.25"/>
+                <ColumnDefinition Width="226.25"/>
+                <ColumnDefinition Width="226.25"/>
                 <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
             <Button Content="Otkazi" Grid.Column="1" Grid.Row="1" Width="150" Height="45" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue" Click="DeleteClick"/>
@@ -46,7 +45,7 @@
         </Grid>
         <DataGrid x:Name="tableViewAppointment" IsReadOnly="True" 
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
-                  Height="340"  VerticalAlignment="Top" Width="750">
+                  Height="390"  VerticalAlignment="Top" Width="850">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ime doktora" Binding="{Binding doctor.Name}" Width="*"/>
                 <DataGridTextColumn Header="Prezime doktora" Binding="{Binding doctor.Surname}" Width="*"/>

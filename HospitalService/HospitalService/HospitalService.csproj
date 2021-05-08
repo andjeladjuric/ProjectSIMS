@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="View\PatientUI\Images\ankete.png" />
+    <None Remove="View\PatientUI\Images\book.png" />
+    <None Remove="View\PatientUI\Images\calendar.png" />
+    <None Remove="View\PatientUI\Images\edit.png" />
+    <None Remove="View\PatientUI\Images\logout.png" />
+    <None Remove="View\PatientUI\Images\plus.png" />
+    <None Remove="View\PatientUI\Images\programmer.jpg" />
+    <None Remove="View\PatientUI\Images\survival.png" />
+    <None Remove="View\PatientUI\Images\user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.2" />
     <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -14,6 +26,18 @@
 
   <ItemGroup>
     <Folder Include="Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\PatientUI\Images\ankete.png" />
+    <Resource Include="View\PatientUI\Images\book.png" />
+    <Resource Include="View\PatientUI\Images\calendar.png" />
+    <Resource Include="View\PatientUI\Images\edit.png" />
+    <Resource Include="View\PatientUI\Images\logout.png" />
+    <Resource Include="View\PatientUI\Images\plus.png" />
+    <Resource Include="View\PatientUI\Images\programmer.jpg" />
+    <Resource Include="View\PatientUI\Images\survival.png" />
+    <Resource Include="View\PatientUI\Images\user.png" />
   </ItemGroup>
 
 </Project>
