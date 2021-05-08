@@ -56,7 +56,7 @@ namespace HospitalService.View.PatientUI.Pages
                 appointmentStorage.Delete(a.Id);
                 appointmentStorage.SetIds();
                 tableViewAppointment.ItemsSource = null;
-                tableViewAppointment.ItemsSource = appointmentStorage.getByPatient(patient);
+                tableViewAppointment.ItemsSource = appointmentStorage.getByPatient(patient).Where(ap => ap.EndTime > DateTime.Now).ToList();
                 
 
             }
