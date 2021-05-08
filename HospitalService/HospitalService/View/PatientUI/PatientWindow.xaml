@@ -30,7 +30,7 @@
                                 <TextBlock Text="Pregled profila" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
-                        <Button Grid.Row="1" Background="RoyalBlue">
+                        <Button Grid.Row="1" Background="RoyalBlue" Click="editProfileClick">
                             <StackPanel>
                                 <Image Source="/View/PatientUI/Images/edit.png" Height="32" Width="70"/>
                                 <TextBlock Text="Izmjena profila" Foreground="White" FontStyle="Italic" FontSize="12"/>

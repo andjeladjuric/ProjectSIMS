@@ -26,9 +26,9 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25"/>
-            <ColumnDefinition Width="285"/>
-            <ColumnDefinition Width="380"/>
-            <ColumnDefinition Width="270"/>
+            <ColumnDefinition Width="265"/>
+            <ColumnDefinition Width="360"/>
+            <ColumnDefinition Width="310"/>
             <ColumnDefinition Width="25"/>
 
         </Grid.ColumnDefinitions>
