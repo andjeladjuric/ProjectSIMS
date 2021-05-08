@@ -23,25 +23,25 @@ namespace HospitalService.View.ManagerUI
     public partial class RoomRenovation : Page
     {
         Room SelectedRoom { get; set; }
-        ObservableCollection<Appointment> appointment { get; set; }
+        ObservableCollection<Appointment> appointments { get; set; }
         public RoomRenovation(Room room)
         {
             InitializeComponent();
             this.DataContext = this;
             SelectedRoom = room;
 
-            appointment = new ObservableCollection<Appointment>();
+            appointments = new ObservableCollection<Appointment>();
             AppointmentStorage storage = new AppointmentStorage();
 
             foreach (Appointment a in storage.GetAll())
             {
                 if (a.StartTime >= DateTime.Now && a.room.Id.Equals(SelectedRoom.Id))
                 {
-                    appointment.Add(a);
+                    appointments.Add(a);
                 }
             }
 
-            tableBinding.ItemsSource = appointment;
+            tableBinding.ItemsSource = appointments;
             IDBox.Text = SelectedRoom.Id;
         }
 
@@ -55,6 +55,7 @@ namespace HospitalService.View.ManagerUI
             {
                 renovationStorage.Save(new Renovation(SelectedRoom.Id, startDate, endDate));
                 renovationStorage.SerializeRenovations();
+                newFrame.Content = new RoomsView();
             }
 
             startPicker.Text = "";

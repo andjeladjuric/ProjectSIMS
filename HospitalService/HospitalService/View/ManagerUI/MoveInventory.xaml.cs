@@ -25,11 +25,11 @@ namespace HospitalService.View.ManagerUI
     public partial class MoveInventory : Page, INotifyPropertyChanged 
     {
         public Room room;
-        private InventoryFileStorage invStorage = new InventoryFileStorage();
-        private RoomFileStorage roomStorage;
-        public ObservableCollection<Inventory> roomInventory { get; set; }
-        public List<String> roomNames { get; set; }
-        private RoomInventoryStorage roomInventoryStorage = new RoomInventoryStorage();
+        private InventoryFileStorage InventoryStorage = new InventoryFileStorage();
+        private RoomFileStorage RoomStorage;
+        public ObservableCollection<Inventory> RoomInventory { get; set; }
+        public List<String> RoomNames { get; set; }
+        private RoomInventoryStorage RoomInventoryStorage = new RoomInventoryStorage();
         public List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
 
         private Inventory _i;
@@ -95,28 +95,27 @@ namespace HospitalService.View.ManagerUI
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-        public MoveInventory(Room r, ObservableCollection<Inventory> inv)
+        public MoveInventory(Room r, ObservableCollection<Inventory> inventory)
         {
             InitializeComponent();
 
             this.DataContext = this;
 
             room = r;
-            roomInventory = inv;
+            RoomInventory = inventory;
 
             String source = "";
-            roomStorage = new RoomFileStorage();
-            roomNames = new List<string>();
-            foreach (Room soba in roomStorage.GetAll())
+            RoomStorage = new RoomFileStorage();
+            RoomNames = new List<string>();
+
+            foreach (Room soba in RoomStorage.GetAll())
             {
                 if (soba.Id != r.Id)
                 {
                     source = soba.Id + "/" + soba.Name;
-                    roomNames.Add(source);
+                    RoomNames.Add(source);
                 }
             }
-
-            currentTime = new TimeSpan(0, 0, 0);
         }
 
         private void save_Click(object sender, RoutedEventArgs e)
@@ -129,7 +128,7 @@ namespace HospitalService.View.ManagerUI
                 string selectedId = splitId[0];
 
                 Room sendToThisRoom = null;
-                foreach (Room r in roomStorage.GetAll())
+                foreach (Room r in RoomStorage.GetAll())
                 {
                     if (r.Id == selectedId)
                     {
@@ -140,26 +139,27 @@ namespace HospitalService.View.ManagerUI
 
                 int itemId = Int32.Parse(IDBox.Text);
 
-                foreach (Inventory i in roomInventory)
+                foreach (Inventory i in RoomInventory)
                 {
                     if(i.Id == itemId)
                     {
                         if (i.EquipmentType.Equals(Equipment.Dynamic))
                         {
-                            roomInventoryStorage.AnalyzeRequests(new MovingRequests(DateTime.Now, EnteredQuantity, room.Id, sendToThisRoom.Id, itemId));
+                            RoomInventoryStorage.AnalyzeRequests(new MovingRequests(DateTime.Now, EnteredQuantity, room.Id, sendToThisRoom.Id, itemId));
                         }
                         else
                         {
                             TimeSpan selectedTime = TimeSpan.ParseExact(Time, "c", null);
                             Date = Convert.ToDateTime(selectedTime + " " + datePicker.Text);
                             MovingRequests request = new MovingRequests(Date, EnteredQuantity, room.Id, sendToThisRoom.Id, itemId);
-                            roomInventoryStorage.StartMoving(request);
-
+                            RoomInventoryStorage.StartMoving(request);
                         }
                     }
                 }
             }
+
             newFrame.Content = new ManageRoomInventory(room);
+
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)
@@ -191,11 +191,11 @@ namespace HospitalService.View.ManagerUI
 
                 if (InventoryType.SelectedIndex == 0)
                 {
-                    filtered = roomInventory;
+                    filtered = RoomInventory;
                 }
                 else if (InventoryType.SelectedIndex == 1)
                 {
-                    foreach (Inventory i in roomInventory)
+                    foreach (Inventory i in RoomInventory)
                     {
                         if (i.EquipmentType.Equals(Equipment.Static))
                             filtered.Add(i);
@@ -203,7 +203,7 @@ namespace HospitalService.View.ManagerUI
                 }
                 else
                 {
-                    foreach (Inventory i in roomInventory)
+                    foreach (Inventory i in RoomInventory)
                     {
                         if (i.EquipmentType.Equals(Equipment.Dynamic))
                             filtered.Add(i);
@@ -225,7 +225,7 @@ namespace HospitalService.View.ManagerUI
 
             if (id != "" || name != "" || supplier != "")
             {
-                foreach (Inventory i in roomInventory)
+                foreach (Inventory i in RoomInventory)
                 {
                     if (i.Name.ToLower().Contains(name) && i.Id.ToString().Contains(id)
                         && i.Supplier.ToLower().Contains(supplier))
@@ -237,7 +237,7 @@ namespace HospitalService.View.ManagerUI
             }
             else
             {
-                tableBinding.ItemsSource = roomInventory;
+                tableBinding.ItemsSource = RoomInventory;
             }
         }
 
@@ -247,7 +247,7 @@ namespace HospitalService.View.ManagerUI
             searchId.Text = "";
             searchName.Text = "";
             searchSupplier.Text = "";
-            tableBinding.ItemsSource = roomInventory;
+            tableBinding.ItemsSource = RoomInventory;
         }
     }
 }

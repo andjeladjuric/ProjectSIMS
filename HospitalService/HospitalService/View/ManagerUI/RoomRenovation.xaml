@@ -23,7 +23,7 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
-        <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding appointment}"
+        <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding appointments}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
                   Height="450" VerticalAlignment="Center" Width="507" FontFamily="Gill Sans MT" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5"
