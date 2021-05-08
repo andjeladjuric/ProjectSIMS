@@ -15,5 +15,10 @@ namespace Model
         public String Email { get; set; }
         public Gender Gender { get; set; }
 
+        public string ImePrezime()
+        {
+            return Name + " " + Surname;
+        }
+
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
-        Title="ZakaziTermin" Height="498" Width="617">
+        Title="ZakaziTermin" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
     <StackPanel Margin="100,50,100,50">
         <StackPanel Orientation="Horizontal" Margin="10">
             <Label Width="80">Pocetak:</Label>
@@ -28,7 +28,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal"  Margin="10">
             <Label Width="80">Doktor:</Label>
-            <ComboBox Name="doktori"  Width="200">
+            <ComboBox Name="doktori"  Width="200" SelectionChanged="doktori_SelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>

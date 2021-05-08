@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
-        Title="AddMedicalRecord" Height="450" Width="800">
+        Title="AddMedicalRecord" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="ID:" HorizontalAlignment="Left" Height="28" Margin="23,34,0,0" VerticalAlignment="Top" Width="1200" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
         <TextBox Name="id" HorizontalAlignment="Left" Height="20" Margin="63,38,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>

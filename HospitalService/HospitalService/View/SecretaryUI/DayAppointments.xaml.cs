@@ -25,14 +25,14 @@ namespace HospitalService.View.SecretaryUI
         public DayAppointments(DateTime dt)
         {
             this.dt = dt;
-            RefreshTable(dt);
+            RefreshTable();
             InitializeComponent();
             DataContext = this;
             datum.Content = dt.Date.ToShortDateString();
         }
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Prikazi(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -41,11 +41,22 @@ namespace HospitalService.View.SecretaryUI
                 if (o1.Appointments[index].Item1 != "")
                 {
                     Appointment a = o1.Appointments[index].Item2;
-                    MessageBoxResult m = MessageBox.Show($"Datum: {a.StartTime.Date.ToShortDateString()}\nPocetak: {a.StartTime.TimeOfDay}\nKraj: {a.EndTime.TimeOfDay}\nSala: {o1.Name}\nTip: {a.Type}\nDoktor: {a.doctor.Name} {a.doctor.Surname}\nPacijent: {a.patient.Name} {a.patient.Surname}", "Zelite Pomeriti Termin?", MessageBoxButton.YesNo);
+                    MessageBoxResult m = MessageBox.Show($"Datum: {a.StartTime.Date.ToShortDateString()}\n" +
+                        $"Pocetak: {a.StartTime.TimeOfDay}\nKraj: {a.EndTime.TimeOfDay}\nSala: {o1.Name}\n" +
+                        $"Tip: {a.Type}\nDoktor: {a.doctor.Name} {a.doctor.Surname}\nPacijent: {a.patient.Name} {a.patient.Surname}\nHitan: {a.isUrgent}",
+                        "Zelite Pomeriti Termin?", MessageBoxButton.YesNo);
+
                     if (m == MessageBoxResult.Yes)
                     {
-                        new PomeriTermin(a).ShowDialog();
-                        this.Close();
+                        if (!a.isUrgent)
+                        {
+                            new PomeriTermin(a).ShowDialog();
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Hitni termini ne mogu da se pomeraju!");
+                        }
 
                     }
 
@@ -55,7 +66,7 @@ namespace HospitalService.View.SecretaryUI
             catch { this.Close(); }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_Zakazi(object sender, RoutedEventArgs e)
         {
             //zakazi
 
@@ -74,14 +85,13 @@ namespace HospitalService.View.SecretaryUI
             }
 
             new ZakaziTermin(start, o1.Name).ShowDialog();
-
             this.Close();
         }
 
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_Otkazi(object sender, RoutedEventArgs e)
         {
-
+            if (calendar.SelectedCells.Count < 1) return;
             CalendarHelper o1 = (CalendarHelper)calendar.SelectedCells[0].Item;
             int index = calendar.SelectedCells[0].Column.DisplayIndex - 1;
             if (o1.Appointments[index].Item1 == "")
@@ -90,12 +100,18 @@ namespace HospitalService.View.SecretaryUI
                 return;
             }
             Appointment a = o1.Appointments[index].Item2;
-            new AppointmentStorage().Delete(a.Id);
-            MessageBox.Show("Uspesno ste obrisali termin");
-            this.Close();
+            if (!a.isUrgent) {
+                new AppointmentStorage().Delete(a.Id);
+                MessageBox.Show("Uspesno ste obrisali termin");
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Ovo je hitan termin, ne moze da se obrise!");
+            }
         }
 
-        private void RefreshTable(DateTime dt)
+        private void RefreshTable()
         {
             List<Appointment> temp = new AppointmentStorage().GetAll();
             Dictionary<string, List<Appointment>> dict = new Dictionary<string, List<Appointment>>();

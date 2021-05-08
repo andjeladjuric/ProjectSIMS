@@ -5,43 +5,91 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
-        Title="AddPatient" Height="450" Width="400" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Label Content="Tip:" HorizontalAlignment="Left" Height="29" Margin="24,10,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Ime:" HorizontalAlignment="Left" Height="29" Margin="24,39,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Prezime: " HorizontalAlignment="Left" Height="29" Margin="24,73,0,0" VerticalAlignment="Top" Width="1200" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="JMBG:" HorizontalAlignment="Left" Height="29" Margin="24,107,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Pol:" HorizontalAlignment="Left" Height="29" Margin="24,136,0,0" VerticalAlignment="Top" Width="1200" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Korisničko ime:" HorizontalAlignment="Left" Height="29" Margin="24,165,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Lozinka:" HorizontalAlignment="Left" Height="29" Margin="24,194,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Datum rodjenja:" HorizontalAlignment="Left" Height="29" Margin="24,223,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Adresa:" HorizontalAlignment="Left" Height="29" Margin="24,252,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Telefon:" HorizontalAlignment="Left" Height="29" Margin="24,281,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Email:" HorizontalAlignment="Left" Height="29" Margin="24,310,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
+        Title="AddPatient" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+    <Grid Margin="40, 10, 40, 10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
 
-        <TextBox Name="name" HorizontalAlignment="Left" Height="20" Margin="144,47,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <TextBox Name="surname" HorizontalAlignment="Left" Height="20" Margin="144,80,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <TextBox Name="jmbg" HorizontalAlignment="Left" Height="20" Margin="144,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <TextBox Name="username" HorizontalAlignment="Left" Height="20" Margin="144,172,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <TextBox Name="password" HorizontalAlignment="Left" Height="20" Margin="144,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <DatePicker Name="date" HorizontalAlignment="Left" Height="20" Margin="144,230,0,0"   VerticalAlignment="Top" Width="127"/>
-        <TextBox Name="address" HorizontalAlignment="Left" Height="20" Margin="144,260,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <TextBox Name="phone" HorizontalAlignment="Left" Height="20" Margin="144,288,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <TextBox Name="email" HorizontalAlignment="Left" Height="20" Margin="144,318,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <ComboBox Name="cbtype" HorizontalAlignment="Left" Margin="144,14,0,0" VerticalAlignment="Top" Width="127" Height="20">
-            <ComboBoxItem Content="Guest"/>
-            <ComboBoxItem Content="General"/>
-        </ComboBox>
-        <ComboBox Name="cbgender" HorizontalAlignment="Left" Margin="144,140,0,0" VerticalAlignment="Top" Width="127" Height="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+
+
+
+
+
+        <Label Content="Tip:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="1" />
+        <Label Content="Ime:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="3"/>
+        <Label Content="Prezime: " Style="{StaticResource SecretaryLabelStyle}" Grid.Row="5"/>
+        <Label Content="Pol:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="7"/>
+
+        <Label Content="JMBG:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="9" />
+        <Label Content="Korisničko ime:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="11"/>
+        <Label Content="Lozinka: " Style="{StaticResource SecretaryLabelStyle}" Grid.Row="13"/>
+        <Label Content="Datum rođenja:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="15"/>
+        <Label Content="Adresa:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="17"/>
+        <Label Content="Telefon: " Style="{StaticResource SecretaryLabelStyle}" Grid.Row="19"/>
+        <Label Content="Email:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="21"/>
+
+
+        <StackPanel Grid.Row="2">
+            <RadioButton GroupName="rbType" Name="rbGost" Checked="rbGost_Checked" HorizontalAlignment="Left" VerticalAlignment="Center" Width="127" Height="20">gost</RadioButton>
+            <RadioButton GroupName="rbType" Name="rbStalni" Checked="rbStalni_Checked" HorizontalAlignment="Left" VerticalAlignment="Center" Width="127" Height="20">stalni</RadioButton>
+        </StackPanel>
+
+        <TextBox Name="name" Style="{StaticResource SecretaryTextBoxStyle}" Grid.Row="4" Grid.ColumnSpan="2"/>
+        <TextBox Name="surname" Style="{StaticResource SecretaryTextBoxStyle}" Grid.Row="6" Grid.ColumnSpan="2"/>
+
+        <ComboBox Name="cbgender" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Height="20" Grid.Row="8">
             <ComboBoxItem Content="Male"/>
             <ComboBoxItem Content="Female"/>
         </ComboBox>
-        <Button Content="Dodaj" HorizontalAlignment="Left" Margin="80,365,0,0" VerticalAlignment="Top" Width="113" Height="30" Click="Add_Click">
+
+        <TextBox Name="jmbg" Style="{StaticResource SecretaryTextBoxStyle}" Grid.Row="10" Grid.ColumnSpan="2"/>
+        <TextBox Name="username" Style="{StaticResource SecretaryTextBoxStyle}" Grid.Row="12" Grid.ColumnSpan="2"/>
+        <TextBox Name="password" Style="{StaticResource SecretaryTextBoxStyle}" Grid.Row="14" Grid.ColumnSpan="2"/>
+
+
+        <DatePicker Name="date" Grid.Row="16" Grid.ColumnSpan="2"/>
+        <TextBox Name="address" Style="{StaticResource SecretaryTextBoxStyle}" Grid.Row="18" Grid.ColumnSpan="2"/>
+        <TextBox Name="phone" Style="{StaticResource SecretaryTextBoxStyle}" Grid.Row="20" Grid.ColumnSpan="2"/>
+        <TextBox Name="email" Style="{StaticResource SecretaryTextBoxStyle}"  Grid.Row="22" Grid.ColumnSpan="2"/>
+
+
+
+        <Button Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="195" Height="30" Click="Add_Click" Grid.Row="23" Grid.ColumnSpan="2">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button Content="Otkaži" HorizontalAlignment="Left" Margin="237,365,0,0" VerticalAlignment="Top" Width="113" Height="30" Click="Cancel_Click">
+        <Button Content="Otkaži" HorizontalAlignment="Center" VerticalAlignment="Center"  Height="30" Click="Cancel_Click" Width="170">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>

@@ -23,6 +23,7 @@ namespace HospitalService.View.SecretaryUI
         public AddPatient(PatientStorage ps, DataGrid dg)
         {
             InitializeComponent();
+            rbGost.IsChecked = true;
             storage = ps;
             Table = dg;
         }
@@ -30,13 +31,15 @@ namespace HospitalService.View.SecretaryUI
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             String dat = date.Text;
+            int tip = 0;
+            if (rbStalni.IsChecked == true) tip = 1;
             if (dat == "")
             {
                 Patient p2 = new Patient
                 {
                     Username = username.Text,
                     Password = password.Text,
-                    PatientType = (PatientType)Convert.ToInt32(cbtype.SelectedIndex),
+                    PatientType = (PatientType)tip,
                     Name = name.Text,
                     Surname = surname.Text,
                     Jmbg = jmbg.Text,
@@ -54,7 +57,7 @@ namespace HospitalService.View.SecretaryUI
                 {
                     Username = username.Text,
                     Password = password.Text,
-                    PatientType = (PatientType)Convert.ToInt32(cbtype.SelectedIndex),
+                    PatientType = (PatientType)tip,
                     Name = name.Text,
                     Surname = surname.Text,
                     Jmbg = jmbg.Text,
@@ -77,6 +80,14 @@ namespace HospitalService.View.SecretaryUI
             this.Close();
         }
 
+        private void rbGost_Checked(object sender, RoutedEventArgs e)
+        {
 
+        }
+
+        private void rbStalni_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
