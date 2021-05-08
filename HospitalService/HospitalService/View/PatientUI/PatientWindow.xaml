@@ -24,7 +24,7 @@
                             <RowDefinition Height="60"/>
                         </Grid.RowDefinitions>
 
-                        <Button Grid.Row="0" Background="RoyalBlue">
+                        <Button Grid.Row="0" Background="RoyalBlue" Click="viewProfileClick">
                             <StackPanel>
                                 <Image Source="/View/PatientUI/Images/user.png" Height="32" Width="70"/>
                                 <TextBlock Text="Pregled profila" Foreground="White" FontStyle="Italic" FontSize="12"/>

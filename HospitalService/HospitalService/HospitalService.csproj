@@ -13,6 +13,7 @@
     <None Remove="View\PatientUI\Images\edit.png" />
     <None Remove="View\PatientUI\Images\logout.png" />
     <None Remove="View\PatientUI\Images\plus.png" />
+    <None Remove="View\PatientUI\Images\programmer.jpg" />
     <None Remove="View\PatientUI\Images\survival.png" />
     <None Remove="View\PatientUI\Images\user.png" />
   </ItemGroup>
@@ -34,6 +35,7 @@
     <Resource Include="View\PatientUI\Images\edit.png" />
     <Resource Include="View\PatientUI\Images\logout.png" />
     <Resource Include="View\PatientUI\Images\plus.png" />
+    <Resource Include="View\PatientUI\Images\programmer.jpg" />
     <Resource Include="View\PatientUI\Images\survival.png" />
     <Resource Include="View\PatientUI\Images\user.png" />
   </ItemGroup>
