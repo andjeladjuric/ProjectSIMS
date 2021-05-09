@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
-        Title="EditPatient" Height="450" Width="400" WindowStartupLocation="CenterScreen">
+        Title="EditPatient" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
     <Grid  x:Name="editGrid">
         <Label Content="Tip:" HorizontalAlignment="Left" Height="29" Margin="24,10,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
         <Label Content="Ime:" HorizontalAlignment="Left" Height="29" Margin="24,39,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>

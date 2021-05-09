@@ -86,5 +86,10 @@ namespace HospitalService.View.SecretaryUI
         {
             this.Close();
         }
+
+        private void doktori_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -5,71 +5,72 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.PatientUI.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="550" d:DesignWidth="830"
+      d:DesignHeight="620" d:DesignWidth="985"
       Title="DoctorSurvey">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="85"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="560"/>
+            <ColumnDefinition Width="25"/>
+            <ColumnDefinition Width="315"/>
+            <ColumnDefinition Width="620"/>
+            <ColumnDefinition Width="25"/>
            
         </Grid.ColumnDefinitions>
-        <Label  Grid.Row="1" Grid.Column="1"  Content="Anketa za doktora:" FontStyle="Italic" FontSize="22"/>
-        <Label x:Name="lbDoctor" Grid.Row="1" Grid.Column="2" FontStyle="Italic" FontSize="22"/>
-        <Label Grid.Row="3" Grid.Column="1" Content="Nacin komunikacije sa pacijentom" FontStyle="Italic" FontSize="16" VerticalAlignment="Center"/>
+        <Label  Grid.Row="1" Grid.Column="1"  Content="Anketa za doktora:" FontStyle="Italic" FontSize="24"/>
+        <Label x:Name="lbDoctor" Grid.Row="1" Grid.Column="2" FontStyle="Italic" FontSize="24"/>
+        <Label Grid.Row="3" Grid.Column="1" Content="Nacin komunikacije sa pacijentom" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
         <StackPanel x:Name="st" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <RadioButton x:Name="NKomunikacija" Content="Nezadovoljan/na" Margin="10,10,20,10"/>
-            <RadioButton x:Name="DZKomunikacija" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10"/>
-            <RadioButton x:Name="ZKomunikacija" Content="Zadovoljan/na" Margin="10,10,20,10"/>
+            <RadioButton x:Name="NKomunikacija" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton x:Name="DZKomunikacija" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton x:Name="ZKomunikacija" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
         </StackPanel>
-        <Label Grid.Row="4" Grid.Column="1" Content="Ljubaznost doktora" FontStyle="Italic" FontSize="16" VerticalAlignment="Center"/>
+        <Label Grid.Row="4" Grid.Column="1" Content="Ljubaznost doktora" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <RadioButton x:Name="NLjubaznost" Content="Nezadovoljan/na" Margin="10,10,20,10"/>
-            <RadioButton x:Name="DZLjubaznost" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10"/>
-            <RadioButton x:Name="ZLjubaznost" Content="Zadovoljan/na" Margin="10,10,20,10"/>
+            <RadioButton x:Name="NLjubaznost" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton x:Name="DZLjubaznost" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton x:Name="ZLjubaznost" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
         </StackPanel>
-        <Label Grid.Row="5" Grid.Column="1" Content="Strucnost doktora" FontStyle="Italic" FontSize="16" VerticalAlignment="Center"/>
+        <Label Grid.Row="5" Grid.Column="1" Content="Strucnost doktora" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <RadioButton x:Name="NStrucnost" Content="Nezadovoljan/na" Margin="10,10,20,10"/>
-            <RadioButton x:Name="DZStrucnost" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10"/>
-            <RadioButton x:Name="ZStrucnost" Content="Zadovoljan/na" Margin="10,10,20,10"/>
+            <RadioButton x:Name="NStrucnost" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton x:Name="DZStrucnost" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton x:Name="ZStrucnost" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
         </StackPanel>
-        <Label Grid.Row="6" Grid.Column="1" Content="Briga doktora o pacijentu" FontStyle="Italic" FontSize="16" VerticalAlignment="Center"/>
+        <Label Grid.Row="6" Grid.Column="1" Content="Briga doktora o pacijentu" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <RadioButton x:Name="NBriga" Content="Nezadovoljan/na" Margin="10,10,20,10"/>
-            <RadioButton x:Name="DZBriga" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10"/>
-            <RadioButton x:Name="ZBriga" Content="Zadovoljan/na" Margin="10,10,20,10"/>
+            <RadioButton x:Name="NBriga" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton x:Name="DZBriga" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton x:Name="ZBriga" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
         </StackPanel>
-        <Label Grid.Row="7" Grid.Column="1" Content="Pruzanje informacija pacijentu" FontStyle="Italic" FontSize="16" VerticalAlignment="Center"/>
+        <Label Grid.Row="7" Grid.Column="1" Content="Pruzanje informacija pacijentu" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <RadioButton x:Name="NInformisanost" Content="Nezadovoljan/na" Margin="10,10,20,10"/>
-            <RadioButton x:Name="DZInformisanost" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10"/>
-            <RadioButton x:Name="ZInformisanost" Content="Zadovoljan/na" Margin="10,10,20,10"/>
+            <RadioButton x:Name="NInformisanost" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton x:Name="DZInformisanost" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton x:Name="ZInformisanost" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
         </StackPanel>
-        <Label Grid.Row="8" Grid.Column="1" Content="Vrijeme posveceno pacijentu" FontStyle="Italic" FontSize="16" VerticalAlignment="Center"/>
+        <Label Grid.Row="8" Grid.Column="1" Content="Vrijeme posveceno pacijentu" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="8" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <RadioButton x:Name="NVrijeme" Content="Nezadovoljan/na" Margin="10,10,20,10"/>
-            <RadioButton x:Name="DZVrijeme" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10"/>
-            <RadioButton x:Name="ZVrijeme" Content="Zadovoljan/na" Margin="10,10,20,10"/>
+            <RadioButton x:Name="NVrijeme" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton x:Name="DZVrijeme" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton x:Name="ZVrijeme" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
         </StackPanel>
         <StackPanel Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button Content="Potvrdi" Width="100" Height="45" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White" Margin="0,2.5,40,2.5" Click="ConfirmClick"/>
-            <Button Content="Odustani" Width="100" Height="45" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White" Margin="0,2.5,40,2.5" Click="CancelClick"/>
+            <Button Content="Potvrdi" Width="110" Height="45" FontStyle="Italic" FontSize="24" Background="RoyalBlue" Foreground="White" Margin="0,2.5,40,2.5" Click="ConfirmClick"/>
+            <Button Content="Odustani" Width="110" Height="45" FontStyle="Italic" FontSize="24" Background="RoyalBlue" Foreground="White" Margin="0,2.5,40,2.5" Click="CancelClick"/>
 
         </StackPanel>
     </Grid>

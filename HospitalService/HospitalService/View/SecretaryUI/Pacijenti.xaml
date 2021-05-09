@@ -5,43 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
-        Title="Pacijenti" Height="600" Width="1000">
-    <Grid>
-        <DataGrid x:Name="tableBinding"  IsReadOnly="True" 
-                  SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
-                  Height="311" VerticalAlignment="Top" Width="920" Margin="0,83,0,0">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Tip" Binding="{Binding PatientType}" Width="110"/>
-                <DataGridTextColumn Header="Ime" Binding="{Binding Name}" Width="110" />
-                <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}" Width="110" />
-                <DataGridTextColumn Header="JMBG" Binding="{Binding Jmbg}" Width="110" />
-                <DataGridTextColumn Header="Datum rodjenja" Binding="{Binding DateOfBirth, StringFormat={}{0:MM/dd/yyyy}}" Width="110"/>
-                <DataGridTextColumn Header="Broj telefona" Binding="{Binding Phone}" Width="110"/>
-                <DataGridTextColumn Header="Adresa" Binding="{Binding Address}" Width="110"/>
-                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="140"/>
+        Title="Pacijenti" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
 
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Click="Add_Click" Content="Dodaj" HorizontalAlignment="Left" Margin="91,430,0,0" VerticalAlignment="Top" Width="123" RenderTransformOrigin="-4.842,1.263" Height="42">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Button Click="Edit_Click" Content="Izmeni" HorizontalAlignment="Left" Margin="251,430,0,0" VerticalAlignment="Top" Width="123" RenderTransformOrigin="-4.842,1.263" Height="42">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Button Click="Delete_Click" Content="Obriši" HorizontalAlignment="Left" Margin="420,430,0,0" VerticalAlignment="Top" Width="124" RenderTransformOrigin="-4.842,1.263" Height="42">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Button Click="MedicalRecord_Click" Content="Medicinski karton" HorizontalAlignment="Left" Margin="836,430,0,0" VerticalAlignment="Top" Width="124" RenderTransformOrigin="-4.842,1.263" Height="42">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+            <DataGrid x:Name="tableBinding"  IsReadOnly="True" 
+                  SelectionMode="Single" AutoGenerateColumns="False" Width="350" Height="500">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Tip" Binding="{Binding PatientType}" Width="110"/>
+                    <DataGridTextColumn Header="Ime" Binding="{Binding Name}" Width="110" />
+                    <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}" Width="110" />
+                    <DataGridTextColumn Header="JMBG" Binding="{Binding Jmbg}" Width="110" />
+                    <DataGridTextColumn Header="Datum rodjenja" Binding="{Binding DateOfBirth, StringFormat={}{0:MM/dd/yyyy}}" Width="110"/>
+                    <DataGridTextColumn Header="Broj telefona" Binding="{Binding Phone}" Width="110"/>
+                    <DataGridTextColumn Header="Adresa" Binding="{Binding Address}" Width="110"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="140"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="143"></ColumnDefinition>
+                <ColumnDefinition Width="143"></ColumnDefinition>
+                <ColumnDefinition Width="143"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Click="Add_Click" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="0" Width="143"  Height="42">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
+            <Button Click="Edit_Click" Content="Izmeni" HorizontalAlignment="Center" VerticalAlignment="Top" Width="123" Grid.Column="1" Height="42">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
+            <Button Click="Delete_Click" Content="Obriši" HorizontalAlignment="Center" VerticalAlignment="Top" Width="124" Grid.Column="2"  Height="42">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
+            <Button Click="MedicalRecord_Click" Content="Medicinski karton" HorizontalAlignment="Center" VerticalAlignment="Top" Width="124" Grid.Row="1" Grid.ColumnSpan="3" Height="42">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
+        </Grid>
     </Grid>
 
 </Window>

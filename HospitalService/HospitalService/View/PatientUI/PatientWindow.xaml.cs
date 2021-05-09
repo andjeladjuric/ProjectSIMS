@@ -28,7 +28,8 @@ namespace HospitalService.View.PatientUI
             InitializeComponent();
             this.DataContext = this;
             patient = p;
-            
+            Main.Content = new ProfileView(patient);
+
         }
 
         private void ViewAppointmentsClick(object sender, RoutedEventArgs e)
@@ -68,6 +69,11 @@ namespace HospitalService.View.PatientUI
         private void SurveyClick(object sender, RoutedEventArgs e)
         {
             Main.Content = new Surveys(patient);
+        }
+
+        private void viewProfileClick(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new ProfileView(patient);
         }
     }
 }
