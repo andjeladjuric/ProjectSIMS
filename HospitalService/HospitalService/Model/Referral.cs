@@ -10,7 +10,7 @@ namespace HospitalService.Model
         public DateTime DateOfIssue { get; set; }
         public DoctorType Specialization { get; set; }
         public Doctor Doctor { get; set; }
-        public bool Urgent { get; set; }
+        public bool IsUrgent { get; set; }
         public String Reason { get; set; }
 
         public Referral() { }

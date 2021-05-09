@@ -26,6 +26,7 @@
                                 <Binding Path="Surname"/>
                             </MultiBinding>
                         </TextBlock.Text>
+                    </TextBlock>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>

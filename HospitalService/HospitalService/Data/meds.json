@@ -2,7 +2,7 @@
   {
     "Id": "324",
     "MedicineName": "Brufen",
-    "IsApproved": 0,
+    "IsApproved": 2,
     "Type": 3,
     "Ingredients": {
       "ibuprofen": 500,

@@ -20,28 +20,28 @@ namespace HospitalService.View.DoctorUI
     /// </summary>
     public partial class PrescriptionWindow : Window
     {
-        public MedicalRecordDoctorWindow medicalRecordWindow { get; set; }
+        private MedicalRecordDoctorWindow parentWindow;
+        private MedicalRecord medicalRecord;
 
-        public PrescriptionWindow(MedicalRecordDoctorWindow mr)
+        public PrescriptionWindow(MedicalRecordDoctorWindow parent)
         {
             InitializeComponent();
-            medicalRecordWindow = mr;
-            PatientTB.Text = mr.Karton.Patient.Name + " " + mr.Karton.Patient.Surname;
-            MedicationOptions.ItemsSource = new MedicationStorage().GetAllAllowed(mr.Karton.Allergies);
+            parentWindow = parent;
+            medicalRecord = parent.MedicalRecord;
+            PatientTB.Text = medicalRecord.Patient.Name + " " + medicalRecord.Patient.Surname;
+            MedicationOptions.ItemsSource = new MedicationStorage().GetAllAllowed(medicalRecord.Allergies);
         }
 
         private void Apply_Click(object sender, RoutedEventArgs e)
         {
-            MedicalRecordStorage baza = new MedicalRecordStorage();
             Medication medication = (Medication)MedicationOptions.SelectedItem;
             int howOften = int.Parse(HoursTB.Text);
             int howLong = int.Parse(DaysTB.Text);
             string info = InfoTB.Text;
-            Prescription prescription = new Prescription(medication.MedicineName, howOften, howLong, info, DateTime.Now);
-            MedicalRecord mr = medicalRecordWindow.Karton;
-            mr.Prescriptions.Add(prescription);
-            baza.Edit(mr);
-            medicalRecordWindow.Refresh();
+            Prescription newPrescription = new Prescription(medication.MedicineName, howOften, howLong, info, DateTime.Now);
+            medicalRecord.Prescriptions.Add(newPrescription);
+            new MedicalRecordStorage().Edit(medicalRecord);
+            parentWindow.Refresh();
             this.Close();
         }
 
