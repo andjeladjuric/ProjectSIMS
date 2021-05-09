@@ -37,8 +37,7 @@ namespace HospitalService.View.PatientUI.Pages
             this.DataContext = this;
             patient = p;
             appointmentStorage = new AppointmentStorage();
-            List<Appointment> la = appointmentStorage.getByPatient(patient);
-            appointments = la.Where(ap => ap.EndTime > DateTime.Now).ToList();
+            appointments = appointmentStorage.getByPatient(patient);
             rooms = new RoomFileStorage();
             tableViewAppointment.ItemsSource = appointments;
         }
@@ -56,7 +55,7 @@ namespace HospitalService.View.PatientUI.Pages
                 appointmentStorage.Delete(a.Id);
                 appointmentStorage.SetIds();
                 tableViewAppointment.ItemsSource = null;
-                tableViewAppointment.ItemsSource = appointmentStorage.getByPatient(patient).Where(ap => ap.EndTime > DateTime.Now).ToList();
+                tableViewAppointment.ItemsSource = appointmentStorage.getByPatient(patient);
                 
 
             }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
-        Title="Appointments"     Height="450" Width="617">
+        Title="Appointments" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
 
     <StackPanel Margin="10">
         <Calendar Name="cldSample" SelectionMode="SingleDate" />

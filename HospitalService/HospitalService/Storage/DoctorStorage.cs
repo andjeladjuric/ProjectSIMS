@@ -38,5 +38,19 @@ namespace HospitalService.Storage
             return foundDoctors;
         }
 
+        public List<Doctor> GetByType(DoctorType tip)
+        {
+            List<Doctor> ret = new List<Doctor>();
+            foreach (Doctor doc in doctors)
+            {
+                if (doc.DoctorType == tip)
+                {
+                    ret.Add(doc);
+
+                }
+            }
+            return ret;
+        }
+
     }
 }

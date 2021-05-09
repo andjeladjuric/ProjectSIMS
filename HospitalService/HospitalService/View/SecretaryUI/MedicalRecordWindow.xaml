@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
-        Title="MedicalRecordWindow" Height="450" Width="800">
-    <Grid Height="450" Width="800">
+        Title="MedicalRecordWindow" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+    <Grid>
         <Button Name="dodaj" Content="Dodaj medicinski karton" HorizontalAlignment="Left" Margin="25,21,0,0" VerticalAlignment="Top" Height="42" Width="128" Click="Add_Click"/>
        
         <Label Name="ist" Content="Istorija" HorizontalAlignment="Left" Margin="25,127,0,0" VerticalAlignment="Top"/>

@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
-        Title="PomeriTermin" Height="450" Width="617">
+        Title="PomeriTermin" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
     <StackPanel Margin="100,50,100,50">
         <wpfTool:DateTimePicker x:Name="datum" Format="Custom" FormatString="MM/dd/yyyy "/>
         <wpfTool:TimePicker x:Name="vreme"  Margin="10" Height="41"/>
