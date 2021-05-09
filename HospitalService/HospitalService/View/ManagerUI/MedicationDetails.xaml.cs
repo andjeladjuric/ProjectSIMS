@@ -47,6 +47,13 @@ namespace HospitalService.View.ManagerUI
                 comboBox.IsHitTestVisible = false;
                 Edit.Visibility = Visibility.Hidden;
             }
+
+            if (medication.Replacement != null)
+            {
+                Medication med = new MedicationStorage().getOne(medication.Replacement);
+                alternativeBox.Text = med.MedicineName;
+            }
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
