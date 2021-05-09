@@ -19,12 +19,12 @@ namespace HospitalService.View.DoctorUI
     /// </summary>
     public partial class MedicalRecordDoctorWindow : Window
     {
-        public MedicalRecord Karton { get; set; }
+        public MedicalRecord MedicalRecord { get; set; }
 
         public MedicalRecordDoctorWindow(MedicalRecord md)
         {
             InitializeComponent();
-            Karton = md;
+            MedicalRecord = md;
             MedicalRecordNum.Text = md.Id;
             IstorijaList.ItemsSource = md.Diagnoses;
             TerapijaList.ItemsSource = md.Prescriptions;
@@ -52,9 +52,9 @@ namespace HospitalService.View.DoctorUI
 
         public void Refresh()
         {
-            IstorijaList.ItemsSource = Karton.Diagnoses;
-            TerapijaList.ItemsSource = Karton.Prescriptions;
-            AllergiesListView.ItemsSource = Karton.Allergies;
+            IstorijaList.ItemsSource = MedicalRecord.Diagnoses;
+            TerapijaList.ItemsSource = MedicalRecord.Prescriptions;
+            AllergiesListView.ItemsSource = MedicalRecord.Allergies;
             IstorijaList.Items.Refresh();
             TerapijaList.Items.Refresh();
             AllergiesListView.Items.Refresh();
@@ -68,13 +68,13 @@ namespace HospitalService.View.DoctorUI
 
         private void UrgentOperation_Click(object sender, RoutedEventArgs e)
         {
-            OperationWindow newOperationWindow = new OperationWindow(Karton.Patient);
+            OperationWindow newOperationWindow = new OperationWindow(MedicalRecord.Patient);
             newOperationWindow.ShowDialog();
         }
 
         private void AddAllergie_Click(object sender, RoutedEventArgs e)
         {
-            AddAllergieWindow addAllergie = new AddAllergieWindow(Karton, this);
+            AddAllergieWindow addAllergie = new AddAllergieWindow(MedicalRecord, this);
             addAllergie.ShowDialog();
         }
 
@@ -85,8 +85,8 @@ namespace HospitalService.View.DoctorUI
                 MessageBox.Show("Morate izabrati sastojak.");
             else
             {
-                Karton.deleteAllergie(allergie);
-                new MedicalRecordStorage().Edit(Karton);
+                MedicalRecord.deleteAllergie(allergie);
+                new MedicalRecordStorage().Edit(MedicalRecord);
                 Refresh();
             }
         }

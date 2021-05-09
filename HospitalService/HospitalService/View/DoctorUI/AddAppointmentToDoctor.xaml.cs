@@ -53,7 +53,7 @@ namespace HospitalService.View.DoctorUI
             String ime = PatientBox.Text;
             String[] name = ime.Split(' ');
             Patient selectedPatient = (Patient)PatientBox.SelectedItem;
-            Room selectedRoom = new Room() { Id = RoomBox.Text }; // dodaji iz baze ili cuvaj samo id?
+            Room selectedRoom = (Room)RoomBox.SelectedItem;
             Doctor defaultDoctor = DoctorWindow.doctor;
             if (baza.AlreadyExists(IdBox.Text))
                 MessageBox.Show("Termin vec postoji.");
@@ -93,17 +93,7 @@ namespace HospitalService.View.DoctorUI
                 roomType = RoomType.OperatingRoom;
 
             r = baza.GetAvailableRooms(roomType, Convert.ToDateTime(pocetak), Convert.ToDateTime(kraj));
-            List<String> ids = new List<String>();
-            Room soba;
-            String pom;
-            for (int i = 0; i < r.Count; i++)
-            {
-                soba = r[i];
-                pom = soba.Id + "-" + soba.Name;
-                ids.Add(pom);
-            }
-
-            RoomBox.ItemsSource = ids;
+            RoomBox.ItemsSource = r;
             RoomBox.IsEnabled = true;
         }
     }

@@ -25,7 +25,7 @@ namespace HospitalService.View.DoctorUI
         {
             InitializeComponent();
             prozor = hw;
-            PatientTB.Text = prozor.Karton.Karton.Patient.Name + " " + prozor.Karton.Karton.Patient.Surname;
+            PatientTB.Text = prozor.Karton.MedicalRecord.Patient.Name + " " + prozor.Karton.MedicalRecord.Patient.Surname;
             DateBox.SelectedDate = DateTime.Now;
         }
 
@@ -36,7 +36,7 @@ namespace HospitalService.View.DoctorUI
             string symptoms = SymptomsTB.Text;
             string anamnesis = AnamnesisTB.Text;
             Diagnosis diagnosis = new Diagnosis(illness, symptoms, (DateTime)DateBox.SelectedDate, anamnesis);
-            MedicalRecord mr = prozor.Karton.Karton;
+            MedicalRecord mr = prozor.Karton.MedicalRecord;
             mr.Diagnoses.Add(diagnosis);
             baza.Edit(mr);
             prozor.refresh();

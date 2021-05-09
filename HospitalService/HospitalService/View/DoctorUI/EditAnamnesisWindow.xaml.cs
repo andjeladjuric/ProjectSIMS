@@ -40,7 +40,7 @@ namespace HospitalService.View.DoctorUI
             string newAnamnesis = EditAnamnesisTB.Text;
             Diagnosis diagnosis = anamnesisWindow.diagnosis;
             diagnosis.Anamnesis = newAnamnesis;
-            MedicalRecord mr = anamnesisWindow.window.Karton.Karton;
+            MedicalRecord mr = anamnesisWindow.window.Karton.MedicalRecord;
             mr.editDignosis(diagnosis);
             baza.Edit(mr);
             anamnesisWindow.refresh();

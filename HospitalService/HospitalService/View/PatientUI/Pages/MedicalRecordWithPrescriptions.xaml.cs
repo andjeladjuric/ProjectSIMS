@@ -55,7 +55,7 @@ namespace HospitalService.View.PatientUI.Pages
             else
             {
                 
-                DateTime dt = p.start;
+                DateTime dt = p.Start;
                 timer = new System.Timers.Timer(15000); // in milliseconds - p.HowOften*3600000
                 notifikacija += "Uzmite lijek" + " " + p.Medication.ToUpper() + "\n" + "Dodatne informacije: " + p.AdditionalInfos;
                 DateTime et = dt.AddDays(p.HowLong);

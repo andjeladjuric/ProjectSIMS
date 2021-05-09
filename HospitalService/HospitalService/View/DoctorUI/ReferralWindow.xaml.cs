@@ -25,11 +25,11 @@ namespace HospitalService.View.DoctorUI
         private MedicalRecord activeMedicalRecord;
 
 
-        public ReferralWindow(MedicalRecordDoctorWindow medicalRecord)
+        public ReferralWindow(MedicalRecordDoctorWindow parentWindow)
         {
             InitializeComponent();
-            patient = medicalRecord.Karton.Patient;
-            activeMedicalRecord = medicalRecord.Karton;
+            patient = parentWindow.MedicalRecord.Patient;
+            activeMedicalRecord = parentWindow.MedicalRecord;
             PatientTB.Text = patient.Name + " " + patient.Surname;
             DepartmentOptions.ItemsSource = Enum.GetValues(typeof(DoctorType)).Cast<DoctorType>();
             DateOfIssueDP.SelectedDate = DateTime.Now;
@@ -49,17 +49,16 @@ namespace HospitalService.View.DoctorUI
 
         private void Apply_Click(object sender, RoutedEventArgs e)
         {
-            MedicalRecordStorage medicalRecords = new MedicalRecordStorage();
             Referral newReferral = new Referral()
             {
                 DateOfIssue = (DateTime)DateOfIssueDP.SelectedDate,
                 Specialization = (DoctorType)DepartmentOptions.SelectedItem,
                 Doctor = (Doctor)DoctorOptions.SelectedItem,
-                Urgent = (bool)YesButton.IsChecked ? true : false,
+                IsUrgent = (bool)YesButton.IsChecked ? true : false,
                 Reason = ReasonTextBox.Text
             };
             activeMedicalRecord.Referrals.Add(newReferral);
-            medicalRecords.Edit(activeMedicalRecord);
+            new MedicalRecordStorage().Edit(activeMedicalRecord);
             this.Close();
 
         }
