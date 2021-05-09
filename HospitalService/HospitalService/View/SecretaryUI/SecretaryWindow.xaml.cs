@@ -49,5 +49,15 @@ namespace HospitalService.View.SecretaryUI
             Pacijenti patients = new Pacijenti();
             patients.Show();
         }
+
+        private void Urgent_Click(object sender, RoutedEventArgs e)
+        {
+            new Urgent().ShowDialog();
+        }
+
+        private void News_Click(object sender, RoutedEventArgs e)
+        {
+            NewsWindow.getInstance().ShowDialog();
+        }
     }
 }

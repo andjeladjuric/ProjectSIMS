@@ -75,10 +75,5 @@ namespace HospitalService.View.PatientUI
         {
             Main.Content = new ProfileView(patient);
         }
-
-        private void editProfileClick(object sender, RoutedEventArgs e)
-        {
-            Main.Content = new EditProfile(patient);
-        }
     }
 }

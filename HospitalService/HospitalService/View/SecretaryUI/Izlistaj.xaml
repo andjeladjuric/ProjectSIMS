@@ -1,0 +1,40 @@
+﻿<Window x:Class="HospitalService.View.SecretaryUI.Izlistaj"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
+        mc:Ignorable="d"
+        Title="Izlistaj" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="5,5,5,5">
+        <Grid.RowDefinitions>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140"></ColumnDefinition>
+            <ColumnDefinition Width="140"></ColumnDefinition>
+            <ColumnDefinition Width="140"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="3" Height="595" Margin="5, 5, 5, 5" >
+            <ListView Name="lvAppointments" SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+
+                        <GridViewColumn Header="Pocetak" DisplayMemberBinding="{Binding StartTime}" />
+                        <GridViewColumn Header="Kraj" DisplayMemberBinding="{Binding EndTime}" />
+                        <GridViewColumn Header="Ime doktora" DisplayMemberBinding="{Binding doctor.Name}" />
+                        <GridViewColumn Header="Prezime doktora" DisplayMemberBinding="{Binding doctor.Surname}" />
+                        <GridViewColumn Header="Ime pacijenta" DisplayMemberBinding="{Binding patient.Name}" />
+                        <GridViewColumn Header="Prezime pacijenta" DisplayMemberBinding="{Binding patient.Surname}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ScrollViewer>
+
+        <Button Name="bPomeri" Content="Pomeri" Grid.Row="1" Click="bPomeri_Click"></Button>
+        <Button Name="bZakazi" Content="Zakaži" Grid.Row="1" Grid.Column="1" Click="bZakazi_Click"></Button>
+        <Button Name="bCancel" Content="Cancel" Grid.Row="1" Grid.Column="2" Click="bCancel_Click"></Button>
+    </Grid>
+</Window>

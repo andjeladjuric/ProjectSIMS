@@ -5,37 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
-        Title="DayAppointments"  Height="486" Width="617">
-    <Grid>
-        <Label x:Name="datum"></Label>
-        <DataGrid  IsReadOnly="True" ItemsSource="{Binding ch}"  AutoGenerateColumns="False" Name="calendar"  
+        Title="DayAppointments"  ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+    <Grid Margin="5,5,5,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140"></ColumnDefinition>
+            <ColumnDefinition Width="140"></ColumnDefinition>
+            <ColumnDefinition Width="140"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="datum" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="30"></Label>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="3" Height="595" Margin="5, 5, 15, 5" >
+            <DataGrid  IsReadOnly="True" ItemsSource="{Binding ch}"  AutoGenerateColumns="False" Name="calendar"  
       ScrollViewer.CanContentScroll="True"  SelectionMode="Single" SelectionUnit="Cell"
-      ScrollViewer.VerticalScrollBarVisibility="Auto"
-      ScrollViewer.HorizontalScrollBarVisibility="Auto" Height="359" VerticalAlignment="Top" HorizontalAlignment="Center" Width="617" Margin="0,31,0,0">
+                       Height="590" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="3">
 
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="/" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="/" Binding="{Binding Name}"></DataGridTextColumn>
 
-                <DataGridTextColumn  Header="8:00-9:00" Binding="{Binding Appointments[0].Item1}"></DataGridTextColumn>
-                <DataGridTextColumn  Header="9:00-10:00" Binding="{Binding Appointments[1].Item1}"></DataGridTextColumn>
-                <DataGridTextColumn  Header="10:00-11:00" Binding="{Binding Appointments[2].Item1}"></DataGridTextColumn>
-                <DataGridTextColumn  Header="11:00-12:00" Binding="{Binding Appointments[3].Item1}"></DataGridTextColumn>
-                <DataGridTextColumn  Header="12:00-13:00" Binding="{Binding Appointments[4].Item1}"></DataGridTextColumn>
-                <DataGridTextColumn  Header="13:00-14:00" Binding="{Binding Appointments[5].Item1}"></DataGridTextColumn>
-                <DataGridTextColumn  Header="14:00-15:00" Binding="{Binding Appointments[6].Item1}"></DataGridTextColumn>
-                <DataGridTextColumn  Header="15:00-16:00" Binding="{Binding Appointments[7].Item1}"></DataGridTextColumn>
-                <DataGridTextColumn  Header="16:00-17:00" Binding="{Binding Appointments[8].Item1}"></DataGridTextColumn>
-                <DataGridTextColumn  Header="17:00-18:00" Binding="{Binding Appointments[9].Item1}"></DataGridTextColumn>
-                <DataGridTextColumn  Header="18:00-19:00" Binding="{Binding Appointments[10].Item1}"></DataGridTextColumn>
-                <DataGridTextColumn  Header="19:00-20:00" Binding="{Binding Appointments[11].Item1}"></DataGridTextColumn>
-                <DataGridTextColumn  Header="20:00-21:00" Binding="{Binding Appointments[12].Item1}"></DataGridTextColumn>
-            </DataGrid.Columns>
+                    <DataGridTextColumn  Header="8:00-9:00" Binding="{Binding Appointments[0].Item1}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="9:00-10:00" Binding="{Binding Appointments[1].Item1}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="10:00-11:00" Binding="{Binding Appointments[2].Item1}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="11:00-12:00" Binding="{Binding Appointments[3].Item1}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="12:00-13:00" Binding="{Binding Appointments[4].Item1}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="13:00-14:00" Binding="{Binding Appointments[5].Item1}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="14:00-15:00" Binding="{Binding Appointments[6].Item1}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="15:00-16:00" Binding="{Binding Appointments[7].Item1}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="16:00-17:00" Binding="{Binding Appointments[8].Item1}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="17:00-18:00" Binding="{Binding Appointments[9].Item1}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="18:00-19:00" Binding="{Binding Appointments[10].Item1}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="19:00-20:00" Binding="{Binding Appointments[11].Item1}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="20:00-21:00" Binding="{Binding Appointments[12].Item1}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
 
-        </DataGrid>
-        <Button Margin="10,400,0,0" Content="Prikazi" Click="Button_Click" HorizontalAlignment="Left" Width="105" Height="30" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
-
-        </Button>
-        <Button Margin="467,398,0,0" Content="Zakazi" Click="Button_Click_1" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102"/>
-        <Button Margin="293,398,0,0" Content="Otkazi" Click="Button_Click_2" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102"/>
+        <Button Content="Prikazi" Click="Button_Prikazi" Grid.Row="2"/>
+        <Button Content="Zakazi" Click="Button_Zakazi" Grid.Row="2" Grid.Column="1"/>
+        <Button Content="Otkazi" Click="Button_Otkazi" Grid.Row="2" Grid.Column="2"/>
     </Grid>
+    
 </Window>

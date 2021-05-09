@@ -11,28 +11,28 @@ namespace HospitalService.Storage
 {
     class RoomInventoryStorage
     {
-        public List<RoomInventory> RoomInventory { get; set; }
-        public List<MovingRequests> Requests { get; set; }
+        public List<RoomInventory> roomInventory { get; set; }
+        public List<MovingRequests> requests { get; set; }
         public RoomInventoryStorage()
         {
-            RoomInventory = new List<RoomInventory>();
-            RoomInventory = JsonConvert.DeserializeObject<List<RoomInventory>>(File.ReadAllText(@"..\..\..\Data\roomInventory.json"));
+            roomInventory = new List<RoomInventory>();
+            roomInventory = JsonConvert.DeserializeObject<List<RoomInventory>>(File.ReadAllText(@"..\..\..\Data\roomInventory.json"));
         }
 
         public List<RoomInventory> GetAll()
         {
-            return RoomInventory;
+            return roomInventory;
         }
         public void SerializeRoomInventory()
         {
-            File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(RoomInventory));
+            File.WriteAllText(@"..\..\..\Data\roomInventory.json", JsonConvert.SerializeObject(roomInventory));
         }
 
         public RoomInventory GetRoomInventoryByIds(string roomId, int itemId)
         {
             RoomInventory inventoryInRoom = null;
 
-            foreach (RoomInventory r in RoomInventory)
+            foreach (RoomInventory r in roomInventory)
             {
                 if (r.RoomId.Equals(roomId) && r.ItemId == itemId)
                     inventoryInRoom = r;
@@ -56,12 +56,12 @@ namespace HospitalService.Storage
                 if (moveFromHere.Quantity == mr.quantity)
                 {
                     RoomInventory r;
-                    for (int i = 0; i < RoomInventory.Count; i++)
+                    for (int i = 0; i < roomInventory.Count; i++)
                     {
-                        r = RoomInventory[i];
+                        r = roomInventory[i];
                         if (r.Equals(moveFromHere))
                         {
-                            RoomInventory.RemoveAt(i);
+                            roomInventory.RemoveAt(i);
                             break;
                         }
                     }
@@ -73,7 +73,7 @@ namespace HospitalService.Storage
 
                 if (sendHere == null)
                 {
-                    RoomInventory.Add(new RoomInventory(mr.sendToThisRoom, mr.inventoryId, mr.quantity));
+                    roomInventory.Add(new RoomInventory(mr.sendToThisRoom, mr.inventoryId, mr.quantity));
                 }
                 else
                 {
@@ -81,29 +81,29 @@ namespace HospitalService.Storage
                 }
 
                 SerializeRoomInventory();
-                Requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
+                requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
 
-                for (int i = 0; i < Requests.Count; i++)
+                for (int i = 0; i < requests.Count; i++)
                 {
-                    if (Requests[i].movingTime == mr.movingTime)
+                    if (requests[i].movingTime == mr.movingTime)
                     {
-                        Requests.RemoveAt(i);
+                        requests.RemoveAt(i);
                     }
                 }
 
-                File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(Requests));
+                File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
             }
         }
 
-        public void CheckMovingRequests()
+        public void CheckRequests()
         {
-            Requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-            if (Requests.Count != 0)
+            requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
+            if (requests.Count != 0)
             {
                 MovingRequests mr;
-                for (int i = 0; i < Requests.Count; i++)
+                for (int i = 0; i < requests.Count; i++)
                 {
-                    mr = Requests[i];
+                    mr = requests[i];
                     if (DateTime.Compare(mr.movingTime, DateTime.Now) <= 0)
                     {
                         AnalyzeRequests(mr);
@@ -128,9 +128,9 @@ namespace HospitalService.Storage
 
         public void StartMoving(MovingRequests mr)
         {
-            Requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-            Requests.Add(mr);
-            File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(Requests));
+            requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
+            requests.Add(mr);
+            File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
             Task t = new Task(() => RunThread(mr));
             t.Start();
         }
