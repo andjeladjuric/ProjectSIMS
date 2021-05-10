@@ -6,56 +6,75 @@
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
         Title="ZakaziTermin" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
-    <StackPanel Margin="100,50,100,50">
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <Label Width="80">Pocetak:</Label>
-            <Label Name="start"/>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Orientation="Horizontal"  Grid.Row="0" VerticalAlignment="Center">
+            <Button Click="Back_Click" Margin="5,7,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Image Source="/Images/back.png"/>
+            </Button>
+
+            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource SecretaryHeadLabelStyle}" Margin="0,7,0,0">Zakaži termin</Label>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <Label Width="80">Kraj:</Label>
-            <Label Name="end"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <Label Width="80">Sala:</Label>
-            <Label Name="sala" Width="200"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"  Margin="10">
-            <Label Width="80">Tip:</Label>
-            <ComboBox Name="tipovi" Width="200">
-                <ComboBoxItem >Pregled</ComboBoxItem>
-                <ComboBoxItem>Operacija</ComboBoxItem>
-            </ComboBox>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"  Margin="10">
-            <Label Width="80">Doktor:</Label>
-            <ComboBox Name="doktori"  Width="200" SelectionChanged="doktori_SelectionChanged">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
+        <StackPanel Grid.Row="1" Margin="50,50,50,50">
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Label Width="80" Style="{StaticResource SecretaryLabelStyle}">Pocetak:</Label>
+                <Label Name="start" Style="{StaticResource SecretaryLabelStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Label Width="80" Style="{StaticResource SecretaryLabelStyle}">Kraj:</Label>
+                <Label Name="end" Style="{StaticResource SecretaryLabelStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Label Width="80" Style="{StaticResource SecretaryLabelStyle}">Sala:</Label>
+                <Label Name="sala" Width="200" Style="{StaticResource SecretaryLabelStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="10">
+                <Label Width="80" Style="{StaticResource SecretaryLabelStyle}">Tip:</Label>
+                <ComboBox Name="tipovi" Width="200" Style="{StaticResource SecretaryComboStyle}">
+                    <ComboBoxItem >Pregled</ComboBoxItem>
+                    <ComboBoxItem>Operacija</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="10">
+                <Label Width="80" Style="{StaticResource SecretaryLabelStyle}">Doktor:</Label>
+                <ComboBox Name="doktori"  Width="200" SelectionChanged="doktori_SelectionChanged" Style="{StaticResource SecretaryComboStyle}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
 							<Run Text="{Binding Name}" />
 							<Run Text="{Binding Surname}" />
-                        </TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"  Margin="10">
-            <Label Width="80">Pacijent:</Label>
-            <ComboBox Name="pacijenti"  Width="200">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="10">
+                <Label Width="80" Style="{StaticResource SecretaryLabelStyle}">Pacijent:</Label>
+                <ComboBox Name="pacijenti"  Width="200" Style="{StaticResource SecretaryComboStyle}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
 							<Run Text="{Binding Name}" />
 							<Run Text="{Binding Surname}" />
-                        </TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="10" HorizontalAlignment="Center">
+                <Button Content="Zakazi" Margin="10" Click="Button_Click" Style="{StaticResource SecretaryButtonSimple}" Width="100" Height="40">
+                    <Button.Effect>
+                        <DropShadowEffect/>
+                    </Button.Effect>
+                </Button>
+            </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Horizontal"  Margin="10" HorizontalAlignment="Center">
-            <Button Content="Zakazi" Margin="10" Click="Button_Click" Width="100" Height="30" />
-            <Button Content="Odustani" Click="Button1_Click" Width="100" Height="30" />
-        </StackPanel>
-    </StackPanel>
+    </Grid>
 
 </Window>

@@ -38,5 +38,9 @@ namespace HospitalService.View.SecretaryUI
             stor.addRecord(patient.Jmbg, Id);
             this.Close();
         }
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

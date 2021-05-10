@@ -31,7 +31,7 @@ namespace HospitalService.View.SecretaryUI
             vreme.EndTime = new TimeSpan(20, 0, 0);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Save_Click(object sender, RoutedEventArgs e)
         {
             if (sala.SelectedItem == null || datum.Value == null || !vreme.Value.HasValue)
             {
@@ -81,7 +81,7 @@ namespace HospitalService.View.SecretaryUI
             this.Close();
         }
 
-        private void Button1_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

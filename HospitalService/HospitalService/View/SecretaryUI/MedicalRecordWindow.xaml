@@ -7,14 +7,41 @@
         mc:Ignorable="d"
         Title="MedicalRecordWindow" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button Name="dodaj" Content="Dodaj medicinski karton" HorizontalAlignment="Left" Margin="25,21,0,0" VerticalAlignment="Top" Height="42" Width="128" Click="Add_Click"/>
-       
-        <Label Name="ist" Content="Istorija" HorizontalAlignment="Left" Margin="25,127,0,0" VerticalAlignment="Top"/>
-        <Label Name="ter" Content="Terapija" HorizontalAlignment="Left" Margin="220,127,0,0" VerticalAlignment="Top"/>
-        <Label Content="ID:" HorizontalAlignment="Left" Height="28" Margin="25,74,0,0" VerticalAlignment="Top" Width="1200" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <TextBox Name="idkarton" HorizontalAlignment="Left" Height="20" Margin="66,82,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center">
+            <Button Click="Back_Click" Grid.Row="0" Grid.Column="0" Margin="5,7,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Image Source="/Images/back.png"/>
+            </Button>
+
+            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource SecretaryHeadLabelStyle}" Margin="0,7,0,0">Dodaj karton</Label>
+        </StackPanel>
+        
+        <Button Name="dodaj" Content="Dodaj medicinski karton" Grid.Row="1" VerticalAlignment="top" Height="42" Width="200"
+                Style="{StaticResource SecretaryButtonSimple}" Click="Add_Click"/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+        <Label Content="ID:" HorizontalAlignment="Left" Height="28" VerticalAlignment="Center"  Style="{StaticResource SecretaryLabelStyle}"/>
+            <TextBox Name="idkarton"  Margin="42,0,0,0"
+                     Height="20"  TextWrapping="Wrap" VerticalAlignment="Center"
+                     Width="127" Grid.Row="2" Grid.Column="1"
+                     Style="{StaticResource SecretaryTextBoxStyle}" HorizontalAlignment="Right"/>
+        </StackPanel>
+        <Label Name="ist" Content="Istorija" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Style="{StaticResource SecretaryLabelStyle}"/>
+        <Label Name="ter" Content="Terapija" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Grid.Column="1" Style="{StaticResource SecretaryLabelStyle}"/>
         <Label Name="aler" Content="Alergije" HorizontalAlignment="Left" Margin="460,127,0,0" VerticalAlignment="Top"/>
-        <ListView Name="IstorijaList" Margin="25,158,607,79" FontSize="14">
+        <ListView Name="IstorijaList" Grid.Row="4" Grid.ColumnSpan="2" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>

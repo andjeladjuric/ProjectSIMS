@@ -19,7 +19,7 @@ namespace HospitalService.View.SecretaryUI
     public partial class SecretaryWindow : Window
     {
 
-
+        public string Datum { get; set; }
         public SecretaryWindow(Secretary s)
         {
             InitializeComponent();
@@ -27,37 +27,82 @@ namespace HospitalService.View.SecretaryUI
             
         }
 
-        
-       
+        private void Menu_Click(object sender, RoutedEventArgs e)
+        {
 
-        private void LogOut_Click(object sender, RoutedEventArgs e)
+            btnMenu.Visibility = System.Windows.Visibility.Hidden;
+            btnBack.Visibility = System.Windows.Visibility.Visible;
+            MenuRectangle.Visibility = System.Windows.Visibility.Visible;
+            MenuItems.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            btnMenu.Visibility = System.Windows.Visibility.Visible;
+            btnBack.Visibility = System.Windows.Visibility.Hidden;
+            MenuRectangle.Visibility = System.Windows.Visibility.Collapsed;
+            MenuItems.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void Account_Click(object sender, RoutedEventArgs e) { }
+
+
+        private void Appointments_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                new DayAppointments((DateTime)cldSample.SelectedDate).Show();
+
+            }
+            catch { MessageBox.Show("Izaberite datum."); }
+        }
+        private void Patients_Click(object sender, RoutedEventArgs e)
+        {
+            new Pacijenti().ShowDialog();
+        }
+
+        private void Appointments_Selected(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void Urgent_Selected(object sender, RoutedEventArgs e)
+        {
+            new Urgent().ShowDialog();
+        }
+
+        private void Patients_Selected(object sender, RoutedEventArgs e)
+        {
+            new Pacijenti().ShowDialog();
+        }
+
+
+        private void News_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNews_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Info_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Help_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Logout_Selected(object sender, RoutedEventArgs e)
         {
             new MainWindow().Show();
             this.Close();
         }
 
-
-        private void Appointments_Click(object sender, RoutedEventArgs e)
-        {
-            Appointments appointments = new Appointments();
-            appointments.ShowDialog();
-
-        }
-
-        private void Patients_Click(object sender, RoutedEventArgs e)
-        {
-            Pacijenti patients = new Pacijenti();
-            patients.Show();
-        }
-
-        private void Urgent_Click(object sender, RoutedEventArgs e)
-        {
-            new Urgent().ShowDialog();
-        }
-
-        private void News_Click(object sender, RoutedEventArgs e)
-        {
-            NewsWindow.getInstance().Show();
-        }
     }
 }

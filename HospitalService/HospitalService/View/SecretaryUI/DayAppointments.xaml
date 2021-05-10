@@ -6,26 +6,36 @@
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
         Title="DayAppointments"  ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
-    <Grid Margin="5,5,5,5">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition ></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="140"></ColumnDefinition>
-            <ColumnDefinition Width="140"></ColumnDefinition>
-            <ColumnDefinition Width="140"></ColumnDefinition>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="datum" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="30"></Label>
-        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="3" Height="595" Margin="5, 5, 15, 5" >
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center">
+            <Button Click="bBack_Click" Grid.Row="0" Grid.Column="0" Margin="5,7,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Image Source="/Images/back.png"/>
+            </Button>
+
+            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource SecretaryHeadLabelStyle}" Margin="0,7,0,0">Termini</Label>
+        </StackPanel>
+        
+        
+        <Label x:Name="datum" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Lato" FontWeight="DemiBold" Height="30" FontSize="20"></Label>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="3" Grid.Row="2" Height="540" Margin="5, 5, 5, 5" >
             <DataGrid  IsReadOnly="True" ItemsSource="{Binding ch}"  AutoGenerateColumns="False" Name="calendar"  
-      ScrollViewer.CanContentScroll="True"  SelectionMode="Single" SelectionUnit="Cell"
-                       Height="590" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="3">
+      ScrollViewer.CanContentScroll="True"  SelectionMode="Single" SelectionUnit="Cell" Style="{StaticResource SecretaryGridStyle}"
+                       VerticalAlignment="Top">
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="/" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Sala" Binding="{Binding Name}"></DataGridTextColumn>
 
                     <DataGridTextColumn  Header="8:00-9:00" Binding="{Binding Appointments[0].Item1}"></DataGridTextColumn>
                     <DataGridTextColumn  Header="9:00-10:00" Binding="{Binding Appointments[1].Item1}"></DataGridTextColumn>
@@ -41,12 +51,13 @@
                     <DataGridTextColumn  Header="19:00-20:00" Binding="{Binding Appointments[11].Item1}"></DataGridTextColumn>
                     <DataGridTextColumn  Header="20:00-21:00" Binding="{Binding Appointments[12].Item1}"></DataGridTextColumn>
                 </DataGrid.Columns>
+
             </DataGrid>
         </ScrollViewer>
 
-        <Button Content="Prikazi" Click="Button_Prikazi" Grid.Row="2"/>
-        <Button Content="Zakazi" Click="Button_Zakazi" Grid.Row="2" Grid.Column="1"/>
-        <Button Content="Otkazi" Click="Button_Otkazi" Grid.Row="2" Grid.Column="2"/>
+        <Button Content="Prikaži" Click="Button_Prikazi" Grid.Row="3" Style="{StaticResource SecretaryButtonSimple}"/>
+        <Button Content="Zakaži" Click="Button_Zakazi" Grid.Row="3" Grid.Column="1" Style="{StaticResource SecretaryButtonSimple}"/>
+        <Button Content="Otkaži" Click="Button_Otkazi" Grid.Row="3" Grid.Column="2" Style="{StaticResource SecretaryButtonSimple}"/>
     </Grid>
     
 </Window>

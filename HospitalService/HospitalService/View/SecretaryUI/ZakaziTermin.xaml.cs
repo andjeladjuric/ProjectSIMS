@@ -82,7 +82,7 @@ namespace HospitalService.View.SecretaryUI
             catch { MessageBox.Show("Niste uneli sva polja"); }
         }
 
-        private void Button1_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

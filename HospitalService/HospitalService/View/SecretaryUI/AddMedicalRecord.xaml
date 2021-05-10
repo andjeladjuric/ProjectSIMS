@@ -7,9 +7,36 @@
         mc:Ignorable="d"
         Title="AddMedicalRecord" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="ID:" HorizontalAlignment="Left" Height="28" Margin="23,34,0,0" VerticalAlignment="Top" Width="1200" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <TextBox Name="id" HorizontalAlignment="Left" Height="20" Margin="63,38,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <Button Content="Save" HorizontalAlignment="Left" Margin="229,28,0,0" VerticalAlignment="Top" Width="113" Height="30" Click="Button_Click">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center">
+            <Button Click="Back_Click" Grid.Row="0" Grid.Column="0" Margin="5,7,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Image Source="/Images/back.png"/>
+            </Button>
+
+            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource SecretaryHeadLabelStyle}" Margin="0,7,0,0">Dodaj karton</Label>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Content="ID:" Grid.Row="1"  Style="{StaticResource SecretaryLabelStyle}"/>
+
+            <TextBox Name="id" Grid.Row="1" Grid.Column="1"  Style="{StaticResource SecretaryTextBoxStyle}"/>
+
+        </Grid>
+
+        <Button Grid.Row="2" Content="Save" Style="{StaticResource SecretaryButtonSimple}" VerticalAlignment="Top" Height="30" Width="100" Click="Button_Click">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>

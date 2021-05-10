@@ -67,9 +67,8 @@ namespace HospitalService.View.SecretaryUI
             }
         }
 
-        private void LogOut_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
-            new MainWindow().Show();
             this.Close();
         }
 
@@ -88,12 +87,12 @@ namespace HospitalService.View.SecretaryUI
             }
         }
 
-        private void Appointments_Click(object sender, RoutedEventArgs e)
-        {
-            Appointments appointments = new Appointments();
-            appointments.ShowDialog();
+        //private void Appointments_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Appointments appointments = new Appointments();
+        //    appointments.ShowDialog();
 
-        }
+        //}
 
     }
 }

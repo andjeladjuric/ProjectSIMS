@@ -35,14 +35,14 @@ namespace HospitalService.View.SecretaryUI
 
 
 
-       
+        //U pitanju je gost
         private void rbGost_Checked(object sender, RoutedEventArgs e)
         {
             gridForGuests.Visibility = Visibility.Visible;
             cbStalni.IsEnabled = false;
         }
 
-        
+        //U pitanju je stalni pacijent
         private void rbStalni_Checked(object sender, RoutedEventArgs e)
         {
             refreshPatients();
@@ -83,19 +83,19 @@ namespace HospitalService.View.SecretaryUI
             AppointmentType tip = (AppointmentType)Enum.Parse(typeof(AppointmentType), (string)cbTip.SelectionBoxItem);
             int duration = Int16.Parse(txtDuration.Text);
 
-           
+            //Inicijalizacija appointment-a
             appointment = new Appointment();
             appointment.setDates(duration);
             appointment.Status = Status.Active;
             appointment.Type = tip;
             appointment.patient = patient;
 
-        
+            //Cuvanje u deljene podatke za koristenje u novom prozoru Izlistaj
             WindowSharedData shData = new WindowSharedData(new Appointment(appointment), oblast, duration);
 
             Appointment ret = null;
 
-        
+            //Pokusavam da nadjem slobodan termin u narednih pola sata/sat
             if ((ret = new AppointmentStorage().createAppointment(appointment, patient, oblast)) == null)
             {
                 if ((appointment.StartTime.AddHours(1)).Hour < Appointment.CLOSING_HOUR)
@@ -126,6 +126,7 @@ namespace HospitalService.View.SecretaryUI
         }
 
 
+        //Provera unetih podataka
         private bool checkArgs()
         {
             if (rbStalni.IsChecked == true)
@@ -164,7 +165,7 @@ namespace HospitalService.View.SecretaryUI
             return true;
         }
 
-        
+        //Citanje podataka za neregistrovanog i smestanje u PatientStorage za dalje koristenje
         private Patient readNewPatient()
         {
             Patient patient = new Patient();
@@ -183,11 +184,15 @@ namespace HospitalService.View.SecretaryUI
 
 
 
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
 
 
 
 
-       
+
 
 
 

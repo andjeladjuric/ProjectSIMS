@@ -7,13 +7,58 @@
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
         Title="PomeriTermin" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
-    <StackPanel Margin="100,50,100,50">
-        <wpfTool:DateTimePicker x:Name="datum" Format="Custom" FormatString="MM/dd/yyyy "/>
-        <wpfTool:TimePicker x:Name="vreme"  Margin="10" Height="41"/>
-        <ComboBox x:Name="sala" DisplayMemberPath="Id" Margin="10" Height="26"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-            <Button   Margin="10" Height="32" Width="100" Content="Sacuvaj" Click="Button_Click"/>
-            <Button   Margin="10" Height="32" Width="100" Content="Odustani" Click="Button1_Click"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Button Click="Back_Click" Grid.Row="0" Margin="5,7,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Image Source="/Images/back.png"/>
+            </Button>
+
+            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource SecretaryHeadLabelStyle}" Margin="0,7,0,0">Pomeri termin</Label>
         </StackPanel>
-    </StackPanel>
+
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+
+            <Label Style="{StaticResource SecretaryLabelStyle}">Odaberite datum:</Label>
+
+            <wpfTool:DateTimePicker x:Name="datum" Format="Custom" FormatString="MM/dd/yyyy "
+                                    HorizontalAlignment="Right" Width="200" Height="30" Margin="5" Grid.Row="0" Grid.Column="1"/>
+
+
+            <Label Style="{StaticResource SecretaryLabelStyle}" Grid.Row="1">Odaberite vreme:</Label>
+
+            <wpfTool:TimePicker x:Name="vreme" HorizontalAlignment="Right" Width="200" Height="30" Margin="5"
+                                Grid.Row="1" Grid.Column="1"/>
+
+
+            <Label Style="{StaticResource SecretaryLabelStyle}" Grid.Row="2">Odaberite salu:</Label>
+
+            <ComboBox x:Name="sala" DisplayMemberPath="Id" HorizontalAlignment="Right" Width="200" Height="30" Margin="5"
+                      Grid.Row="2" Grid.Column="1"/>
+
+                <Button Content="Sačuvaj" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource SecretaryButtonSimple}"
+                    Grid.Row="3" Grid.ColumnSpan="2" Click="Save_Click" Width="200">
+                    <Button.Effect>
+                        <DropShadowEffect/>
+                    </Button.Effect>
+                </Button>
+        </Grid>
+    </Grid>
 </Window>

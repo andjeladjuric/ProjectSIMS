@@ -56,7 +56,7 @@ namespace HospitalService.View.SecretaryUI
             this.Close();
         }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

@@ -6,44 +6,90 @@
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
         Title="EditPatient" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
-    <Grid  x:Name="editGrid">
-        <Label Content="Tip:" HorizontalAlignment="Left" Height="29" Margin="24,10,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Ime:" HorizontalAlignment="Left" Height="29" Margin="24,39,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Prezime: " HorizontalAlignment="Left" Height="29" Margin="24,73,0,0" VerticalAlignment="Top" Width="1200" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="JMBG:" HorizontalAlignment="Left" Height="29" Margin="24,107,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Pol:" HorizontalAlignment="Left" Height="29" Margin="24,136,0,0" VerticalAlignment="Top" Width="1200" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Korisničko ime:" HorizontalAlignment="Left" Height="29" Margin="24,165,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Lozinka:" HorizontalAlignment="Left" Height="29" Margin="24,194,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Datum rodjenja:" HorizontalAlignment="Left" Height="29" Margin="24,223,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Adresa:" HorizontalAlignment="Left" Height="29" Margin="24,252,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Telefon:" HorizontalAlignment="Left" Height="29" Margin="24,281,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
-        <Label Content="Email:" HorizontalAlignment="Left" Height="29" Margin="24,310,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.721,-0.298" FontSize="14"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
 
-        <TextBox IsReadOnly="True" Text="{Binding Path=patient.Name}" HorizontalAlignment="Left" Height="20" Margin="144,47,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <TextBox IsReadOnly="True" Text="{Binding Path=patient.Surname}" HorizontalAlignment="Left" Height="20" Margin="144,80,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <TextBox Name="jmbg" IsReadOnly="True" Text="{Binding Path=patient.Jmbg}" HorizontalAlignment="Left" Height="20" Margin="144,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <TextBox Name="username" Text="{Binding Path=patient.Username}" HorizontalAlignment="Left" Height="20" Margin="144,172,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <TextBox Name="password" Text="{Binding Path=patient.Password}" HorizontalAlignment="Left" Height="20" Margin="144,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <DatePicker Name="date" Text="{Binding Path=patient.DateOfBirth}" HorizontalAlignment="Left" Height="20" Margin="144,230,0,0" VerticalAlignment="Top" Width="127"/>
-        <TextBox Name="address" Text="{Binding Path=patient.Address}" HorizontalAlignment="Left" Height="20" Margin="144,260,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <TextBox Name="phone" Text="{Binding Path=patient.Phone}" HorizontalAlignment="Left" Height="20" Margin="144,288,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <TextBox Name="email" Text="{Binding Path=patient.Email}" HorizontalAlignment="Left" Height="20" Margin="144,318,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <ComboBox Name="cbtype" HorizontalAlignment="Left" Margin="144,14,0,0" VerticalAlignment="Top" Width="127" Height="20">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Button Click="Back_Click" Grid.Row="0" Grid.Column="0" Margin="5,7,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Image Source="/Images/back.png"/>
+            </Button>
 
-        </ComboBox>
-        <ComboBox IsReadOnly="True" HorizontalAlignment="Left" Margin="144,140,0,0" VerticalAlignment="Top" Width="127" Height="20">
-            <ComboBoxItem Content="{Binding Path=patient.Gender}" IsSelected="True"></ComboBoxItem>
-        </ComboBox>
-        <Button Content="Sačuvaj" HorizontalAlignment="Left" Margin="80,365,0,0" VerticalAlignment="Top" Width="113" Height="30" Click="Save_Click">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Button Content="Otkaži" HorizontalAlignment="Left" Margin="237,365,0,0" VerticalAlignment="Top" Width="113" Height="30" Click="Cancel_Click">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
+            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource SecretaryHeadLabelStyle}" Margin="0,7,0,0">Izmeni podatke</Label>
+        </StackPanel>
+        
+
+        <Grid x:Name="editGrid" Grid.Row="1" Margin="10,0,10,0">
+
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Tip:" HorizontalAlignment="Left" Style="{StaticResource SecretaryLabelStyle}"/>
+            <ComboBox Name="cbtype" HorizontalAlignment="Left" Grid.Column="1" Style="{StaticResource SecretaryComboStyle}"/>
+
+
+
+            <Label Content="Ime:" HorizontalAlignment="Left" Grid.Row="1" Style="{StaticResource SecretaryLabelStyle}"/>
+            <TextBox IsReadOnly="True" Text="{Binding Path=patient.Name}" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1" Style="{StaticResource SecretaryTextBoxStyle}"/>
+
+
+            <Label Content="Prezime:" HorizontalAlignment="Left" Grid.Row="2" Style="{StaticResource SecretaryLabelStyle}"/>
+            <TextBox IsReadOnly="True" Text="{Binding Path=patient.Surname}" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" Style="{StaticResource SecretaryTextBoxStyle}"/>
+
+            <Label Content="JMBG:" HorizontalAlignment="Left" Grid.Row="3" Style="{StaticResource SecretaryLabelStyle}"/>
+            <TextBox Name="jmbg" IsReadOnly="True" Text="{Binding Path=patient.Jmbg}" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1" Style="{StaticResource SecretaryTextBoxStyle}"/>
+
+            <Label Content="Pol:" HorizontalAlignment="Left" Grid.Row="4" Style="{StaticResource SecretaryLabelStyle}"/>
+            <ComboBox IsReadOnly="True" Grid.Row="4" Grid.Column="1" Style="{StaticResource SecretaryComboStyle}">
+                <ComboBoxItem Content="{Binding Path=patient.Gender}" IsSelected="True"></ComboBoxItem>
+            </ComboBox>
+
+            <Label Content="Korisničko ime:" HorizontalAlignment="Left" Grid.Row="5" Style="{StaticResource SecretaryLabelStyle}"/>
+            <TextBox Name="username" Text="{Binding Path=patient.Username}" HorizontalAlignment="Right" Grid.Row="5" Grid.Column="1" Style="{StaticResource SecretaryTextBoxStyle}"/>
+
+            <Label Content="Lozinka:" HorizontalAlignment="Left" Grid.Row="6" Style="{StaticResource SecretaryLabelStyle}"/>
+            <TextBox Name="password" Text="{Binding Path=patient.Password}" HorizontalAlignment="Right" Grid.Row="6" Grid.Column="1" Style="{StaticResource SecretaryTextBoxStyle}"/>
+
+            <Label Content="Datum rođenja:" HorizontalAlignment="Left" Grid.Row="7" Style="{StaticResource SecretaryLabelStyle}"/>
+            <DatePicker Name="date" Text="{Binding Path=patient.DateOfBirth}" HorizontalAlignment="Right" Grid.Row="7" Grid.Column="1" Width="205"/>
+
+            <Label Content="Adresa:" HorizontalAlignment="Left" Grid.Row="8" Style="{StaticResource SecretaryLabelStyle}"/>
+            <TextBox Name="address" Text="{Binding Path=patient.Address}" HorizontalAlignment="Right" Grid.Row="8" Grid.Column="1" Style="{StaticResource SecretaryTextBoxStyle}"/>
+
+            <Label Content="Telefon:" HorizontalAlignment="Left" Grid.Row="9" Style="{StaticResource SecretaryLabelStyle}"/>
+            <TextBox Name="phone" Text="{Binding Path=patient.Phone}" HorizontalAlignment="Right" Grid.Row="9" Grid.Column="1" Style="{StaticResource SecretaryTextBoxStyle}"/>
+
+            <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="10" Style="{StaticResource SecretaryLabelStyle}"/>
+            <TextBox Name="email" Text="{Binding Path=patient.Email}" HorizontalAlignment="Right" Grid.Row="10" Grid.Column="1" Style="{StaticResource SecretaryTextBoxStyle}"/>
+            
+
+
+            <Button Content="Sačuvaj" HorizontalAlignment="Center" Style="{StaticResource SecretaryButtonSimple}" Grid.Row="11" Grid.ColumnSpan="2" Width ="130" Height="40" Margin="0,10,0,0" Click="Save_Click">
+                <Button.Effect>
+                    <DropShadowEffect/>
+                </Button.Effect>
+            </Button>
+            
+        </Grid>
     </Grid>
-
 </Window>

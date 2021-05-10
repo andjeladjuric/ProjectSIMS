@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\acc.png" />
+    <None Remove="Images\back.png" />
+    <None Remove="Images\calendarIcon.png" />
+    <None Remove="Images\helpIcon.png" />
+    <None Remove="Images\hospitalIcon.png" />
+    <None Remove="Images\logo.png" />
+    <None Remove="Images\logOutIcon.png" />
+    <None Remove="Images\menu.png" />
+    <None Remove="Images\newsIcon.png" />
+    <None Remove="Images\patientIcon.png" />
     <None Remove="View\PatientUI\Images\ankete.png" />
     <None Remove="View\PatientUI\Images\book.png" />
     <None Remove="View\PatientUI\Images\calendar.png" />
@@ -25,10 +35,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Resource Include="Images\acc.png" />
+    <Resource Include="Images\back.png" />
+    <Resource Include="Images\calendarIcon.png" />
+    <Resource Include="Images\helpIcon.png" />
+    <Resource Include="Images\hospitalIcon.png" />
+    <Resource Include="Images\logo.png" />
+    <Resource Include="Images\logOutIcon.png" />
+    <Resource Include="Images\menu.png" />
+    <Resource Include="Images\newsIcon.png" />
+    <Resource Include="Images\patientIcon.png" />
     <Resource Include="View\PatientUI\Images\ankete.png" />
     <Resource Include="View\PatientUI\Images\book.png" />
     <Resource Include="View\PatientUI\Images\calendar.png" />

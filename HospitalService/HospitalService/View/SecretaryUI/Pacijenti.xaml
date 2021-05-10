@@ -9,12 +9,30 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
         </Grid.RowDefinitions>
-        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
-            <DataGrid x:Name="tableBinding"  IsReadOnly="True" 
-                  SelectionMode="Single" AutoGenerateColumns="False" Width="350" Height="500">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center">
+            <Button Click="Back_Click" Grid.Row="0" Grid.Column="0" Margin="5,7,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Image Name="MenuIcon" Source="/Images/back.png"/>
+            </Button>
+
+            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource SecretaryHeadLabelStyle}" Margin="0,7,0,0">Pacijenti</Label>
+        </StackPanel>
+
+
+
+        <ScrollViewer  HorizontalScrollBarVisibility="Visible" Margin="5,0,5,0" Height="580" VerticalScrollBarVisibility="Visible" Grid.Row="1" Grid.ColumnSpan="4">
+            <DataGrid x:Name="tableBinding"  IsReadOnly="True"
+                  SelectionMode="Single" AutoGenerateColumns="False" Style="{StaticResource SecretaryGridStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Tip" Binding="{Binding PatientType}" Width="110"/>
                     <DataGridTextColumn Header="Ime" Binding="{Binding Name}" Width="110" />
@@ -28,37 +46,16 @@
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="143"></ColumnDefinition>
-                <ColumnDefinition Width="143"></ColumnDefinition>
-                <ColumnDefinition Width="143"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button Click="Add_Click" Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="0" Width="143"  Height="42">
-                <Button.Effect>
-                    <DropShadowEffect/>
-                </Button.Effect>
-            </Button>
-            <Button Click="Edit_Click" Content="Izmeni" HorizontalAlignment="Center" VerticalAlignment="Top" Width="123" Grid.Column="1" Height="42">
-                <Button.Effect>
-                    <DropShadowEffect/>
-                </Button.Effect>
-            </Button>
-            <Button Click="Delete_Click" Content="Obriši" HorizontalAlignment="Center" VerticalAlignment="Top" Width="124" Grid.Column="2"  Height="42">
-                <Button.Effect>
-                    <DropShadowEffect/>
-                </Button.Effect>
-            </Button>
-            <Button Click="MedicalRecord_Click" Content="Medicinski karton" HorizontalAlignment="Center" VerticalAlignment="Top" Width="124" Grid.Row="1" Grid.ColumnSpan="3" Height="42">
-                <Button.Effect>
-                    <DropShadowEffect/>
-                </Button.Effect>
-            </Button>
-        </Grid>
+
+        <Button Click="Add_Click" Content="Dodaj" Grid.Row="2" Grid.Column="0" Style="{StaticResource SecretaryButtonSimple}"/>
+        <Button Click="Edit_Click" Content="Izmeni" Grid.Row="2" Grid.Column="1" Style="{StaticResource SecretaryButtonSimple}"/>
+
+        <Button Click="Delete_Click" Content="Obriši" Grid.Row="2" Grid.Column="2" Style="{StaticResource SecretaryButtonSimple}"/>
+
+        <Button Click="MedicalRecord_Click" Grid.Row="2" Grid.Column="3"  Style="{StaticResource SecretaryButtonSimple}">
+            <TextBlock TextWrapping="wrap" TextAlignment="Center">Medicinski karton</TextBlock>
+        </Button>
+
     </Grid>
 
 </Window>

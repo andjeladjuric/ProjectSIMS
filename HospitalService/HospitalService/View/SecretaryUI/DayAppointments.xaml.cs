@@ -31,7 +31,10 @@ namespace HospitalService.View.SecretaryUI
             datum.Content = dt.Date.ToShortDateString();
         }
 
-
+        private void bBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
         private void Button_Prikazi(object sender, RoutedEventArgs e)
         {
             try

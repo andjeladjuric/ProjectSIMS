@@ -9,15 +9,25 @@
 
     <Grid Margin="5,5,5,5">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition ></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="140"></ColumnDefinition>
-            <ColumnDefinition Width="140"></ColumnDefinition>
-            <ColumnDefinition Width="140"></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="3" Height="595" Margin="5, 5, 5, 5" >
+
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center">
+            <Button Click="Back_Click" Grid.Row="0" Grid.Column="0" Margin="5,7,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Image Name="MenuIcon" Source="/Images/back.png"/>
+            </Button>
+
+            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource SecretaryHeadLabelStyle}" Margin="0,7,0,0">Lista termina</Label>
+        </StackPanel>
+
+
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Grid.Row="1" Grid.ColumnSpan="3" Height="585" Margin="0, 0, 0, 0" >
             <ListView Name="lvAppointments" SelectionMode="Single">
                 <ListView.View>
                     <GridView>
@@ -33,8 +43,7 @@
             </ListView>
         </ScrollViewer>
 
-        <Button Name="bPomeri" Content="Pomeri" Grid.Row="1" Click="bPomeri_Click"></Button>
-        <Button Name="bZakazi" Content="Zakaži" Grid.Row="1" Grid.Column="1" Click="bZakazi_Click"></Button>
-        <Button Name="bCancel" Content="Cancel" Grid.Row="1" Grid.Column="2" Click="bCancel_Click"></Button>
+        <Button Content="Pomeri" Grid.Row="2" Click="Move_Click" Style="{StaticResource SecretaryButtonSimple}"/>
+        <Button Content="Zakaži" Grid.Row="2" Grid.Column="1" Click="MakeAppointment_Click" Style="{StaticResource SecretaryButtonSimple}"/>
     </Grid>
 </Window>

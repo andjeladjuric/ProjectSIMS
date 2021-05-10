@@ -6,90 +6,71 @@
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
         Title="AddPatient" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
-    <Grid Margin="40, 10, 40, 10">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="570"/>
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition />
+
         </Grid.ColumnDefinitions>
 
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center">
+            <Button Click="Back_Click" Grid.Row="0" Grid.Column="0" Margin="5,7,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Image Name="MenuIcon" Source="/Images/back.png"/>
+            </Button>
 
-
-
-
-
-        <Label Content="Tip:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="1" />
-        <Label Content="Ime:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="3"/>
-        <Label Content="Prezime: " Style="{StaticResource SecretaryLabelStyle}" Grid.Row="5"/>
-        <Label Content="Pol:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="7"/>
-
-        <Label Content="JMBG:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="9" />
-        <Label Content="Korisničko ime:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="11"/>
-        <Label Content="Lozinka: " Style="{StaticResource SecretaryLabelStyle}" Grid.Row="13"/>
-        <Label Content="Datum rođenja:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="15"/>
-        <Label Content="Adresa:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="17"/>
-        <Label Content="Telefon: " Style="{StaticResource SecretaryLabelStyle}" Grid.Row="19"/>
-        <Label Content="Email:" Style="{StaticResource SecretaryLabelStyle}" Grid.Row="21"/>
-
-
-        <StackPanel Grid.Row="2">
-            <RadioButton GroupName="rbType" Name="rbGost" Checked="rbGost_Checked" HorizontalAlignment="Left" VerticalAlignment="Center" Width="127" Height="20">gost</RadioButton>
-            <RadioButton GroupName="rbType" Name="rbStalni" Checked="rbStalni_Checked" HorizontalAlignment="Left" VerticalAlignment="Center" Width="127" Height="20">stalni</RadioButton>
+            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource SecretaryHeadLabelStyle}" Margin="0,7,0,0">Dodaj pacijenta</Label>
         </StackPanel>
 
-        <TextBox Name="name" Style="{StaticResource SecretaryTextBoxStyle}" Grid.Row="4" Grid.ColumnSpan="2"/>
-        <TextBox Name="surname" Style="{StaticResource SecretaryTextBoxStyle}" Grid.Row="6" Grid.ColumnSpan="2"/>
-
-        <ComboBox Name="cbgender" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Height="20" Grid.Row="8">
-            <ComboBoxItem Content="Male"/>
-            <ComboBoxItem Content="Female"/>
-        </ComboBox>
-
-        <TextBox Name="jmbg" Style="{StaticResource SecretaryTextBoxStyle}" Grid.Row="10" Grid.ColumnSpan="2"/>
-        <TextBox Name="username" Style="{StaticResource SecretaryTextBoxStyle}" Grid.Row="12" Grid.ColumnSpan="2"/>
-        <TextBox Name="password" Style="{StaticResource SecretaryTextBoxStyle}" Grid.Row="14" Grid.ColumnSpan="2"/>
-
-
-        <DatePicker Name="date" Grid.Row="16" Grid.ColumnSpan="2"/>
-        <TextBox Name="address" Style="{StaticResource SecretaryTextBoxStyle}" Grid.Row="18" Grid.ColumnSpan="2"/>
-        <TextBox Name="phone" Style="{StaticResource SecretaryTextBoxStyle}" Grid.Row="20" Grid.ColumnSpan="2"/>
-        <TextBox Name="email" Style="{StaticResource SecretaryTextBoxStyle}"  Grid.Row="22" Grid.ColumnSpan="2"/>
+        <ScrollViewer VerticalScrollBarVisibility="Visible"  Grid.Row="1">
+            <StackPanel Margin="20,0,0,0">
+                <Label Content="Tip:" Style="{StaticResource SecretaryLabelStyle}" />
+                <RadioButton GroupName="rbType" Name="rbNereg" Style="{StaticResource SecretaryRadioStyle}">
+                    <Label Content="neregistrovani:" Style="{StaticResource SecretaryLabelStyle}" />
+                </RadioButton>
+                <RadioButton GroupName="rbType" Name="rbReg"  Style="{StaticResource SecretaryRadioStyle}">
+                    <Label Content="registrovani:" Style="{StaticResource SecretaryLabelStyle}" />
+                </RadioButton>
 
 
 
-        <Button Content="Dodaj" HorizontalAlignment="Center" VerticalAlignment="Center" Width="195" Height="30" Click="Add_Click" Grid.Row="23" Grid.ColumnSpan="2">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Button Content="Otkaži" HorizontalAlignment="Center" VerticalAlignment="Center"  Height="30" Click="Cancel_Click" Width="170">
+                <Label Content="Ime:" Style="{StaticResource SecretaryLabelStyle}"/>
+                <TextBox Name="name" Style="{StaticResource SecretaryTextBoxStyle}"/>
+                <Label Content="Prezime: " Style="{StaticResource SecretaryLabelStyle}"/>
+                <TextBox Name="surname" Style="{StaticResource SecretaryTextBoxStyle}"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <Label Content="Pol:" Style="{StaticResource SecretaryLabelStyle}"/>
+                    <ComboBox Name="cbgender" Style="{StaticResource SecretaryComboStyle}" Margin="128,0,0,10" Width="128" Background="White">
+                        <ComboBoxItem Content="Male"/>
+                        <ComboBoxItem Content="Female"/>
+                    </ComboBox>
+                </StackPanel>
+                <Label Content="JMBG:" Style="{StaticResource SecretaryLabelStyle}"/>
+                <TextBox Name="jmbg" Style="{StaticResource SecretaryTextBoxStyle}"/>
+                <Label Content="Korisničko ime:" Style="{StaticResource SecretaryLabelStyle}"/>
+                <TextBox Name="username" Style="{StaticResource SecretaryTextBoxStyle}"/>
+                <Label Content="Lozinka: " Style="{StaticResource SecretaryLabelStyle}"/>
+                <PasswordBox Name="password" Style="{StaticResource SecretaryPasswordBoxStyle}"/>
+                <Label Content="Datum rođenja:" Style="{StaticResource SecretaryLabelStyle}"/>
+                <DatePicker Name="date" HorizontalAlignment="Left" Width="200"/>
+                <Label Content="Adresa:" Style="{StaticResource SecretaryLabelStyle}"/>
+                <TextBox Name="address" Style="{StaticResource SecretaryTextBoxStyle}"/>
+                <Label Content="Telefon: " Style="{StaticResource SecretaryLabelStyle}"/>
+                <TextBox Name="phone" Style="{StaticResource SecretaryTextBoxStyle}"/>
+                <Label Content="Email:" Style="{StaticResource SecretaryLabelStyle}"/>
+                <TextBox Name="email" Style="{StaticResource SecretaryTextBoxStyle}"/>
+
+
+
+
+            </StackPanel>
+        </ScrollViewer>
+        <Button Content="Dodaj" Width="150" Height="30" Style="{StaticResource SecretaryButtonSimple}" Click="Add_Click" Grid.Row="23">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
