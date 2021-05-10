@@ -1,0 +1,22 @@
+﻿<Window x:Class="HospitalService.View.SecretaryUI.AddNews"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
+        mc:Ignorable="d"
+        Title="AddNews" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label x:Name="title" Content="Naslov:" HorizontalAlignment="Left" Margin="24,62,0,0" VerticalAlignment="Top" Height="61" Width="91"/>
+        <Label x:Name="target" Content="Korisnici:" HorizontalAlignment="Left" Margin="24,113,0,0" VerticalAlignment="Top" Height="61" Width="206"/>
+        <Label x:Name="content" Content="Opis:" HorizontalAlignment="Left" Margin="24,197,0,0" VerticalAlignment="Top" Height="61" Width="140"/>
+        <TextBox x:Name="newsText" HorizontalAlignment="Left" Height="204" Margin="24,242,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="360"/>
+        <TextBox x:Name="titleText" HorizontalAlignment="Left" Height="30" Margin="115,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="269"/>
+        <ComboBox x:Name="roleComboBox" SelectionChanged="roleComboBox_SelectionChanged"   HorizontalAlignment="Left" Margin="115,115,0,0" VerticalAlignment="Top" Width="170" RenderTransformOrigin="0.439,-1.665"/>
+        <Button x:Name="ok" Content="Dodaj" HorizontalAlignment="Left" Margin="185,593,0,0" VerticalAlignment="Top" Width="75" Click="ok_Click" Height="41"/>
+        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="288,591,0,0" VerticalAlignment="Top" Width="96" Click="cancel_Click" Height="43"/>
+        <ComboBox x:Name="specificPatientComboBox"   HorizontalAlignment="Left" Margin="142,158,0,0" VerticalAlignment="Top" Width="170"/>
+        <Label x:Name="target_Copy" Content="Specifični pacijent:" HorizontalAlignment="Left" Margin="24,156,0,0" VerticalAlignment="Top" Height="36" Width="113" RenderTransformOrigin="0.538,-0.83"/>
+
+    </Grid>
+</Window>

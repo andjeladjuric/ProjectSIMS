@@ -24,7 +24,7 @@ namespace HospitalService.View.DoctorUI
         {
             InitializeComponent();
             Karton = mr;
-            DiagnosisTable.ItemsSource = Karton.Karton.Diagnoses;
+            DiagnosisTable.ItemsSource = Karton.MedicalRecord.Diagnoses;
         }
 
         private void AddDiagnosis_Click(object sender, RoutedEventArgs e)
@@ -35,7 +35,7 @@ namespace HospitalService.View.DoctorUI
 
         public void refresh()
         {
-            DiagnosisTable.ItemsSource = Karton.Karton.Diagnoses;
+            DiagnosisTable.ItemsSource = Karton.MedicalRecord.Diagnoses;
             DiagnosisTable.Items.Refresh();
             Karton.Refresh();
         }

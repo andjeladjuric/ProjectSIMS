@@ -110,13 +110,13 @@ namespace Model
 
         public List<Medication> GetAllAllowed(List<MedicationIngredients> allergies)
         {
-            List<Medication> alloweMedications = new List<Medication>();
+            List<Medication> allowedMedications = new List<Medication>();
             foreach (Medication medication in meds)
             {
-                if (medication.IsAllergen(allergies) == false)
-                    alloweMedications.Add(medication);
+                if (!medication.IsAllergen(allergies))
+                    allowedMedications.Add(medication);
             }
-            return alloweMedications;
+            return allowedMedications;
         }
     }
 }

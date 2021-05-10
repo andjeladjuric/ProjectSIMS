@@ -78,15 +78,12 @@ namespace HospitalService.View.SecretaryUI
             DoctorType oblast = shData.type;
             Appointment ret = null;
 
-
-            
-            while(ret == null)
+            DateTime start = appointment.StartTime;
+            ret = new AppointmentStorage().createAppointment(appointment, oblast);
+            if (ret == null)
             {
+                appointment.setDates(appointment.StartTime.AddHours(1), shData.duration);
                 ret = new AppointmentStorage().createAppointment(appointment, oblast);
-                if (ret!=null) break;
-                else
-                    appointment.setDates(appointment.StartTime.AddHours(1), shData.duration);
-
             }
             if(ret!=null)
             {
@@ -94,7 +91,7 @@ namespace HospitalService.View.SecretaryUI
                 MessageBox.Show("Uspešno ste zakazali hitni termin!\n" + "Vreme: " + appointment.StartTime, "Potvrda");
             }
             else
-                MessageBox.Show("Nemoguće je zakazati termin!\n" + "Vreme: " + appointment.StartTime, "Nemoguće");
+                MessageBox.Show("Nemoguće je zakazati termin!\n" + "Vreme: " + start, "Nemoguće");
             this.Close();
         }
 

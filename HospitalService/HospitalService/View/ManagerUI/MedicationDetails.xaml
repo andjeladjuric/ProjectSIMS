@@ -34,7 +34,7 @@
         <TextBlock Text="{Binding medication.MedicineName, Mode=TwoWay}" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" 
                                FontSize="24" Foreground="#FF5B7886" Height="50" Margin="59,17,224,483"/>
         <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="57,68,58,26"/>
-        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="76,219,78,201"/>
+        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="76,251,78,201"/>
         <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="78,392,78,79"/>
         <TextBlock x:Name="CommentBox" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" 
                                FontSize="14" Foreground="#FF5B7886" Text="{Binding medication.DoctorsComment}" Margin="87,400,87,86"/>
@@ -42,7 +42,7 @@
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                  ItemsSource="{Binding items}"
                  FontSize="14"
-                 x:Name="Validation" Margin="76,219,78,201">
+                 x:Name="Validation" Margin="76,251,78,201">
 
             <ListBox.ItemsPanel >
                 <ItemsPanelTemplate >
@@ -57,20 +57,21 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Label x:Name="ingredients" Content="Sastojci leka" HorizontalAlignment="Left" Margin="78,178,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
+        <Label x:Name="ingredients" Content="Sastojci leka" HorizontalAlignment="Left" Margin="78,220,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
         <Label x:Name="comment" Content="Komentar doktora" HorizontalAlignment="Left" Margin="80,361,0,0" VerticalAlignment="Top" Width="150" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
-        <Label x:Name="format" Content="Format leka" HorizontalAlignment="Left" Margin="78,95,0,0" VerticalAlignment="Top" Width="125" 
+        <Label x:Name="format" Content="Format leka" HorizontalAlignment="Left" Margin="78,89,0,0" VerticalAlignment="Top" Width="125" 
                FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
-        <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="36" Margin="200,77,0,0" TextWrapping="Wrap" 
+        <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="36" Margin="200,71,0,0" TextWrapping="Wrap" 
                  VerticalAlignment="Top" Width="172" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" FontSize="14" 
-                 Foreground="#FF5B7886" HorizontalContentAlignment="Center" Text="{Binding medication.Format, Mode=TwoWay}"/>
+                 Foreground="#FF5B7886" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                 Text="{Binding medication.Format, Mode=TwoWay}"/>
 
         <Button Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="327,15,58,500" 
                 ToolTip="Završi pregled/izmene" Click="Button_Click">
             <materialDesign:PackIcon Kind="Tick" Foreground="#FF5B7886" Height="35" Width="35"/>
         </Button>
 
-        <Button x:Name="Edit" Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="151,173,234,342" Click="Edit_Click">
+        <Button x:Name="Edit" Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="151,215,234,300" Click="Edit_Click">
             <materialDesign:PackIcon Kind="EditOutline" Foreground="#FF5B7886" VerticalAlignment="Center" Height="20" Width="20"/>
         </Button>
 
@@ -80,7 +81,7 @@
 
         <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" HorizontalContentAlignment="Center" 
                   SelectedItem="{Binding medication.Type, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  HorizontalAlignment="Left" Height="34" Margin="200,126,0,0" VerticalAlignment="Top" Width="172">
+                  HorizontalAlignment="Left" Height="34" Margin="200,120,0,0" VerticalAlignment="Top" Width="172">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource comboConvert}}"
@@ -89,8 +90,13 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Label x:Name="vrsta" Content="Vrsta leka" HorizontalAlignment="Left" Margin="78,140,0,0" VerticalAlignment="Top" Width="125" 
+        <Label x:Name="vrsta" Content="Vrsta leka" HorizontalAlignment="Left" Margin="78,134,0,0" VerticalAlignment="Top" Width="125" 
             FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
+        <Label x:Name="alternative" Content="Zamena" HorizontalAlignment="Left" Margin="78,180,0,0" VerticalAlignment="Top" Width="125" 
+            FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
+        <TextBox x:Name="alternativeBox" HorizontalAlignment="Left" Height="36" Margin="200,162,0,0" TextWrapping="Wrap" 
+            VerticalAlignment="Top" Width="172" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" FontSize="14" 
+            Foreground="#FF5B7886" HorizontalContentAlignment="Center" IsReadOnly="True" VerticalContentAlignment="Center"/>
 
     </Grid>
 </Window>
