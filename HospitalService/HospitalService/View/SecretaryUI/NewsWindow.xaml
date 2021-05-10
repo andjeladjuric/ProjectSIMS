@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
         mc:Ignorable="d"
-        Title="NewsWindow" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+        Title="NewsWindow" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen" Closing="NewsWindow_Closing" >
     <Grid>
         <Grid x:Name="tableBinding">
             <ListView Name="lvNews" Margin="24,61,16,28" RenderTransformOrigin="0.5,0.5" >

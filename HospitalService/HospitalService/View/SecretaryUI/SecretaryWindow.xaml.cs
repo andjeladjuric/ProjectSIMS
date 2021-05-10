@@ -57,7 +57,7 @@ namespace HospitalService.View.SecretaryUI
 
         private void News_Click(object sender, RoutedEventArgs e)
         {
-            NewsWindow.getInstance().ShowDialog();
+            NewsWindow.getInstance().Show();
         }
     }
 }

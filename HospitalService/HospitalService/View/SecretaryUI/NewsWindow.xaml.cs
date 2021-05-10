@@ -91,9 +91,12 @@ namespace HospitalService.View.SecretaryUI
             }
         }
 
-        private void back_Click(object sender, RoutedEventArgs e)
+        private void NewsWindow_Closing(object sender, EventArgs e)
         {
-            this.Hide();
+           
+            
+                instance = null;
+            
         }
 
 
@@ -112,6 +115,9 @@ namespace HospitalService.View.SecretaryUI
             }
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
 
+        }
     }
 }
