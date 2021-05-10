@@ -14,7 +14,7 @@
         <TextBlock x:Name="newsText" HorizontalAlignment="Left" Margin="78,122,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="198" Height="103"/>
         <Label x:Name="titleText"  HorizontalAlignment="Left" Margin="71,24,0,0" VerticalAlignment="Top" Height="26" Width="205"/>
         <Label x:Name="publishingDate"  HorizontalAlignment="Left" Margin="174,60,0,0" VerticalAlignment="Top" Width="158" Height="26"/>
-        <Label x:Name="targetGroup" HorizontalAlignment="Left" Margin="104,86,0,0" VerticalAlignment="Top" Height="26" Width="250"/>
+        <Label x:Name="role" HorizontalAlignment="Left" Margin="104,86,0,0" VerticalAlignment="Top" Height="26" Width="250"/>
         <Button x:Name="close" Content="Nazad" HorizontalAlignment="Left" Margin="299,203,0,0" VerticalAlignment="Top" Width="102" Click="close_Click" Height="35"/>
 
     </Grid>

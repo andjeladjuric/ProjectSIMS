@@ -37,8 +37,8 @@ namespace HospitalService.View.SecretaryUI
             titleText.Text = selectedNewsForEditing.Title;
             publishingDate.Content = selectedNewsForEditing.PublishingDate;
 
-            targetGroupComboBox.ItemsSource = Enum.GetValues(typeof(Role)).Cast<Role>();
-            targetGroupComboBox.SelectedItem = selectedNewsForEditing.Roles;
+            roleComboBox.ItemsSource = Enum.GetValues(typeof(Role)).Cast<Role>();
+            roleComboBox.SelectedItem = selectedNewsForEditing.Roles;
             newsText.Text = selectedNewsForEditing.Content;
 
             allPatients = new PatientStorage().GetAll();
@@ -62,9 +62,9 @@ namespace HospitalService.View.SecretaryUI
             News editedNews = new News();
             editedNews.Title = titleText.Text;
             editedNews.PublishingDate = DateTime.Now.Date;
-            editedNews.Roles = (Role)targetGroupComboBox.SelectedItem;
+            editedNews.Roles = (Role)roleComboBox.SelectedItem;
 
-            if ((Role)targetGroupComboBox.SelectedItem != Role.specificniPacijent)
+            if ((Role)roleComboBox.SelectedItem != Role.specificniPacijent)
             {
                 editedNews.specificPatient = null;
             }
@@ -91,9 +91,9 @@ namespace HospitalService.View.SecretaryUI
             this.Hide();
         }
 
-        private void targetGroupComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void roleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((Role)targetGroupComboBox.SelectedItem == Role.specificniPacijent)
+            if ((Role)roleComboBox.SelectedItem == Role.specificniPacijent)
             {
                 specificPatientComboBox.IsEnabled = true;
             }

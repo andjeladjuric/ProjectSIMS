@@ -31,11 +31,11 @@ namespace HospitalService.View.SecretaryUI
             publishingDate.Content = selectedNews.PublishingDate;
             if (selectedNews.Roles == Role.specificniPacijent)
             {
-                targetGroup.Content = selectedNews.Roles + " (" + selectedNews.specificPatient.Name + selectedNews.specificPatient.Surname + ")";
+                role.Content = selectedNews.Roles + " (" + selectedNews.specificPatient.Name + selectedNews.specificPatient.Surname + ")";
             }
             else
             {
-                targetGroup.Content = selectedNews.Roles;
+                role.Content = selectedNews.Roles;
             }
             newsText.Text = selectedNews.Content;
         }

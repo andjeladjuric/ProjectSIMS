@@ -28,8 +28,8 @@ namespace HospitalService.View.SecretaryUI
             InitializeComponent();
             
 
-            //publishingDate.Content = DateTime.Now.ToShortDateString();
-            targetGroupComboBox.ItemsSource = Enum.GetValues(typeof(Role)).Cast<Role>();
+           
+            roleComboBox.ItemsSource = Enum.GetValues(typeof(Role)).Cast<Role>();
             allPatients = new PatientStorage().GetAll();
             foreach (Patient patient in allPatients)
             {
@@ -43,11 +43,11 @@ namespace HospitalService.View.SecretaryUI
         {
             News newOne = new News();
             newOne.Title = titleText.Text;
-            IFormatProvider provider = null;
+            
             newOne.PublishingDate = DateTime.Now;
-            newOne.Roles = (Role)targetGroupComboBox.SelectedItem;
+            newOne.Roles = (Role)roleComboBox.SelectedItem;
 
-            if ((Role)targetGroupComboBox.SelectedItem != Role.specificniPacijent)
+            if ((Role)roleComboBox.SelectedItem != Role.specificniPacijent)
             {
                 newOne.specificPatient = null;
             }
@@ -75,9 +75,9 @@ namespace HospitalService.View.SecretaryUI
             this.Hide();
         }
 
-        private void targetGroupComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void roleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (targetGroupComboBox.SelectedItem.ToString().Equals(Role.specificniPacijent.ToString()))
+            if (roleComboBox.SelectedItem.ToString().Equals(Role.specificniPacijent.ToString()))
             {
                 specificPatientComboBox.IsEnabled = true;
             }

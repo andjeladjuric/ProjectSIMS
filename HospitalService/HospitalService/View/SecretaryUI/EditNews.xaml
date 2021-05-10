@@ -13,7 +13,7 @@
         <Label x:Name="content" Content="Sadržaj:" HorizontalAlignment="Left" Margin="32,241,0,0" VerticalAlignment="Top" Height="61" Width="140"/>
         <TextBox x:Name="newsText" HorizontalAlignment="Left" Height="275" Margin="32,286,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="339"/>
         <TextBox x:Name="titleText" HorizontalAlignment="Left" Height="23" Margin="94,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="277"/>
-        <ComboBox x:Name="targetGroupComboBox" SelectionChanged="targetGroupComboBox_SelectionChanged" HorizontalAlignment="Left" Margin="133,146,0,0" VerticalAlignment="Top" Width="170"/>
+        <ComboBox x:Name="roleComboBox" SelectionChanged="roleComboBox_SelectionChanged" HorizontalAlignment="Left" Margin="133,146,0,0" VerticalAlignment="Top" Width="170"/>
         <Label x:Name="publishingDate" Content="" HorizontalAlignment="Left" Margin="148,94,0,0" VerticalAlignment="Top" Width="223"/>
         <Button x:Name="ok" Content="Potvrdi" HorizontalAlignment="Left" Margin="198,629,0,0" VerticalAlignment="Top" Width="105" Click="ok_Click" Height="35"/>
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Center" Margin="0,629,0,0" VerticalAlignment="Top" Width="75" Click="cancel_Click" Height="35"/>

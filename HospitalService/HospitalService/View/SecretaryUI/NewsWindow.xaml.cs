@@ -54,8 +54,8 @@ namespace HospitalService.View.SecretaryUI
 
         private void new_Click(object sender, RoutedEventArgs e)
         {
-            AddNews writeNewsWindow = new AddNews();
-            writeNewsWindow.Show();
+            AddNews addNewsWindow = new AddNews();
+            addNewsWindow.Show();
             
         }
 
@@ -106,8 +106,8 @@ namespace HospitalService.View.SecretaryUI
 
             if (selectedNews != null)
             {
-                ViewNews readNewsWindow = new ViewNews(selectedNews);
-                readNewsWindow.Show();
+                ViewNews viewNewsWindow = new ViewNews(selectedNews);
+                viewNewsWindow.Show();
             }
             else
             {
@@ -115,9 +115,6 @@ namespace HospitalService.View.SecretaryUI
             }
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
+       
     }
 }
