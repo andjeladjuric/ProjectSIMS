@@ -14,6 +14,7 @@ namespace HospitalService.View.SecretaryUI
         }
         public Appointment appointment;
 
+
         
         public DateTime startNext;
     }
