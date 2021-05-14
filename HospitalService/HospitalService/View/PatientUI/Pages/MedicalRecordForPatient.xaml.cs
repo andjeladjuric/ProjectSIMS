@@ -35,7 +35,7 @@ namespace HospitalService.View.PatientUI.Pages
 
         
 
-        private void click(object sender, MouseButtonEventArgs e)
+        private void showDetails(object sender, MouseButtonEventArgs e)
         {
             Diagnosis d = (Diagnosis)historyList.SelectedItem;
             NotesStorage notesStorage = new NotesStorage();
@@ -45,7 +45,7 @@ namespace HospitalService.View.PatientUI.Pages
                 RecordPage.Content = new DiagnosisForPatient(d,note);
             }
             else {
-                MessageBox.Show("Null objekat");
+                RecordPage.Content = new DiagnosisWithoutNote(d,Patient);
             }
         }
     }

@@ -29,7 +29,7 @@
                 <Label Grid.Row="1" Grid.Column="1" Content="Zdravstveni karton" FontStyle="Italic" FontSize="27" />
                 <Label Content="Sifra kartona:" Grid.Row="1" Grid.Column="3" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
                 <Label Grid.Row="1" Grid.Column="4" x:Name="IdLabel" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
-                <ListView Name="historyList" Grid.Row="2" Grid.Column="1" FontSize="20" PreviewMouseLeftButtonUp="click">
+                <ListView Name="historyList" Grid.Row="2" Grid.Column="1" FontSize="20" PreviewMouseLeftButtonUp="showDetails">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel>

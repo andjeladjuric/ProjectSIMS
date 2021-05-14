@@ -39,15 +39,15 @@
             <Label x:Name="lbIllness" Grid.Row="3" Grid.Column="2" FontStyle="Italic" FontSize="16"/>
             <Label Grid.Row="4" Grid.Column="1" Content="Simptomi:" FontStyle="Italic" FontSize="16"/>
             <Border Grid.Row="4" Grid.Column="2" BorderThickness="1" BorderBrush="Black">
-                <TextBlock Grid.Row="4" Grid.Column="2" x:Name="tbSymptoms" FontStyle="Italic" FontSize="16"/>
+            <TextBlock Grid.Row="4" Grid.Column="2" TextWrapping="Wrap" x:Name="tbSymptoms" FontStyle="Italic" FontSize="16"/>
             </Border>
             <Label Grid.Row="6" Grid.Column="1" Content="Anamneza:" FontStyle="Italic" FontSize="16"/>
             <Border Grid.Row="6" Grid.Column="2" BorderThickness="1" BorderBrush="Black">
-                <TextBlock Grid.Row="6" Grid.Column="2" x:Name="tbAnamnesis" FontStyle="Italic" FontSize="16"/>
+            <TextBlock Grid.Row="6" Grid.Column="2" TextWrapping="Wrap" x:Name="tbAnamnesis" FontStyle="Italic" FontSize="16"/>
             </Border>
             <Label Grid.Row="8" Grid.Column="1" Content="Biljeska:" FontStyle="Italic" FontSize="16"/>
             <Border Grid.Row="8" Grid.Column="2" BorderThickness="1" BorderBrush="Black">
-                <TextBlock Grid.Row="8" Grid.Column="2" x:Name="tbNotes" FontStyle="Italic" FontSize="16"/>
+            <TextBlock Grid.Row="8" Grid.Column="2" TextWrapping="Wrap" x:Name="tbNotes" FontStyle="Italic" FontSize="16"/>
             </Border>
             <Button Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Height="40" Width="130" Content="Podsjetnik" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White"/>
         </Grid>
