@@ -80,5 +80,10 @@ namespace HospitalService.View.PatientUI
         {
             Main.Content = new EditProfile(patient);
         }
+
+        private void viewMedicalRecordClick(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new MedicalRecordForPatient(patient);
+        }
     }
 }

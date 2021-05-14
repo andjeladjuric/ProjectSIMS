@@ -48,7 +48,7 @@
                                 <TextBlock Text="Pregled termina" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
-                        <Button Grid.Row="4" Background="RoyalBlue">
+                        <Button Grid.Row="4" Background="RoyalBlue" Click="viewMedicalRecordClick">
                             <StackPanel>
                                 <Image Source="/View/PatientUI/Images/book.png" Height="32" Width="70"/>
                                 <TextBlock Text="Zdravstveni karton" Foreground="White" FontStyle="Italic" FontSize="12"/>

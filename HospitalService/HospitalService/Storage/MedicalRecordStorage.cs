@@ -32,6 +32,23 @@ namespace Storage
             return records;
         }
 
+        public MedicalRecord getOneByPatient(Patient patient) {
+
+            MedicalRecord medicalRecordOfPatient=new MedicalRecord();
+
+            for (int i = 0; i < records.Count; i++) {
+
+                medicalRecordOfPatient = records[i];
+
+                if (patient.Jmbg.Equals(medicalRecordOfPatient.Patient.Jmbg)) {
+                    break;
+                }  
+            
+            }
+            return medicalRecordOfPatient;
+        
+        }
+
         public MedicalRecord GetOne(String id)
         {
             return records.Find(x => x.Id == id);

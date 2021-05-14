@@ -1,0 +1,54 @@
+﻿<Page x:Class="HospitalService.View.PatientUI.Pages.DiagnosisForPatient"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HospitalService.View.PatientUI.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="470" d:DesignWidth="580"
+      Title="DiagnosisForPatient">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="45"/>
+            
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition Width="370"/>
+            <ColumnDefinition Width="40"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="Izvjestaj doktora za odabrani pregled:" FontStyle="Italic" FontSize="18"/>
+        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+            <Label Grid.Row="2" Grid.Column="1" Content="Datum pregleda:" FontStyle="Italic" FontSize="16" Margin="120,0,0,0"/>
+            <Label x:Name="lbDate" Grid.Row="2" Grid.Column="2" FontStyle="Italic" FontSize="16" Margin="20,0,0,0"/>
+        </StackPanel>
+        <Label Grid.Row="3" Grid.Column="1" Content="Dijagnoza:" FontStyle="Italic" FontSize="16"/>
+        <Label x:Name="lbIllness" Grid.Row="3" Grid.Column="2" FontStyle="Italic" FontSize="16"/>
+        <Label Grid.Row="4" Grid.Column="1" Content="Simptomi:" FontStyle="Italic" FontSize="16"/>
+        <Border Grid.Row="4" Grid.Column="2" BorderThickness="1" BorderBrush="Black">
+            <TextBlock Grid.Row="4" Grid.Column="2" x:Name="tbSymptoms" FontStyle="Italic" FontSize="16"/>
+        </Border>
+        <Label Grid.Row="6" Grid.Column="1" Content="Anamneza:" FontStyle="Italic" FontSize="16"/>
+        <Border Grid.Row="6" Grid.Column="2" BorderThickness="1" BorderBrush="Black">
+            <TextBlock Grid.Row="6" Grid.Column="2" x:Name="tbAnamnesis" FontStyle="Italic" FontSize="16"/>
+        </Border>
+        <Label Grid.Row="8" Grid.Column="1" Content="Biljeska:" FontStyle="Italic" FontSize="16"/>
+        <Border Grid.Row="8" Grid.Column="2" BorderThickness="1" BorderBrush="Black">
+            <TextBlock Grid.Row="8" Grid.Column="2" x:Name="tbNotes" FontStyle="Italic" FontSize="16"/>
+        </Border>
+        <Button Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Height="40" Width="130" Content="Podsjetnik" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White"/>
+    </Grid>
+</Page>
