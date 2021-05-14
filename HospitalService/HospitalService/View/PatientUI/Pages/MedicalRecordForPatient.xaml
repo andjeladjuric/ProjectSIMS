@@ -43,6 +43,6 @@
                 </ListView>
             </Grid>
         </DockPanel>
-        <Frame x:Name="RecordPage" Margin="405,85,0,65" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="RecordPage" Margin="395,85,0,65" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>

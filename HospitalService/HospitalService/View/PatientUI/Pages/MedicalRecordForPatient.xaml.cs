@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalService.Model;
+using HospitalService.Storage;
 using Model;
 using Storage;
 
@@ -37,7 +38,15 @@ namespace HospitalService.View.PatientUI.Pages
         private void click(object sender, MouseButtonEventArgs e)
         {
             Diagnosis d = (Diagnosis)historyList.SelectedItem;
-            RecordPage.Content = new DiagnosisForPatient(d);
+            NotesStorage notesStorage = new NotesStorage();
+            Note note = notesStorage.getOneByPatient(Patient,d);
+            if (note != null)
+            {
+                RecordPage.Content = new DiagnosisForPatient(d,note);
+            }
+            else {
+                MessageBox.Show("Null objekat");
+            }
         }
     }
 }
