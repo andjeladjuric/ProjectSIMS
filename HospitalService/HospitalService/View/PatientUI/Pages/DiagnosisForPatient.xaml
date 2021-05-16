@@ -49,7 +49,7 @@
             <Border Grid.Row="8" Grid.Column="2" BorderThickness="1" BorderBrush="Black">
             <TextBlock Grid.Row="8" Grid.Column="2" TextWrapping="Wrap" x:Name="tbNotes" FontStyle="Italic" FontSize="16"/>
             </Border>
-            <Button Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Height="40" Width="130" Content="Podsjetnik" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White"/>
+            <Button x:Name="btnReminder" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Height="40" Width="130" Content="Podsjetnik" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White" Click="setReminder"/>
         </Grid>
     
 </Page>

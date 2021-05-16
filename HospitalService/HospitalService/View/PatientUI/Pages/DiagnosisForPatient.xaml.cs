@@ -19,6 +19,9 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class DiagnosisForPatient : Page
     {
+        public Diagnosis Diagnosis { get; set; }
+        public Note Note { get; set; }
+       
         public DiagnosisForPatient(Diagnosis diagnosis, Note note)
         {
             InitializeComponent();
@@ -27,6 +30,14 @@ namespace HospitalService.View.PatientUI.Pages
             tbSymptoms.Text = diagnosis.Symptoms;
             tbAnamnesis.Text = diagnosis.Anamnesis;
             tbNotes.Text = note.noteForPatient;
+            Diagnosis = diagnosis;
+            Note = note;
+           
+        }
+
+        private void setReminder(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new NotesNotification(Diagnosis,Note,btnReminder,this));
         }
     }
 }
