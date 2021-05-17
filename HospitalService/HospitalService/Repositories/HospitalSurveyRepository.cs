@@ -1,29 +1,24 @@
-﻿using System;
+﻿using HospitalService.Model;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using HospitalService.Model;
-using Newtonsoft.Json;
 
-namespace HospitalService.Storage
+namespace HospitalService.Repositories
 {
-  public  class HospitalSurveyStorage
+    class HospitalSurveyRepository
     {
 
         private String FileLocation = @"..\..\..\Data\hospitalSurveys.json";
         public List<SurveyHospitalPatient> hospitalSurveys { get; set; }
 
-        public HospitalSurveyStorage() {
+        public HospitalSurveyRepository()
+        {
 
             hospitalSurveys = new List<SurveyHospitalPatient>();
             hospitalSurveys = JsonConvert.DeserializeObject<List<SurveyHospitalPatient>>(File.ReadAllText(FileLocation));
 
-
-        }
-
-        public void SerializeHospitalSurveys()
-        {
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(hospitalSurveys));
         }
 
         public List<SurveyHospitalPatient> GetAll()
@@ -34,8 +29,11 @@ namespace HospitalService.Storage
         public void Save(SurveyHospitalPatient newSurvey)
         {
             hospitalSurveys.Add(newSurvey);
-            SerializeHospitalSurveys();
+            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(hospitalSurveys,
+                       new JsonSerializerSettings()
+                       {
+                           ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                       }));
         }
-
     }
 }
