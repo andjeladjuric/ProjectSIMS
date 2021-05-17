@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views"
       xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations"
+      xmlns:conv="clr-namespace:HospitalService.View.ManagerUI.Converters"
       xmlns:System="clr-namespace:System;assembly=mscorlib"
       xmlns:model="clr-namespace:Model"
       mc:Ignorable="d" 
@@ -13,7 +14,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <local:EnumValueConverter x:Key="comboConvert"/>
+            <conv:EnumValueConverter x:Key="comboConvert"/>
             <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
                             ObjectType="{x:Type System:Enum}">
                 <ObjectDataProvider.MethodParameters>
@@ -72,15 +73,17 @@
         </TextBox>
 
         <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
-                  HorizontalAlignment="Left" Height="34" Margin="468,0,0,0" VerticalAlignment="Center" Width="172">
+                  HorizontalAlignment="Left" Height="34" Margin="468,0,0,0" VerticalAlignment="Center" Width="172"
+                  SelectedItem="{Binding RoomType}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource comboConvert}}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="370,456,0,0" VerticalAlignment="Top" Height="26" Width="91" Click="save_Click" 
-                Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14">
+        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="370,456,0,0" VerticalAlignment="Top" Height="26" Width="91" 
+                Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"
+                Command="{Binding AddCommand}">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="IsEnabled" Value="True"/>
@@ -105,7 +108,9 @@
             </Button.Style>
         </Button>
 
-        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="509,456,0,0" VerticalAlignment="Top" Height="26" Width="90" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="509,456,0,0" VerticalAlignment="Top" Height="26" Width="90" 
+                Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"
+                Command="{Binding CancelCommand}"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="332,56,0,0" Text="Dodaj sobu" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
 
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>

@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalService.Service;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,7 +21,7 @@ using System.Windows.Shapes;
 namespace HospitalService.View.ManagerUI.Views
 {
     /// <summary>
-    /// Interaction logic for RoomEdit.xaml
+    /// Interaction logic for RoomEditView.xaml
     /// </summary>
     public partial class RoomEditView : Page, INotifyPropertyChanged
     {
@@ -48,14 +49,14 @@ namespace HospitalService.View.ManagerUI.Views
         }
         public Room room { get; set; }
         RoomFileStorage storage;
+        RoomService roomService = new RoomService();
         public ObservableCollection<Room> roomList { get; set; }
-        public RoomEditView(Room r, ObservableCollection<Room> rooms, RoomFileStorage st)
+        public RoomEditView(Room r, ObservableCollection<Room> rooms)
         {
             InitializeComponent();
             this.DataContext = this;
             room = r;
             roomList = rooms;
-            storage = st;
 
             roomName = room.Name;
         }
@@ -76,7 +77,7 @@ namespace HospitalService.View.ManagerUI.Views
                 slobodan = false;
             }
 
-            storage.Edit(id, neki, tip, slobodan);
+            roomService.Edit(id, neki, tip, slobodan);
             newFrame.NavigationService.Navigate(new RoomsView());
         }
 

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views"
       xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations"
+      xmlns:conv="clr-namespace:HospitalService.View.ManagerUI.Converters"
       xmlns:System="clr-namespace:System;assembly=mscorlib"
       xmlns:model="clr-namespace:Model"
       mc:Ignorable="d" 
@@ -13,7 +14,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <local:EnumValueConverter x:Key="comboConvert"/>
+            <conv:EnumValueConverter x:Key="comboConvert"/>
             <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
                             ObjectType="{x:Type System:Enum}">
                 <ObjectDataProvider.MethodParameters>

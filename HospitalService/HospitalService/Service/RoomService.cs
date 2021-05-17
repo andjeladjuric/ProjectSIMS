@@ -31,7 +31,7 @@ namespace HospitalService.Service
         public void DeleteRoom(string roomId)
         {
             DeleteMovingRequests(roomId);
-            DeleteMovingRequests(roomId);
+            DeleteRenovationRequests(roomId);
             MoveItemsToStorage(roomId);
             roomsRepository.Delete(roomId);
         }
@@ -96,6 +96,12 @@ namespace HospitalService.Service
                 }
             }
         }
+
+        public List<Room> GetAll() => roomsRepository.GetAll();
+        public Room GetOne(string Id) => roomsRepository.GetOne(Id);
+        public List<Room> GetByType(RoomType Type) => roomsRepository.GetByType(Type);
+        public void AddRoom(Room newRoom) => roomsRepository.Save(newRoom);
+        public void Edit(String id, String name, RoomType type, Boolean free) => roomsRepository.Edit(id, name, type, free);
 
         #endregion
     }
