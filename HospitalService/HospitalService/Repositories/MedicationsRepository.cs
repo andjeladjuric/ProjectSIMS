@@ -54,8 +54,6 @@ namespace HospitalService.Repositories
             return medications.Find(x => x.Id == id);
         }
 
-      
-
         public void Update(Medication updatedMedication)
         {
             for (int i = 0; i < meds.Count; i++)
