@@ -85,5 +85,11 @@ namespace HospitalService.View.DoctorUI.ViewModel
             allMedications.ForEach(ApprovedMedications.Add);
         }
 
+        public void DateChanged(DateTime date)
+        {
+            List<Appointment> todaysAppointments = new AppointmentsService().GetByDoctor(Doctor, date);
+            todaysAppointments.ForEach(Appointments.Add);
+        }
+
     }
 }

@@ -19,15 +19,17 @@ namespace HospitalService.View.DoctorUI.Views
     /// </summary>
     public partial class DoctorWindowView : Window
     {
+        public DoctorWindowViewModel context;
         public DoctorWindowView(Doctor loggedDoctor)
         {
             InitializeComponent();
-            this.DataContext = new DoctorWindowViewModel(loggedDoctor);
+            context = new DoctorWindowViewModel(loggedDoctor);
+            this.DataContext = context;
         }
 
         public void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+          //context.DateChanged((DateTime)datePicker.SelectedDate);
         }
     }
 }
