@@ -23,6 +23,11 @@ namespace HospitalService.Repositories
             File.WriteAllText(FileLocation, JsonConvert.SerializeObject(appointments));
         }
 
+        public void SaveAll(List<Appointment> allAppointments)
+        {
+            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(allAppointments));
+        }
+
         public List<Appointment> GetAll()
         {
             return appointments;
