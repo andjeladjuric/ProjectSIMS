@@ -1,5 +1,6 @@
 ﻿using HospitalService.Storage;
 using HospitalService.View.DoctorUI;
+using HospitalService.View.DoctorUI.Views;
 using HospitalService.View.ManagerUI;
 using HospitalService.View.PatientUI;
 using HospitalService.View.SecretaryUI;
@@ -55,7 +56,7 @@ namespace HospitalService
                         else if (ac.User == UserType.Doctor)
                         {
                             Doctor d = doctorBase.GetOne(ac.Username);
-                            new DoctorWindow(d).Show();
+                            new DoctorWindowView(d).Show(); // izmjena
                             this.Close();
                             break;
                         }

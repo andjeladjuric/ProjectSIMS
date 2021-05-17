@@ -31,5 +31,21 @@ namespace HospitalService.Service
             int id = appointments.Count;
             return (++id).ToString();
         }
+
+        public List<Appointment> GetByDoctor(Doctor doctor, DateTime date)
+        {
+            Appointment appointment;
+            List<Appointment> appointments = repository.GetAll();
+            List<Appointment> appointmentsForSelectedDate = new List<Appointment>();
+            for (int i = 0; i < appointments.Count; i++)
+            {
+                appointment = appointments[i];
+                if (appointment.doctor.Jmbg.Equals(doctor.Jmbg) && appointment.StartTime.Date == date.Date)
+                {
+                    appointmentsForSelectedDate.Add(appointment);
+                }
+            }
+            return appointmentsForSelectedDate;
+        }
     }
 }
