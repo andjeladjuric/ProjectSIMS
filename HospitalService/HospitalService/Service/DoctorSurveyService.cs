@@ -28,5 +28,12 @@ namespace HospitalService.Service
             return lastFinishedSurvey;
         }
 
+
+        public void saveDoctorSurvey(SurveyDoctorPatient newSurvey) {
+
+            repository.Save(newSurvey);
+        
+        }
+
     }
 }

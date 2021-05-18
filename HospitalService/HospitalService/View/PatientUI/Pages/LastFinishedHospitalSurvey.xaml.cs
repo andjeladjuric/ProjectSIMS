@@ -19,17 +19,17 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class LastFinishedHospitalSurvey : Page
     {
-        public LastFinishedHospitalSurvey(SurveyHospitalPatient shp)
+        public LastFinishedHospitalSurvey(SurveyHospitalPatient lastFinishedHospitalSurvey)
         {
             InitializeComponent();
             this.DataContext = this;
-            lbDate.Content = shp.ExecutionTime.ToShortDateString();
-            lbProf.Content = shp.StaffExpertise;
-            lbCourtesy.Content = shp.StaffCourtesy;
-            lbTime.Content = shp.WaitingForReception;
-            lbHygiene.Content = shp.RoomHygiene;
-            lbService.Content = shp.QualityOfService;
-            lbPrise.Content = shp.ServicePrices;
+            lbExecutionDate.Content = lastFinishedHospitalSurvey.ExecutionTime.ToShortDateString();
+            lbStaffExpertise.Content = lastFinishedHospitalSurvey.StaffExpertise;
+            lbStaffCourtesy.Content = lastFinishedHospitalSurvey.StaffCourtesy;
+            lbWaitingForReception.Content = lastFinishedHospitalSurvey.WaitingForReception;
+            lbHygiene.Content = lastFinishedHospitalSurvey.RoomHygiene;
+            lbQualityOfService.Content = lastFinishedHospitalSurvey.QualityOfService;
+            lbServicePrices.Content = lastFinishedHospitalSurvey.ServicePrices;
 
         }
     }

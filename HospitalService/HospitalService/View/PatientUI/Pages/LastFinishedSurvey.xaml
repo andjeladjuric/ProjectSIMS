@@ -39,17 +39,17 @@
             <Label x:Name="lbDoctor"  FontStyle="Italic" FontSize="22" Width="230"/>
         </StackPanel>
         <Label Grid.Row="5" Grid.Column="1" Content="Nacin komunikacije sa pacijentom:" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
-        <Label x:Name="lbKomunik" Grid.Row="5" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
+        <Label x:Name="lbCommunication" Grid.Row="5" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
         <Label Grid.Row="6" Grid.Column="1" Content="Ljubaznost doktora:" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
-        <Label x:Name="lbLjubaznost" Grid.Row="6" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
+        <Label x:Name="lbCourtesy" Grid.Row="6" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
         <Label Grid.Row="7" Grid.Column="1" Content="Strucnost doktora:" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
-        <Label x:Name="lbStrucnost" Grid.Row="7" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
+        <Label x:Name="lbProfessionalism" Grid.Row="7" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
         <Label Grid.Row="8" Grid.Column="1" Content="Briga doktora o pacijentu:" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
-        <Label x:Name="lbBriga" Grid.Row="8" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
+        <Label x:Name="lbCareForPatient" Grid.Row="8" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
         <Label Grid.Row="9" Grid.Column="1" Content="Pruzanje informacija pacijentu:" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
-        <Label x:Name="lbInfo" Grid.Row="9" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
+        <Label x:Name="lbProvidingInformation" Grid.Row="9" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
         <Label Grid.Row="10" Grid.Column="1" Content="Vrijeme posveceno pacijentu:" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
-        <Label x:Name="lbVrijeme" Grid.Row="10" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
+        <Label x:Name="lbDevotedTime" Grid.Row="10" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
     </Grid>
     
 </Page>

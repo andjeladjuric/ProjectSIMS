@@ -14,6 +14,7 @@ using Model;
 using System.Linq;
 using HospitalService.Model;
 using HospitalService.Storage;
+using HospitalService.Service;
 
 namespace HospitalService.View.PatientUI.Pages
 {
@@ -22,120 +23,119 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class DoctorSurvey : Page
     {
-        public Patient patient { get; set; }
-        public Doctor doctor { get; set; }
-        public DoctorSurvey(Patient p,Doctor d)
+        private DoctorSurveyService doctorSurveyService;
+        public Patient surveyor { get; set; }
+        public Doctor surveyedDoctor { get; set; }
+        public DoctorSurvey(Patient patient, Doctor doctor)
         {
             InitializeComponent();
-            patient = p;
-            doctor = d;
-            String s = doctor.Name + " " + d.Surname;
-            lbDoctor.Content = s;
+            surveyor = patient;
+            surveyedDoctor = doctor;
+            lbDoctor.Content = surveyedDoctor.Name + " " + doctor.Surname;
+            doctorSurveyService = new DoctorSurveyService();
             this.DataContext = this;
             
 
         }
 
-        private void ConfirmClick(object sender, RoutedEventArgs e)
+        private void doDoctorSurvey(object sender, RoutedEventArgs e)
         {
-            String communicationSurvey;
-            if (NKomunikacija.IsChecked == true)
+            String ratingForCommunication;
+            if (NCommunication.IsChecked == true)
             {
-                communicationSurvey = NKomunikacija.Content.ToString();
+                ratingForCommunication = NCommunication.Content.ToString();
             }
-            else if (DZKomunikacija.IsChecked == true)
+            else if (DZCommunication.IsChecked == true)
             {
-                communicationSurvey = DZKomunikacija.Content.ToString();
-            }
-            else
-            {
-                communicationSurvey = ZKomunikacija.Content.ToString();
-            }
-
-            String courtesySurvey;
-            if (NLjubaznost.IsChecked == true)
-            {
-                courtesySurvey = NLjubaznost.Content.ToString();
-            }
-            else if (DZLjubaznost.IsChecked == true)
-            {
-                courtesySurvey = DZLjubaznost.Content.ToString();
+                ratingForCommunication = DZCommunication.Content.ToString();
             }
             else
             {
-                courtesySurvey = ZLjubaznost.Content.ToString();
+                ratingForCommunication = ZCommunication.Content.ToString();
             }
 
-            String professionalismSurvey;
-            if (NStrucnost.IsChecked == true)
+            String ratingForCourtesy;
+            if (NCourtesy.IsChecked == true)
             {
-                professionalismSurvey = NStrucnost.Content.ToString();
+                ratingForCourtesy = NCourtesy.Content.ToString();
             }
-            else if (DZStrucnost.IsChecked == true)
+            else if (DZCourtesy.IsChecked == true)
             {
-                professionalismSurvey = DZStrucnost.Content.ToString();
+                ratingForCourtesy = DZCourtesy.Content.ToString();
             }
             else
             {
-                professionalismSurvey = ZStrucnost.Content.ToString();
+                ratingForCourtesy = ZCourtesy.Content.ToString();
             }
 
-            String doctorCareSurvey;
-            if (NBriga.IsChecked == true)
+            String ratingForProfessionalism;
+            if (NProfessionalism.IsChecked == true)
             {
-                doctorCareSurvey = NBriga.Content.ToString();
+                ratingForProfessionalism = NProfessionalism.Content.ToString();
             }
-            else if (DZBriga.IsChecked == true)
+            else if (DZProfessionalism.IsChecked == true)
             {
-                doctorCareSurvey = DZBriga.Content.ToString();
+                ratingForProfessionalism = DZProfessionalism.Content.ToString();
             }
             else
             {
-                doctorCareSurvey = ZBriga.Content.ToString();
+                ratingForProfessionalism = ZProfessionalism.Content.ToString();
             }
 
-            String infoSurvey;
-            if (NInformisanost.IsChecked == true)
+            String ratingForDoctorCare;
+            if (NDoctorCare.IsChecked == true)
             {
-                infoSurvey = NInformisanost.Content.ToString();
+                ratingForDoctorCare = NDoctorCare.Content.ToString();
             }
-            else if (DZInformisanost.IsChecked == true)
+            else if (DZDoctorCare.IsChecked == true)
             {
-                infoSurvey = DZInformisanost.Content.ToString();
+                ratingForDoctorCare = DZDoctorCare.Content.ToString();
             }
             else
             {
-                infoSurvey = ZInformisanost.Content.ToString();
+                ratingForDoctorCare = ZDoctorCare.Content.ToString();
             }
 
-            String timeSurvey;
-            if (NVrijeme.IsChecked == true)
+            String ratingForProvidingInformation;
+            if (NProvidingInformation.IsChecked == true)
             {
-                timeSurvey = NVrijeme.Content.ToString();
+                ratingForProvidingInformation = NProvidingInformation.Content.ToString();
             }
-            else if (DZVrijeme.IsChecked == true)
+            else if (DZProvidingInformation.IsChecked == true)
             {
-                timeSurvey = DZVrijeme.Content.ToString();
+                ratingForProvidingInformation = DZProvidingInformation.Content.ToString();
             }
             else
             {
-                timeSurvey = ZVrijeme.Content.ToString();
+                ratingForProvidingInformation = ZProvidingInformation.Content.ToString();
             }
 
+            String ratingForDevotedTime;
+            if (NDevotedTime.IsChecked == true)
+            {
+                ratingForDevotedTime = NDevotedTime.Content.ToString();
+            }
+            else if (DZDevotedTime.IsChecked == true)
+            {
+                ratingForDevotedTime = DZDevotedTime.Content.ToString();
+            }
+            else
+            {
+                ratingForDevotedTime = ZDevotedTime.Content.ToString();
+            }   
             
-            
-            
-            SurveyDoctorPatient a = new SurveyDoctorPatient {Communication=communicationSurvey, Courtesy=courtesySurvey, Professionalism=professionalismSurvey, CareForPatient=doctorCareSurvey, ProvidingInformation=infoSurvey, DevotedTime=timeSurvey, doctor= doctor, patient=patient, ExecutionTime=DateTime.Now };
-            DoctorSurveyStorage dss = new DoctorSurveyStorage();
-            dss.Save(a);
-            this.NavigationService.Navigate(new Surveys(patient));
+            SurveyDoctorPatient newSurvey = new SurveyDoctorPatient {Communication=ratingForCommunication, Courtesy=ratingForCourtesy, Professionalism=ratingForProfessionalism, CareForPatient=ratingForDoctorCare, ProvidingInformation=ratingForProvidingInformation, DevotedTime=ratingForDevotedTime, doctor= surveyedDoctor, patient=surveyor, ExecutionTime=DateTime.Now };
+            doctorSurveyService.saveDoctorSurvey(newSurvey);
+            this.NavigationService.Navigate(new Surveys(surveyor));
 
 
         }
 
+        
+
         private void CancelClick(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Surveys(patient));
+            this.NavigationService.Navigate(new Surveys(surveyor));
             
         }
     }
