@@ -20,20 +20,19 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class NotesNotification : Page
     {
-        public Diagnosis Diagnosis { get; set; }
-        public Note Note { get; set; }
-        public Button Reminder { get; set; }
-        public DiagnosisForPatient diagnosisForPatient { get; set; }
-        public NotesNotification(Diagnosis diagnosis, Note note, Button reminder,DiagnosisForPatient dfp)
+        public Diagnosis chosenDiagnosis { get; set; }
+        public Note noteOfChosenDiagnosis { get; set; }
+        
+        public NotesNotification(Diagnosis diagnosis, Note note)
         {
             InitializeComponent();
-            Diagnosis = diagnosis;
-            Note = note;
-            Reminder = reminder;
-            diagnosisForPatient = dfp;
+            chosenDiagnosis = diagnosis;
+            noteOfChosenDiagnosis = note;
+            
+            
         }
 
-        private void confirmClick(object sender, RoutedEventArgs e)
+        private void confirmSettingReminder(object sender, RoutedEventArgs e)
         {
             /*  //int howOftenInMilliseconds = howOften() * 3600 * 1000;
               double howOftenInMilliseconds = 0.0166666667 * 3600 * 1000;
@@ -63,37 +62,30 @@ namespace HospitalService.View.PatientUI.Pages
 
               */
             double howOftenInMilliseconds = 15000;
-
+            DateTime startTime = Convert.ToDateTime(dpStartDate.Text + " " + tbStartTime.Text + ":00");
+            DateTime endTime = Convert.ToDateTime(dpEndDate.Text + " " + tbEndTime.Text + ":00");
+            var timeToBeginning = startTime - DateTime.Now;
             Timer everyFewHours = new Timer() { Interval = howOftenInMilliseconds };
-            String end = tbEnd.Text;
-            String dateEnd = dpEnd.Text;
-            DateTime endTime = Convert.ToDateTime(dateEnd + " " + end + ":00");
-
             everyFewHours.Elapsed += (sender, e) =>
             {
 
                 if (DateTime.Compare(DateTime.Now, endTime) < 0)
                 {
 
-                    MessageBox.Show(Note.noteForPatient);
+                    MessageBox.Show(noteOfChosenDiagnosis.noteForPatient);
                 }
 
             };
 
-            String start = tbStart.Text;
-            String dateStart = dpStart.Text;
-            DateTime startTime = Convert.ToDateTime(dateStart + " " + start + ":00");
-            var span = startTime - DateTime.Now;
-
-            var timer = new Timer { Interval = span.TotalMilliseconds, AutoReset = false };
-            timer.Elapsed += (sender, e) => { 
+            var startTimer = new Timer { Interval = timeToBeginning.TotalMilliseconds, AutoReset = false };
+            startTimer.Elapsed += (sender, e) => { 
                 everyFewHours.Start();
-                MessageBox.Show(Note.noteForPatient);
+                MessageBox.Show(noteOfChosenDiagnosis.noteForPatient);
 
             };
-            timer.Start();
+            startTimer.Start();
            
-            this.NavigationService.Navigate(new DiagnosisForPatient(Diagnosis,Note));
+            this.NavigationService.Navigate(new DiagnosisForPatient(chosenDiagnosis,noteOfChosenDiagnosis));
             
 
         }
@@ -121,7 +113,7 @@ namespace HospitalService.View.PatientUI.Pages
 
         private void cancelClick(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new DiagnosisForPatient(Diagnosis, Note));
+            this.NavigationService.Navigate(new DiagnosisForPatient(chosenDiagnosis, noteOfChosenDiagnosis));
         }
     }
 }

@@ -2,6 +2,7 @@
 using Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace HospitalService.Service
@@ -30,6 +31,16 @@ namespace HospitalService.Service
             List<Appointment> appointments = repository.GetAll();
             int id = appointments.Count;
             return (++id).ToString();
+        }
+
+        public Appointment getLastFinishedAppointment(Doctor doctor, Patient patient) {
+
+            List<Appointment> appointments = repository.GetAll();
+            List<Appointment> finishedAppointments = appointments.Where(appointment => appointment.doctor.Jmbg.Equals(doctor.Jmbg) && appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.EndTime < DateTime.Now).ToList();
+            finishedAppointments.Sort((a1, a2) => DateTime.Compare(a1.EndTime, a2.EndTime));
+            Appointment lastFinishedAppointment = finishedAppointments[finishedAppointments.Count - 1];
+            return lastFinishedAppointment;
+
         }
     }
 }

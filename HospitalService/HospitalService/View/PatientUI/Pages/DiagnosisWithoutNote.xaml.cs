@@ -21,12 +21,12 @@ namespace HospitalService.View.PatientUI.Pages
     public partial class DiagnosisWithoutNote : Page
     {
         public Patient Patient { get; set; }
-        public Diagnosis Diagnosis { get; set; }
+        public Diagnosis chosenDiagnosis { get; set; }
         public DiagnosisWithoutNote(Diagnosis diagnosis, Patient patient)
         {
             InitializeComponent();
             Patient = patient;
-            Diagnosis = diagnosis;
+            chosenDiagnosis = diagnosis;
             lbDate.Content = diagnosis.Datum;
             lbIllness.Content = diagnosis.Illness;
             tbSymptoms.Text = diagnosis.Symptoms;
@@ -36,7 +36,7 @@ namespace HospitalService.View.PatientUI.Pages
 
         private void makeNoteClick(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new NoteForDiagnosis(Patient,Diagnosis));
+            this.NavigationService.Navigate(new NoteForDiagnosis(Patient,chosenDiagnosis));
         }
     }
 }
