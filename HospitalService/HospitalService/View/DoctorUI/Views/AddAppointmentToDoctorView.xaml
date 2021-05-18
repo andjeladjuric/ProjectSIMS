@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
         mc:Ignorable="d"
          Title="Novi termin" Height="450" Width="768" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" FontSize="16">
     <Grid>
@@ -13,7 +15,7 @@
         <Label Content="Datum:" HorizontalAlignment="Left" Margin="40,102,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <Label Content="Tip:" HorizontalAlignment="Left" Margin="400,39,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="400,165,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
-        <TextBox IsEnabled="False" Text="{Binding Path=NextID}" ToolTipService.ToolTip="Appointment's id" Name="IdBox"  HorizontalAlignment="Left" Height="31" Margin="159,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
+        <TextBox IsEnabled="False" Text="{Binding Path=NextId}" ToolTipService.ToolTip="Appointment's id" Name="IdBox"  HorizontalAlignment="Left" Height="31" Margin="159,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
         <TextBox ToolTipService.ToolTip="Correct Format: 12:00" Name="StartBox" HorizontalAlignment="Left" Height="31" Margin="159,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
         <TextBox ToolTipService.ToolTip="Correct Format: 12:00" Name="EndBox" HorizontalAlignment="Left" Height="31" Margin="159,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
         <ComboBox Name="PatientBox" ItemsSource="{Binding Path=Patients}" HorizontalAlignment="Left" Margin="525,165,0,0" VerticalAlignment="Top" Width="129" Height="35">
@@ -51,11 +53,33 @@
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click" >
+                    <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="KeyUp" >
+                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <i:Interaction.Behaviors>
+                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+            </i:Interaction.Behaviors>
         </Button>
         <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="430,347,0,0" VerticalAlignment="Top" Width="127" Height="36">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click" >
+                    <i:InvokeCommandAction Command="{Binding AddAppointmentCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="KeyUp" >
+                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <i:Interaction.Behaviors>
+                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+            </i:Interaction.Behaviors>
         </Button>
     </Grid>
 </Window>

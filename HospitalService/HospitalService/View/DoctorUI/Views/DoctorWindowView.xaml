@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
         Height="600" Width="950"
       Title="Glavni prozor"  UseLayoutRounding="True" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Grid>
@@ -68,6 +70,17 @@
                             <Button.Effect>
                                 <DropShadowEffect/>
                             </Button.Effect>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click" >
+                                    <i:InvokeCommandAction Command="{Binding AddAppointmentCommand}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="KeyUp" >
+                                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <i:Interaction.Behaviors>
+                                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                            </i:Interaction.Behaviors>
                         </Button>
                     </StackPanel>
                     <DataGrid x:Name="AppointmentsTable" IsReadOnly="True"  ItemsSource="{Binding Path=Appointments}"

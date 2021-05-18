@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HospitalService.View.DoctorUI.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -20,6 +21,7 @@ namespace HospitalService.View.DoctorUI.Views
         public AddAppointmentToDoctorView()
         {
             InitializeComponent();
+            this.DataContext = new AddAppointmentToDoctorViewModel(this);
         }
     }
 }

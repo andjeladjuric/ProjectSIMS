@@ -1,11 +1,14 @@
 ﻿using HospitalService.Repositories;
 using HospitalService.Service;
 using HospitalService.Storage;
+using HospitalService.View.DoctorUI.Commands;
+using HospitalService.View.DoctorUI.Views;
 using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
@@ -16,6 +19,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private ObservableCollection<Patient> patients;
         private ObservableCollection<Medication> medicationsForApproval;
         private ObservableCollection<Medication> approvedMedications;
+        public RelayCommand AddAppointmentCommand { get; set; }
+
+        public RelayCommand KeyUpCommandWithKey { get; set; }
 
         public Doctor Doctor
         {
@@ -69,6 +75,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public DoctorWindowViewModel(Doctor loggedDoctor)
         {
+            AddAppointmentCommand = new RelayCommand(Executed_AddAppointmentCommand,
+                CanExecute_AddAppointmentCommand);
+            KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             this.Doctor = loggedDoctor;
             this.Appointments = new ObservableCollection<Appointment>();
             this.Patients = new ObservableCollection<Patient>();
@@ -91,5 +100,20 @@ namespace HospitalService.View.DoctorUI.ViewModel
             todaysAppointments.ForEach(Appointments.Add);
         }
 
+        public void Executed_AddAppointmentCommand(object obj)
+        {
+            new AddAppointmentToDoctorView().ShowDialog();
+        }
+
+        public bool CanExecute_AddAppointmentCommand(object obj)
+        {
+            return true;
+        }
+
+        private void Executed_KeyDownCommandWithKey(object obj)
+        {
+            if (obj.Equals(Key.A))
+                AddAppointmentCommand.Execute(obj);
+        }
     }
 }
