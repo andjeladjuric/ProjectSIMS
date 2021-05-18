@@ -19,10 +19,10 @@ namespace HospitalService.View.DoctorUI.Views
     /// </summary>
     public partial class EditAppointmentForDoctorView : Window
     {
-        public EditAppointmentForDoctorView(Appointment appointment)
+        public EditAppointmentForDoctorView(Appointment appointment, DoctorWindowViewModel window)
         {
             InitializeComponent();
-            this.DataContext = new EditAppointmentForDoctorViewModel(this, appointment);
+            this.DataContext = new EditAppointmentForDoctorViewModel(this, appointment, window);
         }
     }
 }

@@ -44,7 +44,13 @@
             <TabItem Header="Termini" Margin="-2,-2,0,-8" >
                 <DockPanel Margin="0,0,0,80">
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="31" Margin="0,10,0,10">
-                        <DatePicker Name="datePicker" SelectedDateChanged="datePicker_SelectedDateChanged" Width="124"  Margin="725,0,0,0" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                        <DatePicker SelectedDate="{Binding Path=Date, Mode=TwoWay}" Name="datePicker"  Width="124"  Margin="725,0,0,0">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectedDateChanged" >
+                                    <i:InvokeCommandAction Command="{Binding RefreshAppointmentsCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </DatePicker>
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                         <Button Margin="280,0,0,0" Width="52">Obriši
@@ -54,6 +60,17 @@
                             <Button.Effect>
                                 <DropShadowEffect/>
                             </Button.Effect>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click" >
+                                    <i:InvokeCommandAction Command="{Binding DeleteAppointmentCommand}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="KeyUp" >
+                                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <i:Interaction.Behaviors>
+                                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                            </i:Interaction.Behaviors>
                         </Button>
                         <Button Margin="30,0,0,0" Width="58">Izmjeni
                             <Button.Background>

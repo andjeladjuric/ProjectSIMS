@@ -29,6 +29,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
         public AddAppointmentToDoctorView thisWindow { get; set; }
+        public DoctorWindowViewModel DoctorWindow { get; set; }
 
         public RelayCommand KeyUpCommandWithKey { get; set; }
 
@@ -132,8 +133,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
-        public AddAppointmentToDoctorViewModel(AddAppointmentToDoctorView window)
+        public AddAppointmentToDoctorViewModel(AddAppointmentToDoctorView window, DoctorWindowViewModel doctorWindow)
         {
+            DoctorWindow = doctorWindow;
             thisWindow = window;
             Date = DateTime.Today.Date;
             StartTime = DateTime.Now;
@@ -165,6 +167,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             newAppointment.patient = Patient;
             newAppointment.doctor = new DoctorStorage().GetOne("drpetra");
             new AppointmentStorage().Save(newAppointment);
+            DoctorWindow.Refresh();
             thisWindow.Close();
         }
 

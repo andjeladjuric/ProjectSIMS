@@ -4,10 +4,12 @@ using HospitalService.Storage;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Views;
 using Model;
+using Storage;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HospitalService.View.DoctorUI.ViewModel
@@ -15,6 +17,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
     public class DoctorWindowViewModel : ViewModelClass
     {
         private Doctor doctor;
+        private DateTime date;
         private ObservableCollection<Appointment> appointments;
         private ObservableCollection<Patient> patients;
         private ObservableCollection<Medication> medicationsForApproval;
@@ -22,6 +25,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private Appointment selectedAppointment;
         public RelayCommand AddAppointmentCommand { get; set; }
         public RelayCommand EditAppointmentCommand { get; set; }
+        public RelayCommand DeleteAppointmentCommand { get; set; }
+        public RelayCommand RefreshAppointmentsCommand { get; set; }
+
 
 
         public RelayCommand KeyUpCommandWithKey { get; set; }
@@ -32,6 +38,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 doctor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime Date
+        {
+            get { return date; }
+            set
+            {
+                date = value;
                 OnPropertyChanged();
             }
         }
@@ -89,15 +105,20 @@ namespace HospitalService.View.DoctorUI.ViewModel
         {
             AddAppointmentCommand = new RelayCommand(Executed_AddAppointmentCommand,
                 CanExecute_AddAppointmentCommand);
+            RefreshAppointmentsCommand = new RelayCommand(Executed_RefreshAppointmentsCommand,
+              CanExecute_AddAppointmentCommand);
             EditAppointmentCommand = new RelayCommand(Executed_EditAppointmentCommand,
                CanExecute_EditAppointmentCommand);
+            DeleteAppointmentCommand = new RelayCommand(Executed_DeleteAppointmentCommand,
+                CanExecute_EditAppointmentCommand);
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             this.Doctor = loggedDoctor;
             this.Appointments = new ObservableCollection<Appointment>();
             this.Patients = new ObservableCollection<Patient>();
             this.MedicationsForApproval = new ObservableCollection<Medication>();
             this.ApprovedMedications = new ObservableCollection<Medication>();
-            List<Appointment> todaysAppointments = new AppointmentsService().GetByDoctor(loggedDoctor, DateTime.Now);
+            Date = DateTime.Now;
+            List<Appointment> todaysAppointments = new AppointmentsService().GetByDoctor(loggedDoctor, Date);
             List<Patient> allPatients = new PatientsRepository().GetAll(); // prebaciti na servis
             List<MedicineValidationRequest> validationRequests = new MedicineValidationStorage().GetForDoctor(Doctor.Jmbg); // servis
             List<Medication> medications = new MedicationStorage().GetForApproval(validationRequests); // servis
@@ -108,15 +129,22 @@ namespace HospitalService.View.DoctorUI.ViewModel
             allMedications.ForEach(ApprovedMedications.Add);
         }
 
-        public void DateChanged(DateTime date)
-        {
-            List<Appointment> todaysAppointments = new AppointmentsService().GetByDoctor(Doctor, date);
-            todaysAppointments.ForEach(Appointments.Add);
-        }
+       
 
         public void Executed_AddAppointmentCommand(object obj)
         {
-            new AddAppointmentToDoctorView().ShowDialog();
+            new AddAppointmentToDoctorView(this).ShowDialog();
+        }
+
+        public void Executed_RefreshAppointmentsCommand(object obj)
+        {
+            Refresh();
+        }
+
+        public void Executed_DeleteAppointmentCommand(object obj)
+        {
+            new AppointmentStorage().Delete(SelectedAppointment.Id);
+            Refresh();
         }
 
         public bool CanExecute_AddAppointmentCommand(object obj)
@@ -126,13 +154,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public void Executed_EditAppointmentCommand(object obj)
         {
-            new EditAppointmentForDoctorView(SelectedAppointment).ShowDialog();
+            new EditAppointmentForDoctorView(SelectedAppointment, this).ShowDialog();
         }
 
         public bool CanExecute_EditAppointmentCommand(object obj)
         {
             if (SelectedAppointment == null)
+            {
+                MessageBox.Show("Morate izabrati termin");
                 return false;
+            }
             else
                 return true;
         }
@@ -142,5 +173,13 @@ namespace HospitalService.View.DoctorUI.ViewModel
             if (obj.Equals(Key.A))
                 AddAppointmentCommand.Execute(obj);
         }
+
+        public void Refresh()
+        {
+            List<Appointment> todaysAppointments = new AppointmentsService().GetByDoctor(Doctor, Date);
+            Appointments = new ObservableCollection<Appointment>();
+            todaysAppointments.ForEach(Appointments.Add);
+        }
     }
+
 }
