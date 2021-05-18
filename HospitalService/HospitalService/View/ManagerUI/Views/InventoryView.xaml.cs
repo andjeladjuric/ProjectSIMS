@@ -1,4 +1,5 @@
 ﻿using HospitalService.Storage;
+using HospitalService.View.ManagerUI.ViewModels;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -21,56 +22,15 @@ namespace HospitalService.View.ManagerUI.Views
     /// </summary>
     public partial class InventoryView : Page
     {
-        InventoryFileStorage storage = new InventoryFileStorage();
-        public ObservableCollection<Inventory> InventoryList { get; set; }
+        InventoryViewModel currentViewModel;
         public InventoryView()
         {
             InitializeComponent();
-            this.DataContext = this;
-            InventoryList = new ObservableCollection<Inventory>();
-
-            foreach (Inventory i in storage.GetAll())
-            {
-                InventoryList.Add(i);
-            }
+            currentViewModel = new InventoryViewModel(newFrame);
+            this.DataContext = currentViewModel;
         }
 
-        private void create_Click(object sender, RoutedEventArgs e)
-        {
-            newFrame.Content = new NewItemView(InventoryList, storage);
-        }
-
-        private void update_Click(object sender, RoutedEventArgs e)
-        {
-            Inventory item = (Inventory)tableBinding.SelectedItem;
-            if (item == null)
-            {
-                MessageBox.Show("Morate izabrati stavku!");
-            }
-            else
-            {
-                newFrame.Content = new EditInventoryView(item, InventoryList, storage);
-            }
-        }
-
-        private void delete_Click(object sender, RoutedEventArgs e)
-        {
-            Inventory item = (Inventory)tableBinding.SelectedItem;
-            if (item == null)
-            {
-                MessageBox.Show("Izaberite stavku!");
-            }
-            else
-            {
-                storage.Delete(item.Id);
-                InventoryList.Remove(item);
-                tableBinding.ItemsSource = InventoryList;
-                InventoryType.SelectedIndex = -1;
-                tableBinding.Items.Refresh();
-            }
-        }
-
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /*private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (InventoryType.SelectedIndex != -1)
             {
@@ -128,34 +88,13 @@ namespace HospitalService.View.ManagerUI.Views
             }
         }
 
-        private List<Inventory> GetInventoryForRoom(string roomId)
-        {
-            List<Inventory> inv = new List<Inventory>();
-            RoomInventoryStorage roomInv = new RoomInventoryStorage();
-            foreach (RoomInventory r in roomInv.GetAll())
-            {
-                if (r.RoomId.Equals(roomId))
-                {
-                    foreach (Inventory i in storage.GetAll())
-                    {
-                        if (r.ItemId == i.Id)
-                            inv.Add(i);
-                    }
-                }
-
-            }
-
-            return inv;
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Popup.IsPopupOpen = false;
             searchId.Text = "";
             searchName.Text = "";
             searchSupplier.Text = "";
-            tableBinding.ItemsSource = InventoryList;
-        }
+        }*/
     }
 }
 

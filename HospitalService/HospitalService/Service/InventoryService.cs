@@ -126,6 +126,9 @@ namespace HospitalService.Service
             }
         }
 
+        public List<Inventory> GetAll() => inventory.GetAll();
+        public Inventory GetOne(int id) => inventory.GetOne(id);
+
         #endregion
     }
 }

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views"
+      xmlns:conv="clr-namespace:HospitalService.View.ManagerUI.Converters"
       xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations"
       xmlns:System="clr-namespace:System;assembly=mscorlib"
       xmlns:model="clr-namespace:Model"
@@ -13,7 +14,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <local:InventoryTypeConverter x:Key="invConverter"/>
+            <conv:InventoryTypeConverter x:Key="invConverter"/>
             <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
                             ObjectType="{x:Type System:Enum}">
                 <ObjectDataProvider.MethodParameters>
@@ -37,23 +38,8 @@
         <Label x:Name="kolicina" Content="Količina" HorizontalAlignment="Left" Margin="332,301,0,0" VerticalAlignment="Top" Width="130" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="34"/>
         <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="332,364,0,0" VerticalAlignment="Top" Width="130" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
         <Label x:Name="supplier" Content="Proizvođač" HorizontalAlignment="Left" Margin="332,425,0,0" VerticalAlignment="Top" Width="130" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
-        <TextBox x:Name="IDBox" HorizontalAlignment="Left" Height="34" Margin="467,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179">
-            <TextBox.Text>
-                <Binding Path="ItemId" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <validation:ItemIdValidation ValidationStep="RawProposedValue"/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-            <Validation.ErrorTemplate>
-                <ControlTemplate>
-                    <StackPanel>
-                        <AdornedElementPlaceholder x:Name="textBox"/>
-                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020"/>
-                    </StackPanel>
-                </ControlTemplate>
-            </Validation.ErrorTemplate>
-        </TextBox>
+        <TextBox x:Name="IDBox" HorizontalAlignment="Left" Height="34" Margin="467,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
+                 Width="179" IsEnabled="False" Text="{Binding ItemId}"/>
 
         <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="34" Margin="467,242,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179">
             <TextBox.Text>
@@ -74,14 +60,16 @@
         </TextBox>
 
         <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
-                  HorizontalAlignment="Left" Height="34" Margin="467,359,0,0" VerticalAlignment="Top" Width="179">
+                  HorizontalAlignment="Left" Height="34" Margin="467,359,0,0" VerticalAlignment="Top" Width="179"
+                  SelectedItem="{Binding Type}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource invConverter}}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="378,512,0,0" VerticalAlignment="Top" Height="34" Width="96" Click="save_Click" 
+        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="378,512,0,0" VerticalAlignment="Top" 
+                Height="34" Width="96" Command="{Binding ConfirmCommand}"
                 Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -119,11 +107,13 @@
             </Button.Style>
         </Button>
 
-        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="502,512,0,0" VerticalAlignment="Top" Height="34" Width="92" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" RenderTransformOrigin="0.522,0.406"/>
+        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="502,512,0,0" VerticalAlignment="Top" 
+                Height="34" Width="92" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" 
+                FontFamily="Gill Sans MT" FontSize="14" RenderTransformOrigin="0.522,0.406" Command="{Binding CancelCommand}"/>
         <Label x:Name="label" Visibility="Hidden" Content="Pogrešan format!" HorizontalAlignment="Left" Margin="583,217,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
         <TextBox x:Name="QuantityBox" HorizontalAlignment="Left" Height="34" Margin="467,302,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179">
             <TextBox.Text>
-                <Binding Path="ItemQuantity" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="Quantity" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validation:QuantityValidation ValidationStep="ConvertedProposedValue" Min="1"/>
                     </Binding.ValidationRules>

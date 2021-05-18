@@ -31,7 +31,7 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
-        <DataGrid x:Name="tableBinding" IsReadOnly="True"  Margin="16,0,0,0" ItemsSource="{Binding roomList}" SelectedItem="{Binding room, Mode=TwoWay}"
+        <DataGrid x:Name="tableBinding" IsReadOnly="True"  Margin="16,0,0,0" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom, Mode=OneWay}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
                   Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
@@ -88,11 +88,11 @@
             <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="59,167,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="30"/>
             <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="59,221,0,0" VerticalAlignment="Top" Width="112" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="32"/>
             <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="59,276,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
-            <TextBox x:Name="IDBox" IsReadOnly="True" Text="{Binding room.Id, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Height="30" Margin="177,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
+            <TextBox x:Name="IDBox" IsReadOnly="True" Text="{Binding RoomId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Height="30" Margin="177,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
             <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="32" Margin="177,221,0,0" TextWrapping="Wrap" 
                      VerticalAlignment="Top" Width="154">
                 <TextBox.Text>
-                    <Binding Path="roomName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="RoomName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validation:NameValidation ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules>
@@ -109,7 +109,7 @@
             </TextBox>
 
             <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
-                      SelectedItem="{Binding room.Type, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding RoomType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       HorizontalAlignment="Left" Height="30" Margin="176,276,0,0" VerticalAlignment="Top" Width="154">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -117,7 +117,8 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="90,395,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="saveClick" 
+            <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="90,395,0,0" VerticalAlignment="Top" Height="30" Width="81" 
+                    Command="{Binding ConfirmCommand}"
                     Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -137,12 +138,14 @@
                 </Button.Style>
             </Button>
 
-            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="214,395,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="cancelClick" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="214,395,0,0" VerticalAlignment="Top" Height="30" Width="80" 
+                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"
+                    Command="{Binding CancelCommand}"/>
             <Label x:Name="label" Visibility="Hidden" Content="Wrong format!" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="280,128,0,0" VerticalAlignment="Top" Width="73" Height="34" FontSize="8.5" Foreground="#FFE52020" FontFamily="Gill Sans MT"/>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="34,61,0,0" Text="Izmeni sobu" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
 
             <Label x:Name="availability" Content="Dostupnost" HorizontalAlignment="Left" Margin="59,326,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
-            <RadioButton x:Name="available" IsChecked="{Binding room.IsFree, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <RadioButton x:Name="available" IsChecked="{Binding IsFree, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          Content="Dostupna" HorizontalAlignment="Left" Margin="172,329,0,0" VerticalAlignment="Top" 
                          FontFamily="Gill Sans MT" FontStyle="Normal" FontSize="14"/>
             <RadioButton x:Name="notAvailable" Content="Renovira se" HorizontalAlignment="Left" Margin="256,332,0,0" VerticalAlignment="Top" 

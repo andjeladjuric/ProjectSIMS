@@ -4,14 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views"
+      xmlns:conv="clr-namespace:HospitalService.View.ManagerUI.Converters"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
      d:DesignHeight="718" d:DesignWidth="969"
       Title="Inventory">
 
     <Page.Resources>
         <ResourceDictionary>
-            <local:InventoryTypeConverter x:Key="typeConverter"/>
+            <conv:InventoryTypeConverter x:Key="typeConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
@@ -25,7 +27,8 @@
         <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0,33,0,0" Text="Inventar" 
                    TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="152" FontFamily="Gill Sans MT" FontSize="46" FontStyle="Italic" TextAlignment="Left"/>
 
-        <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding InventoryList}"
+        <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding Inventory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedItem}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
                   Height="450" VerticalAlignment="Center" Width="635" FontFamily="Gill Sans MT" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
@@ -92,13 +95,24 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Background="#adc5d0" x:Name="create" HorizontalAlignment="Left" Content="Dodaj" Margin="170,612,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="create_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Button HorizontalAlignment="Left" Background="#adc5d0" x:Name="update" Content="Izmeni stavku" Margin="262,612,0,0" VerticalAlignment="Top" Height="26" Width="113" Click="update_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Button HorizontalAlignment="Right" Background="#adc5d0" x:Name="delete" Content="Ukloni" Margin="0,612,500,0" VerticalAlignment="Top" Height="26" Width="75" Click="delete_Click" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" RenderTransformOrigin="-0.363,0.538"/>
+        <Button Background="#adc5d0" x:Name="create" HorizontalAlignment="Left" Content="Dodaj" Margin="170,612,0,0" VerticalAlignment="Top"
+                Height="26" Width="74" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" 
+                FontSize="14" Command="{Binding AddCommand}"/>
+        <Button HorizontalAlignment="Left" Background="#adc5d0" x:Name="update" Content="Izmeni" Margin="262,612,0,0" VerticalAlignment="Top"
+                Height="26" Width="92" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" 
+                FontSize="14" Command="{Binding EditCommand}"/>
+        <Button HorizontalAlignment="Right" Background="#adc5d0" x:Name="delete" Content="Ukloni" Margin="0,612,522,0" VerticalAlignment="Top" 
+                Height="26" Width="75" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" 
+                FontSize="14" RenderTransformOrigin="-0.363,0.538" Command="{Binding DeleteCommand}"/>
 
-        <ComboBox x:Name="InventoryType"
+        <ComboBox x:Name="InventoryType" SelectedIndex="{Binding SelectedType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   HorizontalAlignment="Left" Margin="167,97,0,0" VerticalAlignment="Top" 
-                  Width="140" SelectionChanged="comboBox_SelectionChanged">
+                  Width="140">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged" >
+                    <i:InvokeCommandAction Command="{Binding FilterTypeCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ComboBoxItem Content="Sva oprema"/>
             <ComboBoxItem Content="Statička oprema"/>
             <ComboBoxItem Content="Dinamička oprema"/>
@@ -113,24 +127,21 @@
                  materialDesign:HintAssist.Hint="šifra..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                 TextChanged="textBox_TextChanged"/>
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
                 <TextBox x:Name="searchName"
                  materialDesign:HintAssist.Hint="naziv..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                 TextChanged="textBox_TextChanged"/>
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
                 <TextBox x:Name="searchSupplier"
                  materialDesign:HintAssist.Hint="proizvođač..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                 TextChanged="textBox_TextChanged"/>
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <Button Click="Button_Click" Content="Poništi pretragu" FontFamily="Gill Sans MT" Foreground="Black"
+                <Button Content="Poništi pretragu" FontFamily="Gill Sans MT" Foreground="Black"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
             </StackPanel>
         </materialDesign:PopupBox>

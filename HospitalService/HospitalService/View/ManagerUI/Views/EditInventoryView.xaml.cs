@@ -85,12 +85,11 @@ namespace HospitalService.View.ManagerUI.Views
         public Inventory item { get; set; }
         InventoryFileStorage storage;
         public ObservableCollection<Inventory> invList { get; set; }
-        public EditInventoryView(Inventory i, ObservableCollection<Inventory> inv, InventoryFileStorage st)
+        public EditInventoryView(Inventory i, ObservableCollection<Inventory> inv)
         {
             InitializeComponent();
             item = i;
             invList = inv;
-            storage = st;
             this.DataContext = this;
 
             EnteredQuantity = item.Quantity.ToString();
