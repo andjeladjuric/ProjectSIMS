@@ -1,7 +1,9 @@
 ﻿using HospitalService.Service;
+using HospitalService.Storage;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Views;
 using Model;
+using Storage;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +16,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
     public class AddAppointmentToDoctorViewModel : ViewModelClass
     {
         private string nextId;
+        private Appointment newAppointment;
         private ObservableCollection<String> appointmentsType;
         private ObservableCollection<Patient> patients;
         private ObservableCollection<Room> rooms;
@@ -132,6 +135,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public AddAppointmentToDoctorViewModel(AddAppointmentToDoctorView window)
         {
             thisWindow = window;
+            Date = DateTime.Today.Date;
+            StartTime = DateTime.Now;
+            EndTime = DateTime.Now;
             AddCommand = new RelayCommand(Executed_AddCommand,
                CanExecute_AddCommand);
             CancelCommand = new RelayCommand(Executed_CancelCommand,
@@ -144,10 +150,22 @@ namespace HospitalService.View.DoctorUI.ViewModel
             Patients = new ObservableCollection<Patient>();
             Rooms = new ObservableCollection<Room>();
             new PatientStorage().GetAll().ForEach(Patients.Add); // servis
-            new RoomFileStorage().GetAll().ForEach(Rooms.Add); 
+            new RoomFileStorage().GetAll().ForEach(Rooms.Add);
+            newAppointment = new Appointment();
         }
         public void Executed_AddCommand(object obj)
         {
+            String start = Date.ToString("MM/dd/yyyy") + " " + StartTime.ToString("HH: mm");
+            String end = Date.ToString("MM/dd/yyyy") + " " + EndTime.ToString("HH: mm");
+            newAppointment.StartTime = Convert.ToDateTime(start);
+            newAppointment.EndTime = Convert.ToDateTime(end);
+            newAppointment.Id = NextId;
+            newAppointment.Type = AppointmentType;
+            newAppointment.room = Room;
+            newAppointment.patient = Patient;
+            newAppointment.doctor = new DoctorStorage().GetOne("drpetra");
+            new AppointmentStorage().Save(newAppointment);
+            thisWindow.Close();
         }
 
         public bool CanExecute_AddCommand(object obj)

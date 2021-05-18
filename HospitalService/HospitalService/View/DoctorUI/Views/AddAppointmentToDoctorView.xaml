@@ -16,9 +16,9 @@
         <Label Content="Tip:" HorizontalAlignment="Left" Margin="400,39,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="400,165,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <TextBox IsEnabled="False" Text="{Binding Path=NextId}" ToolTipService.ToolTip="Appointment's id" Name="IdBox"  HorizontalAlignment="Left" Height="31" Margin="159,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
-        <TextBox ToolTipService.ToolTip="Correct Format: 12:00" Name="StartBox" HorizontalAlignment="Left" Height="31" Margin="159,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
-        <TextBox ToolTipService.ToolTip="Correct Format: 12:00" Name="EndBox" HorizontalAlignment="Left" Height="31" Margin="159,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
-        <ComboBox Name="PatientBox" ItemsSource="{Binding Path=Patients}" HorizontalAlignment="Left" Margin="525,165,0,0" VerticalAlignment="Top" Width="129" Height="35">
+        <TextBox Text="{Binding Path=StartTime, Mode=TwoWay, StringFormat=HH:mm}" ToolTipService.ToolTip="Correct Format: 12:00" Name="StartBox" HorizontalAlignment="Left" Height="31" Margin="159,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
+        <TextBox  Text="{Binding Path=EndTime, Mode=TwoWay, StringFormat=HH:mm}" ToolTipService.ToolTip="Correct Format: 12:00" Name="EndBox" HorizontalAlignment="Left" Height="31" Margin="159,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
+        <ComboBox  SelectedItem="{Binding Path=Patient, Mode=TwoWay}" Name="PatientBox" ItemsSource="{Binding Path=Patients}" HorizontalAlignment="Left" Margin="525,165,0,0" VerticalAlignment="Top" Width="129" Height="35">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -32,7 +32,7 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox Name="RoomBox" ItemsSource="{Binding Path=Rooms}" HorizontalAlignment="Left" Margin="525,102,0,0" VerticalAlignment="Top" Width="129" Height="35">
+        <ComboBox SelectedItem="{Binding Path=Room, Mode=TwoWay}" Name="RoomBox" ItemsSource="{Binding Path=Rooms}" HorizontalAlignment="Left" Margin="525,102,0,0" VerticalAlignment="Top" Width="129" Height="35">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -46,9 +46,9 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox ItemsSource="{Binding Path=AppointmentsType}" Name="AppointmentTypeBox" HorizontalAlignment="Left" Margin="525,37,0,0" VerticalAlignment="Top" Width="129" Height="35"/>
+        <ComboBox SelectedItem="{Binding Path=AppointmentType, Mode=TwoWay}" ItemsSource="{Binding Path=AppointmentsType}" Name="AppointmentTypeBox" HorizontalAlignment="Left" Margin="525,37,0,0" VerticalAlignment="Top" Width="129" Height="35"/>
         <Label Content="Do:" HorizontalAlignment="Left" Margin="40,234,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
-        <DatePicker Name="DateBox" HorizontalAlignment="Left" Margin="159,102,0,0" VerticalAlignment="Top" Width="129" Height="28"/>
+        <DatePicker SelectedDate="{Binding Path=Date, Mode=TwoWay}" Name="DateBox" HorizontalAlignment="Left" Margin="159,102,0,0" VerticalAlignment="Top" Width="129" Height="28"/>
         <Button Content="Odustani" HorizontalAlignment="Left" Margin="224,347,0,0" VerticalAlignment="Top" Width="126" Height="36">
             <Button.Effect>
                 <DropShadowEffect/>
@@ -71,7 +71,7 @@
             </Button.Effect>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
-                    <i:InvokeCommandAction Command="{Binding AddAppointmentCommand}"/>
+                    <i:InvokeCommandAction Command="{Binding AddCommand}"/>
                 </i:EventTrigger>
                 <i:EventTrigger EventName="KeyUp" >
                     <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
