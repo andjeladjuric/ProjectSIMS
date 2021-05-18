@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace HospitalService.View.DoctorUI.ViewModel
@@ -16,9 +17,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
     public class AddAppointmentToDoctorViewModel : ViewModelClass
     {
         private string nextId;
+        private string patientsName;
         private Appointment newAppointment;
         private ObservableCollection<String> appointmentsType;
-        private ObservableCollection<Patient> patients;
         private ObservableCollection<Room> rooms;
         private DateTime date;
         private DateTime startTime;
@@ -28,9 +29,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private Patient patient;
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
+        public RelayCommand FindCommand { get; set; }
         public AddAppointmentToDoctorView thisWindow { get; set; }
         public DoctorWindowViewModel DoctorWindow { get; set; }
-
         public RelayCommand KeyUpCommandWithKey { get; set; }
 
         public string NextId
@@ -39,6 +40,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 nextId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string PatientsName
+        {
+            get { return patientsName; }
+            set
+            {
+                patientsName = value;
                 OnPropertyChanged();
             }
         }
@@ -53,15 +64,6 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
-        public ObservableCollection<Patient> Patients
-        {
-            get { return patients; }
-            set
-            {
-                patients = value;
-                OnPropertyChanged();
-            }
-        }
 
         public ObservableCollection<Room> Rooms
         {
@@ -133,8 +135,11 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
-        public AddAppointmentToDoctorViewModel(AddAppointmentToDoctorView window, DoctorWindowViewModel doctorWindow)
+        public Frame Frame { get; set; }
+
+        public AddAppointmentToDoctorViewModel(AddAppointmentToDoctorView window, DoctorWindowViewModel doctorWindow, Frame currentFrame)
         {
+            this.Frame = currentFrame;
             DoctorWindow = doctorWindow;
             thisWindow = window;
             Date = DateTime.Today.Date;
@@ -142,6 +147,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
             EndTime = DateTime.Now;
             AddCommand = new RelayCommand(Executed_AddCommand,
                CanExecute_AddCommand);
+            FindCommand = new RelayCommand(Executed_FindCommand,
+             CanExecute_AddCommand);
             CancelCommand = new RelayCommand(Executed_CancelCommand,
                CanExecute_CancelCommand);
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
@@ -149,9 +156,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             NextId = appointmentService.GetNextId();
             AppointmentsType = new ObservableCollection<string>();
             Enum.GetNames(typeof(AppointmentType)).ToList().ForEach(AppointmentsType.Add);
-            Patients = new ObservableCollection<Patient>();
             Rooms = new ObservableCollection<Room>();
-            new PatientStorage().GetAll().ForEach(Patients.Add); // servis
             new RoomFileStorage().GetAll().ForEach(Rooms.Add);
             newAppointment = new Appointment();
         }
@@ -181,6 +186,11 @@ namespace HospitalService.View.DoctorUI.ViewModel
             thisWindow.Close();
         }
 
+        public void Executed_FindCommand(object obj)
+        {
+            this.Frame.NavigationService.Navigate(new FindPatientView(this, Frame));
+        }
+
         public bool CanExecute_CancelCommand(object obj)
         {
             return true;
@@ -188,6 +198,12 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         private void Executed_KeyDownCommandWithKey(object obj)
         {
+        }
+
+        public void SelectPatient(Patient patient)
+        {
+            this.Patient = patient;
+            PatientsName = Patient.Name + " " + Patient.Surname;
         }
 
     }

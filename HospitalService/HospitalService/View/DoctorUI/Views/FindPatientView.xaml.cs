@@ -9,19 +9,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HospitalService.View.DoctorUI.Views
 {
     /// <summary>
-    /// Interaction logic for AddAppointmentToDoctorView.xaml
+    /// Interaction logic for FindPatientView.xaml
     /// </summary>
-    public partial class AddAppointmentToDoctorView : Window
+    public partial class FindPatientView : Page
     {
-        public AddAppointmentToDoctorView(DoctorWindowViewModel doctorWindow)
+        public FindPatientView(AddAppointmentToDoctorViewModel parentWindow, Frame frame)
         {
             InitializeComponent();
-            this.DataContext = new AddAppointmentToDoctorViewModel(this, doctorWindow, Frame);
+            this.DataContext = new FindPatientViewModel(parentWindow, frame);
         }
     }
 }

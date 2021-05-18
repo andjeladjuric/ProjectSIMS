@@ -1,0 +1,40 @@
+﻿<Page x:Class="HospitalService.View.DoctorUI.Views.FindPatientView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="768"
+      Title="Izaberite pacijenta">
+
+    <Grid Background="White" Height="450" Width="768">
+        <DataGrid IsReadOnly="True"  ItemsSource="{Binding Path=Patients}" SelectedItem="{Binding Path=Patient, Mode=TwoWay}"
+                  SelectionMode="Single" AutoGenerateColumns="False" Height="250" Margin="0,65,0,85" HorizontalAlignment="Center" Width="715">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Ime"  Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}" Width="*"/>
+                <DataGridTextColumn Header="JMBG" Binding="{Binding Jmbg}" Width="*"/>
+                <DataGridTextColumn Header="Datum rođenja" Binding="{Binding DateOfBirth, StringFormat={}{0:MM/dd/yyyy}}" Width="*"/>
+                <DataGridTextColumn Header="Karton"  Binding="{Binding medicalRecordId}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Izaberi" HorizontalAlignment="Left" Margin="334,382,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.576,-0.15">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click" >
+                    <i:InvokeCommandAction Command="{Binding SelectCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="KeyUp" >
+                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <i:Interaction.Behaviors>
+                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+            </i:Interaction.Behaviors>
+        </Button>
+        <Label Content="Baza pacijenata" HorizontalAlignment="Left" Margin="313,41,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Page>
