@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalService.Model;
+using HospitalService.Service;
 using HospitalService.Storage;
 using Model;
 using Storage;
@@ -23,49 +24,48 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class Surveys : Page
     {
-        public Patient patient { get; set; }
-        public Surveys(Patient p)
+        private HospitalSurveyService hospitalSurveyService;
+        private AppointmentsService appointmentsService;
+        public Patient surveyor { get; set; }
+        public Surveys(Patient patient)
         {
             InitializeComponent();
-            patient = p;
+            surveyor = patient;
+            hospitalSurveyService = new HospitalSurveyService();
+            appointmentsService = new AppointmentsService();
         }
 
         private void ChooseDoctor(object sender, RoutedEventArgs e)
         {
-            Ankete.Content = new DoctorChoice(patient,this);
+            SurveyFrame.Content = new DoctorChoice(surveyor,this);
         }
 
         private void DoHospitalSurvey(object sender, RoutedEventArgs e)
         {
-            
 
-            HospitalSurveyStorage dss = new HospitalSurveyStorage();
-            List<SurveyHospitalPatient> sur = dss.GetAll();
-            List<SurveyHospitalPatient> filteredSurveys = sur.Where(su => su.patient.Jmbg.Equals(patient.Jmbg)).ToList();
-            filteredSurveys.Sort((a1, a2) => DateTime.Compare(a1.ExecutionTime, a2.ExecutionTime));
+            SurveyHospitalPatient lastFinishedHospitalSurvey = hospitalSurveyService.getLastFinishedSurvey(surveyor);
+            int appointments = appointmentsService.getNumberOfAppointmentsAfterLastFinishedSurvey(lastFinishedHospitalSurvey, surveyor);
+            int daysApart = (int)(DateTime.Now - lastFinishedHospitalSurvey.ExecutionTime).TotalDays;
 
-            SurveyHospitalPatient lastSurvey = filteredSurveys[filteredSurveys.Count - 1];
-
-            AppointmentStorage s = new AppointmentStorage();
-            List<Appointment> a = s.GetAll();
-            List<Appointment> filteredAppointments = a.Where(ap => ap.patient.Jmbg.Equals(patient.Jmbg) && ap.EndTime < DateTime.Now && ap.EndTime > lastSurvey.ExecutionTime).ToList();
-            int appointments = filteredAppointments.Count;
-
-
-            int daysApart = (int)(DateTime.Now - lastSurvey.ExecutionTime).TotalDays;
-            
-            if (appointments >= 4 || daysApart >= 91)
+            if (isSurveyAvailable(appointments, daysApart))
             {
-                this.NavigationService.Navigate(new HospitalSurvey(patient));
-               
-                               
+                this.NavigationService.Navigate(new HospitalSurvey(surveyor));
+
+
             }
-            else {
-                this.NavigationService.Navigate(new LastFinishedHospitalSurvey(lastSurvey));
+            else
+            {
+                this.NavigationService.Navigate(new LastFinishedHospitalSurvey(lastFinishedHospitalSurvey));
 
             }
 
 
         }
+
+        private static bool isSurveyAvailable(int appointments, int daysApart)
+        {
+            return appointments >= 4 || daysApart >= 91;
+        }
+
     }
 }

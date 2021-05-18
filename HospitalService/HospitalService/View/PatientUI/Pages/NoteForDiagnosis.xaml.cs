@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalService.Model;
+using HospitalService.Service;
 using HospitalService.Storage;
 using Model;
 
@@ -21,6 +22,7 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class NoteForDiagnosis : Page
     {
+        private NotesService notesService;
         public Patient Patient { get; set; }
         public Diagnosis Diagnosis { get; set; }
         public NoteForDiagnosis(Patient patient, Diagnosis diagnosis)
@@ -28,14 +30,14 @@ namespace HospitalService.View.PatientUI.Pages
             InitializeComponent();
             Patient = patient;
             Diagnosis = diagnosis;
+            notesService = new NotesService();
         }
 
-        private void confirmClick(object sender, RoutedEventArgs e)
+        private void createNoteForDiagnosis(object sender, RoutedEventArgs e)
         {
-            NotesStorage notesStorage = new NotesStorage();
             String note = tbNotes.Text;
             Note newNote = new Note {noteForPatient=note, patient=Patient, diagnosis=Diagnosis };
-            notesStorage.Save(newNote);
+            notesService.saveNote(newNote);
             this.NavigationService.Navigate(new DiagnosisForPatient(Diagnosis, newNote));
 
 

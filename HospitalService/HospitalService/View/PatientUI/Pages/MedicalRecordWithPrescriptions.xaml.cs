@@ -23,30 +23,29 @@ namespace HospitalService.View.PatientUI.Pages
     public partial class MedicalRecordWithPrescriptions : Page
     {
 
-        public Patient pacijent { get; set; }
-
+        public Patient Patient { get; set; }
         public List<Prescription> prescriptions { get; set; }
 
-        public MedicalRecordStorage baza;
+        public MedicalRecordStorage medicalRecordStorage;
 
-        public Timer timer;
-        public Prescription p;
-        public String notifikacija = "";
-        public MedicalRecordWithPrescriptions(Patient p)
+        public Timer medicationReminder;
+        public Prescription prescription;
+        public String notification = "";
+        public MedicalRecordWithPrescriptions(Patient patient)
         {
             InitializeComponent();
             this.DataContext = this;
-            pacijent = p;
-            baza = new MedicalRecordStorage();
-            prescriptions = baza.getByPatient(pacijent);
+            Patient = patient;
+            medicalRecordStorage = new MedicalRecordStorage();
+            prescriptions = medicalRecordStorage.getByPatient(Patient);
             tablePrescriptions.ItemsSource = prescriptions;
         }
 
-        private void setReminder(object sender, RoutedEventArgs e)
+        private void setMedicationReminder(object sender, RoutedEventArgs e)
         {
             
-            p = (Prescription)tablePrescriptions.SelectedItem;
-            if (p == null)
+            prescription = (Prescription)tablePrescriptions.SelectedItem;
+            if (prescription == null)
             {
 
                 MessageBox.Show("Niste selektovali recept!");
@@ -55,19 +54,19 @@ namespace HospitalService.View.PatientUI.Pages
             else
             {
                 
-                DateTime dt = p.Start;
-                timer = new System.Timers.Timer(15000); // in milliseconds - p.HowOften*3600000
-                notifikacija += "Uzmite lijek" + " " + p.Medication.ToUpper() + "\n" + "Dodatne informacije: " + p.AdditionalInfos;
-                DateTime et = dt.AddDays(p.HowLong);
-                timer.Elapsed += (sender, e) => TimerMethod(sender, e, notifikacija, et);
-                timer.Start();
+                DateTime prescriptionStartDate = prescription.Start;
+                medicationReminder = new System.Timers.Timer(15000); // in milliseconds - p.HowOften*3600000
+                notification += "Uzmite lijek" + " " + prescription.Medication.ToUpper() + "\n" + "Dodatne informacije: " + prescription.AdditionalInfos;
+                DateTime prescriptionExpiryDate = prescriptionStartDate.AddDays(prescription.HowLong);
+                medicationReminder.Elapsed += (sender, e) => showNotification(sender, e, notification, prescriptionExpiryDate);
+                medicationReminder.Start();
                
                 
             }
 
         }
 
-        static void TimerMethod(object sender, ElapsedEventArgs e, string theString, DateTime et)
+        static void showNotification(object sender, ElapsedEventArgs e, string theString, DateTime et)
         {
             if (DateTime.Compare(DateTime.Now, et) < 0)
             {

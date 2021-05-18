@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using HospitalService.Model;
 using HospitalService.Repositories;
+using Model;
 
 namespace HospitalService.Service
 {
@@ -20,6 +22,16 @@ namespace HospitalService.Service
 
             repository.Save(newSurvey);
         
+        }
+
+        public SurveyHospitalPatient getLastFinishedSurvey(Patient surveyor) {
+
+            List<SurveyHospitalPatient> hospitalSurveys = repository.GetAll();
+            List<SurveyHospitalPatient> patientSurveys = hospitalSurveys.Where(survey => survey.patient.Jmbg.Equals(surveyor.Jmbg)).ToList();
+            patientSurveys.Sort((s1, s2) => DateTime.Compare(s1.ExecutionTime, s2.ExecutionTime));
+            SurveyHospitalPatient lastFinishedHospitalSurvey = patientSurveys[patientSurveys.Count - 1];
+            return lastFinishedHospitalSurvey;
+
         }
 
     }

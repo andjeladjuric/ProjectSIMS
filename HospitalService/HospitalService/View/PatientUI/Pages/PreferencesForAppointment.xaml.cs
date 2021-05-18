@@ -32,14 +32,14 @@ namespace HospitalService.View.PatientUI.Pages
         {
             if (No.IsChecked == true)
             {
-                AddAppointmentToPatient aw = new AddAppointmentToPatient(Patient);
-                aw.Show();
+                AddAppointmentToPatient addAppointmentWindow = new AddAppointmentToPatient(Patient);
+                addAppointmentWindow.Show();
             }
 
             if (Yes.IsChecked == true)
             {
-                UrgentAppointment uaw = new UrgentAppointment(Patient);
-                uaw.Show();
+                UrgentAppointment urgentAppointmentWindow = new UrgentAppointment(Patient);
+                urgentAppointmentWindow.Show();
             }
         }
     }

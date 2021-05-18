@@ -1,4 +1,5 @@
-﻿using HospitalService.Repositories;
+﻿using HospitalService.Model;
+using HospitalService.Repositories;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,14 @@ namespace HospitalService.Service
             Appointment lastFinishedAppointment = finishedAppointments[finishedAppointments.Count - 1];
             return lastFinishedAppointment;
 
+        }
+
+        public int getNumberOfAppointmentsAfterLastFinishedSurvey(SurveyHospitalPatient lastFinishedHospitalSurvey, Patient surveyor) {
+
+            List<Appointment> appointments = repository.GetAll();
+            List<Appointment> appointmentsAfterFinishedSurvey = appointments.Where(appointment => appointment.patient.Jmbg.Equals(surveyor.Jmbg) && appointment.EndTime < DateTime.Now && appointment.EndTime > lastFinishedHospitalSurvey.ExecutionTime).ToList();
+            int countOfAppointments = appointmentsAfterFinishedSurvey.Count;
+            return countOfAppointments;
         }
     }
 }
