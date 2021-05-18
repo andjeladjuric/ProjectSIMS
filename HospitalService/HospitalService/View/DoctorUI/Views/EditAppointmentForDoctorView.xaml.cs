@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HospitalService.View.DoctorUI.ViewModel;
+using Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -17,9 +19,10 @@ namespace HospitalService.View.DoctorUI.Views
     /// </summary>
     public partial class EditAppointmentForDoctorView : Window
     {
-        public EditAppointmentForDoctorView()
+        public EditAppointmentForDoctorView(Appointment appointment)
         {
             InitializeComponent();
+            this.DataContext = new EditAppointmentForDoctorViewModel(this, appointment);
         }
     }
 }

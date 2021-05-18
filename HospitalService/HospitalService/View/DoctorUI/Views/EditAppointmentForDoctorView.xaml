@@ -4,9 +4,66 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
         mc:Ignorable="d"
-        Title="EditAppointmentForDoctorView" Height="450" Width="800">
-    <Grid>
-        
+         Title="Izmjena termina" Height="490" Width="514" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" FontSize="16">
+    <Grid x:Name="editGrid" Margin="0,0,4,-6" >
+        <TextBox Text="{Binding Path=AppointmentForEditing.Id}" IsReadOnly="True" HorizontalAlignment="Left" Height="35" Margin="252,40,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168" RenderTransformOrigin="0.485,-0.456"/>
+        <TextBox  Text="{Binding Path=StartTime, Mode=TwoWay, StringFormat=HH:mm}" HorizontalAlignment="Left" Height="37" Margin="254,148,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168" RenderTransformOrigin="1.684,0.193"/>
+        <TextBox Text="{Binding Path=AppointmentForEditing.EndTime, Mode=TwoWay, StringFormat=HH:mm}"  HorizontalAlignment="Left" Height="36" Margin="254,211,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168"/>
+        <ComboBox ItemsSource="{Binding Rooms}" SelectedItem="{Binding Room, Mode=TwoWay}" HorizontalAlignment="Left" Margin="252,282,0,0" VerticalAlignment="Top" Width="168" Height="34" RenderTransformOrigin="0.538,-0.42">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="Id"/>
+                                <Binding Path="Name"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label Content="ID:" HorizontalAlignment="Left" Margin="69,40,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
+        <Label Content="Od:" HorizontalAlignment="Left" Margin="69,148,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
+        <Label Content="Do:" HorizontalAlignment="Left" Margin="69,209,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
+        <Label Content="Soba:" HorizontalAlignment="Left" Margin="69,281,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
+        <Button Content="Potvrdi"  HorizontalAlignment="Left" Margin="280,388,0,0" VerticalAlignment="Top" Width="116" Height="34">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click" >
+                    <i:InvokeCommandAction Command="{Binding EditCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="KeyUp" >
+                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <i:Interaction.Behaviors>
+                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+            </i:Interaction.Behaviors>
+        </Button>
+        <Button Content="Odustani" HorizontalAlignment="Left" Margin="115,388,0,0" VerticalAlignment="Top" Width="114" Height="34">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click" >
+                    <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="KeyUp" >
+                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <i:Interaction.Behaviors>
+                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+            </i:Interaction.Behaviors>
+        </Button>
+        <DatePicker SelectedDate="{Binding Path=AppointmentForEditing.StartTime, Mode=TwoWay}" HorizontalAlignment="Left" Margin="255,97,0,0" VerticalAlignment="Top" Width="165" Height="26"/>
+        <Label Content="Datum:" HorizontalAlignment="Left" Margin="69,97,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
+
     </Grid>
 </Window>

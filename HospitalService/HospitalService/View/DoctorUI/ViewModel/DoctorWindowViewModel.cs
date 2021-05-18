@@ -19,7 +19,10 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private ObservableCollection<Patient> patients;
         private ObservableCollection<Medication> medicationsForApproval;
         private ObservableCollection<Medication> approvedMedications;
+        private Appointment selectedAppointment;
         public RelayCommand AddAppointmentCommand { get; set; }
+        public RelayCommand EditAppointmentCommand { get; set; }
+
 
         public RelayCommand KeyUpCommandWithKey { get; set; }
 
@@ -52,6 +55,15 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 OnPropertyChanged();
             }
         }
+        public Appointment SelectedAppointment
+        {
+            get { return selectedAppointment; }
+            set
+            {
+                selectedAppointment = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ObservableCollection<Medication> MedicationsForApproval
         {
@@ -77,6 +89,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
         {
             AddAppointmentCommand = new RelayCommand(Executed_AddAppointmentCommand,
                 CanExecute_AddAppointmentCommand);
+            EditAppointmentCommand = new RelayCommand(Executed_EditAppointmentCommand,
+               CanExecute_EditAppointmentCommand);
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             this.Doctor = loggedDoctor;
             this.Appointments = new ObservableCollection<Appointment>();
@@ -108,6 +122,19 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public bool CanExecute_AddAppointmentCommand(object obj)
         {
             return true;
+        }
+
+        public void Executed_EditAppointmentCommand(object obj)
+        {
+            new EditAppointmentForDoctorView(SelectedAppointment).ShowDialog();
+        }
+
+        public bool CanExecute_EditAppointmentCommand(object obj)
+        {
+            if (SelectedAppointment == null)
+                return false;
+            else
+                return true;
         }
 
         private void Executed_KeyDownCommandWithKey(object obj)
