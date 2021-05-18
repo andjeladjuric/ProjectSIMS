@@ -23,13 +23,9 @@ namespace HospitalService.View.DoctorUI.Views
         public DoctorWindowView(Doctor loggedDoctor)
         {
             InitializeComponent();
-            context = new DoctorWindowViewModel(loggedDoctor);
+            context = new DoctorWindowViewModel(loggedDoctor, this);
             this.DataContext = context;
         }
-        /*
-        public void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-          context.Refresh();
-        }*/
+      
     }
 }

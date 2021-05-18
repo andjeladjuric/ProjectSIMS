@@ -19,7 +19,7 @@
         <TextBox Text="{Binding Path=StartTime, Mode=TwoWay, StringFormat=HH:mm}" ToolTipService.ToolTip="Correct Format: 12:00" Name="StartBox" HorizontalAlignment="Left" Height="31" Margin="159,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
         <TextBox  Text="{Binding Path=EndTime, Mode=TwoWay, StringFormat=HH:mm}" ToolTipService.ToolTip="Correct Format: 12:00" Name="EndBox" HorizontalAlignment="Left" Height="31" Margin="159,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
 
-        <ComboBox SelectedItem="{Binding Path=Room, Mode=TwoWay}" Name="RoomBox" ItemsSource="{Binding Path=Rooms}" HorizontalAlignment="Left" Margin="525,102,0,0" VerticalAlignment="Top" Width="163" Height="35">
+        <ComboBox IsEnabled="{Binding Path=IsEnabled}" ItemsSource="{Binding Path=Rooms}" SelectedItem="{Binding Path=Room, Mode=TwoWay}"  Name="RoomBox"  HorizontalAlignment="Left" Margin="525,102,0,0" VerticalAlignment="Top" Width="163" Height="35">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -33,7 +33,13 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox SelectedItem="{Binding Path=AppointmentType, Mode=TwoWay}" ItemsSource="{Binding Path=AppointmentsType}" Name="AppointmentTypeBox" HorizontalAlignment="Left" Margin="525,37,0,0" VerticalAlignment="Top" Width="163" Height="35"/>
+        <ComboBox ItemsSource="{Binding Path=AppointmentsType}" SelectedItem="{Binding Path=AppointmentType, Mode=TwoWay}"  Name="AppointmentTypeBox" HorizontalAlignment="Left" Margin="525,37,0,0" VerticalAlignment="Top" Width="163" Height="35">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged" >
+                    <i:InvokeCommandAction Command="{Binding GetRoomsCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
         <Label Content="Do:" HorizontalAlignment="Left" Margin="40,234,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <DatePicker SelectedDate="{Binding Path=Date, Mode=TwoWay}" Name="DateBox" HorizontalAlignment="Left" Margin="159,102,0,0" VerticalAlignment="Top" Width="129" Height="28"/>
         <Button Content="Odustani" HorizontalAlignment="Left" Margin="224,347,0,0" VerticalAlignment="Top" Width="126" Height="36">
@@ -83,7 +89,6 @@
                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
             </i:Interaction.Behaviors>
         </Button>
-
         <Frame x:Name="Frame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

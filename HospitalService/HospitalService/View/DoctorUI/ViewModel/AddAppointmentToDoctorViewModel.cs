@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -17,6 +18,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
     public class AddAppointmentToDoctorViewModel : ViewModelClass
     {
         private string nextId;
+        private bool isEnabled;
         private string patientsName;
         private Appointment newAppointment;
         private ObservableCollection<String> appointmentsType;
@@ -30,6 +32,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
         public RelayCommand FindCommand { get; set; }
+        public RelayCommand GetRoomsCommand { get; set; }
+
         public AddAppointmentToDoctorView thisWindow { get; set; }
         public DoctorWindowViewModel DoctorWindow { get; set; }
         public RelayCommand KeyUpCommandWithKey { get; set; }
@@ -43,6 +47,17 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public bool IsEnabled
+        {
+            get { return isEnabled; }
+            set
+            {
+                isEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public string PatientsName
         {
@@ -140,6 +155,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public AddAppointmentToDoctorViewModel(AddAppointmentToDoctorView window, DoctorWindowViewModel doctorWindow, Frame currentFrame)
         {
             this.Frame = currentFrame;
+            IsEnabled = false;
             DoctorWindow = doctorWindow;
             thisWindow = window;
             Date = DateTime.Today.Date;
@@ -147,18 +163,18 @@ namespace HospitalService.View.DoctorUI.ViewModel
             EndTime = DateTime.Now;
             AddCommand = new RelayCommand(Executed_AddCommand,
                CanExecute_AddCommand);
-            FindCommand = new RelayCommand(Executed_FindCommand,
-             CanExecute_AddCommand);
+            FindCommand = new RelayCommand(Executed_FindCommand, CanExecute_CancelCommand);
+            GetRoomsCommand = new RelayCommand(Executed_GetRoomsCommand, CanExecute_CancelCommand);
             CancelCommand = new RelayCommand(Executed_CancelCommand,
                CanExecute_CancelCommand);
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
-            AppointmentsService appointmentService = new AppointmentsService();
-            NextId = appointmentService.GetNextId();
+
+            NextId = new AppointmentsService().GetNextId();
             AppointmentsType = new ObservableCollection<string>();
             Enum.GetNames(typeof(AppointmentType)).ToList().ForEach(AppointmentsType.Add);
+            newAppointment = new Appointment();
             Rooms = new ObservableCollection<Room>();
             new RoomFileStorage().GetAll().ForEach(Rooms.Add);
-            newAppointment = new Appointment();
         }
         public void Executed_AddCommand(object obj)
         {
@@ -170,20 +186,48 @@ namespace HospitalService.View.DoctorUI.ViewModel
             newAppointment.Type = AppointmentType;
             newAppointment.room = Room;
             newAppointment.patient = Patient;
-            newAppointment.doctor = new DoctorStorage().GetOne("drpetra");
-            new AppointmentStorage().Save(newAppointment);
+            newAppointment.doctor = DoctorWindow.Doctor;
+            new AppointmentsService().AddAppointment(newAppointment);
             DoctorWindow.Refresh();
             thisWindow.Close();
         }
 
         public bool CanExecute_AddCommand(object obj)
         {
+            String start = Date.ToString("MM/dd/yyyy") + " " + StartTime.ToString("HH: mm");
+            String end = Date.ToString("MM/dd/yyyy") + " " + EndTime.ToString("HH: mm");
+            newAppointment.StartTime = Convert.ToDateTime(start);
+            newAppointment.EndTime = Convert.ToDateTime(end);
+            Doctor doctor = DoctorWindow.Doctor;
+
+            if (StartTime == null || EndTime == null || AppointmentsType == null || Room == null || Patient == null)
+            {
+                MessageBox.Show("Sva polja  moraju biti popunjena!");
+                return false;
+            } else if (new AppointmentsService().IsTaken(newAppointment.StartTime, newAppointment.EndTime, doctor))
+            {
+                MessageBox.Show("Termin je vec zauzet"); // Ispitati da li je soba slobodna i da li je pacijent slobodan?
+                return false;
+            }
             return true;
         }
 
         public void Executed_CancelCommand(object obj)
         {
             thisWindow.Close();
+        }
+
+        public void Executed_GetRoomsCommand(object obj)
+        {
+             RoomType roomType;
+             if (AppointmentType == AppointmentType.Pregled)
+                 roomType = RoomType.ExaminationRoom;
+             else
+                 roomType = RoomType.OperatingRoom;
+
+             Rooms = new ObservableCollection<Room>();
+             new RoomFileStorage().getByType(roomType).ForEach(Rooms.Add); // prebaciti u servis
+            IsEnabled = true;
         }
 
         public void Executed_FindCommand(object obj)

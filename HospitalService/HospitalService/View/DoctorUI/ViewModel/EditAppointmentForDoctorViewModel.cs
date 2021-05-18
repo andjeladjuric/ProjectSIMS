@@ -86,8 +86,13 @@ namespace HospitalService.View.DoctorUI.ViewModel
             StartTime = selectedAppointment.StartTime;
             EndTime = selectedAppointment.EndTime;
             Room = selectedAppointment.room;
+            RoomType roomType;
+            if (selectedAppointment.Type == AppointmentType.Pregled)
+                roomType = RoomType.ExaminationRoom;
+            else
+                roomType = RoomType.OperatingRoom;
             Rooms = new ObservableCollection<Room>();
-            new RoomFileStorage().GetAll().ForEach(Rooms.Add);
+            new RoomFileStorage().getByType(roomType).ForEach(Rooms.Add); // servis
         }
 
         public void Executed_EditCommand(object obj)

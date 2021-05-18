@@ -14,7 +14,13 @@
             <Menu DockPanel.Dock="Top" Height="40" FontSize="16" FontFamily="Open Sans">
                 <MenuItem Header="Profil" Width="65">
                     <MenuItem Header="Posjeti profil"/>
-                    <MenuItem Header="Log Out"/>
+                    <MenuItem Header="Log Out">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click" >
+                                <i:InvokeCommandAction Command="{Binding LogOutCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Opcije" Height="40" Width="65">
                     <MenuItem Header="Zahtjev za odmor"/>

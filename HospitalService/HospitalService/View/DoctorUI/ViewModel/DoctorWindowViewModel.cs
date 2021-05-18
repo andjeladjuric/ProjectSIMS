@@ -27,7 +27,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public RelayCommand EditAppointmentCommand { get; set; }
         public RelayCommand DeleteAppointmentCommand { get; set; }
         public RelayCommand RefreshAppointmentsCommand { get; set; }
-
+        public RelayCommand LogOutCommand { get; set; }
+        public DoctorWindowView Window { get; set; }
 
 
         public RelayCommand KeyUpCommandWithKey { get; set; }
@@ -101,9 +102,11 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
-        public DoctorWindowViewModel(Doctor loggedDoctor)
+        public DoctorWindowViewModel(Doctor loggedDoctor, DoctorWindowView doctorWindow)
         {
             AddAppointmentCommand = new RelayCommand(Executed_AddAppointmentCommand,
+                CanExecute_AddAppointmentCommand);
+            LogOutCommand = new RelayCommand(Executed_LogOutCommand,
                 CanExecute_AddAppointmentCommand);
             RefreshAppointmentsCommand = new RelayCommand(Executed_RefreshAppointmentsCommand,
               CanExecute_AddAppointmentCommand);
@@ -112,6 +115,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             DeleteAppointmentCommand = new RelayCommand(Executed_DeleteAppointmentCommand,
                 CanExecute_EditAppointmentCommand);
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
+            this.Window = doctorWindow;
             this.Doctor = loggedDoctor;
             this.Appointments = new ObservableCollection<Appointment>();
             this.Patients = new ObservableCollection<Patient>();
@@ -136,6 +140,12 @@ namespace HospitalService.View.DoctorUI.ViewModel
             new AddAppointmentToDoctorView(this).ShowDialog();
         }
 
+        public void Executed_LogOutCommand(object obj)
+        {
+            new MainWindow().Show();
+            this.Window.Close();
+        }
+
         public void Executed_RefreshAppointmentsCommand(object obj)
         {
             Refresh();
@@ -143,7 +153,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public void Executed_DeleteAppointmentCommand(object obj)
         {
-            new AppointmentStorage().Delete(SelectedAppointment.Id);
+            new AppointmentsService().Delete(SelectedAppointment.Id);
             Refresh();
         }
 
