@@ -75,6 +75,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         private void Executed_KeyDownCommandWithKey(object obj)
         {
+            
         }
     }
 }

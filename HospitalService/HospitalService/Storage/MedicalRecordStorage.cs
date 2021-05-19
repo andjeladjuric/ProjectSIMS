@@ -97,5 +97,26 @@ namespace Storage
 
         }
 
+        public DoctorType GetType(string type)
+        {
+            switch (type)
+            {
+                case "Kardiologija":
+                    return DoctorType.Kardiologija;
+                case "Dermatologija":
+                    return DoctorType.Dermatologija;
+                case "Neurologija":
+                    return DoctorType.Neurologija;
+                case "Porodicna":
+                    return DoctorType.Porodicna;
+                case "Pedijatrija":
+                    return DoctorType.Pedijatrija;
+                case "Hirurgija":
+                    return DoctorType.Hirurgija;
+                default:
+                    return DoctorType.Porodicna;
+            }
+        }
+
     }
 }

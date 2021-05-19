@@ -1,4 +1,5 @@
-﻿using HospitalService.View.DoctorUI.Views;
+﻿using HospitalService.View.DoctorUI.Commands;
+using HospitalService.View.DoctorUI.Views;
 using Model;
 using Storage;
 using System;
@@ -17,6 +18,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private bool male;
         public bool Famele { get; set; }
         private MedicalRecord medicalRecord;
+        public RelayCommand ReferralCommand { get; set; }
+        public RelayCommand KeyUpCommandWithKey { get; set; }
 
         public bool Male
         {
@@ -53,6 +56,23 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
             this.MedicalRecord = new MedicalRecordStorage().GetOne(Patient.medicalRecordId);
             this.AllergiesFrame.NavigationService.Navigate(new AllergiesView(MedicalRecord.Allergies,AllergiesFrame, MedicalRecord));
+            KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
+            ReferralCommand = new RelayCommand(Executed_ReferralCommand,
+              CanExecute_ReferralCommand);
+        }
+
+        public bool CanExecute_ReferralCommand(object obj)
+        {
+            return true;
+        }
+
+        public void Executed_ReferralCommand(object obj)
+        {
+            new ReferralView(MedicalRecord).ShowDialog();
+        }
+
+        private void Executed_KeyDownCommandWithKey(object obj)
+        {
         }
     }
 }

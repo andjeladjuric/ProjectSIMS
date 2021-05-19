@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
         mc:Ignorable="d"
         Title="MedicalRecordView" Height="600" Width="800" FontSize="16" FontFamily="Open Sans" UseLayoutRounding="True" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Grid Height="600" Width="800">
@@ -71,7 +73,19 @@
                         </StackPanel>
                         <StackPanel Width="310">
                             <StackPanel Width="130" Height="25" Margin="0,80,0,0">
-                                <Button Content="Izdaj uput"/>
+                                <Button Content="Izdaj uput">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click" >
+                                            <i:InvokeCommandAction Command="{Binding ReferralCommand}"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="KeyUp" >
+                                            <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <i:Interaction.Behaviors>
+                                        <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                                    </i:Interaction.Behaviors>
+                                </Button>
                             </StackPanel>
                             <StackPanel Width="130" Height="25" Margin="0,30,0,0">
                                 <Button Content="Bolničko liječenje"/>
