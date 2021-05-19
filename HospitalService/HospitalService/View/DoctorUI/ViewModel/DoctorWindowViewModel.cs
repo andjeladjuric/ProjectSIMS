@@ -24,7 +24,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private ObservableCollection<Medication> approvedMedications;
         private Appointment selectedAppointment;
         private Medication selectedMedication;
+        private Patient selectedPatient;
         public RelayCommand AddAppointmentCommand { get; set; }
+        public RelayCommand OpenRecordCommand { get; set; }
         public RelayCommand EditAppointmentCommand { get; set; }
         public RelayCommand DeleteAppointmentCommand { get; set; }
         public RelayCommand RefreshAppointmentsCommand { get; set; }
@@ -42,6 +44,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 doctor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Patient SelectedPatient
+        {
+            get { return selectedPatient; }
+            set
+            {
+                selectedPatient = value;
                 OnPropertyChanged();
             }
         }
@@ -119,6 +131,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
         {
             AddAppointmentCommand = new RelayCommand(Executed_AddAppointmentCommand,
                 CanExecute_AddAppointmentCommand);
+            OpenRecordCommand = new RelayCommand(Executed_OpenRecordCommand,
+               CanExecute_OpenRecordCommand);
             AboutMedicationCommand = new RelayCommand(Executed_AboutMedicationCommand,
                CanExecute_AboutMedicationCommand);
             LogOutCommand = new RelayCommand(Executed_LogOutCommand,
@@ -234,6 +248,20 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_AboutMedicationCommand(object obj)
         {
             new AboutMedicationView(this, SelectedMedication).ShowDialog();
+        }
+        public bool CanExecute_OpenRecordCommand(object obj)
+        {
+            if(SelectedPatient == null)
+            {
+                MessageBox.Show("Morate izabrati pacijenta.");
+                return false;
+            }else
+                return true;
+        }
+
+        public void Executed_OpenRecordCommand(object obj)
+        {
+            new MedicalRecordView(SelectedPatient).ShowDialog();
         }
     }
 

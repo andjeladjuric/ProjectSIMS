@@ -135,16 +135,27 @@
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="31" Margin="0,10,0,10">
                         <Label Content="Pretraga" Margin="780,0,0,0"/>
                     </StackPanel>
-                    <Button  DockPanel.Dock="Bottom" Margin="0,0,0,0" Width="147" Height="16"  Content="Prikazi karton">
+                    <Button  DockPanel.Dock="Bottom" Margin="0,0,0,0" Width="147" Height="24"  Content="Prikazi karton">
                         <Button.Background>
                             <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
                         </Button.Background>
                         <Button.Effect>
                             <DropShadowEffect/>
                         </Button.Effect>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click" >
+                                <i:InvokeCommandAction Command="{Binding OpenRecordCommand}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="KeyUp" >
+                                <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <i:Interaction.Behaviors>
+                            <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                        </i:Interaction.Behaviors>
                     </Button>
                     <DataGrid x:Name="PatientsTable" IsReadOnly="True"  ItemsSource="{Binding Path=Patients}"
-                  SelectionMode="Single" AutoGenerateColumns="False" Height="300" Width="760" Margin="0,0,0,20">
+                  SelectionMode="Single" SelectedItem="{Binding Path=SelectedPatient, Mode=TwoWay}" AutoGenerateColumns="False" Height="300" Width="760" Margin="0,0,0,20">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Ime"  Binding="{Binding Name}" Width="*"/>
                             <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}" Width="*"/>
