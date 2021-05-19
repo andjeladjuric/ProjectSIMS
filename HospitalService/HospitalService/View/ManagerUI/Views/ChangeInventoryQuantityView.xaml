@@ -24,7 +24,7 @@
 
     <Grid Background="#f5f5f5">
 
-        <DataGrid ItemsSource="{Binding roomInventory}" SelectedItem="{Binding selectedInv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        <DataGrid ItemsSource="{Binding DynamicInventory}" SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                   x:Name="tableBinding" IsReadOnly="True"  Margin="16,0,0,0"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
                   Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14"
@@ -95,11 +95,11 @@
                     <validation:MaxInventoryProxy x:Key="proxy" Data="{Binding}"/>
                 </TextBox.Resources>
                 <TextBox.Text>
-                    <Binding Path="EnteredQuantity" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="Quantity" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validation:MoveQuantityValidation ValidationStep="RawProposedValue" Min="1">
                                 <validation:MoveQuantityValidation.Wrapper>
-                                    <validation:MaxInventoryWrapper Max ="{Binding Path=Data.selectedInv.Quantity, Source={StaticResource proxy}}"/>
+                                    <validation:MaxInventoryWrapper Max ="{Binding Path=Data.SelectedItem.Quantity, Source={StaticResource proxy}}"/>
                                 </validation:MoveQuantityValidation.Wrapper>
                             </validation:MoveQuantityValidation>
                         </Binding.ValidationRules>
@@ -115,10 +115,11 @@
                 </Validation.ErrorTemplate>
             </TextBox>
 
-            <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="91,318,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="save_Click" 
+            <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="91,318,0,0" VerticalAlignment="Top" Height="30" 
+                    Width="81" Command="{Binding ConfirmCommand}"
                     Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14">
                 <Button.Style>
-                    <Style TargetType="{x:Type Button}">
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="IsEnabled" Value="True"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding ElementName=quantityBox, Path=Text}" Value="">
@@ -132,10 +133,12 @@
                 </Button.Style>
             </Button>
 
-            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="215,318,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="215,318,0,0" VerticalAlignment="Top" 
+                    Height="30" Width="80" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" 
+                    FontFamily="Gill Sans MT" FontSize="14" Command="{Binding CancelCommand}"/>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0,110,0,0" Text="Izmeni stanje" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
             <Label x:Name="Stavka" Content="Izabrana stavka" HorizontalAlignment="Left" Margin="36,191,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
-            <TextBox x:Name="IDBox" Text="{Binding selectedInv.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" 
+            <TextBox x:Name="IDBox" Text="{Binding SelectedItem.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" 
                      HorizontalAlignment="Left" Height="32" Margin="187,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" />
         </Grid>
 
@@ -148,24 +151,21 @@
                  materialDesign:HintAssist.Hint="šifra..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                 TextChanged="textBox_TextChanged"/>
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
                 <TextBox x:Name="searchName"
                  materialDesign:HintAssist.Hint="naziv..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                 TextChanged="textBox_TextChanged"/>
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
                 <TextBox x:Name="searchSupplier"
                  materialDesign:HintAssist.Hint="proizvođač..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                 TextChanged="textBox_TextChanged"/>
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <Button Click="Button_Click" Content="Poništi pretragu" FontFamily="Gill Sans MT" Foreground="Black"
+                <Button Content="Poništi pretragu" FontFamily="Gill Sans MT" Foreground="Black"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
             </StackPanel>
         </materialDesign:PopupBox>

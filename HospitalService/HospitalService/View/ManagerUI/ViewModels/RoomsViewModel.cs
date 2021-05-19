@@ -90,7 +90,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         public void OnEdit()
         {
-            this.Frame.NavigationService.Navigate(new RoomEditView(SelectedRoom));
+            this.Frame.NavigationService.Navigate(new RoomEditView(SelectedRoom, Rooms));
         }
 
         public void OpenInventoryView()

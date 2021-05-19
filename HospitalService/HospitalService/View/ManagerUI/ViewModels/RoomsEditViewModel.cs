@@ -114,23 +114,17 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Constructors
-        public RoomsEditViewModel(Frame frame, Room sr)
+        public RoomsEditViewModel(Frame frame, Room sr, ObservableCollection<Room> rooms)
         {
             ConfirmCommand = new MyICommand(OnConfirm, CanExecute);
             CancelCommand = new MyICommand(OnConfirm, CanExecute);
             this.Frame = frame;
             this.SelectedRoom = sr;
+            this.Rooms = rooms;
             this.RoomName = SelectedRoom.Name;
             this.RoomId = SelectedRoom.Id;
             this.RoomType = SelectedRoom.Type;
             this.IsFree = SelectedRoom.IsFree;
-
-            /* ovo vjerovatno ne treba */
-            this.Rooms = new ObservableCollection<Room>();
-
-            RoomService rs = new RoomService();
-            foreach (Room r in rs.GetAll())
-                Rooms.Add(r);
         }
         #endregion
     }

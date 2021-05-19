@@ -90,10 +90,10 @@ namespace HospitalService.View.ManagerUI.Views
         //}
 
         RoomsEditViewModel currentViewModel;
-        public RoomEditView(Room room)
+        public RoomEditView(Room room, ObservableCollection<Room> rooms)
         {
             InitializeComponent();
-            currentViewModel = new RoomsEditViewModel(newFrame, room);
+            currentViewModel = new RoomsEditViewModel(newFrame, room, rooms);
             this.DataContext = currentViewModel;
         }
     }

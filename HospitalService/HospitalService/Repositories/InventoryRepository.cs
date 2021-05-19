@@ -55,5 +55,18 @@ namespace HospitalService.Repositories
                 }
             }
         }
+
+        public void EditItem(Inventory inv)
+        {
+            for (int i = 0; i < GetAll().Count; i++)
+            {
+                if (inv.Id == inventory[i].Id)
+                {
+                    inventory[i] = inv;
+                    break;
+                }
+            }
+            SerializeInventory();
+        }
     }
 }

@@ -24,10 +24,10 @@
 
     <Grid Background="#f5f5f5">
 
-        <DataGrid ItemsSource="{Binding roomInventory}" SelectedItem="{Binding selectedInv, Mode=TwoWay}" 
+        <DataGrid ItemsSource="{Binding RoomInventory}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" 
                   x:Name="tableBinding" IsReadOnly="True"  Margin="16,0,0,0"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
-                  Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14" SelectionChanged="selectionChanged"
+                  Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
@@ -97,11 +97,11 @@
                     <validation:MaxInventoryProxy x:Key="proxy" Data="{Binding}"/>
                 </TextBox.Resources>
                 <TextBox.Text>
-                    <Binding Path="EnteredQuantity" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="Quantity" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validation:MoveQuantityValidation ValidationStep="RawProposedValue">
                                 <validation:MoveQuantityValidation.Wrapper>
-                                    <validation:MaxInventoryWrapper Max ="{Binding Path=Data.selectedInv.Quantity, Source={StaticResource proxy}}"/>
+                                    <validation:MaxInventoryWrapper Max ="{Binding Path=Data.SelectedItem.Quantity, Source={StaticResource proxy}}"/>
                                 </validation:MoveQuantityValidation.Wrapper>
                             </validation:MoveQuantityValidation>
                         </Binding.ValidationRules>
@@ -117,9 +117,10 @@
                 </Validation.ErrorTemplate>
             </TextBox>
 
-            <ComboBox x:Name="comboBox" ItemsSource="{Binding roomNames}" HorizontalAlignment="Left" Height="30" Margin="169,280,0,0" VerticalAlignment="Top" Width="154"/>
-            <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="82,399,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="save_Click" 
-                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14">
+            <ComboBox x:Name="comboBox" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}" HorizontalAlignment="Left" Height="30" Margin="169,280,0,0" VerticalAlignment="Top" Width="154"/>
+            <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="82,399,0,0" VerticalAlignment="Top" Height="30" Width="81"
+                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"
+                    Command="{Binding ConfirmCommand}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="IsEnabled" Value="True"/>
@@ -160,17 +161,43 @@
             </Button>
 
 
-            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="206,399,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="206,399,0,0" VerticalAlignment="Top" Height="30" Width="80"
+                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"
+                    Command="{Binding CancelCommand}"/>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="36,49,0,0" Text="Premesti stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
             <Label x:Name="Stavka" Content="Izabrana stavka" HorizontalAlignment="Left" Margin="45,138,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
-            <TextBox x:Name="IDBox" Text="{Binding selectedInv.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" 
+            <TextBox x:Name="IDBox" Text="{Binding SelectedItem.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" 
                      HorizontalAlignment="Left" Height="32" Margin="169,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" />
-            <DatePicker x:Name="datePicker" DisplayDate="{Binding Date}" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Left" Margin="169,236,0,0" VerticalAlignment="Top" Width="154" Height="30"/>
+            
+            <DatePicker x:Name="datePicker" DisplayDate="{Binding Date}" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Left"
+                        Margin="169,236,0,0" VerticalAlignment="Top" Width="154" Height="30">
+                <DatePicker.Style>
+                    <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource {x:Type DatePicker}}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedItem.EquipmentType}" Value="1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DatePicker.Style>
+            </DatePicker>
+            
             <Label x:Name="time" Content="Vreme" HorizontalAlignment="Left" Margin="45,188,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="30"/>
             <Label x:Name="date" Content="Datum" HorizontalAlignment="Left" Margin="45,232,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="30"/>
             <TextBox x:Name="TimeBox" HorizontalAlignment="Left" Height="32" Margin="169,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" >
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedItem.EquipmentType}" Value="1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
                 <TextBox.Text>
-                    <Binding Path="Time" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="EnteredTime" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validation:DateTimeValidation ValidationStep="RawProposedValue"/>
                         </Binding.ValidationRules>
@@ -189,7 +216,7 @@
 
         <ComboBox x:Name="InventoryType"
                   HorizontalAlignment="Left" Margin="24,91,0,0" VerticalAlignment="Top" 
-                  Width="140" SelectionChanged="comboBox_SelectionChanged">
+                  Width="140">
             <ComboBoxItem Content="Sva oprema"/>
             <ComboBoxItem Content="Statička oprema"/>
             <ComboBoxItem Content="Dinamička oprema"/>
@@ -203,24 +230,21 @@
                  materialDesign:HintAssist.Hint="šifra..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                 TextChanged="textBox_TextChanged"/>
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
                 <TextBox x:Name="searchName"
                  materialDesign:HintAssist.Hint="naziv..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                 TextChanged="textBox_TextChanged"/>
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
                 <TextBox x:Name="searchSupplier"
                  materialDesign:HintAssist.Hint="proizvođač..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                 TextChanged="textBox_TextChanged"/>
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <Button Click="Button_Click" Content="Poništi pretragu" FontFamily="Gill Sans MT" Foreground="Black"
+                <Button Content="Poništi pretragu" FontFamily="Gill Sans MT" Foreground="Black"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
             </StackPanel>
         </materialDesign:PopupBox>

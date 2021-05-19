@@ -88,7 +88,8 @@
             <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="59,167,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="30"/>
             <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="59,221,0,0" VerticalAlignment="Top" Width="112" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="32"/>
             <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="59,276,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
-            <TextBox x:Name="IDBox" IsReadOnly="True" Text="{Binding RoomId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Height="30" Margin="177,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"/>
+            <TextBox x:Name="IDBox" IsReadOnly="True" Text="{Binding RoomId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" 
+                     Height="30" Margin="177,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" IsEnabled="False"/>
             <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="32" Margin="177,221,0,0" TextWrapping="Wrap" 
                      VerticalAlignment="Top" Width="154">
                 <TextBox.Text>

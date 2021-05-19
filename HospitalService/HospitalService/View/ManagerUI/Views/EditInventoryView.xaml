@@ -31,7 +31,7 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
-        <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding invList}" SelectedItem="{Binding item, Mode=TwoWay}"
+        <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding Inventory}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
                   Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14" Margin="19,0,0,0"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
@@ -106,8 +106,8 @@
             <Label x:Name="kolicina" Content="Količina" HorizontalAlignment="Left" Margin="42,245,0,0" VerticalAlignment="Top" Width="122" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
             <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="42,312,0,0" VerticalAlignment="Top" Width="122" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="35"/>
             <Label x:Name="supplier" Content="Proizvođač" HorizontalAlignment="Left" Margin="42,376,0,0" VerticalAlignment="Top" Width="122" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="35"/>
-            <TextBox x:Name="IDBox" Text="{Binding item.Id, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                     HorizontalAlignment="Left" Height="36" Margin="168,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" IsEnabled="False" TextAlignment="Left"/>
+            <TextBox x:Name="IDBox" Text="{Binding ItemId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"
+                     HorizontalAlignment="Left" Height="36" Margin="168,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" TextAlignment="Left"/>
             <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="36" Margin="168,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168">
                 <TextBox.Text>
                     <Binding Path="ItemName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
@@ -127,7 +127,7 @@
             </TextBox>
 
             <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
-                      SelectedItem="{Binding item.EquipmentType, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding Type, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       HorizontalAlignment="Left" Height="35" Margin="168,312,0,0" VerticalAlignment="Top" Width="168">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -136,8 +136,8 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="88,426,0,0" VerticalAlignment="Top" 
-                    Height="35" Width="90" Click="save_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE"
-                    FontFamily="Gill Sans MT" FontSize="14">
+                    Height="35" Width="90" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE"
+                    FontFamily="Gill Sans MT" FontSize="14" Command="{Binding ConfirmCommand}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="IsEnabled" Value="True"/>
@@ -168,18 +168,20 @@
                 </Button.Style>
             </Button>
 
-            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="214,426,0,0" VerticalAlignment="Top" Height="35" Width="88" Click="cancel_Click" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" RenderTransformOrigin="0.522,0.406"/>
+            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="214,426,0,0" VerticalAlignment="Top" Height="35" Width="88" 
+                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" RenderTransformOrigin="0.522,0.406"
+                    Command="{Binding CancelCommand}"/>
             <TextBox x:Name="KolicinaBox" HorizontalAlignment="Left" Height="36" Margin="168,246,0,0" TextWrapping="Wrap" 
                      VerticalAlignment="Top" Width="168">
                 <TextBox.Resources>
                     <validation:MinInventoryProxy x:Key="proxy" Data="{Binding}"/>
                 </TextBox.Resources>
                 <TextBox.Text>
-                    <Binding Path="EnteredQuantity" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="Quantity" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <validation:EditQuantityValidation ValidationStep="RawProposedValue">
                                 <validation:EditQuantityValidation.Wrapper>
-                                    <validation:MinInventoryWrapper Min ="{Binding Path=Data.item.Quantity, Source={StaticResource proxy}}"/>
+                                    <validation:MinInventoryWrapper Min ="{Binding Path=Data.SelectedItem.Quantity, Source={StaticResource proxy}}"/>
                                 </validation:EditQuantityValidation.Wrapper>
                             </validation:EditQuantityValidation>
                         </Binding.ValidationRules>

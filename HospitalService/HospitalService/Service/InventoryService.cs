@@ -128,6 +128,7 @@ namespace HospitalService.Service
 
         public List<Inventory> GetAll() => inventory.GetAll();
         public Inventory GetOne(int id) => inventory.GetOne(id);
+        public void EditItem(Inventory i) => inventory.EditItem(i);
 
         #endregion
     }
