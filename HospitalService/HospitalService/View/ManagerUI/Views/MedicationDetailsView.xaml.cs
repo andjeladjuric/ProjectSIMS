@@ -23,12 +23,11 @@ namespace HospitalService.View.ManagerUI.Views
         public Medication medication { get; set; }
         private ObservableCollection<string> items { get; set; }
         DataGrid dg { get; set; }
-        public MedicationDetailsView(Medication m, DataGrid grid)
+        public MedicationDetailsView(Medication m)
         {
             InitializeComponent();
             this.DataContext = this;
             medication = m;
-            dg = grid;
             items = new ObservableCollection<string>();
 
             foreach (var item in m.Ingredients)
@@ -110,7 +109,7 @@ namespace HospitalService.View.ManagerUI.Views
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            IngredientsView i = new IngredientsView(medication.Ingredients, Validation);
+            IngredientsView i = new IngredientsView(medication.Ingredients);
             i.ShowDialog();
         }
     }

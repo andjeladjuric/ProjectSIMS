@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalService.View.ManagerUI.ViewModels;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,45 +21,13 @@ namespace HospitalService.View.ManagerUI.Views
     /// </summary>
     public partial class MedicationsView : Page
     {
-        private MedicationStorage medStorage = new MedicationStorage();
-        public ObservableCollection<Medication> meds { get; set; }
+        MedicationsViewModel currentViewModel;
         public MedicationsView()
         {
             InitializeComponent();
-            this.DataContext = this;
-
-            meds = new ObservableCollection<Medication>();
-            foreach (Medication m in medStorage.GetAll())
-            {
-                meds.Add(m);
-            }
-
+            currentViewModel = new MedicationsViewModel(newFrame);
+            this.DataContext = currentViewModel;
         }
 
-        private void create_Click(object sender, RoutedEventArgs e)
-        {
-            newFrame.Content = new AddMedicationView();
-        }
-
-        private void delete_Click(object sender, RoutedEventArgs e)
-        {
-            Medication m = (Medication)tableBinding.SelectedItem;
-            if (m == null)
-            {
-                MessageBox.Show("Morate izabrati lek!");
-            }
-            else
-            {
-                medStorage.Delete(m.Id);
-                meds.Remove(m);
-            }
-        }
-
-        private void tableBinding_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            Medication med = (Medication)tableBinding.SelectedItem;
-            MedicationDetailsView m = new MedicationDetailsView(med, tableBinding);
-            m.ShowDialog();
-        }
     }
 }

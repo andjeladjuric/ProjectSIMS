@@ -32,14 +32,14 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
-        <Rectangle HorizontalAlignment="Left" Height="495" Stroke="Black" VerticalAlignment="Top" Width="398" Margin="284,132,0,0"/>
+        <Border HorizontalAlignment="Left" Height="495" CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" VerticalAlignment="Top" Width="398" Margin="284,132,0,0"/>
         <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="336,168,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
         <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="336,282,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
         <Label x:Name="doctors" Content="Doktor" HorizontalAlignment="Left" Margin="336,348,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
 
         <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="35" Margin="468,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172">
             <TextBox.Text>
-                <Binding Path="MedName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="MedicationName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validation:ItemNameValidation ValidationStep="RawProposedValue"/>
                     </Binding.ValidationRules>
@@ -56,7 +56,7 @@
         </TextBox>
 
         <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="370,570,0,0" VerticalAlignment="Top" 
-                Height="26" Width="91" Click="save_Click" 
+                Height="26" Width="91" Command="{Binding ConfirmCommand}"
                 Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -80,14 +80,15 @@
         </Button>
 
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="509,570,0,0" 
-                VerticalAlignment="Top" Height="26" Width="90" Click="cancel_Click" Background="#adc5d0"
-                Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+                VerticalAlignment="Top" Height="26" Width="90" Background="#adc5d0"
+                Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"
+                Command="{Binding CancelCommand}"/>
 
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="332,56,0,0" Text="Dodaj lek" 
                    TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" 
                    FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
 
-        <ComboBox x:Name="doctorsBox" Opacity="100"
+        <ComboBox x:Name="doctorsBox" Opacity="100" ItemsSource="{Binding Doctors}"
                   HorizontalAlignment="Left" Height="34" Margin="468,340,0,0" Width="172" VerticalAlignment="Top"/>
 
         <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
@@ -118,8 +119,9 @@
         </ListBox>
 
         <Button x:Name="addIngredients" Content="Dodaj sastojke" HorizontalAlignment="Left" Margin="324,454,0,0" 
-            VerticalAlignment="Top" Height="26" Width="120" Click="Sastojci_Click" Background="#adc5d0"
-            Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+                VerticalAlignment="Top" Height="26" Width="120" Background="#adc5d0"
+                Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"
+                Command="{Binding AddIngredientCommand}"/>
         <Label x:Name="format" Content="Format leka" HorizontalAlignment="Left" Margin="336,229,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
         <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="35" Margin="468,221,0,0" TextWrapping="Wrap" 
                  VerticalAlignment="Top" Width="172">
@@ -131,7 +133,7 @@
                     </StackPanel>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
-            <Binding Path="MedForm" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+            <Binding Path="MedicationFormat" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                 <Binding.ValidationRules>
                     <validation:ItemNameValidation ValidationStep="RawProposedValue"/>
                 </Binding.ValidationRules>

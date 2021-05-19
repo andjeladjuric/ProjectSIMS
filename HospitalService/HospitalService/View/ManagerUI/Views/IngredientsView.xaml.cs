@@ -46,12 +46,11 @@ namespace HospitalService.View.ManagerUI.Views
 
         public Dictionary<string, int> ing { get; set; }
         public ListBox lb { get; set; }
-        public IngredientsView(Dictionary<string, int> dict, ListBox box)
+        public IngredientsView(Dictionary<string, int> dict)
         {
             InitializeComponent();
             this.DataContext = this;
             ing = dict;
-            lb = box;
 
             ingredients = new ObservableCollection<MedicationIngredients>();
             foreach (MedicationIngredients i in ingredientStorage.GetAll())

@@ -1,4 +1,5 @@
 ﻿using HospitalService.Storage;
+using HospitalService.View.ManagerUI.ViewModels;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -19,126 +20,134 @@ using System.Windows.Shapes;
 namespace HospitalService.View.ManagerUI.Views
 {
     /// <summary>
-    /// Interaction logic for AddMedication.xaml
+    /// Interaction logic for AddMedicationView.xaml
     /// </summary>
-    public partial class AddMedicationView : Page, INotifyPropertyChanged
+    public partial class AddMedicationView : Page
     {
-        private MedicationStorage medStorage = new MedicationStorage();
-        Dictionary<string, int> dictionary = new Dictionary<string, int>();
-        List<string> ing = new List<string>();
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
-        private string _name;
-        public string MedName
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    OnPropertyChanged("MedName");
-                }
-            }
-        }
-
-        private string _format;
-        public string MedForm
-        {
-            get
-            {
-                return _format;
-            }
-            set
-            {
-                if (value != _format)
-                {
-                    _format = value;
-                    OnPropertyChanged("MedForm");
-                }
-            }
-        }
+        AddMedicationViewModel currentViewModel;
 
         public AddMedicationView()
         {
             InitializeComponent();
-            this.DataContext = this;
-            List<string> doctors = new List<string>();
-            DoctorStorage storage = new DoctorStorage();
-
-            foreach (Doctor d in storage.GetAll())
-            {
-                doctors.Add(d.Name + " " + d.Surname);
-            }
-
-            doctorsBox.ItemsSource = doctors;
+            currentViewModel = new AddMedicationViewModel(newFrame);
+            this.DataContext = currentViewModel;
         }
+        //private MedicationStorage medStorage = new MedicationStorage();
+        //Dictionary<string, int> dictionary = new Dictionary<string, int>();
+        //List<string> ing = new List<string>();
 
-        private void save_Click(object sender, RoutedEventArgs e)
-        {
-            Random random = new Random();
-            string id = random.Next(1000).ToString();
+        //public event PropertyChangedEventHandler PropertyChanged;
+        //protected virtual void OnPropertyChanged(string name)
+        //{
+        //    if (PropertyChanged != null)
+        //    {
+        //        PropertyChanged(this, new PropertyChangedEventArgs(name));
+        //    }
+        //}
 
-            string name = NameBox.Text;
-            MedicationType type = (MedicationType)comboBox.SelectedItem;
+        //private string _name;
+        //public string MedName
+        //{
+        //    get
+        //    {
+        //        return _name;
+        //    }
+        //    set
+        //    {
+        //        if (value != _name)
+        //        {
+        //            _name = value;
+        //            OnPropertyChanged("MedName");
+        //        }
+        //    }
+        //}
 
-            string[] selectedDoctor = doctorsBox.Text.Split(" ");
-            string docName = selectedDoctor[0];
-            string docLastName = selectedDoctor[1];
-            string docJmbg = "";
+        //private string _format;
+        //public string MedForm
+        //{
+        //    get
+        //    {
+        //        return _format;
+        //    }
+        //    set
+        //    {
+        //        if (value != _format)
+        //        {
+        //            _format = value;
+        //            OnPropertyChanged("MedForm");
+        //        }
+        //    }
+        //}
 
-            DoctorStorage storage = new DoctorStorage();
-            foreach (Doctor d in storage.GetAll())
-            {
-                if (d.Name.Equals(docName) && d.Surname.Equals(docLastName))
-                {
-                    docJmbg = d.Jmbg;
-                }
-            }
+        //public AddMedicationView()
+        //{
+        //    InitializeComponent();
+        //    this.DataContext = this;
+        //    List<string> doctors = new List<string>();
+        //    DoctorStorage storage = new DoctorStorage();
 
-            Medication newMed = new Medication();
-            newMed.Id = id;
-            newMed.MedicineName = name;
-            newMed.Type = type;
-            newMed.IsApproved = MedicineStatus.WaitingForApproval;
-            newMed.Ingredients = dictionary;
-            newMed.Format = formatBox.Text;
-            medStorage.Save(newMed);
+        //    foreach (Doctor d in storage.GetAll())
+        //    {
+        //        doctors.Add(d.Name + " " + d.Surname);
+        //    }
 
-            MedicineValidationRequest validationRequest = new MedicineValidationRequest(id, docJmbg);
-            MedicineValidationStorage validationStorage = new MedicineValidationStorage();
-            validationStorage.GetAll().Add(validationRequest);
-            validationStorage.SerializeValidationRequests();
+        //    doctorsBox.ItemsSource = doctors;
+        //}
 
-            newFrame.Content = new MedicationsView();
-        }
+        //private void save_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Random random = new Random();
+        //    string id = random.Next(1000).ToString();
 
-        private void cancel_Click(object sender, RoutedEventArgs e)
-        {
-            NameBox.Visibility = Visibility.Hidden;
-            newFrame.Content = new MedicationsView();
-        }
+        //    string name = NameBox.Text;
+        //    MedicationType type = (MedicationType)comboBox.SelectedItem;
 
-        private void Sastojci_Click(object sender, RoutedEventArgs e)
-        {
-            IngredientsView i = new IngredientsView(dictionary, Validation);
-            i.ShowDialog();
-        }
+        //    string[] selectedDoctor = doctorsBox.Text.Split(" ");
+        //    string docName = selectedDoctor[0];
+        //    string docLastName = selectedDoctor[1];
+        //    string docJmbg = "";
 
-        private void NameBox_Copy_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        //    DoctorStorage storage = new DoctorStorage();
+        //    foreach (Doctor d in storage.GetAll())
+        //    {
+        //        if (d.Name.Equals(docName) && d.Surname.Equals(docLastName))
+        //        {
+        //            docJmbg = d.Jmbg;
+        //        }
+        //    }
 
-        }
+        //    Medication newMed = new Medication();
+        //    newMed.Id = id;
+        //    newMed.MedicineName = name;
+        //    newMed.Type = type;
+        //    newMed.IsApproved = MedicineStatus.WaitingForApproval;
+        //    newMed.Ingredients = dictionary;
+        //    newMed.Format = formatBox.Text;
+        //    medStorage.Save(newMed);
+
+        //    MedicineValidationRequest validationRequest = new MedicineValidationRequest(id, docJmbg);
+        //    MedicineValidationStorage validationStorage = new MedicineValidationStorage();
+        //    validationStorage.GetAll().Add(validationRequest);
+        //    validationStorage.SerializeValidationRequests();
+
+        //    newFrame.Content = new MedicationsView();
+        //}
+
+        //private void cancel_Click(object sender, RoutedEventArgs e)
+        //{
+        //    NameBox.Visibility = Visibility.Hidden;
+        //    newFrame.Content = new MedicationsView();
+        //}
+
+        //private void Sastojci_Click(object sender, RoutedEventArgs e)
+        //{
+        //    IngredientsView i = new IngredientsView(dictionary, Validation);
+        //    i.ShowDialog();
+        //}
+
+        //private void NameBox_Copy_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+
+        //}
     }
 }
