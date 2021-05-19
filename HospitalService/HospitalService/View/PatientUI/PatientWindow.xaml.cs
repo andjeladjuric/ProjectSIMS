@@ -1,4 +1,5 @@
-﻿using HospitalService.View.PatientUI.Pages;
+﻿using HospitalService.Service;
+using HospitalService.View.PatientUI.Pages;
 using Model;
 using Storage;
 using System;
@@ -21,21 +22,22 @@ namespace HospitalService.View.PatientUI
     /// </summary>
     public partial class PatientWindow : Window
     {
-        
-        public Patient patient { get; set; }
-        public PatientWindow(Patient p)
+        private AppointmentsService appointmentService;
+        public Patient Patient { get; set; }
+        public PatientWindow(Patient patient)
         {
             InitializeComponent();
             this.DataContext = this;
-            patient = p;
-            Main.Content = new ProfileView(patient);
+            Patient = patient;
+            Main.Content = new ProfileView(Patient);
+            appointmentService = new AppointmentsService();
 
         }
 
         private void ViewAppointmentsClick(object sender, RoutedEventArgs e)
         {
             
-            Main.Content = new ViewAppointment(patient);
+            Main.Content = new ViewAppointment(Patient);
         }
 
         private void logOutClick(object sender, RoutedEventArgs e)
@@ -46,9 +48,8 @@ namespace HospitalService.View.PatientUI
 
         private void addAppointmentClick(object sender, RoutedEventArgs e)
         {
-            AppointmentStorage apst = new AppointmentStorage();
-            List<Appointment> la = apst.GetAll();
-            List<Appointment> notFinishedAppointment = la.Where(ap => ap.patient.Jmbg.Equals(patient.Jmbg) && ap.StartTime>=DateTime.Now).ToList();
+            
+            List<Appointment> notFinishedAppointment = appointmentService.getNotFinishedAppointments(Patient);
            
             if (notFinishedAppointment.Count >= 5)
             {
@@ -57,33 +58,33 @@ namespace HospitalService.View.PatientUI
             else
             {
 
-                Main.Content = new PreferencesForAppointment(patient);
+                Main.Content = new PreferencesForAppointment(Patient);
             }
         }
 
         private void viewPrescriptions(object sender, RoutedEventArgs e)
         {
-            Main.Content = new MedicalRecordWithPrescriptions(patient);
+            Main.Content = new MedicalRecordWithPrescriptions(Patient);
         }
 
         private void SurveyClick(object sender, RoutedEventArgs e)
         {
-            Main.Content = new Surveys(patient);
+            Main.Content = new Surveys(Patient);
         }
 
         private void viewProfileClick(object sender, RoutedEventArgs e)
         {
-            Main.Content = new ProfileView(patient);
+            Main.Content = new ProfileView(Patient);
         }
 
         private void editProfileClick(object sender, RoutedEventArgs e)
         {
-            Main.Content = new EditProfile(patient);
+            Main.Content = new EditProfile(Patient);
         }
 
         private void viewMedicalRecordClick(object sender, RoutedEventArgs e)
         {
-            Main.Content = new MedicalRecordForPatient(patient);
+            Main.Content = new MedicalRecordForPatient(Patient);
         }
     }
 }

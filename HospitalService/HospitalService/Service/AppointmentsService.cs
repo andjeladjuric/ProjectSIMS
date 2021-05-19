@@ -51,5 +51,30 @@ namespace HospitalService.Service
             int countOfAppointments = appointmentsAfterFinishedSurvey.Count;
             return countOfAppointments;
         }
+
+        public List<Appointment> getNotFinishedAppointments(Patient patient) {
+
+            repository = new AppointmentsRepository();
+            List<Appointment> appointments = repository.GetAll();
+            List<Appointment> notFinishedAppointment = appointments.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.StartTime >= DateTime.Now).ToList();
+            return notFinishedAppointment;
+
+        }
+
+        public void delete(String id) {
+
+            repository = new AppointmentsRepository();
+            repository.Delete(id);
+        }
+
+        public int getNumberOfMovedAppointments(Patient patient) {
+
+            repository = new AppointmentsRepository();
+            List<Appointment> appointments = repository.GetAll();
+            List<Appointment> movedAppointments = appointments.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.Status == Status.Moved).ToList();
+            return movedAppointments.Count;
+        }
+
+        
     }
 }
