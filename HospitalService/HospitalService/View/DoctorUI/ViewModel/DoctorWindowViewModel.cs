@@ -23,10 +23,12 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private ObservableCollection<Medication> medicationsForApproval;
         private ObservableCollection<Medication> approvedMedications;
         private Appointment selectedAppointment;
+        private Medication selectedMedication;
         public RelayCommand AddAppointmentCommand { get; set; }
         public RelayCommand EditAppointmentCommand { get; set; }
         public RelayCommand DeleteAppointmentCommand { get; set; }
         public RelayCommand RefreshAppointmentsCommand { get; set; }
+        public RelayCommand ValidateCommand { get; set; }
         public RelayCommand LogOutCommand { get; set; }
         public DoctorWindowView Window { get; set; }
 
@@ -82,6 +84,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
+        public Medication SelectedMedication
+        {
+            get { return selectedMedication; }
+            set
+            {
+                selectedMedication = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<Medication> MedicationsForApproval
         {
             get { return medicationsForApproval; }
@@ -114,6 +126,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
                CanExecute_EditAppointmentCommand);
             DeleteAppointmentCommand = new RelayCommand(Executed_DeleteAppointmentCommand,
                 CanExecute_EditAppointmentCommand);
+            ValidateCommand = new RelayCommand(Executed_ValidateCommand,
+                CanExecute_ValidateCommand);
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             this.Window = doctorWindow;
             this.Doctor = loggedDoctor;
@@ -188,7 +202,25 @@ namespace HospitalService.View.DoctorUI.ViewModel
         {
             List<Appointment> todaysAppointments = new AppointmentsService().GetByDoctor(Doctor, Date);
             Appointments = new ObservableCollection<Appointment>();
+            this.MedicationsForApproval = new ObservableCollection<Medication>();
+            this.ApprovedMedications = new ObservableCollection<Medication>();
             todaysAppointments.ForEach(Appointments.Add);
+            List<MedicineValidationRequest> validationRequests = new MedicineValidationStorage().GetForDoctor(Doctor.Jmbg); // servis
+            List<Medication> medications = new MedicationStorage().GetForApproval(validationRequests); // servis
+            List<Medication> allMedications = new MedicationStorage().GetAllApproved(); // servis
+            todaysAppointments.ForEach(Appointments.Add);
+            medications.ForEach(MedicationsForApproval.Add);
+            allMedications.ForEach(ApprovedMedications.Add);
+        }
+
+        public bool CanExecute_ValidateCommand(object obj)
+        {
+            return true;
+        }
+
+        public void Executed_ValidateCommand(object obj)
+        {
+            new MedicineValidationView(this, SelectedMedication).ShowDialog();
         }
     }
 
