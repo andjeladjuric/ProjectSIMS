@@ -28,6 +28,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public RelayCommand EditAppointmentCommand { get; set; }
         public RelayCommand DeleteAppointmentCommand { get; set; }
         public RelayCommand RefreshAppointmentsCommand { get; set; }
+        public RelayCommand AboutMedicationCommand { get; set; }
         public RelayCommand ValidateCommand { get; set; }
         public RelayCommand LogOutCommand { get; set; }
         public DoctorWindowView Window { get; set; }
@@ -118,6 +119,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
         {
             AddAppointmentCommand = new RelayCommand(Executed_AddAppointmentCommand,
                 CanExecute_AddAppointmentCommand);
+            AboutMedicationCommand = new RelayCommand(Executed_AboutMedicationCommand,
+               CanExecute_AboutMedicationCommand);
             LogOutCommand = new RelayCommand(Executed_LogOutCommand,
                 CanExecute_AddAppointmentCommand);
             RefreshAppointmentsCommand = new RelayCommand(Executed_RefreshAppointmentsCommand,
@@ -221,6 +224,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_ValidateCommand(object obj)
         {
             new MedicineValidationView(this, SelectedMedication).ShowDialog();
+        }
+
+        public bool CanExecute_AboutMedicationCommand(object obj)
+        {
+            return true;
+        }
+
+        public void Executed_AboutMedicationCommand(object obj)
+        {
+            new AboutMedicationView(this, SelectedMedication).ShowDialog();
         }
     }
 
