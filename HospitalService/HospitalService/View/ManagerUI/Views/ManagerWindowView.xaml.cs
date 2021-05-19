@@ -1,4 +1,5 @@
 ﻿using HospitalService.Storage;
+using HospitalService.View.ManagerUI.ViewModels;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -21,36 +22,12 @@ namespace HospitalService.View.ManagerUI.Views
     /// </summary>
     public partial class ManagerWindowView : Window
     {
-        private Manager manager;
-        private InventoryFileStorage invStorage = new InventoryFileStorage();
-        private RenovationStorage renovationStorage = new RenovationStorage();
+        ManagerWindowViewModel currentViewModel;
         public ManagerWindowView(Manager m)
         {
             InitializeComponent();
-            manager = m;
-            renovationStorage.CheckRenovationRequests();
-        }
-
-        private void openButtonClick(object sender, RoutedEventArgs e)
-        {
-            OpenMenuButton.Visibility = Visibility.Collapsed;
-            CloseMenuButton.Visibility = Visibility.Visible;
-        }
-
-        private void closeButtonClick(object sender, RoutedEventArgs e)
-        {
-            OpenMenuButton.Visibility = Visibility.Visible;
-            CloseMenuButton.Visibility = Visibility.Collapsed;
-        }
-
-        private void Notification_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Profile_Click(object sender, RoutedEventArgs e)
-        {
-
+            currentViewModel = new ManagerWindowViewModel(this, m);
+            this.DataContext = currentViewModel;
         }
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -85,23 +62,6 @@ namespace HospitalService.View.ManagerUI.Views
                     MainFrame.Content = new MedicationsView();
                 }
             }
-        }
-
-        private void Logout_Click(object sender, RoutedEventArgs e)
-        {
-            new MainWindow().Show();
-            this.Close();
-        }
-
-        private void Help_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            RoomInventoryStorage r = new RoomInventoryStorage();
-            r.CheckRequests();
         }
     }
 }

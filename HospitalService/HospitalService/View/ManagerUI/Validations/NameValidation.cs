@@ -35,6 +35,7 @@ namespace HospitalService.View.ManagerUI.Validations
 
     public class ItemNameValidation : ValidationRule
     {
+        Regex checkName = new Regex(@"[A-Za-z0-9]+$");
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             try
@@ -43,7 +44,11 @@ namespace HospitalService.View.ManagerUI.Validations
                 {
                     return new ValidationResult(false, "Polje ne sme biti prazno!");
                 }
-                
+                else if (!checkName.IsMatch(value.ToString()))
+                {
+                    return new ValidationResult(false, "Pogrešan format!");
+                }
+
                 return new ValidationResult(true, null);
             }
             catch

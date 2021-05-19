@@ -32,6 +32,7 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
+
         <Border HorizontalAlignment="Left" Height="495" CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" VerticalAlignment="Top" Width="398" Margin="284,132,0,0"/>
         <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="336,168,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
         <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="336,282,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
@@ -88,7 +89,7 @@
                    TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" 
                    FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
 
-        <ComboBox x:Name="doctorsBox" Opacity="100" ItemsSource="{Binding Doctors}"
+        <ComboBox x:Name="doctorsBox" Opacity="100" ItemsSource="{Binding Doctors}" SelectedItem="{Binding Doctor}"
                   HorizontalAlignment="Left" Height="34" Margin="468,340,0,0" Width="172" VerticalAlignment="Top"/>
 
         <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 

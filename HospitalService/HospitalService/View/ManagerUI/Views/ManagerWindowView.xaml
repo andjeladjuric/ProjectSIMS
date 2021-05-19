@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views"
         mc:Ignorable="d"
        d:DesignHeight="768" d:DesignWidth="1024" Background="White"
-      Title="MainView" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+      Title="MainView" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
@@ -42,13 +42,13 @@
             Background="#adc5d0">
 
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Left" Margin="826,0,0,0" Width="198">
-                <Button x:Name="Profile" Click="Profile_Click" Margin="5" VerticalAlignment="Center" Width="35" Height="35" Background="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" >
+                <Button x:Name="Profile" Margin="5" VerticalAlignment="Center" Width="35" Height="35" Background="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" >
                     <materialDesign:PackIcon Kind="UserOutline"  Width="30" Height="30" />
                 </Button>
-                <Button x:Name="Notification" Click="Notification_Click" Margin="5" VerticalAlignment="Center" Width="35" Height="34" Background="{x:Null}" BorderThickness="0" >
+                <Button x:Name="Notification" Margin="5" VerticalAlignment="Center" Width="35" Height="34" Background="{x:Null}" BorderThickness="0" >
                     <materialDesign:PackIcon Kind="BellOutline"  Width="30" Height="30" />
                 </Button>
-                <Button x:Name="Help" Click="Help_Click" Margin="5" VerticalAlignment="Center" Width="35" Height="34" Background="{x:Null}" BorderThickness="0" >
+                <Button x:Name="Help" Margin="5" VerticalAlignment="Center" Width="35" Height="34" Background="{x:Null}" BorderThickness="0" >
                     <materialDesign:PackIcon Kind="HelpCircleOutline"  Width="30" Height="30" />
                 </Button>
 
@@ -56,7 +56,7 @@
                     <StackPanel Width="100">
                         <Button Content="Demo"/>
                         <Separator/>
-                        <Button Content="Log Out" Click="Logout_Click"/>
+                        <Button Content="Log Out" Command="{Binding LogoutCommand}"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
 
@@ -67,12 +67,32 @@
             <StackPanel>
                 <Grid Height="200">
                     <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
-                        <Button x:Name="OpenMenuButton" Click="openButtonClick" Width="35" Height="35" Background="{x:Null}" Margin="0,12,0,0" BorderThickness="0" HorizontalAlignment="Center">
+                        <Button x:Name="OpenMenuButton" Width="35" Height="35" Background="{x:Null}" Margin="0,12,0,0" BorderThickness="0" HorizontalAlignment="Center">
                             <materialDesign:PackIcon Kind="Menu" Foreground="Black" Width="35" Height="35"/>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=GridMenu, Path=Width}" Value="200">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
                         </Button>
 
-                        <Button x:Name="CloseMenuButton" Click="closeButtonClick" Background="{x:Null}" BorderThickness="0" Visibility="Collapsed" Margin="0,12,0,0" HorizontalAlignment="Right">
-                            <materialDesign:PackIcon Kind="ArrowLeft" Width="35" Height="35" />
+                        <Button x:Name="CloseMenuButton" Background="{x:Null}" BorderThickness="0" Margin="0,12,0,0" HorizontalAlignment="Right">
+                            <materialDesign:PackIcon Kind="Menu" Width="35" Height="35" />
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=GridMenu, Path=Width}" Value="200">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
                         </Button>
                     </StackPanel>
                 </Grid>

@@ -91,7 +91,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void OnConfirm()
         {
             MedicationService medicationService = new MedicationService();
-            string[] generateId = new Guid().ToString().Split("-");
+            string[] generateId = Guid.NewGuid().ToString().Split("-");
             MedicationId = generateId[0];
             medicationService.AddMedication(new Medication(MedicationId, MedicationName, Status, Type, Ingredients, MedicationFormat));
             CreateValidationRequest();

@@ -130,7 +130,7 @@ namespace HospitalService.View.ManagerUI.Views
 
         private void addNewIngredient_Click(object sender, RoutedEventArgs e)
         {
-            newFrame.Content = new AddIngredientView(ingredients);
+            newFrame.Content = new AddIngredientView(ingredients, newFrame);
         }
 
         private void removeIng_Click(object sender, RoutedEventArgs e)

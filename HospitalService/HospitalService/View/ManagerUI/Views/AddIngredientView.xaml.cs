@@ -1,4 +1,5 @@
 ﻿using HospitalService.Storage;
+using HospitalService.View.ManagerUI.ViewModels;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -21,38 +22,13 @@ namespace HospitalService.View.ManagerUI.Views
     /// </summary>
     public partial class AddIngredientView : Page
     {
-        ObservableCollection<MedicationIngredients> ingredients { get; set; }
-        public AddIngredientView(ObservableCollection<MedicationIngredients> i)
+        AddIngredientViewModel currentViewModel;
+
+        public AddIngredientView(ObservableCollection<MedicationIngredients> AllIngredients, Frame newFrame)
         {
             InitializeComponent();
-            ingredients = i;
-        }
-
-        private void cancel_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Page());
-        }
-
-        private void add_Click(object sender, RoutedEventArgs e)
-        {
-            string name = ingredientBox.Text;
-            IngredientStorage storage = new IngredientStorage();
-            MedicationIngredients newIngredient = new MedicationIngredients();
-            newIngredient.IngredientName = name;
-
-            foreach (MedicationIngredients m in storage.GetAll())
-            {
-                if (name.Equals(m.IngredientName))
-                {
-                    MessageBox.Show("Sastojak već postoji!");
-                    return;
-                }
-            }
-
-            storage.Save(newIngredient);
-            storage.SerializeIngredients();
-            ingredients.Add(newIngredient);
-            NavigationService.Navigate(new Page());
+            currentViewModel = new AddIngredientViewModel(newFrame, AllIngredients);
+            this.DataContext = currentViewModel;
         }
     }
 }

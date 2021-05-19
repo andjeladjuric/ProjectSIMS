@@ -80,6 +80,7 @@ namespace HospitalService.Service
         public List<Medication> GetAll() => medications.GetAll();
         public Medication GetOne(string id) => medications.getOne(id);
         public void AddMedication(Medication newMedication) => medications.Save(newMedication);
+        public void AddIngredient(MedicationIngredients newIngredient) => ingredients.Save(newIngredient);
 
         #endregion
     }
