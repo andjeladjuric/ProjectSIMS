@@ -29,6 +29,7 @@ namespace HospitalService.View.ManagerUI.Views
         {
             InitializeComponent();
             currentViewModel = new IngredientsViewModel(currentFrame, quantityFrame, CurrentIngredients);
+            this.KeepAlive = true;
             this.DataContext = currentViewModel;
         }
 

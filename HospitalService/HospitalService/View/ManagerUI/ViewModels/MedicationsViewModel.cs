@@ -60,8 +60,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         private void OnDetails()
         {
-            MedicationDetailsView details = new MedicationDetailsView(Medication);
-            details.ShowDialog();
+            this.Frame.NavigationService.Navigate(new MedicationDetailsView(Medication, Frame));
         }
 
         private bool CanExecute()

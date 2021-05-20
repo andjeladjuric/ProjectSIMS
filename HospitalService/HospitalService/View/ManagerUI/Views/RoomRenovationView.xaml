@@ -23,7 +23,7 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
-        <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding appointment}"
+        <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding Appointments}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
                   Height="450" VerticalAlignment="Center" Width="507" FontFamily="Gill Sans MT" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5"
@@ -90,19 +90,22 @@
         <Label x:Name="end" Content="Kraj" HorizontalAlignment="Left" Margin="624,398,0,0" VerticalAlignment="Top" 
                Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="16" FontWeight="Light" Height="35"/>
 
-        <TextBox x:Name="IDBox" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Center"
+        <TextBox x:Name="IDBox" IsEnabled="False" HorizontalAlignment="Left" HorizontalContentAlignment="Center"
                  Height="30" Margin="746,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"
-                 FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" FontSize="16" Foreground="#FF5B7886"/>
+                 FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" FontSize="16" Foreground="#FF5B7886"
+                 Text="{Binding SelectedRoom.Id}"/>
 
 
-        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="670,473,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="save_Click" 
-                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
-        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="765,473,0,0" VerticalAlignment="Top" Height="30" Width="81" Click="cancel_Click" 
-                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="670,473,0,0" VerticalAlignment="Top" Height="30" Width="81"
+                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"
+                    Command="{Binding ConfirmCommand}"/>
+        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="765,473,0,0" VerticalAlignment="Top" Height="30" Width="81" 
+                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"
+                    Command="{Binding CancelCommand}"/>
         <DatePicker x:Name="startPicker" HorizontalAlignment="Left" Margin="746,349,0,0" VerticalAlignment="Top" Width="154"
-                    DisplayDateStart="{x:Static sys:DateTime.Today}"/>
+                    DisplayDateStart="{x:Static sys:DateTime.Today}" DisplayDate="{Binding Start}"/>
         <DatePicker x:Name="endPicker" HorizontalAlignment="Left" Margin="746,403,0,0" VerticalAlignment="Top" Width="154"
-                    DisplayDateStart="{x:Static sys:DateTime.Today}"/>
+                    DisplayDateStart="{x:Static sys:DateTime.Today}" DisplayDate="{Binding End}"/>
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>

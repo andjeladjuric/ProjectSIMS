@@ -56,14 +56,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Constructors
         public RoomsViewModel(Frame currentFrame)
         {
-            RoomService roomService = new RoomService();
-            Rooms = new ObservableCollection<Room>();
-
-            foreach (Room r in roomService.GetAll())
-            {
-                Rooms.Add(r);
-            }
-
+            LoadRooms();
             AddCommand = new MyICommand(OnAdd, CanAddRoom);
             DeleteCommand = new MyICommand(OnDelete, CanExecute);
             EditCommand = new MyICommand(OnEdit, CanExecute);
@@ -71,6 +64,17 @@ namespace HospitalService.View.ManagerUI.ViewModels
             OpenInventoryCommand = new MyICommand(OpenInventoryView, CanExecute);
             this.Frame = currentFrame;
 
+        }
+
+        private void LoadRooms()
+        {
+            RoomService roomService = new RoomService();
+            Rooms = new ObservableCollection<Room>();
+
+            foreach (Room r in roomService.GetAll())
+            {
+                Rooms.Add(r);
+            }
         }
 
         #endregion

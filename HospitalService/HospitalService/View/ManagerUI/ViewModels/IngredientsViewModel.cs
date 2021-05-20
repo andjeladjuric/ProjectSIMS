@@ -137,7 +137,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         private void OnCancel()
         {
-            this.Frame.Content = null;
+            this.Frame.NavigationService.GoBack();
         }
 
         public bool CanExecute()

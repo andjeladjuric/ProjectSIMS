@@ -18,26 +18,29 @@ namespace HospitalService.View.ManagerUI.ViewModels
         public ObservableCollection<Inventory> Inventory
         {
             get { return inventory; }
-            set { inventory = value; }
+            set
+            {
+                inventory = value;
+                OnPropertyChanged();
+            }
         }
 
-        public ObservableCollection<Inventory> Filtered { get; set; }
+        private ObservableCollection<Inventory> filtered;
+        public ObservableCollection<Inventory> Filtered
+        {
+            get { return filtered; }
+            set
+            {
+                filtered = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Frame frame;
         public Frame Frame
         {
             get { return frame; }
             set { frame = value; }
-        }
-
-        private ComboBox comboBox;
-        public ComboBox ComboBox
-        {
-            get { return comboBox; }
-            set 
-            { 
-                comboBox = value;
-            }
         }
 
         private Inventory selectedItem;
@@ -62,6 +65,40 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private string itemId;
+        public string ItemId
+        {
+            get { return itemId; }
+            set
+            {
+                itemId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string itemName;
+        public string ItemName
+        {
+            get { return itemName; }
+            set
+            {
+                itemName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string supplier;
+        public string Supplier
+        {
+            get { return supplier; }
+            set
+            {
+                supplier = value;
+                OnPropertyChanged();
+            }
+        }
+        public CollectionView MainView { get; set; }
         #endregion
 
         #region Commands
@@ -69,6 +106,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         public MyICommand DeleteCommand { get; set; }
         public MyICommand EditCommand { get; set; }
         public MyICommand FilterTypeCommand { get; set; }
+        public MyICommand SearchCommand { get; set; }
         #endregion
 
         #region Actions
@@ -91,12 +129,11 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         private void OnFilter()
         {
-            MessageBox.Show("tu sam");
             InventoryService inv = new InventoryService();
+            Filtered = new ObservableCollection<Inventory>();
+            LoadInventory();
             if (SelectedType != -1)
             {
-                Filtered = new ObservableCollection<Inventory>();
-
                 if (SelectedType == 0)
                 {
                     Filtered = Inventory;
@@ -119,6 +156,32 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 }
 
                 Inventory = Filtered;
+                MainView.Refresh();
+            }
+        }
+
+        private void OnSearch()
+        {
+            LoadInventory();
+            Filtered = new ObservableCollection<Inventory>();
+            if (ItemId.ToLower().Trim() != "" || ItemName.ToLower().Trim() != "" || Supplier.ToLower().Trim() != "")
+            {
+                foreach (Inventory i in Inventory)
+                {
+                    if (i.Name.ToLower().Contains(ItemName) && i.Id.ToString().Contains(ItemId)
+                        && i.Supplier.ToLower().Contains(Supplier))
+                    {
+                        Filtered.Add(i);
+                    }
+                }
+
+                Inventory = Filtered;
+                MainView.Refresh();
+            }
+            else
+            {
+                LoadInventory();
+                MainView.Refresh();
             }
         }
 
@@ -150,10 +213,15 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             LoadInventory();
             this.Frame = currentFrame;
+            this.ItemName = "";
+            this.ItemId = "";
+            this.Supplier = "";
+            MainView = (CollectionView)CollectionViewSource.GetDefaultView(Inventory);
             AddCommand = new MyICommand(OnAdd, CanExecute);
             DeleteCommand = new MyICommand(OnDelete, CanEditOrDelete);
             EditCommand = new MyICommand(OnEdit, CanEditOrDelete);
             FilterTypeCommand = new MyICommand(OnFilter, CanExecute);
+            SearchCommand = new MyICommand(OnSearch, CanExecute);
         }
         #endregion
     }

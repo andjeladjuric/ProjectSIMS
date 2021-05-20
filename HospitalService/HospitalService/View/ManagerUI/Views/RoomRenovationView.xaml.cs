@@ -1,4 +1,5 @@
 ﻿using HospitalService.Storage;
+using HospitalService.View.ManagerUI.ViewModels;
 using Model;
 using Storage;
 using System;
@@ -22,71 +23,79 @@ namespace HospitalService.View.ManagerUI.Views
     /// </summary>
     public partial class RoomRenovationView : Page
     {
-        Room SelectedRoom { get; set; }
-        ObservableCollection<Appointment> appointment { get; set; }
+        RoomRenovationViewModel currentViewModel;
         public RoomRenovationView(Room room)
         {
             InitializeComponent();
-            this.DataContext = this;
-            SelectedRoom = room;
-
-            appointment = new ObservableCollection<Appointment>();
-            AppointmentStorage storage = new AppointmentStorage();
-
-            foreach (Appointment a in storage.GetAll())
-            {
-                if (a.StartTime >= DateTime.Now && a.room.Id.Equals(SelectedRoom.Id))
-                {
-                    appointment.Add(a);
-                }
-            }
-
-            tableBinding.ItemsSource = appointment;
-            IDBox.Text = SelectedRoom.Id;
+            currentViewModel = new RoomRenovationViewModel(newFrame, room);
+            this.DataContext = currentViewModel;
         }
+        //Room SelectedRoom { get; set; }
+        //ObservableCollection<Appointment> appointment { get; set; }
+        //public RoomRenovationView(Room room)
+        //{
+        //    InitializeComponent();
+        //    this.DataContext = this;
+        //    SelectedRoom = room;
 
-        private void save_Click(object sender, RoutedEventArgs e)
-        {
-            RenovationStorage renovationStorage = new RenovationStorage();
-            DateTime startDate = Convert.ToDateTime(startPicker.Text);
-            DateTime endDate = Convert.ToDateTime(endPicker.Text);
+        //    appointment = new ObservableCollection<Appointment>();
+        //    AppointmentStorage storage = new AppointmentStorage();
 
-            if (CheckDateEntry(startDate, endDate) && renovationStorage.CheckExistingRenovations(SelectedRoom.Id, startDate, endDate))
-            {
-                renovationStorage.Save(new Renovation(SelectedRoom.Id, startDate, endDate));
-                renovationStorage.SerializeRenovations();
-            }
+        //    foreach (Appointment a in storage.GetAll())
+        //    {
+        //        if (a.StartTime >= DateTime.Now && a.room.Id.Equals(SelectedRoom.Id))
+        //        {
+        //            appointment.Add(a);
+        //        }
+        //    }
 
-            startPicker.Text = "";
-            endPicker.Text = "";
-        }
+        //    tableBinding.ItemsSource = appointment;
+        //    IDBox.Text = SelectedRoom.Id;
+        //}
 
-        private bool CheckDateEntry(DateTime startDate, DateTime endDate)
-        {
-            foreach (Appointment a in new AppointmentStorage().GetAll())
-            {
-                if (a.room.Id.Equals(SelectedRoom.Id))
-                {
-                    if (DateTime.Compare(startDate.Date, a.StartTime.Date) <= 0 && DateTime.Compare(endDate.Date, a.StartTime.Date) >= 0)
-                    {
-                        MessageBox.Show("U datom periodu postoje zakazani termini!");
-                        return false;
-                    }
-                }
-            }
+        //private void save_Click(object sender, RoutedEventArgs e)
+        //{
+        //    RenovationStorage renovationStorage = new RenovationStorage();
+        //    DateTime startDate = Convert.ToDateTime(startPicker.Text);
+        //    DateTime endDate = Convert.ToDateTime(endPicker.Text);
 
-            if (DateTime.Compare(startDate, endDate) > 0)
-            {
-                MessageBox.Show("Neispravan unos datuma!");
-                return false;
-            }
+        //    if (CheckDateEntry(startDate, endDate) && renovationStorage.CheckExistingRenovations(SelectedRoom.Id, startDate, endDate))
+        //    {
+        //        renovationStorage.Save(new Renovation(SelectedRoom.Id, startDate, endDate));
+        //        renovationStorage.SerializeRenovations();
+        //    }
 
-            return true;
-        }
+        //    startPicker.Text = "";
+        //    endPicker.Text = "";
+        //    newFrame.NavigationService.Navigate(new RoomsView());
+        //}
 
-        private void cancel_Click(object sender, RoutedEventArgs e)
-        {
-            newFrame.Content = new RoomsView();
-        }
+        //private bool CheckDateEntry(DateTime startDate, DateTime endDate)
+        //{
+        //    foreach (Appointment a in new AppointmentStorage().GetAll())
+        //    {
+        //        if (a.room.Id.Equals(SelectedRoom.Id))
+        //        {
+        //            if (DateTime.Compare(startDate.Date, a.StartTime.Date) <= 0 && DateTime.Compare(endDate.Date, a.StartTime.Date) >= 0)
+        //            {
+        //                MessageBox.Show("U datom periodu postoje zakazani termini!");
+        //                return false;
+        //            }
+        //        }
+        //    }
+
+        //    if (DateTime.Compare(startDate, endDate) > 0)
+        //    {
+        //        MessageBox.Show("Neispravan unos datuma!");
+        //        return false;
+        //    }
+
+        //    return true;
+        //}
+
+        //private void cancel_Click(object sender, RoutedEventArgs e)
+        //{
+        //    newFrame.Content = new RoomsView();
+        //}
     }
 }

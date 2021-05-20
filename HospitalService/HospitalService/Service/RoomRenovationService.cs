@@ -129,5 +129,9 @@ namespace HospitalService.Service
 
             return true;
         }
+
+        public void Save(Renovation reno) => renovations.Save(reno);
+        public List<Renovation> GetAll() => renovations.GetAll();
+        public void SerializeRenovations() => renovations.SerializeRenovations();
     }
 }
