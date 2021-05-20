@@ -88,7 +88,19 @@
                                 </Button>
                             </StackPanel>
                             <StackPanel Width="130" Height="25" Margin="0,30,0,0">
-                                <Button Content="Bolničko liječenje"/>
+                                <Button Content="Bolničko liječenje">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click" >
+                                            <i:InvokeCommandAction Command="{Binding TreatmentCommand}"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="KeyUp" >
+                                            <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <i:Interaction.Behaviors>
+                                        <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                                    </i:Interaction.Behaviors>
+                                </Button>
                             </StackPanel>
                             <StackPanel Width="130" Height="25" Margin="0,30,0,0">
                                 <Button Content="Hitna operacija"/>

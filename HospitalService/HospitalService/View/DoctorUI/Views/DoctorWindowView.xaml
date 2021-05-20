@@ -118,7 +118,7 @@
                         </Button>
                     </StackPanel>
                     <DataGrid SelectedItem="{Binding Path=SelectedAppointment}" x:Name="AppointmentsTable" IsReadOnly="True"  ItemsSource="{Binding Path=Appointments}"
-                  SelectionMode="Single" AutoGenerateColumns="False" Height="300" Width="760" Margin="0,0,0,20">
+                  SelectionMode="Single" AutoGenerateColumns="False" Height="300" Width="760" Margin="0,0,0,20" SelectionUnit="FullRow">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Ime"  Binding="{Binding patient.Name}" Width="*"/>
                             <DataGridTextColumn Header="Prezime" Binding="{Binding patient.Surname}" Width="*"/>

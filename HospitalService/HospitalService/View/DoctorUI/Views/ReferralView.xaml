@@ -52,14 +52,14 @@
                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
             </i:Interaction.Behaviors>
         </Button>
-        <ComboBox ItemsSource="{Binding Path=Departments}" HorizontalAlignment="Left" Margin="204,132,0,0" VerticalAlignment="Top" Width="190" Height="30">
+        <ComboBox ItemsSource="{Binding Path=Departments}" SelectedItem="{Binding SelectedDepartment, Mode=TwoWay}" HorizontalAlignment="Left" Margin="204,132,0,0" VerticalAlignment="Top" Width="190" Height="30">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged" >
                     <i:InvokeCommandAction Command="{Binding GetDoctorsCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ComboBox>
-        <ComboBox ItemsSource="{Binding Doctors}" SelectedItem="{Binding SelectedDoctor, Mode=TwoWay}" HorizontalAlignment="Left" Margin="204,187,0,0" VerticalAlignment="Top" Width="190" Height="30" IsEnabled="{Binding IsEnabled, Mode=TwoWay}">
+        <ComboBox ItemsSource="{Binding Doctors, Mode=TwoWay}" SelectedItem="{Binding SelectedDoctor, Mode=TwoWay}" HorizontalAlignment="Left" Margin="204,187,0,0" VerticalAlignment="Top" Width="190" Height="30" IsEnabled="{Binding IsEnabled, Mode=TwoWay}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>

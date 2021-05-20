@@ -13,12 +13,14 @@ namespace Model
         public List<Prescription> Prescriptions { get; set; }
         public List<Referral> Referrals { get; set; }
         public List<MedicationIngredients> Allergies { get; set; }
+        public List<HospitalTreatment> HospitalTreatments { get; set; }
 
         public MedicalRecord() {
             Diagnoses = new List<Diagnosis>();
             Prescriptions = new List<Prescription>(); 
             Referrals = new List<Referral>();
             Allergies = new List<MedicationIngredients>();
+            HospitalTreatments = new List<HospitalTreatment>();
         }
 
         public MedicalRecord(string s, List<Diagnosis> ds, List<Prescription> ps)

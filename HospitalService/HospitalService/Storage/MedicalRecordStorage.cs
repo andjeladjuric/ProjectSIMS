@@ -97,25 +97,19 @@ namespace Storage
 
         }
 
-        public DoctorType GetType(string type)
+     public int TakenBeds(string roomId)
         {
-            switch (type)
+            int currentlyTakenBeds = 0;
+            foreach(MedicalRecord record in records)
             {
-                case "Kardiologija":
-                    return DoctorType.Kardiologija;
-                case "Dermatologija":
-                    return DoctorType.Dermatologija;
-                case "Neurologija":
-                    return DoctorType.Neurologija;
-                case "Porodicna":
-                    return DoctorType.Porodicna;
-                case "Pedijatrija":
-                    return DoctorType.Pedijatrija;
-                case "Hirurgija":
-                    return DoctorType.Hirurgija;
-                default:
-                    return DoctorType.Porodicna;
+                foreach(HospitalTreatment treatment in record.HospitalTreatments)
+                {
+                    if (treatment.RoomId.Equals(roomId))
+                        if (DateTime.Compare(treatment.EndTime, DateTime.Now) > 0)
+                            currentlyTakenBeds++;
+                }
             }
+            return currentlyTakenBeds;
         }
 
     }

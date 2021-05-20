@@ -1,9 +1,7 @@
-﻿using HospitalService.Model;
-using HospitalService.Storage;
+﻿using HospitalService.Storage;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Views;
 using Model;
-using Storage;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,18 +11,22 @@ using System.Windows;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
-    class ReferralViewModel : ViewModelClass
+    public class UrgentOperationViewModel : ViewModelClass
     {
         public MedicalRecord MedicalRecord { get; set; }
+        public Patient Patient { get; set; }
         public string PatientsName { get; set; }
         public ObservableCollection<string> Departments { get; set; }
-        public ReferralView ThisWindow { get; set; }
+        public ObservableCollection<Room> Rooms { get; set; }
+        public UrgentOperationView ThisWindow { get; set; }
         private ObservableCollection<Doctor> doctors;
         private Doctor selectedDoctor;
         private DoctorType selectedDepartment;
-        private bool isUrgent;
+        private Room selectedRoom;
         private bool isEnabled;
-        private string reason;
+        private DateTime selectedDate;
+        private DateTime startTime;
+        private DateTime endTime;
 
         public RelayCommand ApplyCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
@@ -51,6 +53,17 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
+
+        public Room SelectedRoom
+        {
+            get { return selectedRoom; }
+            set
+            {
+                selectedRoom = value;
+                OnPropertyChanged();
+            }
+        }
+
         public DoctorType SelectedDepartment
         {
             get { return selectedDepartment; }
@@ -60,16 +73,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 OnPropertyChanged();
             }
         }
-        public bool IsUrgent
-        {
-            get { return isUrgent; }
-            set
-            {
-                isUrgent = value;
-                OnPropertyChanged();
-            }
-        }
-        public  bool IsEnabled
+        public bool IsEnabled
         {
             get { return isEnabled; }
             set
@@ -78,17 +82,37 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 OnPropertyChanged();
             }
         }
-        public string Reason
+        public DateTime SelectedDate
         {
-            get { return reason; }
+            get { return selectedDate; }
             set
             {
-                reason = value;
+                selectedDate = value;
                 OnPropertyChanged();
             }
         }
 
-        public ReferralViewModel(MedicalRecord medicalRecord, ReferralView window)
+        public DateTime StartTime
+        {
+            get { return startTime; }
+            set
+            {
+                startTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime EndTime
+        {
+            get { return selectedDate; }
+            set
+            {
+                endTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public UrgentOperationViewModel(MedicalRecord medicalRecord, UrgentOperationView window)
         {
             ThisWindow = window;
             this.MedicalRecord = medicalRecord;
@@ -96,7 +120,6 @@ namespace HospitalService.View.DoctorUI.ViewModel
             this.Departments = new ObservableCollection<string>();
             Enum.GetNames(typeof(DoctorType)).ToList().ForEach(Departments.Add);
             this.IsEnabled = false;
-            this.IsUrgent = false;
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             ApplyCommand = new RelayCommand(Executed_ApplyCommand,
               CanExecute_ApplyCommand);
@@ -112,11 +135,12 @@ namespace HospitalService.View.DoctorUI.ViewModel
         }
         public bool CanExecute_ApplyCommand(object obj)
         {
-            if (Reason == null || SelectedDoctor == null)
+            if (SelectedRoom == null || SelectedDoctor == null)
             {
                 MessageBox.Show("Sva polja moraju biti popunjena.");
                 return false;
-            }else
+            }
+            else
                 return true;
         }
         public bool CanExecute_GetDoctorsCommand(object obj)
@@ -126,18 +150,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_ApplyCommand(object obj)
         {
 
-            Referral newReferral = new Referral()
-            {
-                DateOfIssue = DateTime.Now,
-                Specialization = SelectedDepartment,
-                Doctor = SelectedDoctor,
-                IsUrgent = IsUrgent,
-                Reason = Reason
-            };
-            MedicalRecord.Referrals.Add(newReferral);
-            new MedicalRecordStorage().Edit(MedicalRecord);
             ThisWindow.Close();
-        
+
         }
 
         public void Executed_CancelCommand(object obj)

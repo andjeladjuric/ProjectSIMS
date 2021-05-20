@@ -211,8 +211,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         private void Executed_KeyDownCommandWithKey(object obj)
         {
-            if (obj.Equals(Key.A))
-                AddAppointmentCommand.Execute(obj);
+          //  if (obj.Equals(Key.A))
+            //    AddAppointmentCommand.Execute(obj);
         }
 
         public void Refresh()

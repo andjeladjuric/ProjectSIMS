@@ -24,6 +24,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private ObservableCollection<Diagnosis> diagnoses;
         private ObservableCollection<Prescription> prescriptions;
         public RelayCommand ReferralCommand { get; set; }
+        public RelayCommand TreatmentCommand { get; set; }
         public RelayCommand DiagnosisCommand { get; set; }
         public RelayCommand ShowAnamnesisCommand { get; set; }
         public RelayCommand PrescriptionCommand { get; set; }
@@ -118,10 +119,22 @@ namespace HospitalService.View.DoctorUI.ViewModel
               CanExecute_ReferralCommand);
             DiagnosisCommand = new RelayCommand(Executed_DiagnosisCommand,
             CanExecute_DiagnosisCommand);
+            TreatmentCommand = new RelayCommand(Executed_TreatmentCommand,
+           CanExecute_TreatmentCommand);
             ShowAnamnesisCommand = new RelayCommand(Executed_ShowAnamnesisCommand,
             CanExecute_ShowAnamnesisCommand);
             PrescriptionCommand = new RelayCommand(Executed_PrescriptionCommand,
           CanExecute_PrescriptionCommand);
+        }
+
+        public bool CanExecute_TreatmentCommand(object obj)
+        {
+            return true;
+        }
+
+        public void Executed_TreatmentCommand(object obj)
+        {
+            new HospitalTreatmentView(this).ShowDialog();
         }
 
         public bool CanExecute_PrescriptionCommand(object obj)

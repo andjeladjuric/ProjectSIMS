@@ -35,7 +35,7 @@ namespace HospitalService.View.DoctorUI.Commands
         {
             if (KeyUpCommand != null)
             {
-                if(e.Key.Equals(Key.A))
+               // if(e.Key.Equals(Key.A))
                     KeyUpCommand.Execute(e.Key);
             }
         }

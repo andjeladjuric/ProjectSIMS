@@ -1,5 +1,4 @@
-﻿using HospitalService.View.DoctorUI.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -14,14 +13,13 @@ using System.Windows.Shapes;
 namespace HospitalService.View.DoctorUI.Views
 {
     /// <summary>
-    /// Interaction logic for HospitalTreatmentView.xaml
+    /// Interaction logic for UrgentOperationView.xaml
     /// </summary>
-    public partial class HospitalTreatmentView : Window
+    public partial class UrgentOperationView : Window
     {
-        public HospitalTreatmentView(MedicalRecordViewModel parent)
+        public UrgentOperationView()
         {
             InitializeComponent();
-            this.DataContext = new HospitalTreatmentViewModel(parent, this);
         }
     }
 }
