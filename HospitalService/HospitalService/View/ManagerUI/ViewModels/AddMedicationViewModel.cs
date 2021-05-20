@@ -106,8 +106,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void OnAddIngredients()
         {
             Ingredients = new Dictionary<string, int>();
-            IngredientsView ing = new IngredientsView(Ingredients);
-            ing.ShowDialog();
+            this.Frame.NavigationService.Navigate(new IngredientsView(Ingredients, Frame));
         }
 
         private bool CanExecute()

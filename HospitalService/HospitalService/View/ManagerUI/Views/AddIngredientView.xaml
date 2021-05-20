@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views"
       xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations"
       mc:Ignorable="d" 
-      d:DesignHeight="260" d:DesignWidth="250"
+      d:DesignHeight="389" d:DesignWidth="376"
       Title="AddIngredient">
 
     <Page.Resources>
@@ -22,10 +22,10 @@
 
     <Grid Background="#f5f5f5">
         <Label x:Name="Ingredient" Content="Sastojak" HorizontalAlignment="Left" VerticalAlignment="Top" Width="78"
-               Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30" Margin="12,93,0,0"/>
-        <TextBox x:Name="ingredientBox" Height="30" Margin="96,87,16,133">
+               Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30" Margin="32,153,0,0"/>
+        <TextBox x:Name="ingredientBox" Height="30" Margin="115,150,38,209">
             <TextBox.Text>
-                <Binding Path="MedicationName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="Ingredient" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validation:ItemNameValidation ValidationStep="RawProposedValue"/>
                     </Binding.ValidationRules>
@@ -42,9 +42,9 @@
         </TextBox>
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left"
                 VerticalAlignment="Top" Height="26" Width="80" Background="#adc5d0" Command="{Binding CancelCommand}"
-                Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" Margin="131,194,0,0"/>
+                Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" Margin="195,223,0,0"/>
         <Button x:Name="add" Content="Dodaj" HorizontalAlignment="Left" Command="{Binding ConfirmCommand}"
             VerticalAlignment="Top" Height="26" Width="80" Background="#adc5d0" 
-            Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" Margin="43,194,0,0"/>
+            Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" Margin="97,223,0,0"/>
     </Grid>
 </Page>

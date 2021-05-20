@@ -109,8 +109,8 @@ namespace HospitalService.View.ManagerUI.Views
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            IngredientsView i = new IngredientsView(medication.Ingredients);
-            i.ShowDialog();
+            //IngredientsView i = new IngredientsView(medication.Ingredients);
+            // navigate to ingredients
         }
     }
 }

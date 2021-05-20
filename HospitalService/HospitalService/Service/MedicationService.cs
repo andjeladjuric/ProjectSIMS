@@ -81,6 +81,7 @@ namespace HospitalService.Service
         public Medication GetOne(string id) => medications.getOne(id);
         public void AddMedication(Medication newMedication) => medications.Save(newMedication);
         public void AddIngredient(MedicationIngredients newIngredient) => ingredients.Save(newIngredient);
+        public void SerializeMedication() => medications.SerializeMedication();
 
         #endregion
     }
