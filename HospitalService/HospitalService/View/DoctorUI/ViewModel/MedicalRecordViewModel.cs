@@ -18,16 +18,20 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public string PatientName { get; set; }
         private bool male;
         private Frame anamnesisFrame;
+        private Frame treatmentFrame;
         private Diagnosis selectedDiagnosis;
+        private HospitalTreatment selectedTreatment;
         public bool Famele { get; set; }
         private MedicalRecord medicalRecord;
         private ObservableCollection<Diagnosis> diagnoses;
         private ObservableCollection<Prescription> prescriptions;
+        private ObservableCollection<HospitalTreatment> treatments;
         public RelayCommand ReferralCommand { get; set; }
         public RelayCommand TreatmentCommand { get; set; }
         public RelayCommand DiagnosisCommand { get; set; }
         public RelayCommand ShowAnamnesisCommand { get; set; }
         public RelayCommand PrescriptionCommand { get; set; }
+        public RelayCommand ShowTreatmentCommand { get; set; }
         public RelayCommand KeyUpCommandWithKey { get; set; }
 
         public ObservableCollection<Diagnosis> Diagnoses
@@ -52,12 +56,34 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         }
 
+        public ObservableCollection<HospitalTreatment> Treatments
+        {
+            get { return treatments; }
+            set
+            {
+                treatments = value;
+                OnPropertyChanged();
+            }
+
+        }
+
         public Diagnosis SelectedDiagnosis
         {
             get { return selectedDiagnosis; }
             set
             {
                 selectedDiagnosis = value;
+                OnPropertyChanged();
+            }
+
+        }
+
+        public HospitalTreatment SelectedTreatment
+        {
+            get { return selectedTreatment; }
+            set
+            {
+                selectedTreatment = value;
                 OnPropertyChanged();
             }
 
@@ -85,6 +111,17 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         }
 
+        public Frame TreatmentFrame
+        {
+            get { return treatmentFrame; }
+            set
+            {
+                treatmentFrame = value;
+                OnPropertyChanged();
+            }
+
+        }
+
         public MedicalRecord MedicalRecord
         {
             get { return medicalRecord; }
@@ -95,8 +132,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
-        public MedicalRecordViewModel(Frame frame, Patient selected, Frame anamnesisFrame) 
+        public MedicalRecordViewModel(Frame frame, Patient selected, Frame anamnesisFrame, Frame treatment) 
         {
+            this.TreatmentFrame = treatment;
             this.AllergiesFrame = frame;
             this.AnamnesisFrame = anamnesisFrame;
             this.Patient = selected;
@@ -111,8 +149,10 @@ namespace HospitalService.View.DoctorUI.ViewModel
             this.MedicalRecord = new MedicalRecordStorage().GetOne(Patient.medicalRecordId);
             this.Diagnoses = new ObservableCollection<Diagnosis>();
             this.Prescriptions = new ObservableCollection<Prescription>();
+            this.Treatments = new ObservableCollection<HospitalTreatment>();
             this.MedicalRecord.Diagnoses.ForEach(Diagnoses.Add);
             this.MedicalRecord.Prescriptions.ForEach(Prescriptions.Add);
+            this.MedicalRecord.HospitalTreatments.ForEach(Treatments.Add);
             this.AllergiesFrame.NavigationService.Navigate(new AllergiesView(MedicalRecord.Allergies,AllergiesFrame, MedicalRecord));
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             ReferralCommand = new RelayCommand(Executed_ReferralCommand,
@@ -125,6 +165,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
             CanExecute_ShowAnamnesisCommand);
             PrescriptionCommand = new RelayCommand(Executed_PrescriptionCommand,
           CanExecute_PrescriptionCommand);
+            ShowTreatmentCommand = new RelayCommand(Executed_ShowTreatmentCommand,
+         CanExecute_ShowTreatmentCommand);
         }
 
         public bool CanExecute_TreatmentCommand(object obj)
@@ -165,6 +207,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_ShowAnamnesisCommand(object obj)
         {
             this.AnamnesisFrame.NavigationService.Navigate(new AnamnesisView(SelectedDiagnosis.Anamnesis));
+        }
+
+        public bool CanExecute_ShowTreatmentCommand(object obj)
+        {
+            return true;
+        }
+
+        public void Executed_ShowTreatmentCommand(object obj)
+        {
+            this.TreatmentFrame.NavigationService.Navigate(new AboutTreatmentView(SelectedTreatment));
         }
 
         public bool CanExecute_DiagnosisCommand(object obj)
