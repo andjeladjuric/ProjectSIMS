@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HospitalService.View.DoctorUI.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -17,9 +18,10 @@ namespace HospitalService.View.DoctorUI.Views
     /// </summary>
     public partial class DiagnosisView : Window
     {
-        public DiagnosisView()
+        public DiagnosisView(MedicalRecordViewModel parent)
         {
             InitializeComponent();
+            this.DataContext = new DiagnosisViewModel(this, parent);
         }
     }
 }

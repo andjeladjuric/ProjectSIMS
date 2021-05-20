@@ -22,7 +22,7 @@ namespace HospitalService.View.DoctorUI.Views
         public MedicalRecordView(Patient selectedPatient)
         {
             InitializeComponent();
-            this.DataContext = new MedicalRecordViewModel(AllergiesFrame, selectedPatient);
+            this.DataContext = new MedicalRecordViewModel(AllergiesFrame, selectedPatient, Frame);
         }
     }
 }
