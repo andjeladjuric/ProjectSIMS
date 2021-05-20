@@ -7,7 +7,7 @@
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="768"
+      d:DesignHeight="450" d:DesignWidth="768" FontSize="18"  FontFamily="Open Sans"
       Title="Izaberite pacijenta">
 
     <Grid Background="White" Height="450" Width="768">
@@ -21,7 +21,7 @@
                 <DataGridTextColumn Header="Karton"  Binding="{Binding medicalRecordId}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Izaberi" HorizontalAlignment="Left" Margin="334,382,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.576,-0.15">
+        <Button Content="Izaberi" HorizontalAlignment="Left" Margin="334,382,0,0" VerticalAlignment="Top" Width="65" RenderTransformOrigin="0.576,-0.15">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding SelectCommand}"/>

@@ -22,9 +22,11 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public bool Famele { get; set; }
         private MedicalRecord medicalRecord;
         private ObservableCollection<Diagnosis> diagnoses;
+        private ObservableCollection<Prescription> prescriptions;
         public RelayCommand ReferralCommand { get; set; }
         public RelayCommand DiagnosisCommand { get; set; }
         public RelayCommand ShowAnamnesisCommand { get; set; }
+        public RelayCommand PrescriptionCommand { get; set; }
         public RelayCommand KeyUpCommandWithKey { get; set; }
 
         public ObservableCollection<Diagnosis> Diagnoses
@@ -33,6 +35,17 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 diagnoses = value;
+                OnPropertyChanged();
+            }
+
+        }
+
+        public ObservableCollection<Prescription> Prescriptions
+        {
+            get { return prescriptions; }
+            set
+            {
+                prescriptions = value;
                 OnPropertyChanged();
             }
 
@@ -96,7 +109,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
             this.MedicalRecord = new MedicalRecordStorage().GetOne(Patient.medicalRecordId);
             this.Diagnoses = new ObservableCollection<Diagnosis>();
+            this.Prescriptions = new ObservableCollection<Prescription>();
             this.MedicalRecord.Diagnoses.ForEach(Diagnoses.Add);
+            this.MedicalRecord.Prescriptions.ForEach(Prescriptions.Add);
             this.AllergiesFrame.NavigationService.Navigate(new AllergiesView(MedicalRecord.Allergies,AllergiesFrame, MedicalRecord));
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             ReferralCommand = new RelayCommand(Executed_ReferralCommand,
@@ -105,6 +120,18 @@ namespace HospitalService.View.DoctorUI.ViewModel
             CanExecute_DiagnosisCommand);
             ShowAnamnesisCommand = new RelayCommand(Executed_ShowAnamnesisCommand,
             CanExecute_ShowAnamnesisCommand);
+            PrescriptionCommand = new RelayCommand(Executed_PrescriptionCommand,
+          CanExecute_PrescriptionCommand);
+        }
+
+        public bool CanExecute_PrescriptionCommand(object obj)
+        {
+            return true;
+        }
+
+        public void Executed_PrescriptionCommand(object obj)
+        {
+            new PrescriptionView(this).ShowDialog();
         }
 
         public bool CanExecute_ReferralCommand(object obj)
@@ -145,6 +172,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
             this.MedicalRecord = new MedicalRecordStorage().GetOne(Patient.medicalRecordId);
             this.Diagnoses = new ObservableCollection<Diagnosis>();
             this.MedicalRecord.Diagnoses.ForEach(Diagnoses.Add);
+            this.Prescriptions = new ObservableCollection<Prescription>();
+            this.MedicalRecord.Prescriptions.ForEach(Prescriptions.Add);
         }
     }
 }

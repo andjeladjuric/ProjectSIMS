@@ -9,19 +9,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HospitalService.View.DoctorUI.Views
 {
     /// <summary>
-    /// Interaction logic for PrescriptionView.xaml
+    /// Interaction logic for FindMedicationView.xaml
     /// </summary>
-    public partial class PrescriptionView : Window
+    public partial class FindMedicationView : Page
     {
-        public PrescriptionView(MedicalRecordViewModel parent)
+        public FindMedicationView(PrescriptionViewModel window, Frame frame)
         {
             InitializeComponent();
-            this.DataContext = new PrescriptionViewModel(this, parent, Frame);
+            this.DataContext = new FindMedicationViewModel(window, frame);
         }
     }
 }

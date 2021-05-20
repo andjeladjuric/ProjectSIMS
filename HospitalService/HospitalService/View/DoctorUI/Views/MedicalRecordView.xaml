@@ -152,18 +152,30 @@
                         <Label Content="Istorija terapija" Width="387"/>
                     </StackPanel>
                         <StackPanel >
-                        <DataGrid  IsReadOnly="True" Height="417" Width="500"
+                        <DataGrid ItemsSource="{Binding Prescriptions}" IsReadOnly="True" Height="417" Width="500"
                   SelectionMode="Single" AutoGenerateColumns="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Terapija" Binding="{Binding Illness}" Width="*"/>
-                                <DataGridTextColumn Header="Početak" Binding="{Binding Symptoms}" Width="*"/>
-                                <DataGridTextColumn Header="Kraj" Binding="{Binding Datum, StringFormat=\{0:MM/dd/yyyy\}}" Width="*"/>
+                                <DataGridTextColumn Header="Terapija" Binding="{Binding Medication}" Width="*"/>
+                                <DataGridTextColumn Header="Početak" Binding="{Binding Start, StringFormat=dd/MM/yyyy}" Width="*"/>
+                                <DataGridTextColumn Header="Trajanje u danima"  Binding="{Binding HowLong}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
                     
                     <StackPanel Height="100">
-                        <Button Width="92" Margin="0,35,0,35">Izdaj recept</Button>
+                        <Button Width="92" Margin="0,35,0,35" Content="Izdaj recept">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click" >
+                                    <i:InvokeCommandAction Command="{Binding PrescriptionCommand}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="KeyUp" >
+                                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <i:Interaction.Behaviors>
+                                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                            </i:Interaction.Behaviors>
+                        </Button>
                     </StackPanel>
                 </StackPanel>
             </TabItem>
