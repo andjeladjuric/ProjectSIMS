@@ -25,8 +25,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
         }
 
-        private string start;
-        public string Start
+        private DateTime start;
+        public DateTime Start
         {
             get { return start; }
             set
@@ -36,8 +36,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
         }
 
-        private string end;
-        public string End
+        private DateTime end;
+        public DateTime End
         {
             get { return end; }
             set
@@ -60,14 +60,12 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void OnConfirm()
         {
             RoomRenovationService renovationService = new RoomRenovationService();
-            DateTime StartDate = Convert.ToDateTime(Start + DateTime.Now.ToString("HH:mm:ss"));
-            MessageBox.Show(StartDate.ToString());
-            DateTime EndDate = Convert.ToDateTime(End + "23:59:59");
-            MessageBox.Show(EndDate.ToString());
+            MessageBox.Show(Start.ToString());
+            MessageBox.Show(End.ToString());
 
-            if (CheckDateEntry(StartDate, EndDate) && renovationService.CheckExistingRenovations(SelectedRoom.Id, StartDate, EndDate))
+            if (CheckDateEntry(Start, End) && renovationService.CheckExistingRenovations(SelectedRoom.Id, Start, End))
             {
-                renovationService.Save(new Renovation(SelectedRoom.Id, StartDate, EndDate));
+                renovationService.Save(new Renovation(SelectedRoom.Id, Start, End));
                 renovationService.SerializeRenovations();
             }
 
@@ -130,6 +128,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             this.Frame = currentFrame;
             this.SelectedRoom = room;
+            this.Start = DateTime.Now;
+            this.End = DateTime.Now;
             LoadAppointments();
             ConfirmCommand = new MyICommand(OnConfirm, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanExecute);

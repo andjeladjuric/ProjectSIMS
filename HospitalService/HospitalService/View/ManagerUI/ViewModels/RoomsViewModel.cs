@@ -69,6 +69,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void LoadRooms()
         {
             RoomService roomService = new RoomService();
+            RoomRenovationService service = new RoomRenovationService();
+            service.CheckRenovationRequests();
             Rooms = new ObservableCollection<Room>();
 
             foreach (Room r in roomService.GetAll())

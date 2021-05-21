@@ -103,9 +103,9 @@
                     Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"
                     Command="{Binding CancelCommand}"/>
         <DatePicker x:Name="startPicker" HorizontalAlignment="Left" Margin="746,349,0,0" VerticalAlignment="Top" Width="154"
-                    DisplayDateStart="{x:Static sys:DateTime.Today}" DisplayDate="{Binding Start}"/>
+                    DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding Start}"/>
         <DatePicker x:Name="endPicker" HorizontalAlignment="Left" Margin="746,403,0,0" VerticalAlignment="Top" Width="154"
-                    DisplayDateStart="{x:Static sys:DateTime.Today}" DisplayDate="{Binding End}"/>
+                    DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding End}"/>
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>

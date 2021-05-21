@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace HospitalService.View.ManagerUI.ViewModels
@@ -14,7 +15,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Fields
         private Inventory selectedItem;
         private string enteredTime;
-        private string date;
+        private DateTime date;
         private string quantity;
         private string selectedRoom;
         private Room room;
@@ -53,7 +54,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
         }
 
-        public string Date
+        public DateTime Date
         {
             get { return date; }
             set
@@ -120,9 +121,10 @@ namespace HospitalService.View.ManagerUI.ViewModels
                     }
                     else
                     {
+                        MessageBox.Show(Date.ToString());
                         TimeSpan selectedTime = TimeSpan.ParseExact(EnteredTime, "c", null);
-                        DateTime selectedDate = Convert.ToDateTime(selectedTime + " " + Date);
-                        MovingRequests request = new MovingRequests(selectedDate, Int32.Parse(Quantity), room.Id, sendToThisRoom.Id, itemId);
+                        Date = Convert.ToDateTime(selectedTime + " " + Date.ToString("d"));
+                        MovingRequests request = new MovingRequests(Date, Int32.Parse(Quantity), room.Id, sendToThisRoom.Id, itemId);
                         roomInventoryService.StartMoving(request);
 
                     }
@@ -171,6 +173,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             this.Frame = currentFrame;
             this.Room = room;
             this.RoomInventory = inv;
+            //this.Date = DateTime.Now;
             LoadRooms();
             ConfirmCommand = new MyICommand(OnConfirm, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanNavigate);

@@ -106,7 +106,8 @@ namespace HospitalService.Service
                 if (room.Id.Equals(renovation.RoomId))
                 {
                     room.IsFree = IsAvailable;
-                    roomFileStorage.SerializeRooms();
+                    roomFileStorage.editRoom(room);
+                    break;
                 }
             }
         }

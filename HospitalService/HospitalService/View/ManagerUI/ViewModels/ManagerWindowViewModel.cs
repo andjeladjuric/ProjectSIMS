@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalService.Service;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -39,6 +40,9 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             this.Manager = currentUser;
             this.Window = currentWindow;
+
+            RoomRenovationService service = new RoomRenovationService();
+            service.CheckRenovationRequests();
             LogoutCommand = new MyICommand(OnLogout, CanExecute);
         }
         #endregion
