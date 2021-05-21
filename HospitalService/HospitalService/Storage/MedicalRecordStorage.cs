@@ -97,5 +97,34 @@ namespace Storage
 
         }
 
+     public int TakenBeds(string roomId)
+        {
+            int currentlyTakenBeds = 0;
+            foreach(MedicalRecord record in records)
+            {
+                foreach(HospitalTreatment treatment in record.HospitalTreatments)
+                {
+                    if (treatment.RoomId.Equals(roomId))
+                        if (DateTime.Compare(treatment.EndTime, DateTime.Now) > 0)
+                            currentlyTakenBeds++;
+                }
+            }
+            return currentlyTakenBeds;
+        }
+
+        public void ExtendTreatment(string MedicalRecordId, HospitalTreatment treatment)
+        {
+            for(int i = 0; i < records.Count; i++)
+            {
+                if (records[i].Equals(MedicalRecordId))
+                {
+                    records[i].EditTreatment(treatment);
+                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(records));
+                    break;
+
+                }
+            }
+        }
+
     }
 }

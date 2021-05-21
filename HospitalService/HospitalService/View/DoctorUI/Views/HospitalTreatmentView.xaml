@@ -1,0 +1,123 @@
+﻿<Window x:Class="HospitalService.View.DoctorUI.Views.HospitalTreatmentView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+        mc:Ignorable="d"
+        Title="HospitalTreatmentView" Height="600" Width="450" FontFamily="Open Sans" FontSize="18" UseLayoutRounding="True" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Grid  Height="600" Width="450">
+        <StackPanel>
+            <StackPanel Margin="0,10,0,0">
+                <Label Width="166">Bolničko liječenje</Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                <Label Content="Pacijent:" Margin="50,0,50,0"/>
+                <TextBox Width="220" Text="{Binding PatientsName}" IsEnabled="False"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                <Label Content="Od*:" Margin="50,0,80,0"/>
+                <DatePicker SelectedDate="{Binding StartDate, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                <Label Content="Do*:" Margin="50,0,80,0"/>
+                <DatePicker SelectedDate="{Binding EndDate, Mode=TwoWay}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                <Label Content="Odjeljenje*:" Margin="50,0,22,0"/>
+                <ComboBox Width="220" ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartment, Mode=TwoWay}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged" >
+                            <i:InvokeCommandAction Command="{Binding GetRoomsCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="KeyUp" >
+                            <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <i:Interaction.Behaviors>
+                        <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                    </i:Interaction.Behaviors>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                <Label Content="Soba*:" Margin="50,0,62,0"/>
+                <ComboBox Width="220" ItemsSource="{Binding Rooms, Mode=TwoWay}" SelectedItem="{Binding SelectedRoom, Mode=TwoWay}" IsEnabled="{Binding IsEnabled, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <Binding Path="Id"/>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged" >
+                            <i:InvokeCommandAction Command="{Binding GetBedsCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="KeyUp" >
+                            <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <i:Interaction.Behaviors>
+                        <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                    </i:Interaction.Behaviors>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                <Label Content="Krevet*:" Margin="50,0,50,0"/>
+                <TextBox Width="70" Text="{Binding BedNum}" IsEnabled="False"/>
+                <Button Content="+" Width="29" Height="24" Margin="10,0,0,0" IsEnabled="{Binding Enabled}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:InvokeCommandAction Command="{Binding BedCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="KeyUp" >
+                            <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <i:Interaction.Behaviors>
+                        <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                    </i:Interaction.Behaviors>
+                </Button>
+            </StackPanel>
+            <StackPanel  Margin="0,20,0,0">
+                <Label Content="Razlog*:" Margin="50,0,50,0"/>
+            </StackPanel>
+            <StackPanel Margin="0,10,0,0">
+                <TextBox Height="80" Width="350" Text="{Binding Reason, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
+                <Button Content="Odustani" Width="80" Margin="110,0,0,0" RenderTransformOrigin="0.5,0.5">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="KeyUp" >
+                            <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <i:Interaction.Behaviors>
+                        <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                    </i:Interaction.Behaviors>
+                </Button>
+                <Button Content="Potvrdi"  Margin="60,0,0,0" Width="80">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="KeyUp" >
+                            <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <i:Interaction.Behaviors>
+                        <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                    </i:Interaction.Behaviors>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
