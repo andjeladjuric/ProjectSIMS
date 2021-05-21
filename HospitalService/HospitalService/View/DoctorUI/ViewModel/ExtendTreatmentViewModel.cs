@@ -1,0 +1,69 @@
+﻿using HospitalService.Model;
+using HospitalService.View.DoctorUI.Commands;
+using Model;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows.Controls;
+
+namespace HospitalService.View.DoctorUI.ViewModel
+{
+    public class ExtendTreatmentViewModel : ViewModelClass
+    {
+        public Frame Frame { get; set; }
+        public MedicalRecord MedicalRecord { get; set; }
+        public HospitalTreatment HospitalTreatent { get; set; }
+        private DateTime selectedDate;
+        public RelayCommand ApplyCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
+        public RelayCommand KeyUpCommandWithKey { get; set; }
+        public DateTime SelectedDate
+        {
+            get { return selectedDate; }
+            set
+            {
+                selectedDate = value;
+                OnPropertyChanged();
+            }
+
+        }
+
+        public ExtendTreatmentViewModel(MedicalRecord medicalRecord, HospitalTreatment hospitalTreatment,Frame frame)
+        {
+            this.Frame = frame;
+            this.MedicalRecord = medicalRecord;
+            this.HospitalTreatent = hospitalTreatment;
+            this.SelectedDate = hospitalTreatment.EndTime;
+            KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
+            ApplyCommand = new RelayCommand(Executed_ApplyCommand,
+              CanExecute_ApplyCommand);
+            CancelCommand = new RelayCommand(Executed_CancelCommand,
+             CanExecute_CancelCommand);
+        }
+
+        public bool CanExecute_CancelCommand(object obj)
+        {
+            return true;
+        }
+
+        public bool CanExecute_ApplyCommand(object obj)
+        {
+               return true;
+        }
+
+        public void Executed_ApplyCommand(object obj)
+        {
+
+            this.Frame.Content = null;
+        }
+
+        public void Executed_CancelCommand(object obj)
+        {
+            this.Frame.Content = null;
+        }
+
+        private void Executed_KeyDownCommandWithKey(object obj)
+        {
+        }
+}
+}

@@ -19,6 +19,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private bool male;
         private Frame anamnesisFrame;
         private Frame treatmentFrame;
+        private Frame editTreatmentFrame;
         private Diagnosis selectedDiagnosis;
         private HospitalTreatment selectedTreatment;
         public bool Famele { get; set; }
@@ -32,6 +33,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public RelayCommand ShowAnamnesisCommand { get; set; }
         public RelayCommand PrescriptionCommand { get; set; }
         public RelayCommand ShowTreatmentCommand { get; set; }
+        public RelayCommand EditTreatmentCommand { get; set; }
         public RelayCommand KeyUpCommandWithKey { get; set; }
 
         public ObservableCollection<Diagnosis> Diagnoses
@@ -122,6 +124,17 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         }
 
+        public Frame EditTreatmentFrame
+        {
+            get { return editTreatmentFrame; }
+            set
+            {
+                editTreatmentFrame = value;
+                OnPropertyChanged();
+            }
+
+        }
+
         public MedicalRecord MedicalRecord
         {
             get { return medicalRecord; }
@@ -132,8 +145,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
-        public MedicalRecordViewModel(Frame frame, Patient selected, Frame anamnesisFrame, Frame treatment) 
+        public MedicalRecordViewModel(Frame frame, Patient selected, Frame anamnesisFrame, Frame treatment, Frame editTreatment) 
         {
+            this.EditTreatmentFrame = editTreatment;
             this.TreatmentFrame = treatment;
             this.AllergiesFrame = frame;
             this.AnamnesisFrame = anamnesisFrame;
@@ -167,6 +181,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
           CanExecute_PrescriptionCommand);
             ShowTreatmentCommand = new RelayCommand(Executed_ShowTreatmentCommand,
          CanExecute_ShowTreatmentCommand);
+            EditTreatmentCommand = new RelayCommand(Executed_EditTreatmentCommand,
+        CanExecute_EditTreatmentCommand);
         }
 
         public bool CanExecute_TreatmentCommand(object obj)
@@ -217,6 +233,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_ShowTreatmentCommand(object obj)
         {
             this.TreatmentFrame.NavigationService.Navigate(new AboutTreatmentView(SelectedTreatment));
+        }
+
+        public bool CanExecute_EditTreatmentCommand(object obj)
+        {
+            return true;
+        }
+
+        public void Executed_EditTreatmentCommand(object obj)
+        {
+            this.EditTreatmentFrame.NavigationService.Navigate(new ExtendTreatmentView(MedicalRecord, EditTreatmentFrame));
         }
 
         public bool CanExecute_DiagnosisCommand(object obj)

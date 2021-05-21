@@ -1,5 +1,5 @@
-﻿using HospitalService.View.DoctorUI.ViewModel;
-using Model;
+﻿using HospitalService.Model;
+using HospitalService.View.DoctorUI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,19 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HospitalService.View.DoctorUI.Views
 {
     /// <summary>
-    /// Interaction logic for MedicalRecordView.xaml
+    /// Interaction logic for ExtendTreatmentView.xaml
     /// </summary>
-    public partial class MedicalRecordView : Window
+    public partial class ExtendTreatmentView : Page
     {
-        public MedicalRecordView(Patient selectedPatient)
+        public ExtendTreatmentView(HospitalTreatment treatment, Frame frame)
         {
             InitializeComponent();
-            this.DataContext = new MedicalRecordViewModel(AllergiesFrame, selectedPatient, Frame, TreatmentFrame, DatePickerFrame);
+            this.DataContext = new ExtendTreatmentViewModel(treatment, frame);
         }
     }
 }
