@@ -112,5 +112,19 @@ namespace Storage
             return currentlyTakenBeds;
         }
 
+        public void ExtendTreatment(string MedicalRecordId, HospitalTreatment treatment)
+        {
+            for(int i = 0; i < records.Count; i++)
+            {
+                if (records[i].Equals(MedicalRecordId))
+                {
+                    records[i].EditTreatment(treatment);
+                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(records));
+                    break;
+
+                }
+            }
+        }
+
     }
 }

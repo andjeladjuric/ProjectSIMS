@@ -17,7 +17,7 @@ namespace Model
 
         public MedicalRecord() {
             Diagnoses = new List<Diagnosis>();
-            Prescriptions = new List<Prescription>(); 
+            Prescriptions = new List<Prescription>();
             Referrals = new List<Referral>();
             Allergies = new List<MedicationIngredients>();
             HospitalTreatments = new List<HospitalTreatment>();
@@ -63,6 +63,19 @@ namespace Model
                     return true;
             }
             return false;
+        }
+
+
+        public void EditTreatment(HospitalTreatment treatment)
+        {
+            for(int i = 0; i < HospitalTreatments.Count; i++)
+            {
+                if (HospitalTreatments[i] == treatment)
+                {
+                    HospitalTreatments[i] = treatment;
+                    break;
+                }
+            }
         }
 
     }

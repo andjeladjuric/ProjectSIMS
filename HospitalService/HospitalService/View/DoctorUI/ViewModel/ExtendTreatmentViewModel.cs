@@ -1,15 +1,18 @@
 ﻿using HospitalService.Model;
 using HospitalService.View.DoctorUI.Commands;
 using Model;
+using Storage;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
     public class ExtendTreatmentViewModel : ViewModelClass
     {
+        public MedicalRecordViewModel ParentWindow { get; set; }
         public Frame Frame { get; set; }
         public MedicalRecord MedicalRecord { get; set; }
         public HospitalTreatment HospitalTreatent { get; set; }
@@ -28,12 +31,13 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         }
 
-        public ExtendTreatmentViewModel(MedicalRecord medicalRecord, HospitalTreatment hospitalTreatment,Frame frame)
+        public ExtendTreatmentViewModel(MedicalRecordViewModel parent)
         {
-            this.Frame = frame;
-            this.MedicalRecord = medicalRecord;
-            this.HospitalTreatent = hospitalTreatment;
-            this.SelectedDate = hospitalTreatment.EndTime;
+            this.ParentWindow = parent;
+            this.Frame = parent.EditTreatmentFrame;
+            this.MedicalRecord = parent.MedicalRecord;
+            this.HospitalTreatent = parent.SelectedTreatment;
+            this.SelectedDate = HospitalTreatent.EndTime;
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             ApplyCommand = new RelayCommand(Executed_ApplyCommand,
               CanExecute_ApplyCommand);
@@ -48,12 +52,20 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public bool CanExecute_ApplyCommand(object obj)
         {
+               if(DateTime.Compare(SelectedDate, HospitalTreatent.StartDate) < 0)
+            {
+                MessageBox.Show("Nije moguće da kraj bude prije početka.");
+                return false;
+            }
                return true;
         }
 
         public void Executed_ApplyCommand(object obj)
         {
-
+            this.HospitalTreatent.EndTime = SelectedDate;
+            this.MedicalRecord.EditTreatment(HospitalTreatent);
+            new MedicalRecordStorage().Edit(MedicalRecord);
+            this.ParentWindow.Refresh();
             this.Frame.Content = null;
         }
 

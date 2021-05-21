@@ -20,10 +20,10 @@ namespace HospitalService.View.DoctorUI.Views
     /// </summary>
     public partial class ExtendTreatmentView : Page
     {
-        public ExtendTreatmentView(HospitalTreatment treatment, Frame frame)
+        public ExtendTreatmentView(MedicalRecordViewModel parent)
         {
             InitializeComponent();
-            this.DataContext = new ExtendTreatmentViewModel(treatment, frame);
+            this.DataContext = new ExtendTreatmentViewModel(parent);
         }
     }
 }

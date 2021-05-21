@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace HospitalService.View.DoctorUI.ViewModel
@@ -237,12 +238,17 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public bool CanExecute_EditTreatmentCommand(object obj)
         {
+            if (DateTime.Compare(SelectedTreatment.EndTime, DateTime.Now) < 0)
+            {
+                MessageBox.Show("Moguće je produžiti samo aktuelni boravak.");
+                return false;
+            }
             return true;
         }
 
         public void Executed_EditTreatmentCommand(object obj)
         {
-            this.EditTreatmentFrame.NavigationService.Navigate(new ExtendTreatmentView(MedicalRecord, EditTreatmentFrame));
+            this.EditTreatmentFrame.NavigationService.Navigate(new ExtendTreatmentView(this));
         }
 
         public bool CanExecute_DiagnosisCommand(object obj)
@@ -265,6 +271,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
             this.MedicalRecord.Diagnoses.ForEach(Diagnoses.Add);
             this.Prescriptions = new ObservableCollection<Prescription>();
             this.MedicalRecord.Prescriptions.ForEach(Prescriptions.Add);
+            this.Treatments = new ObservableCollection<HospitalTreatment>();
+            this.MedicalRecord.HospitalTreatments.ForEach(Treatments.Add);
         }
     }
 }

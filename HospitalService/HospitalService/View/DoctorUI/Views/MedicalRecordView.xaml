@@ -237,7 +237,7 @@
                             </i:Interaction.Behaviors>
                         </Button>
                         <StackPanel Width="430">
-                            <Frame x:Name="DatePickerFrame"/>
+                            <Frame x:Name="DatePickerFrame" NavigationUIVisibility="Hidden"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
