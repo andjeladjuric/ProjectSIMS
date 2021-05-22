@@ -22,10 +22,14 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private ObservableCollection<Patient> patients;
         private ObservableCollection<Medication> medicationsForApproval;
         private ObservableCollection<Medication> approvedMedications;
+        private ObservableCollection<News> news;
         private Appointment selectedAppointment;
         private Medication selectedMedication;
         private Patient selectedPatient;
+        private News selectedNews;
         public RelayCommand AddAppointmentCommand { get; set; }
+        public RelayCommand RemoveNewsCommand { get; set; }
+        public RelayCommand ShowNewsCommand { get; set; }
         public RelayCommand OpenRecordCommand { get; set; }
         public RelayCommand EditAppointmentCommand { get; set; }
         public RelayCommand DeleteAppointmentCommand { get; set; }
@@ -58,6 +62,17 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
+        public News SelectedNews
+        {
+            get { return selectedNews; }
+            set
+            {
+                selectedNews = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public DateTime Date
         {
             get { return date; }
@@ -74,6 +89,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 appointments = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<News> News
+        {
+            get { return news; }
+            set
+            {
+                news = value;
                 OnPropertyChanged();
             }
         }
@@ -145,6 +170,10 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 CanExecute_EditAppointmentCommand);
             ValidateCommand = new RelayCommand(Executed_ValidateCommand,
                 CanExecute_ValidateCommand);
+            RemoveNewsCommand = new RelayCommand(Executed_RemoveNewsCommand,
+               CanExecute_RemoveNewsCommand);
+            ShowNewsCommand = new RelayCommand(Executed_ShowNewsCommand,
+               CanExecute_ShowNewsCommand);
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             this.Window = doctorWindow;
             this.Doctor = loggedDoctor;
@@ -152,12 +181,15 @@ namespace HospitalService.View.DoctorUI.ViewModel
             this.Patients = new ObservableCollection<Patient>();
             this.MedicationsForApproval = new ObservableCollection<Medication>();
             this.ApprovedMedications = new ObservableCollection<Medication>();
+            this.News = new ObservableCollection<News>();
             Date = DateTime.Now;
             List<Appointment> todaysAppointments = new AppointmentsService().GetByDoctor(loggedDoctor, Date);
             List<Patient> allPatients = new PatientsRepository().GetAll(); // prebaciti na servis
             List<MedicineValidationRequest> validationRequests = new MedicineValidationStorage().GetForDoctor(Doctor.Jmbg); // servis
             List<Medication> medications = new MedicationStorage().GetForApproval(validationRequests); // servis
             List<Medication> allMedications = new MedicationStorage().GetAllApproved(); // servis
+            List<News> news = new NewsStorage().GetForRole(Role.doktori);
+            news.ForEach(News.Add);
             todaysAppointments.ForEach(Appointments.Add);
             allPatients.ForEach(Patients.Add);
             medications.ForEach(MedicationsForApproval.Add);
@@ -186,6 +218,26 @@ namespace HospitalService.View.DoctorUI.ViewModel
         {
             new AppointmentsService().Delete(SelectedAppointment.Id);
             Refresh();
+        }
+
+        public bool CanExecute_RemoveNewsCommand(object obj)
+        {
+            return true;
+        }
+
+        public void Executed_RemoveNewsCommand(object obj)
+        {
+            this.News = new ObservableCollection<News>();
+        }
+
+        public bool CanExecute_ShowNewsCommand(object obj)
+        {
+            return true;
+        }
+
+        public void Executed_ShowNewsCommand(object obj)
+        {
+            new NewsView(SelectedNews).ShowDialog();
         }
 
         public bool CanExecute_AddAppointmentCommand(object obj)
