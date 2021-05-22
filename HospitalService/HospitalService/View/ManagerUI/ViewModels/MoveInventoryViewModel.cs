@@ -123,10 +123,10 @@ namespace HospitalService.View.ManagerUI.ViewModels
                     {
                         MessageBox.Show(Date.ToString());
                         TimeSpan selectedTime = TimeSpan.ParseExact(EnteredTime, "c", null);
-                        Date = Convert.ToDateTime(selectedTime + " " + Date.ToString("d"));
-                        MovingRequests request = new MovingRequests(Date, Int32.Parse(Quantity), room.Id, sendToThisRoom.Id, itemId);
-                        roomInventoryService.StartMoving(request);
-
+                        DateTime selectedDate = Convert.ToDateTime(selectedTime + " " + Date.ToString("d"));
+                        MovingRequests request = new MovingRequests(selectedDate, Int32.Parse(Quantity), room.Id, sendToThisRoom.Id, itemId);
+                        //roomInventoryService.StartMoving(request);
+                                
                     }
                 }
             }

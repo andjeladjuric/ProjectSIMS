@@ -73,7 +73,7 @@ namespace HospitalService.Service
             }
         }
 
-        public void CheckRequests()
+        /*public void CheckRequests()
         {
             List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
             if (requests.Count != 0)
@@ -111,7 +111,7 @@ namespace HospitalService.Service
             File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
             Task t = new Task(() => RunThread(mr));
             t.Start();
-        }
+        }*/
 
         public List<RoomInventory> GetAll() => roomInventoryRepository.GetAll();
         public RoomInventory GetRoomInventoryByIds(string roomId, int itemId) => roomInventoryRepository.GetRoomInventoryByIds(roomId, itemId);

@@ -100,13 +100,13 @@ namespace HospitalService.Service
 
         private void ChangeRoomAvailability(Renovation renovation, bool IsAvailable)
         {
-            RoomFileStorage roomFileStorage = new RoomFileStorage();
-            foreach (Room room in roomFileStorage.GetAll())
+            RoomService roomService = new RoomService();
+            foreach (Room room in roomService.GetAll())
             {
                 if (room.Id.Equals(renovation.RoomId))
                 {
                     room.IsFree = IsAvailable;
-                    roomFileStorage.editRoom(room);
+                    roomService.UpdateRoom(room);
                     break;
                 }
             }

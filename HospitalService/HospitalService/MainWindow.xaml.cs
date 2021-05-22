@@ -32,7 +32,6 @@ namespace HospitalService
         {
             InitializeComponent();
             users = JsonConvert.DeserializeObject<List<Account>>(File.ReadAllText(FileLocation2));
-            new RenovationStorage().CheckRenovationRequests();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

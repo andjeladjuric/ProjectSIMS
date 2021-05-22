@@ -102,6 +102,7 @@ namespace HospitalService.Service
         public List<Room> GetByType(RoomType Type) => roomsRepository.GetByType(Type);
         public void AddRoom(Room newRoom) => roomsRepository.Save(newRoom);
         public void Edit(String id, String name, RoomType type, Boolean free) => roomsRepository.Edit(id, name, type, free);
+        public void UpdateRoom(Room room) => roomsRepository.UpdateRoom(room);
 
         #endregion
     }

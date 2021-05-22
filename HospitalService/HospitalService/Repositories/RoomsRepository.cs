@@ -119,5 +119,18 @@ namespace HospitalService.Repositories
 
             return null;
         }
+
+        public void UpdateRoom(Room room)
+        {
+            for (int i = 0; i < GetAll().Count; i++)
+            {
+                if (room.Id == rooms[i].Id)
+                {
+                    rooms[i] = room;
+                    break;
+                }
+            }
+            SerializeRooms();
+        }
     }
 }
