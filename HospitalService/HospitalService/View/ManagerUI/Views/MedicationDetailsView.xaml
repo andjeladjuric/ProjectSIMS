@@ -26,6 +26,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -38,11 +39,15 @@
             <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="76,251,78,245"/>
             <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="78,407,78,93"/>
             <TextBlock x:Name="CommentBox" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" IsEnabled="False"
-                               FontSize="14" Foreground="#FF5B7886" Text="{Binding SelectedMedication.DoctorsComment}" Margin="87,420,87,106"/>
+                       FontSize="16" Text="{Binding SelectedMedication.DoctorsComment}" 
+                       Margin="87,420,87,106"
+                       Foreground="#474746"/>
             <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                  ItemsSource="{Binding Ingredients}"
-                 FontSize="14"
+                 Foreground="#474746"
+                 FontFamily="Gill Sans MT"
+                 FontSize="16"
                  x:Name="Validation" Margin="76,251,78,245">
 
                 <ListBox.ItemsPanel >
@@ -52,28 +57,36 @@
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock x:Name="Medicine" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" 
-                               FontSize="14" Foreground="#FF5B7886" Text="{Binding}" />
+                        <TextBlock x:Name="Medicine" Text="{Binding}" 
+                                   Foreground="#474746"
+                                   FontFamily="Gill Sans MT"
+                                   FontSize="14"/>    
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <Label x:Name="ingredients" Content="Sastojci leka" HorizontalAlignment="Left" Margin="78,220,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
-            <Label x:Name="comment" Content="Komentar doktora" HorizontalAlignment="Left" Margin="78,375,0,0" VerticalAlignment="Top" Width="150" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
+            <Label x:Name="ingredients" Content="Sastojci leka" HorizontalAlignment="Left" Margin="78,220,0,0" VerticalAlignment="Top" 
+                   Width="125" Height="36"/>
+            <Label x:Name="comment" Content="Komentar doktora" HorizontalAlignment="Left" Margin="78,375,0,0" VerticalAlignment="Top" 
+                   Width="150" Height="36"/>
             <Label x:Name="format" Content="Format leka" HorizontalAlignment="Left" Margin="78,89,0,0" VerticalAlignment="Top" Width="125" 
-               FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
+                   Height="36"/>
             <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="36" Margin="212,71,0,0" TextWrapping="Wrap" 
-                 VerticalAlignment="Top" Width="228" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" FontSize="14" 
-                 Foreground="#FF5B7886" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                 Text="{Binding Format, Mode=TwoWay}"/>
+                 VerticalAlignment="Top" Width="228"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding Format, Mode=TwoWay}"
+                 Foreground="#474746"
+                 FontFamily="Gill Sans MT"
+                 FontSize="16"
+                 HorizontalContentAlignment="Center"/>
 
             <Button Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="396,8,66,573" 
                 ToolTip="Završi pregled/izmene" Command="{Binding CancelCommand}">
-                <materialDesign:PackIcon Kind="Close" Foreground="#FF5B7886" Height="35" Width="35"/>
+                <materialDesign:PackIcon Kind="Close" Foreground="#474746" Height="35" Width="35"/>
             </Button>
 
             <Button x:Name="Edit" Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="172,212,290,369" Command="{Binding EditCommand}">
-                <materialDesign:PackIcon Kind="EditOutline" Foreground="#FF5B7886" VerticalAlignment="Center" Height="20" Width="20"/>
+                <materialDesign:PackIcon Kind="EditOutline" Foreground="#474746" VerticalAlignment="Center" Height="20" Width="20"/>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="Visibility" Value="Visible"/>
@@ -86,13 +99,15 @@
                 </Button.Style>
             </Button>
 
-            <Button Background="#adc5d0" x:Name="resend" Content="Šalji zahtjev" HorizontalAlignment="Center" Margin="0,552,0,0" 
-                VerticalAlignment="Top" Height="26" Width="102" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" 
-                FontFamily="Gill Sans MT" FontSize="14" IsEnabled="False" Command="{Binding ResendCommand}"/>
+            <Button x:Name="resend" Content="Šalji zahtjev" HorizontalAlignment="Center" Margin="0,552,0,0" 
+                VerticalAlignment="Top" Height="26" Width="102" IsEnabled="False" Command="{Binding ResendCommand}"/>
 
             <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" HorizontalContentAlignment="Center" 
                   SelectedItem="{Binding Type, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  HorizontalAlignment="Left" Height="34" Margin="212,120,0,0" VerticalAlignment="Top" Width="228">
+                  HorizontalAlignment="Left" Height="34" Margin="212,120,0,0" VerticalAlignment="Top" Width="228"
+                  Foreground="#474746"
+                  FontFamily="Gill Sans MT"
+                  FontSize="16">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource comboConvert}}"

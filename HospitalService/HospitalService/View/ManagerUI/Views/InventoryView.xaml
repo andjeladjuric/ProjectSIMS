@@ -19,6 +19,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -32,31 +33,12 @@
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
                   Height="450" VerticalAlignment="Center" Width="635" FontFamily="Gill Sans MT" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
-            <DataGrid.Resources>
-                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#dadfe3"/>
-                    <Setter Property="Foreground" Value="#5b7886"/>
-                    <Setter Property="Height" Value="34"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                </Style>
-
-                <Style TargetType="{x:Type DataGridCell}">
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="#e0e0e0" />
-                            <Setter Property="BorderThickness" Value="0"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-
-            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Šifra" Binding="{Binding Id}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
+                            <Setter Property="Foreground" Value="#474746"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -64,7 +46,7 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
+                            <Setter Property="Foreground" Value="#474746"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -72,7 +54,7 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
+                            <Setter Property="Foreground" Value="#474746"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -80,7 +62,7 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
+                            <Setter Property="Foreground" Value="#474746"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -88,26 +70,26 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
+                            <Setter Property="Foreground" Value="#474746"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Background="#adc5d0" x:Name="create" HorizontalAlignment="Left" Content="Dodaj" Margin="170,612,0,0" VerticalAlignment="Top"
-                Height="26" Width="74" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" 
-                FontSize="14" Command="{Binding AddCommand}"/>
-        <Button HorizontalAlignment="Left" Background="#adc5d0" x:Name="update" Content="Izmeni" Margin="262,612,0,0" VerticalAlignment="Top"
-                Height="26" Width="92" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" 
-                FontSize="14" Command="{Binding EditCommand}"/>
-        <Button HorizontalAlignment="Right" Background="#adc5d0" x:Name="delete" Content="Ukloni" Margin="0,612,522,0" VerticalAlignment="Top" 
-                Height="26" Width="75" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" 
-                FontSize="14" RenderTransformOrigin="-0.363,0.538" Command="{Binding DeleteCommand}"/>
+        <Button x:Name="create" HorizontalAlignment="Left" Content="Dodaj" Margin="170,612,0,0" VerticalAlignment="Top"
+                Height="26" Width="74" Command="{Binding AddCommand}"/>
+        <Button HorizontalAlignment="Left" x:Name="update" Content="Izmeni" Margin="262,612,0,0" VerticalAlignment="Top"
+                Height="26" Width="92" Command="{Binding EditCommand}"/>
+        <Button HorizontalAlignment="Right" x:Name="delete" Content="Ukloni" Margin="0,612,522,0" VerticalAlignment="Top" 
+                Height="26" Width="75" RenderTransformOrigin="-0.363,0.538" Command="{Binding DeleteCommand}"/>
 
         <ComboBox x:Name="InventoryType" SelectedIndex="{Binding SelectedType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   HorizontalAlignment="Left" Margin="167,97,0,0" VerticalAlignment="Top" 
-                  Width="140">
+                  Width="140" Foreground="#474746"
+                  FontFamily="Gill Sans MT"
+                  FontSize="16"
+                  HorizontalContentAlignment="Center">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged" >
                     <i:InvokeCommandAction Command="{Binding FilterTypeCommand}"/>

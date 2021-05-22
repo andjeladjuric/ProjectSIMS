@@ -15,6 +15,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private string roomId;
         private string roomName;
         private RoomType roomType;
+        private int roomFloor;
+        private double roomSize;
         private bool isFree;
         private Room selectedRoom;
         private ObservableCollection<Room> rooms;
@@ -36,6 +38,26 @@ namespace HospitalService.View.ManagerUI.ViewModels
             set
             {
                 roomName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int RoomFloor
+        {
+            get { return roomFloor; }
+            set
+            {
+                roomFloor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double RoomSize
+        {
+            get { return roomSize; }
+            set
+            {
+                roomSize = value;
                 OnPropertyChanged();
             }
         }
@@ -123,6 +145,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
             this.Rooms = rooms;
             this.RoomName = SelectedRoom.Name;
             this.RoomId = SelectedRoom.Id;
+            this.RoomFloor = SelectedRoom.Floor;
+            this.RoomSize = SelectedRoom.Size;
             this.RoomType = SelectedRoom.Type;
             this.IsFree = SelectedRoom.IsFree;
         }

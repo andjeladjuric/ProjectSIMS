@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -28,31 +29,12 @@
                   Height="450" VerticalAlignment="Center" Width="507" FontFamily="Gill Sans MT" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5"
                   Margin="41,0,0,0">
-            <DataGrid.Resources>
-                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#dadfe3"/>
-                    <Setter Property="Foreground" Value="#5b7886"/>
-                    <Setter Property="Height" Value="34"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                </Style>
-
-                <Style TargetType="{x:Type DataGridCell}">
-                    <Style.Triggers>
-                        <Trigger Property="DataGridCell.IsSelected" Value="True">
-                            <Setter Property="Background" Value="#e0e0e0" />
-                            <Setter Property="BorderThickness" Value="0"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-
-            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Datum" Binding="{Binding StartTime, StringFormat=dd.MM.yyyy.}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
+                            <Setter Property="Foreground" Value="#474746"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -60,7 +42,7 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
+                            <Setter Property="Foreground" Value="#474746"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -68,7 +50,7 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
+                            <Setter Property="Foreground" Value="#474746"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -76,31 +58,32 @@
         </DataGrid>
 
 
-        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Height="447"
-                   VerticalAlignment="Top" Width="350" Margin="582,137,37,0"/>
+        <Border Height="447" VerticalAlignment="Top" Width="350" Margin="582,137,37,0"
+                CornerRadius="10" BorderThickness="0.5" BorderBrush="Black"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="606,206,0,0" 
                    Text="Zakaži renoviranje" TextWrapping="Wrap" VerticalAlignment="Top"
                    Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" 
-                   TextAlignment="Center" Foreground="#FF5B7886"/>
+                   TextAlignment="Center" Foreground="#474746"/>
 
         <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="624,289,0,0" VerticalAlignment="Top" 
-               Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Light" FontSize="16" Height="35"/>
+               Width="112" Height="35"/>
         <Label x:Name="start" Content="Početak" HorizontalAlignment="Left" Margin="624,344,0,0" VerticalAlignment="Top" 
-               Width="112" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" FontSize="16" Foreground="#FF5B7886" Height="35"/>
+               Width="112" Height="35"/>
         <Label x:Name="end" Content="Kraj" HorizontalAlignment="Left" Margin="624,398,0,0" VerticalAlignment="Top" 
-               Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="16" FontWeight="Light" Height="35"/>
+               Width="112" Height="35"/>
 
-        <TextBox x:Name="IDBox" IsEnabled="False" HorizontalAlignment="Left" HorizontalContentAlignment="Center"
-                 Height="30" Margin="746,289,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"
-                 FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" FontSize="16" Foreground="#FF5B7886"
-                 Text="{Binding SelectedRoom.Id}"/>
-
+        <TextBox x:Name="IDBox" IsEnabled="False" HorizontalAlignment="Left"
+                 Height="30" Width="154" Margin="746,289,0,0" VerticalAlignment="Top"
+                 Foreground="#474746"
+                 FontFamily="Gill Sans MT"
+                 FontSize="16"
+                 TextWrapping="Wrap"
+                 HorizontalContentAlignment="Center"
+                 Text="{Binding SelectedRoom.Name}"/>
 
         <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="670,473,0,0" VerticalAlignment="Top" Height="30" Width="81"
-                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"
                     Command="{Binding ConfirmCommand}"/>
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="765,473,0,0" VerticalAlignment="Top" Height="30" Width="81" 
-                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"
                     Command="{Binding CancelCommand}"/>
         <DatePicker x:Name="startPicker" HorizontalAlignment="Left" Margin="746,349,0,0" VerticalAlignment="Top" Width="154"
                     DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding Start}"/>

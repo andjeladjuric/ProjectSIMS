@@ -26,16 +26,27 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
-        <Rectangle HorizontalAlignment="Center" Height="442" Stroke="Black" VerticalAlignment="Top" Width="398" Margin="0,133,0,0"/>
-        <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="336,217,0,0" VerticalAlignment="Top" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontWeight="Bold" FontSize="14" Height="36"/>
-        <Label x:Name="name" Content="Ime" HorizontalAlignment="Left" Margin="336,280,0,0" VerticalAlignment="Top" Width="125" FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
-        <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="336,0,0,0" VerticalAlignment="Center" Width="125" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="34"/>
-        <TextBox x:Name="IDBox" HorizontalAlignment="Left" Height="36" Margin="468,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172">
+        <Border HorizontalAlignment="Center" Height="442" VerticalAlignment="Top" Width="398" Margin="0,133,0,0"
+                CornerRadius="10" BorderThickness="0.5" BorderBrush="Black"/>
+        <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="336,199,0,0" VerticalAlignment="Top" 
+               Width="125" Height="36"/>
+        <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="336,253,0,0" VerticalAlignment="Top" 
+               Width="125" Height="36"/>
+        <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="336,420,0,0" VerticalAlignment="Top" 
+               Width="125"/>
+        <TextBox x:Name="IDBox" HorizontalAlignment="Left" Height="36" Margin="468,190,0,0"
+                 VerticalAlignment="Top" Width="172" 
+                 Foreground="#474746"
+                 FontFamily="Gill Sans MT"
+                 FontSize="16"
+                 TextWrapping="Wrap"
+                 HorizontalContentAlignment="Center">
             <TextBox.Text>
                 <Binding Path="RoomId" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -53,8 +64,63 @@
             </Validation.ErrorTemplate>
         </TextBox>
 
+        <Label x:Name="floor" Content="Sprat" HorizontalAlignment="Left" Margin="336,307,0,0" VerticalAlignment="Top" 
+               Width="125"/>
+        <TextBox x:Name="FloorBox" HorizontalAlignment="Left" Height="36" Margin="468,300,0,0"
+                 VerticalAlignment="Top" Width="172" 
+                 Foreground="#474746"
+                 FontFamily="Gill Sans MT"
+                 FontSize="16"
+                 TextWrapping="Wrap"
+                 HorizontalContentAlignment="Center">
+            <TextBox.Text>
+                <Binding Path="RoomFloor" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:FloorValidation ValidationStep="ConvertedProposedValue" Min="1"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <StackPanel>
+                        <AdornedElementPlaceholder x:Name="textBox"/>
+                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020" ToolTip="Pravilan format: Soba 1, Operaciona sala"/>
+                    </StackPanel>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
+        <Label x:Name="size" Content="Kvadratura" HorizontalAlignment="Left" Margin="336,363,0,0" VerticalAlignment="Top" 
+               Width="125"/>
+        <TextBox x:Name="SizeBox" HorizontalAlignment="Left" Height="36" Margin="468,356,0,0"
+                 VerticalAlignment="Top" Width="172" 
+                 Foreground="#474746"
+                 FontFamily="Gill Sans MT"
+                 FontSize="16"
+                 TextWrapping="Wrap"
+                 HorizontalContentAlignment="Center">
+            <TextBox.Text>
+                <Binding Path="RoomSize" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:RoomSizeValidation ValidationStep="ConvertedProposedValue" Min="1"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <StackPanel>
+                        <AdornedElementPlaceholder x:Name="textBox"/>
+                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020" ToolTip="Pravilan format: Soba 1, Operaciona sala"/>
+                    </StackPanel>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
 
-        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="35" Margin="468,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172">
+        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="35" Margin="468,245,0,0" VerticalAlignment="Top" Width="172"
+                 Foreground="#474746"
+                 FontFamily="Gill Sans MT"
+                 FontSize="16"
+                 TextWrapping="Wrap"
+                 HorizontalContentAlignment="Center">
             <TextBox.Text>
                 <Binding Path="RoomName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -73,19 +139,19 @@
         </TextBox>
 
         <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
-                  HorizontalAlignment="Left" Height="34" Margin="468,0,0,0" VerticalAlignment="Center" Width="172"
-                  SelectedItem="{Binding RoomType}">
+                  HorizontalAlignment="Left" Height="34" Margin="468,417,0,0" Width="172"
+                  SelectedItem="{Binding RoomType}" VerticalAlignment="Top">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource comboConvert}}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="370,456,0,0" VerticalAlignment="Top" Height="26" Width="91" 
-                Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"
+        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="370,499,0,0" VerticalAlignment="Top" 
+                Height="26" Width="91" 
                 Command="{Binding AddCommand}">
             <Button.Style>
-                <Style TargetType="{x:Type Button}">
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                     <Setter Property="IsEnabled" Value="True"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=IDBox, Path=Text}" Value="">
@@ -108,8 +174,7 @@
             </Button.Style>
         </Button>
 
-        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="509,456,0,0" VerticalAlignment="Top" Height="26" Width="90" 
-                Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"
+        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="509,499,0,0" VerticalAlignment="Top" Height="26" Width="90" 
                 Command="{Binding CancelCommand}"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="332,56,0,0" Text="Dodaj sobu" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
 

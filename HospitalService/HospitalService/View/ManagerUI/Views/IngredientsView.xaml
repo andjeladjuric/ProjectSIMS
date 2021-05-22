@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -28,6 +29,8 @@
                  ScrollViewer.HorizontalScrollBarVisibility="Auto" 
                  ItemsSource="{Binding Ingredients}" SelectedItem="{Binding SelectedIngredient}"
                  FontSize="14"
+                 Foreground="#474746"
+                 FontFamily="Gill Sans MT"
                  x:Name="Validation" Margin="130,194,502,165">
 
             <ListBox.ItemsPanel >
@@ -37,8 +40,10 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock x:Name="Medicine" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" 
-                               FontSize="14" Foreground="#FF5B7886" Text="{Binding Path = IngredientName}" />
+                    <TextBlock x:Name="Medicine" Text="{Binding Path = IngredientName}" 
+                               Foreground="#474746"
+                               FontFamily="Gill Sans MT"
+                               FontSize="16"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
 
@@ -54,6 +59,9 @@
                  ScrollViewer.HorizontalScrollBarVisibility="Auto" 
                  ItemsSource="{Binding CurrentIngredients}" SelectedItem="{Binding SelectedIngAndQuantity}"
                  FontSize="14"
+                 Foreground="#474746"
+                 FontFamily="Gill Sans MT"
+                 HorizontalContentAlignment="Center"
                  x:Name="currentMedIngredients" Margin="522,218,154,284">
 
             <ListBox.ItemsPanel >
@@ -63,8 +71,10 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock x:Name="Ingredient" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" 
-                               FontSize="14" Foreground="#FF5B7886" Text="{Binding}" />
+                    <TextBlock x:Name="Ingredient" Text="{Binding}" 
+                               Foreground="#474746"
+                               FontFamily="Gill Sans MT"
+                               FontSize="16"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
 
@@ -77,9 +87,12 @@
 
         <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="492,194,123,165"/>
 
-        <Label x:Name="quantity" Content="Količina" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold"
-               Height="30" Margin="541,453,347,235"/>
-        <TextBox x:Name="quantityBox" Height="30" Margin="627,446,168,242">
+        <Label x:Name="quantity" Content="Količina" Height="30" Margin="541,453,347,235"/>
+        <TextBox x:Name="quantityBox" Height="30" Margin="627,446,168,242"
+                 Foreground="#474746"
+                 FontFamily="Gill Sans MT"
+                 FontSize="16"
+                 HorizontalContentAlignment="Center">
             <TextBox.Text>
                 <Binding Path="Quantity" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -100,11 +113,11 @@
 
         <Button x:Name="cancel" Background="{x:Null}" BorderThickness="0" Height="40" Width="65" 
                 ToolTip="Završi dodavanje" Margin="750,489,154,189" Command="{Binding CancelCommand}">
-            <materialDesign:PackIcon Kind="CancelCircle" Height="30" Width="30" Foreground="#FF5B7886"/>
+            <materialDesign:PackIcon Kind="CancelCircle" Height="30" Width="30" Foreground="#474746"/>
         </Button>
         <Button x:Name="add" Background="{x:Null}" BorderThickness="0" Height="40" Width="65"
                 ToolTip="Dodaj izabrani sastojak" Margin="522,492,382,186" Command="{Binding AddIngredientToMedCommand}">
-            <materialDesign:PackIcon Kind="AddCircle" Height="30" Width="30" Foreground="#FF5B7886"/>
+            <materialDesign:PackIcon Kind="AddCircle" Height="30" Width="30" Foreground="#474746"/>
             <Button.Style>
                 <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                     <Setter Property="IsEnabled" Value="True"/>
@@ -121,21 +134,21 @@
         </Button>
         <Button x:Name="removeIng" Background="{x:Null}" BorderThickness="0" Height="40" Width="65" 
                 ToolTip="Ukloni sastojak iz leka" Margin="674,492,230,186" Command="{Binding DeleteIngredientFromMedCommand}">
-            <materialDesign:PackIcon Kind="TrashCanCircle" Height="30" Width="30" Foreground="#FF5B7886"/>
+            <materialDesign:PackIcon Kind="TrashCanCircle" Height="30" Width="30" Foreground="#474746"/>
         </Button>
         <Button x:Name="editIng" Background="{x:Null}" BorderThickness="0" Height="40" Width="65" 
                 ToolTip="Izmeni količinu sastojka iz leka" Margin="596,492,308,186" Command="{Binding EditIngredientCommand}">
-            <materialDesign:PackIcon Kind="PencilCircle" Height="30" Width="30" Foreground="#FF5B7886"/>
+            <materialDesign:PackIcon Kind="PencilCircle" Height="30" Width="30" Foreground="#474746"/>
         </Button>
         <Button x:Name="addNewIngredient" Content="Dodaj novi" HorizontalAlignment="Left" Margin="130,575,0,0"
-            VerticalAlignment="Top" Height="26" Width="109" Background="#adc5d0" Command="{Binding AddNewIngredientCommand}"
-            Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+            VerticalAlignment="Top" Height="26" Width="109" Command="{Binding AddNewIngredientCommand}"/>
         <Button x:Name="remove" Content="Ukloni" HorizontalAlignment="Left" Margin="260,575,0,0"
-            VerticalAlignment="Top" Height="26" Width="80" Background="#adc5d0" Command="{Binding DeleteIngredientCommand}"
-            Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14"/>
+            VerticalAlignment="Top" Height="26" Width="80" Command="{Binding DeleteIngredientCommand}"/>
 
         <Frame x:Name="quantityFrame" NavigationUIVisibility="Hidden" Margin="484,179,109,150"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="130,106,0,0" Text="Sastojci lekova" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Left"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="130,106,0,0" Text="Sastojci lekova" 
+                   TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" 
+                   FontStyle="Italic" TextAlignment="Left"/>
 
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

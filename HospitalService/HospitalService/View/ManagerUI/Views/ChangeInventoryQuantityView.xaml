@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -29,31 +30,13 @@
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
                   Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
-            <DataGrid.Resources>
-                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#dadfe3"/>
-                    <Setter Property="Foreground" Value="#5b7886"/>
-                    <Setter Property="Height" Value="34"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                </Style>
-
-                <Style TargetType="{x:Type DataGridCell}">
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="#e0e0e0" />
-                            <Setter Property="BorderThickness" Value="0"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-
-            </DataGrid.Resources>
+ 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Šifra" Binding="{Binding Id}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
+                            <Setter Property="Foreground" Value="#474746"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -61,7 +44,7 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
+                            <Setter Property="Foreground" Value="#474746"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -69,7 +52,7 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
+                            <Setter Property="Foreground" Value="#474746"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -77,7 +60,7 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="Foreground" Value="#5b7886"/>
+                            <Setter Property="Foreground" Value="#474746"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -85,12 +68,15 @@
         </DataGrid>
 
         <Grid x:Name="grid" Margin="590,101,0,105">
-            <Rectangle HorizontalAlignment="Left" Height="442" Stroke="Black" VerticalAlignment="Center" Width="350" 
-                       Margin="12,0,0,0"/>
+            <Border HorizontalAlignment="Left" Height="442" VerticalAlignment="Center" Width="350" 
+                       Margin="12,0,0,0" CornerRadius="10" BorderThickness="0.5" BorderBrush="Black"/>
             <Label x:Name="quantity" Content="Potrošena količina" HorizontalAlignment="Left" Margin="36,253,0,0" VerticalAlignment="Top" 
-                   Width="139" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
+                   Width="139" Height="30"/>
             <TextBox x:Name="quantityBox" HorizontalAlignment="Left" Height="32" Margin="187,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
-                     Width="154">
+                     Width="154" Foreground="#474746"
+                     FontFamily="Gill Sans MT"
+                     FontSize="16"
+                     HorizontalContentAlignment="Center">
                 <TextBox.Resources>
                     <validation:MaxInventoryProxy x:Key="proxy" Data="{Binding}"/>
                 </TextBox.Resources>
@@ -116,8 +102,7 @@
             </TextBox>
 
             <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="91,318,0,0" VerticalAlignment="Top" Height="30" 
-                    Width="81" Command="{Binding ConfirmCommand}"
-                    Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14">
+                    Width="81" Command="{Binding ConfirmCommand}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="IsEnabled" Value="True"/>
@@ -134,12 +119,16 @@
             </Button>
 
             <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="215,318,0,0" VerticalAlignment="Top" 
-                    Height="30" Width="80" Background="#adc5d0" Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" 
-                    FontFamily="Gill Sans MT" FontSize="14" Command="{Binding CancelCommand}"/>
+                    Height="30" Width="80" Command="{Binding CancelCommand}"/>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0,110,0,0" Text="Izmeni stanje" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
-            <Label x:Name="Stavka" Content="Izabrana stavka" HorizontalAlignment="Left" Margin="36,191,0,0" VerticalAlignment="Top" Width="112" Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30"/>
+            <Label x:Name="Stavka" Content="Izabrana stavka" HorizontalAlignment="Left" Margin="36,191,0,0" 
+                   VerticalAlignment="Top" Width="112" Height="30"/>
             <TextBox x:Name="IDBox" Text="{Binding SelectedItem.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" 
-                     HorizontalAlignment="Left" Height="32" Margin="187,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" />
+                     HorizontalAlignment="Left" Height="32" Margin="187,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"
+                     Foreground="#474746"
+                     FontFamily="Gill Sans MT"
+                     FontSize="16"
+                     HorizontalContentAlignment="Center"/>
         </Grid>
 
         <materialDesign:PopupBox x:Name="Popup" PlacementMode="RightAndAlignTopEdges" Width="32" Height="30" StaysOpen="True" Margin="546,94,0,594">

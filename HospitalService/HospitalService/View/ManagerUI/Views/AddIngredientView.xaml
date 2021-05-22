@@ -16,14 +16,18 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
-        <Label x:Name="Ingredient" Content="Sastojak" HorizontalAlignment="Left" VerticalAlignment="Top" Width="78"
-               Foreground="#FF5B7886" FontFamily="Gill Sans MT" FontSize="14" FontWeight="Bold" Height="30" Margin="32,153,0,0"/>
-        <TextBox x:Name="ingredientBox" Height="30" Margin="115,150,38,209">
+        <Label x:Name="Ingredient" Content="Sastojak" HorizontalAlignment="Left" VerticalAlignment="Top" Width="78" Margin="32,153,0,0"/>
+        <TextBox x:Name="ingredientBox" Height="30" Margin="115,150,38,209"
+                 Foreground="#474746"
+                 FontFamily="Gill Sans MT"
+                 FontSize="16"
+                 HorizontalContentAlignment="Center">
             <TextBox.Text>
                 <Binding Path="Ingredient" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -41,10 +45,8 @@
             </Validation.ErrorTemplate>
         </TextBox>
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left"
-                VerticalAlignment="Top" Height="26" Width="80" Background="#adc5d0" Command="{Binding CancelCommand}"
-                Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" Margin="195,223,0,0"/>
+                VerticalAlignment="Top" Height="26" Width="80" Command="{Binding CancelCommand}" Margin="200,223,0,0"/>
         <Button x:Name="add" Content="Dodaj" HorizontalAlignment="Left" Command="{Binding ConfirmCommand}"
-            VerticalAlignment="Top" Height="26" Width="80" Background="#adc5d0" 
-            Foreground="#FFF8F5EE" BorderBrush="#FFF8F5EE" FontFamily="Gill Sans MT" FontSize="14" Margin="97,223,0,0"/>
+            VerticalAlignment="Top" Height="26" Width="80" Margin="102,223,0,0"/>
     </Grid>
 </Page>

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
        d:DesignHeight="768" d:DesignWidth="1024" Background="White"
       Title="MainView" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
@@ -39,7 +40,7 @@
         <Grid
             Height="50"
             VerticalAlignment="Top"
-            Background="#adc5d0">
+            Background="#cad9c4">
 
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Left" Margin="826,0,0,0" Width="198">
                 <Button x:Name="Profile" Margin="5" VerticalAlignment="Center" Width="35" Height="35" Background="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" >
@@ -63,7 +64,8 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="GridMenu" Width="55" Panel.ZIndex="1" Background="#adc5d0" HorizontalAlignment="Left">
+        <Grid x:Name="GridMenu" Panel.ZIndex="1" Background="#cad9c4" HorizontalAlignment="Left"
+              Width="55">
             <StackPanel>
                 <Grid Height="200">
                     <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
@@ -97,7 +99,14 @@
                     </StackPanel>
                 </Grid>
 
-                <ListView x:Name="ListViewMenu" FontFamily="Gill Sans MT" FontSize="18" Foreground="black" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="{x:Null}" BorderThickness="0" SelectionChanged="ListViewMenu_SelectionChanged">
+                <ListView x:Name="ListViewMenu" FontFamily="Gill Sans MT" FontSize="18" Foreground="Black" 
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="{x:Null}" BorderThickness="0" 
+                          SelectedIndex="{Binding SelectedItem}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged" >
+                            <i:InvokeCommandAction Command="{Binding ChangePage}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <ListViewItem x:Name="RoomsPage" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="HospitalBuilding" Height="35" Width="35" Margin="4"/>
@@ -131,9 +140,8 @@
                 </ListView>
             </StackPanel>
         </Grid>
-        <Grid Margin="55,50,0,0">
-            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="/View/ManagerUI/Views/RoomsView.xaml"/>
-        </Grid>
+        <Frame x:Name="MainFrame" Margin="55,50,0,0" NavigationUIVisibility="Hidden" Source="/View/ManagerUI/Views/RoomsView.xaml"/>
+        
     </Grid>
 
 </Window>

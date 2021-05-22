@@ -14,6 +14,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Fields
         private string roomId;
         private string roomName;
+        private string roomFloor;
+        private string roomSize;
         private RoomType roomType;
         private Frame frame;
         #endregion
@@ -35,6 +37,26 @@ namespace HospitalService.View.ManagerUI.ViewModels
             set
             {
                 roomName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string RoomFloor
+        {
+            get { return roomFloor; }
+            set
+            {
+                roomFloor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string RoomSize
+        {
+            get { return roomSize; }
+            set
+            {
+                roomSize = value;
                 OnPropertyChanged();
             }
         }
@@ -69,7 +91,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void OnAdd()
         {
             RoomService roomService = new RoomService();
-            roomService.AddRoom(new Room(RoomType, RoomId, RoomName, true));
+            roomService.AddRoom(new Room(RoomType, RoomId, RoomName, Double.Parse(RoomSize), Int32.Parse(RoomFloor), true));
             this.Frame.NavigationService.Navigate(new RoomsView());
         }
 
