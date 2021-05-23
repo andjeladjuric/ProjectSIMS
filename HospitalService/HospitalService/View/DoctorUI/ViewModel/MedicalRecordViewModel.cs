@@ -266,7 +266,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public void Refresh()
         {
-            this.MedicalRecord = new MedicalRecordStorage().GetOne(Patient.medicalRecordId);
+            this.MedicalRecord = new MedicalRecordStorage().GetOne(Patient.medicalRecordId); // servis
             this.Diagnoses = new ObservableCollection<Diagnosis>();
             this.MedicalRecord.Diagnoses.ForEach(Diagnoses.Add);
             this.Prescriptions = new ObservableCollection<Prescription>();

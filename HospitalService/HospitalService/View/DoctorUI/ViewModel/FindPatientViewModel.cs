@@ -1,4 +1,4 @@
-﻿using HospitalService.View.DoctorUI.Commands;
+﻿ using HospitalService.View.DoctorUI.Commands;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -45,7 +45,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             this.Frame = frame;
             ParentWindow = window;
             Patients = new ObservableCollection<Patient>();
-            new PatientStorage().GetAll().ForEach(Patients.Add);
+            new PatientStorage().GetAll().ForEach(Patients.Add); // servis
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             SelectCommand = new RelayCommand(Executed_SelectCommand,
               CanExecute_SelectCommand);

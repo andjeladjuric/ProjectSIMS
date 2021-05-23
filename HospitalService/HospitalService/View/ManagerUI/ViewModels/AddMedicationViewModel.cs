@@ -98,7 +98,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             MedicationService medicationService = new MedicationService();
             string[] generateId = Guid.NewGuid().ToString().Split("-");
             MedicationId = generateId[0];
-            medicationService.AddMedication(new Medication(MedicationId, MedicationName, Status, Type, Ingredients, MedicationFormat));
+            medicationService.AddMedication(new Medication(MedicationId, MedicationName, MedicineStatus.WaitingForApproval, Type, Ingredients, MedicationFormat));
             CreateValidationRequest();
             this.Frame.NavigationService.Navigate(new MedicationsView());
         }

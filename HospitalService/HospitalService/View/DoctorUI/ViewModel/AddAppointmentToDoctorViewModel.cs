@@ -174,7 +174,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             Enum.GetNames(typeof(AppointmentType)).ToList().ForEach(AppointmentsType.Add);
             newAppointment = new Appointment();
             Rooms = new ObservableCollection<Room>();
-            new RoomFileStorage().GetAll().ForEach(Rooms.Add);
+            new RoomService().GetAll().ForEach(Rooms.Add); 
         }
         public void Executed_AddCommand(object obj)
         {
@@ -226,7 +226,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
                  roomType = RoomType.OperatingRoom;
 
              Rooms = new ObservableCollection<Room>();
-             new RoomFileStorage().getByType(roomType).ForEach(Rooms.Add); // prebaciti u servis
+             new RoomService().GetByType(roomType).ForEach(Rooms.Add);
             IsEnabled = true;
         }
 

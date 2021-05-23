@@ -185,10 +185,10 @@ namespace HospitalService.View.DoctorUI.ViewModel
             Date = DateTime.Now;
             List<Appointment> todaysAppointments = new AppointmentsService().GetByDoctor(loggedDoctor, Date);
             List<Patient> allPatients = new PatientsRepository().GetAll(); // prebaciti na servis
-            List<MedicineValidationRequest> validationRequests = new MedicineValidationStorage().GetForDoctor(Doctor.Jmbg); // servis
-            List<Medication> medications = new MedicationStorage().GetForApproval(validationRequests); // servis
-            List<Medication> allMedications = new MedicationStorage().GetAllApproved(); // servis
-            List<News> news = new NewsStorage().GetForRole(Role.doktori);
+            List<MedicineValidationRequest> validationRequests = new MedicineValidationService().GetForDoctor(Doctor.Jmbg); 
+            List<Medication> medications = new MedicationService().GetForApproval(validationRequests); 
+            List<Medication> allMedications = new MedicationService().GetAllApproved(); 
+            List<News> news = new NewsStorage().GetForRole(Role.doktori); // servis
             news.ForEach(News.Add);
             todaysAppointments.ForEach(Appointments.Add);
             allPatients.ForEach(Patients.Add);
@@ -274,9 +274,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
             this.MedicationsForApproval = new ObservableCollection<Medication>();
             this.ApprovedMedications = new ObservableCollection<Medication>();
             todaysAppointments.ForEach(Appointments.Add);
-            List<MedicineValidationRequest> validationRequests = new MedicineValidationStorage().GetForDoctor(Doctor.Jmbg); // servis
-            List<Medication> medications = new MedicationStorage().GetForApproval(validationRequests); // servis
-            List<Medication> allMedications = new MedicationStorage().GetAllApproved(); // servis
+            List<MedicineValidationRequest> validationRequests = new MedicineValidationService().GetForDoctor(Doctor.Jmbg);
+            List<Medication> medications = new MedicationService().GetForApproval(validationRequests);
+            List<Medication> allMedications = new MedicationService().GetAllApproved();
             todaysAppointments.ForEach(Appointments.Add);
             medications.ForEach(MedicationsForApproval.Add);
             allMedications.ForEach(ApprovedMedications.Add);

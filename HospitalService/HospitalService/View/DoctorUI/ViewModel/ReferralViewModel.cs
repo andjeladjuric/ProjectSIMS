@@ -135,7 +135,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 Reason = Reason
             };
             MedicalRecord.Referrals.Add(newReferral);
-            new MedicalRecordStorage().Edit(MedicalRecord);
+            new MedicalRecordStorage().Edit(MedicalRecord); // servis
             ThisWindow.Close();
         
         }
@@ -148,7 +148,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_GetDoctorsCommand(object obj)
         {
             this.Doctors = new ObservableCollection<Doctor>();
-            List<Doctor> doctors = new DoctorStorage().GetByDepartment(SelectedDepartment);
+            List<Doctor> doctors = new DoctorStorage().GetByDepartment(SelectedDepartment); // servis
             doctors.ForEach(Doctors.Add);
             IsEnabled = true;
         }

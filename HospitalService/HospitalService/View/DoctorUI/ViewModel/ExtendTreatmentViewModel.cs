@@ -63,8 +63,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_ApplyCommand(object obj)
         {
             this.HospitalTreatent.EndTime = SelectedDate;
-            this.MedicalRecord.EditTreatment(HospitalTreatent);
-            new MedicalRecordStorage().Edit(MedicalRecord);
+            this.MedicalRecord.EditTreatment(HospitalTreatent); // servis
+            new MedicalRecordStorage().Edit(MedicalRecord); // servis
             this.ParentWindow.Refresh();
             this.Frame.Content = null;
         }
