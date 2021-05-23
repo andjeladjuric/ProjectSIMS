@@ -18,5 +18,6 @@ namespace HospitalService.Model
             Datum = d;
             Anamnesis = a;
         }
+        public Diagnosis() { }
     }
 }

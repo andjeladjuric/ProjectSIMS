@@ -1,0 +1,96 @@
+﻿<Window x:Class="HospitalService.View.DoctorUI.Views.UrgentOperationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+        mc:Ignorable="d"
+       Title="Zakazivanje operacije"  Height="500" Width="430" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize" FontFamily="Open Sans" FontSize="18">
+    <Grid  Height="500" Width="430">
+
+        <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="50,30,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding PatientsName}"  HorizontalAlignment="Left" Margin="182,36,0,0" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Top" Width="184"/>
+        <Label Content="Datum*:" HorizontalAlignment="Left" Margin="50,80,0,0" VerticalAlignment="Top"/>
+        <Label Content="Pocetak*:" HorizontalAlignment="Left" Margin="50,130,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.435,2.682"/>
+        <Label Content="Kraj*:" HorizontalAlignment="Left" Margin="50,180,0,0" VerticalAlignment="Top"/>
+        <Label Content="Odjeljenje*:" HorizontalAlignment="Left" Margin="50,230,0,0" VerticalAlignment="Top"/>
+        <Label Content="Doktor*:" HorizontalAlignment="Left" Margin="50,280,0,0" VerticalAlignment="Top"/>
+        <Label Content="Sala*:" HorizontalAlignment="Left" Margin="50,330,0,0" VerticalAlignment="Top"/>
+        <TextBox  Text="{Binding StartTime, Mode=TwoWay, StringFormat=HH:mm}"  HorizontalAlignment="Left" Margin="182,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
+        <TextBox Text="{Binding StartTime, Mode=TwoWay, StringFormat=HH:mm}" HorizontalAlignment="Left" Margin="182,184,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="152"/>
+        <DatePicker SelectedDate="{Binding SelectedDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="182,81,0,0" VerticalAlignment="Top" Width="152"/>
+        <ComboBox ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartment, Mode=TwoWay}" HorizontalAlignment="Left" Margin="182,233,0,0" VerticalAlignment="Top" Width="152" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged" >
+                    <i:InvokeCommandAction Command="{Binding GetDoctorsCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="KeyUp" >
+                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <i:Interaction.Behaviors>
+                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+            </i:Interaction.Behaviors>
+        </ComboBox>
+        <ComboBox ItemsSource="{Binding Doctors, Mode=TwoWay}" SelectedItem="{Binding SelectedDoctor, Mode=TwoWay}" HorizontalAlignment="Left" Margin="182,282,0,0" VerticalAlignment="Top" Width="152" IsEnabled="{Binding IsEnabled, Mode=TwoWay}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="Name"/>
+                                <Binding Path="Surname"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ComboBox ItemsSource="{Binding Rooms, Mode=TwoWay}" SelectedItem="{Binding SelectedRoom, Mode=TwoWay}" HorizontalAlignment="Left" Margin="182,332,0,0" VerticalAlignment="Top" Width="150">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                                <Binding Path="Id"/>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Content="Odustani" Width="87" Height="27" HorizontalAlignment="Left" Margin="92,427,0,0" VerticalAlignment="Top" >
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click" >
+                    <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="KeyUp" >
+                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <i:Interaction.Behaviors>
+                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+            </i:Interaction.Behaviors>
+        </Button>
+        <Button Content="Potvrdi" Width="87" Height="27" HorizontalAlignment="Left" Margin="230,427,0,0" VerticalAlignment="Top">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click" >
+                    <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="KeyUp" >
+                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <i:Interaction.Behaviors>
+                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+            </i:Interaction.Behaviors>
+        </Button>
+
+    </Grid>
+</Window>

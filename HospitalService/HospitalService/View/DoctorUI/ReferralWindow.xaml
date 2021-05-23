@@ -36,7 +36,7 @@
             </Button.Effect>
         </Button>
         <ComboBox SelectionChanged="DepartmentOptions_SelectionChanged" Name="DepartmentOptions" HorizontalAlignment="Left" Margin="204,132,0,0" VerticalAlignment="Top" Width="190" Height="30"/>
-        <ComboBox HorizontalAlignment="Left" Margin="204,187,0,0" VerticalAlignment="Top" Width="190" Height="30" IsEnabled="False" Name="DoctorOptions">
+        <ComboBox HorizontalAlignment="Left" Margin="204,187,0,0" VerticalAlignment="Top" Width="190" Height="30" IsEnabled="{Binding IsEnabled, Mode=TwoWay}" Name="DoctorOptions">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>

@@ -1,0 +1,36 @@
+﻿<Page x:Class="HospitalService.View.DoctorUI.Views.AllergiesView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
+       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+      mc:Ignorable="d" 
+      d:DesignHeight="280" d:DesignWidth="400"
+      Title="AllergiesView" FontSize="16" FontFamily="Open Sans">
+
+    <Grid Background="White" Height="270" Width="400">
+        <Label Content="Alergije" HorizontalAlignment="Left" Margin="157,10,0,0" VerticalAlignment="Top"/>
+        <ListView Margin="25,44,25,39" ItemsSource="{Binding Path=Allergies}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=IngredientName}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Width="60" Margin="305,236,35,10" Content="Dodaj">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click" >
+                    <i:InvokeCommandAction Command="{Binding AddCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="KeyUp" >
+                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <i:Interaction.Behaviors>
+                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+            </i:Interaction.Behaviors>
+        </Button>
+    </Grid>
+</Page>
