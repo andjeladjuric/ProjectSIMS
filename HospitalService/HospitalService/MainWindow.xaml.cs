@@ -2,6 +2,7 @@
 using HospitalService.View.DoctorUI;
 using HospitalService.View.DoctorUI.Views;
 using HospitalService.View.ManagerUI;
+using HospitalService.View.ManagerUI.Views;
 using HospitalService.View.PatientUI;
 using HospitalService.View.SecretaryUI;
 using Model;
@@ -32,7 +33,6 @@ namespace HospitalService
         {
             InitializeComponent();
             users = JsonConvert.DeserializeObject<List<Account>>(File.ReadAllText(FileLocation2));
-            new RenovationStorage().CheckRenovationRequests();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -63,7 +63,7 @@ namespace HospitalService
                         else if (ac.User == UserType.Manager)
                         {
                             Manager m = managerBase.GetOne(ac.Username);
-                            new ManagerWindow(m).Show();
+                            new ManagerWindowView(m).Show();
                             this.Close();
                             break;
 

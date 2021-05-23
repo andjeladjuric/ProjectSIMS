@@ -1,0 +1,266 @@
+﻿<Page x:Class="HospitalService.View.ManagerUI.Views.MoveInventoryView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="718" d:DesignWidth="969"
+      Title="MoveInventory">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="#f5f5f5">
+
+        <DataGrid ItemsSource="{Binding RoomInventory}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" 
+                  x:Name="tableBinding" IsReadOnly="True"  Margin="16,0,0,0"
+                  SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
+                  Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14"
+                  SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
+   
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Šifra" Binding="{Binding Id}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#474746"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Naziv" Width="*"  Binding="{Binding Name}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#474746"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Količina" Width="*" Binding="{Binding Quantity}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#474746"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Proizvođač" Width="*"  Binding="{Binding Supplier}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#474746"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid x:Name="grid" Margin="590,101,0,105">
+            <Border HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="350" Margin="12,33,0,0"
+                    CornerRadius="10" BorderThickness="0.5" BorderBrush="Black"/>
+
+            <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="45,281,0,0" VerticalAlignment="Top" 
+                   Width="112" Height="30"/>
+            <Label x:Name="quantity" Content="Količina" HorizontalAlignment="Left" Margin="45,334,0,0" VerticalAlignment="Top" 
+                   Width="112" Height="30"/>
+            <TextBox x:Name="quantityBox" HorizontalAlignment="Left" Height="32" Margin="169,335,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
+                     Width="154" Foreground="#474746"
+                     FontFamily="Gill Sans MT"
+                     FontSize="16"
+                     HorizontalContentAlignment="Center">
+                <TextBox.Resources>
+                    <validation:MaxInventoryProxy x:Key="proxy" Data="{Binding}"/>
+                </TextBox.Resources>
+                <TextBox.Text>
+                    <Binding Path="Quantity" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validation:MoveQuantityValidation ValidationStep="RawProposedValue">
+                                <validation:MoveQuantityValidation.Wrapper>
+                                    <validation:MaxInventoryWrapper Max ="{Binding Path=Data.SelectedItem.Quantity, Source={StaticResource proxy}}"/>
+                                </validation:MoveQuantityValidation.Wrapper>
+                            </validation:MoveQuantityValidation>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="textBox"/>
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <ComboBox x:Name="comboBox" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}" HorizontalAlignment="Left" 
+                      Height="30" Margin="169,280,0,0" VerticalAlignment="Top" Width="154"
+                      Foreground="#474746"
+                      FontFamily="Gill Sans MT"
+                      FontSize="16"
+                      HorizontalContentAlignment="Center"/>
+            <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="82,399,0,0" VerticalAlignment="Top" Height="30" Width="81"
+                    Command="{Binding ConfirmCommand}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=quantityBox, Path=Text}" Value="">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=quantityBox, Path=(Validation.HasError)}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=comboBox, Path=SelectedIndex}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=TimeBox, Path=IsEnabled}" Value="True"/>
+                                    <Condition Binding="{Binding ElementName=TimeBox, Path=Text}" Value=""/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=TimeBox, Path=IsEnabled}" Value="True"/>
+                                    <Condition Binding="{Binding ElementName=TimeBox, Path=(Validation.HasError)}" Value="True"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=datePicker, Path=IsEnabled}" Value="True"/>
+                                    <Condition Binding="{Binding ElementName=datePicker, Path=Text}" Value=""/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+
+            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="206,399,0,0" VerticalAlignment="Top" Height="30" 
+                    Width="80" Command="{Binding CancelCommand}"/>
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="36,49,0,0" Text="Premesti stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
+            <Label x:Name="Stavka" Content="Izabrana stavka" HorizontalAlignment="Left" Margin="45,138,0,0" VerticalAlignment="Top" 
+                   Width="112" Height="30"/>
+            <TextBox x:Name="IDBox" Text="{Binding SelectedItem.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" 
+                     HorizontalAlignment="Left" Height="32" Margin="169,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" 
+                     Foreground="#474746"
+                     FontFamily="Gill Sans MT"
+                     FontSize="16"
+                     HorizontalContentAlignment="Center"/>
+
+            <DatePicker x:Name="datePicker" DisplayDate="{Binding Date}" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Left"
+                        Margin="169,236,0,0" VerticalAlignment="Top" Width="154" Height="30"
+                        Foreground="#474746"
+                        FontFamily="Gill Sans MT"
+                        FontSize="16"
+                        HorizontalContentAlignment="Center">   
+                <DatePicker.Style>
+                    <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource {x:Type DatePicker}}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedItem.EquipmentType}" Value="1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DatePicker.Style>
+            </DatePicker>
+            
+            <Label x:Name="time" Content="Vreme" HorizontalAlignment="Left" Margin="45,188,0,0" VerticalAlignment="Top" 
+                   Width="112" Height="30"/>
+            <Label x:Name="date" Content="Datum" HorizontalAlignment="Left" Margin="45,232,0,0" VerticalAlignment="Top" 
+                   Width="112" Height="30"/>
+            <TextBox x:Name="TimeBox" HorizontalAlignment="Left" Height="32" Margin="169,185,0,0" TextWrapping="Wrap" 
+                     VerticalAlignment="Top" Width="154"
+                     Foreground="#474746"
+                     FontFamily="Gill Sans MT"
+                     FontSize="16"
+                     HorizontalContentAlignment="Center">
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedItem.EquipmentType}" Value="1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+                <TextBox.Text>
+                    <Binding Path="EnteredTime" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validation:DateTimeValidation ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="textBox"/>
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+        </Grid>
+
+        <ComboBox x:Name="InventoryType"
+                  HorizontalAlignment="Left" Margin="24,91,0,0" VerticalAlignment="Top" 
+                  Width="140" Foreground="#474746"
+                  FontFamily="Gill Sans MT"
+                  FontSize="16"
+                  HorizontalContentAlignment="Center">
+            <ComboBoxItem Content="Sva oprema"/>
+            <ComboBoxItem Content="Statička oprema"/>
+            <ComboBoxItem Content="Dinamička oprema"/>
+        </ComboBox>
+        <materialDesign:PopupBox x:Name="Popup" PlacementMode="RightAndAlignTopEdges" Width="32" Height="30" StaysOpen="True" Margin="546,94,0,594">
+            <materialDesign:PopupBox.ToggleContent>
+                <materialDesign:PackIcon Kind="Search" Height="30" Width="30" />
+            </materialDesign:PopupBox.ToggleContent>
+            <StackPanel Width="150" Height="160">
+                <TextBox x:Name="searchId"
+                 materialDesign:HintAssist.Hint="šifra..."
+                 materialDesign:HintAssist.HintOpacity=".26"
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Separator/>
+                <TextBox x:Name="searchName"
+                 materialDesign:HintAssist.Hint="naziv..."
+                 materialDesign:HintAssist.HintOpacity=".26"
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Separator/>
+                <TextBox x:Name="searchSupplier"
+                 materialDesign:HintAssist.Hint="proizvođač..."
+                 materialDesign:HintAssist.HintOpacity=".26"
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Separator/>
+                <Button Content="Poništi pretragu" FontFamily="Gill Sans MT" Foreground="Black"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </materialDesign:PopupBox>
+
+
+        <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
+
+    </Grid>
+</Page>
