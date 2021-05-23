@@ -215,7 +215,54 @@
 
                 </UniformGrid>
             </TabItem>
-            <TabItem Header="Notifikacije" Margin="-2,24,0,-33" RenderTransformOrigin="0.473,0.895"/>
+            <TabItem Header="Novosti" Margin="-2,24,0,-33" RenderTransformOrigin="0.473,0.895">
+                <StackPanel>
+                    <StackPanel Width="184" Margin="0,20,0,0">
+                        <Label Content="Novosti" FontSize="30"/>
+                    </StackPanel>
+                    <StackPanel Height="350" Margin="0,20,0,0">
+                        <ListView SelectedItem="{Binding SelectedNews, Mode=TwoWay}" ItemsSource="{Binding News}" Height="350" Margin="40,0,40,0">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <WrapPanel>
+                                        <TextBlock Text="Naslov: " />
+                                        <TextBlock Text="{Binding Title}" FontWeight="Bold" />
+                                        <TextBlock Text=" (" />
+                                        <TextBlock Text="{Binding PublishingDate, StringFormat=MM/dd/yyyy}" Foreground="CornflowerBlue" />
+                                        <TextBlock Text=")" />
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDoubleClick" >
+                                    <i:InvokeCommandAction Command="{Binding ShowNewsCommand}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="KeyUp" >
+                                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <i:Interaction.Behaviors>
+                                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                            </i:Interaction.Behaviors>
+                        </ListView>
+                    </StackPanel>
+                    <StackPanel Width="100" Margin="0,40,0,0">
+                        <Button Content="Ukloni sve">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click" >
+                                    <i:InvokeCommandAction Command="{Binding RemoveNewsCommand}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="KeyUp" >
+                                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <i:Interaction.Behaviors>
+                                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                            </i:Interaction.Behaviors>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
 
         </TabControl>
 

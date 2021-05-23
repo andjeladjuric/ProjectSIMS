@@ -92,6 +92,16 @@ namespace Storage
             return numberOfPublishedNews;
         }
 
+        public List<News> GetForRole(Role role)
+        {
+            List<News> foundNews = new List<News>();
+            foreach (News news in allNews)
+            {
+                if (news.Roles.Equals(role) || news.Roles.Equals(Role.svi))
+                    foundNews.Add(news);
+            }
+            return foundNews;
+        }
         
     }
 }
