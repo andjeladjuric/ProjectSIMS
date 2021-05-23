@@ -93,7 +93,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Actions
         private void OnEdit()
         {
-            this.IngredientsFrame.NavigationService.Navigate(new IngredientsView(SelectedMedication.Ingredients, IngredientsFrame));
+            this.IngredientsFrame.NavigationService.Navigate(new IngredientsView(SelectedMedication.Ingredients, IngredientsFrame, Ingredients));
         }
 
         private void OnCancel()

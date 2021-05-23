@@ -28,9 +28,6 @@
         <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto" 
                  ScrollViewer.HorizontalScrollBarVisibility="Auto" 
                  ItemsSource="{Binding Ingredients}" SelectedItem="{Binding SelectedIngredient}"
-                 FontSize="14"
-                 Foreground="#474746"
-                 FontFamily="Gill Sans MT"
                  x:Name="Validation" Margin="130,194,502,165">
 
             <ListBox.ItemsPanel >
@@ -41,6 +38,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock x:Name="Medicine" Text="{Binding Path = IngredientName}" 
+                               FontWeight="Light"
                                Foreground="#474746"
                                FontFamily="Gill Sans MT"
                                FontSize="16"/>
@@ -58,10 +56,6 @@
         <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto" 
                  ScrollViewer.HorizontalScrollBarVisibility="Auto" 
                  ItemsSource="{Binding CurrentIngredients}" SelectedItem="{Binding SelectedIngAndQuantity}"
-                 FontSize="14"
-                 Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 HorizontalContentAlignment="Center"
                  x:Name="currentMedIngredients" Margin="522,218,154,284">
 
             <ListBox.ItemsPanel >
@@ -72,6 +66,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock x:Name="Ingredient" Text="{Binding}" 
+                               FontWeight="Light" 
                                Foreground="#474746"
                                FontFamily="Gill Sans MT"
                                FontSize="16"/>

@@ -15,6 +15,9 @@ namespace HospitalService.View.ManagerUI.ViewModels
     public class IngredientsViewModel : ViewModel
     {
         #region Fields
+        private ObservableCollection<string> previousCollection; 
+        public ObservableCollection<string> PreviouseCollection
+        { get { return previousCollection; } set { previousCollection = value; OnPropertyChanged(); } }
         public CollectionView currentView { get; set; }
         public CollectionView allIngredientsView { get; set; }
         private ObservableCollection<MedicationIngredients> ingredients;
@@ -112,7 +115,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 IngredientsForMed.Remove(SelectedIngredient.IngredientName);
                 AddIngredientToMedication();
             }
-            DeleteIngredientsFromMedication(SelectedIngredient);
+            DeleteIngredientsFromMedication(SelectedIngredient.IngredientName);
             service.DeleteIngredient(SelectedIngredient.IngredientName);
             Ingredients.Remove(SelectedIngredient);
             allIngredientsView.Refresh();
@@ -121,9 +124,12 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         private void OnRemoveIngredientFromMed()
         {
-            CurrentIngredients.Remove(SelectedIngredient.IngredientName);
-            AddIngredientToMedication();
-            DeleteIngredientsFromMedication(SelectedIngredient);
+            string[] parts = SelectedIngAndQuantity.Split(" ");
+            IngredientsForMed.Remove(parts[0]);
+            CurrentIngredients.Remove(SelectedIngAndQuantity);
+            //AddIngredientToMedication();
+            DeleteIngredientsFromMedication(parts[0]);
+            Quantity = "";
             currentView.Refresh();
         }
 
@@ -137,7 +143,13 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         private void OnCancel()
         {
-            this.Frame.NavigationService.GoBack();
+            this.PreviouseCollection.Clear();
+            foreach (string ing in CurrentIngredients)
+            {
+                this.previousCollection.Add(ing);
+            }
+
+            this.Frame.Content = null;
         }
 
         public bool CanExecute()
@@ -185,16 +197,16 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
         }
 
-        private void DeleteIngredientsFromMedication(MedicationIngredients m)
+        private void DeleteIngredientsFromMedication(string ingName)
         {
             MedicationService service = new MedicationService();
             Medication med;
             for (int i = 0; i < service.GetAll().Count; i++)
             {
                 med = service.GetAll()[i];
-                if (med.Ingredients.ContainsKey(m.IngredientName))
+                if (med.Ingredients.ContainsKey(ingName))
                 {
-                    med.Ingredients.Remove(m.IngredientName);
+                    med.Ingredients.Remove(ingName);
                     service.SerializeMedication();
                 }
             }
@@ -213,11 +225,12 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Constructors
-        public IngredientsViewModel(Frame currentFrame, Frame quantityFrame, Dictionary<string, int> MedIngredients)
+        public IngredientsViewModel(Frame currentFrame, Frame quantityFrame, Dictionary<string, int> MedIngredients, ObservableCollection<string> view)
         {
             this.Frame = currentFrame;
             this.IngFrame = quantityFrame;
             this.IngredientsForMed = MedIngredients;
+            this.previousCollection = view;
             LoadAllIngredients();
             AddIngredientToMedication();
             this.currentView = (CollectionView)CollectionViewSource.GetDefaultView(CurrentIngredients);

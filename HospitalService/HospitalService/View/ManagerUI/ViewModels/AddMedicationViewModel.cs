@@ -4,8 +4,10 @@ using HospitalService.View.ManagerUI.Views;
 using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace HospitalService.View.ManagerUI.ViewModels
 {
@@ -21,6 +23,9 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Properties
+        public CollectionView CurrentIngredients { get; set; }
+        private ObservableCollection<string> ingView;
+        public ObservableCollection<string> IngredientsView { get { return ingView; } set { ingView = value; OnPropertyChanged(); } }
         public string MedicationId
         {
             get { return medicationId; }
@@ -105,8 +110,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         private void OnAddIngredients()
         {
-            Ingredients = new Dictionary<string, int>();
-            this.Frame.NavigationService.Navigate(new IngredientsView(Ingredients, Frame));
+            this.Frame.NavigationService.Navigate(new IngredientsView(Ingredients, Frame, IngredientsView));
         }
 
         private bool CanExecute()
@@ -154,6 +158,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             this.Frame = currentFrame;
             LoadDoctors();
+            Ingredients = new Dictionary<string, int>();
+            IngredientsView = new ObservableCollection<string>();
             ConfirmCommand = new MyICommand(OnConfirm, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanExecute);
             AddIngredientCommand = new MyICommand(OnAddIngredients, CanExecute);

@@ -32,23 +32,23 @@
     </Page.Resources>
 
     <Grid>
-        <Grid x:Name="MainGrid" Background="#f5f5f5" Margin="223,52,219,50">
-            <TextBlock Text="{Binding SelectedMedication.MedicineName, Mode=TwoWay}" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" 
-                               FontSize="24" Foreground="#FF5B7886" Height="50" Margin="59,8,224,558"/>
-            <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="57,68,58,26"/>
-            <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="76,251,78,245"/>
-            <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="78,407,78,93"/>
+        <Grid x:Name="MainGrid" Background="#f5f5f5" Margin="99,52,99,52">
+            <TextBlock Text="{Binding SelectedMedication.MedicineName, Mode=TwoWay}" 
+                       TextAlignment="Center"
+                       Foreground="#474746"
+                       FontFamily="Gill Sans MT"
+                       FontSize="28" Height="50" Margin="60,102,317,462"/>
+            <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="28,68,28,68"/>
+            <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="452,193,78,268"/>
+            <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="59,407,78,130"/>
             <TextBlock x:Name="CommentBox" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" IsEnabled="False"
                        FontSize="16" Text="{Binding SelectedMedication.DoctorsComment}" 
-                       Margin="87,420,87,106"
+                       Margin="76,420,87,145"
                        Foreground="#474746"/>
             <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                  ItemsSource="{Binding Ingredients}"
-                 Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
-                 x:Name="Validation" Margin="76,251,78,245">
+                 x:Name="Validation" Margin="452,193,78,268">
 
                 <ListBox.ItemsPanel >
                     <ItemsPanelTemplate >
@@ -59,19 +59,20 @@
                     <DataTemplate>
                         <TextBlock x:Name="Medicine" Text="{Binding}" 
                                    Foreground="#474746"
+                                   FontWeight="Light"
                                    FontFamily="Gill Sans MT"
-                                   FontSize="14"/>    
+                                   FontSize="14"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <Label x:Name="ingredients" Content="Sastojci leka" HorizontalAlignment="Left" Margin="78,220,0,0" VerticalAlignment="Top" 
+            <Label x:Name="ingredients" Content="Sastojci leka" HorizontalAlignment="Left" Margin="456,152,0,0" VerticalAlignment="Top" 
                    Width="125" Height="36"/>
-            <Label x:Name="comment" Content="Komentar doktora" HorizontalAlignment="Left" Margin="78,375,0,0" VerticalAlignment="Top" 
+            <Label x:Name="comment" Content="Komentar doktora" HorizontalAlignment="Left" Margin="59,366,0,0" VerticalAlignment="Top" 
                    Width="150" Height="36"/>
-            <Label x:Name="format" Content="Format leka" HorizontalAlignment="Left" Margin="78,89,0,0" VerticalAlignment="Top" Width="125" 
+            <Label x:Name="format" Content="Format leka" HorizontalAlignment="Left" Margin="55,212,0,0" VerticalAlignment="Top" Width="125" 
                    Height="36"/>
-            <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="36" Margin="212,71,0,0" TextWrapping="Wrap" 
+            <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="36" Margin="189,194,0,0" TextWrapping="Wrap" 
                  VerticalAlignment="Top" Width="228"
                  VerticalContentAlignment="Center"
                  Text="{Binding Format, Mode=TwoWay}"
@@ -80,12 +81,12 @@
                  FontSize="16"
                  HorizontalContentAlignment="Center"/>
 
-            <Button Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="396,8,66,573" 
+            <Button Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="668,8,38,571" 
                 ToolTip="Završi pregled/izmene" Command="{Binding CancelCommand}">
                 <materialDesign:PackIcon Kind="Close" Foreground="#474746" Height="35" Width="35"/>
             </Button>
 
-            <Button x:Name="Edit" Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="172,212,290,369" Command="{Binding EditCommand}">
+            <Button x:Name="Edit" Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="531,150,175,429" Command="{Binding EditCommand}">
                 <materialDesign:PackIcon Kind="EditOutline" Foreground="#474746" VerticalAlignment="Center" Height="20" Width="20"/>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
@@ -99,12 +100,12 @@
                 </Button.Style>
             </Button>
 
-            <Button x:Name="resend" Content="Šalji zahtjev" HorizontalAlignment="Center" Margin="0,552,0,0" 
+            <Button x:Name="resend" Content="Pošalji" HorizontalAlignment="Center" Margin="0,504,0,0" 
                 VerticalAlignment="Top" Height="26" Width="102" IsEnabled="False" Command="{Binding ResendCommand}"/>
 
             <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" HorizontalContentAlignment="Center" 
                   SelectedItem="{Binding Type, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  HorizontalAlignment="Left" Height="34" Margin="212,120,0,0" VerticalAlignment="Top" Width="228"
+                  HorizontalAlignment="Left" Height="34" Margin="189,245,0,0" VerticalAlignment="Top" Width="228"
                   Foreground="#474746"
                   FontFamily="Gill Sans MT"
                   FontSize="16">
@@ -116,13 +117,17 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Label x:Name="vrsta" Content="Vrsta leka" HorizontalAlignment="Left" Margin="78,134,0,0" VerticalAlignment="Top" Width="125" 
-            FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
-            <Label x:Name="alternative" Content="Zamena" HorizontalAlignment="Left" Margin="78,180,0,0" VerticalAlignment="Top" Width="125" 
-            FontFamily="Gill Sans MT" FontWeight="Bold" FontStyle="Normal" FontSize="14" Foreground="#FF5B7886" Height="36"/>
-            <TextBox x:Name="alternativeBox" HorizontalAlignment="Left" Height="36" Margin="212,162,0,0" TextWrapping="Wrap" 
-            VerticalAlignment="Top" Width="228" FontFamily="Gill Sans MT" FontWeight="Light" FontStyle="Normal" FontSize="14" 
-            Foreground="#FF5B7886" HorizontalContentAlignment="Center" IsEnabled="False" VerticalContentAlignment="Center" Text="{Binding Replacement}"/>
+            <Label x:Name="vrsta" Content="Vrsta leka" HorizontalAlignment="Left" Margin="55,257,0,0" VerticalAlignment="Top" Width="125" 
+                   Height="36"/>
+            <Label x:Name="alternative" Content="Zamena" HorizontalAlignment="Left" Margin="55,303,0,0" VerticalAlignment="Top" Width="125" 
+                   Height="36"/>
+            <TextBox x:Name="alternativeBox" HorizontalAlignment="Left" Height="36" Margin="189,0,0,0" TextWrapping="Wrap" 
+            VerticalAlignment="Center" Width="228" IsEnabled="False" VerticalContentAlignment="Center" 
+                     Text="{Binding Replacement}"
+                     Foreground="#474746"
+                     FontFamily="Gill Sans MT"
+                     FontSize="16"
+                     HorizontalContentAlignment="Center"/>
         </Grid>
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

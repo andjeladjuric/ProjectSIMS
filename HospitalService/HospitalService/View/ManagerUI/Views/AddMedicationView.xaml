@@ -117,11 +117,10 @@
         </ComboBox>
 
         <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="558,264,179,237"/>
-        <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="572,323,193,245"/>
+        <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled"  ItemsSource="{Binding IngredientsView}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontSize="14"
-                 x:Name="Validation" Margin="572,323,193,247" Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 HorizontalContentAlignment="Center">
+                 x:Name="Validation" Margin="572,323,193,247">
 
             <ListBox.ItemsPanel >
                 <ItemsPanelTemplate >
@@ -133,7 +132,9 @@
                     <TextBlock x:Name="Medicine" Text="{Binding}"
                                Foreground="#474746"
                                FontFamily="Gill Sans MT"
-                               FontSize="16"/>
+                               FontSize="16"
+                               FontWeight="Light"
+                               TextAlignment="Center"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
@@ -162,6 +163,6 @@
             </Binding>
         </TextBox>
 
-        <!--<Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>-->
+        <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>
