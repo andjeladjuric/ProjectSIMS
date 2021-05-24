@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using HospitalService.Model;
+using HospitalService.Repositories;
 using HospitalService.Storage;
 using Model;
 
@@ -9,15 +10,16 @@ namespace HospitalService.Service
 {
    public class NotesService
     {
-        private NotesStorage repository;
+        private NotesRepository repository;
 
         public NotesService() {
 
-            repository = new NotesStorage();
+            repository = new NotesRepository();
         }
 
         public Note getNoteByPatient(Patient patient, Diagnosis diagnosis) {
 
+            repository = new NotesRepository();
             Note note = repository.getOneByPatient(patient,diagnosis);
             return note;
         }

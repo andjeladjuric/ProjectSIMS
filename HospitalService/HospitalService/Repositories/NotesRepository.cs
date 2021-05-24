@@ -1,4 +1,5 @@
 ﻿using HospitalService.Model;
+using Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,26 @@ namespace HospitalService.Repositories
         {
             notes.Add(newNote);
             SerializeNotes();
+        }
+
+
+        public Note getOneByPatient(Patient patient, Diagnosis diagnosis)
+        {
+
+            Note note = null;
+            for (int i = 0; i < notes.Count; i++)
+            {
+                
+                if (patient.Jmbg.Equals(notes[i].patient.Jmbg) && notes[i].diagnosis.Datum == diagnosis.Datum)
+                {
+                    note = notes[i];
+                    break;
+                }
+
+            }
+            return note;
+
+
         }
     }
 }
