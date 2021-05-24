@@ -24,53 +24,53 @@
                             <RowDefinition Height="60"/>
                         </Grid.RowDefinitions>
 
-                        <Button Grid.Row="0" Background="RoyalBlue" Click="viewProfileClick">
+                        <Button Grid.Row="0" Background="RoyalBlue" Command="{Binding openViewProfile}">
                             <StackPanel>
                                 <Image Source="/View/PatientUI/Images/user.png" Height="32" Width="70"/>
                                 <TextBlock Text="Pregled profila" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
-                        <Button Grid.Row="1" Background="RoyalBlue" Click="editProfileClick">
+                        <Button Grid.Row="1" Background="RoyalBlue" Command="{Binding openEditProfile}">
                             <StackPanel>
                                 <Image Source="/View/PatientUI/Images/edit.png" Height="32" Width="70"/>
                                 <TextBlock Text="Izmjena profila" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="addApp" Grid.Row="2" Background="RoyalBlue" Click="addAppointmentClick">
+                        <Button x:Name="addApp" Grid.Row="2" Background="RoyalBlue" Command="{Binding openAddAppointment}">
                             <StackPanel>
                                 <Image Source="/View/PatientUI/Images/plus.png" Height="32" Width="70"/>
                                 <TextBlock Text="Zakazivanje termina" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="viewApp" Grid.Row="3" Background="RoyalBlue" Click="ViewAppointmentsClick">
+                        <Button x:Name="viewApp" Grid.Row="3" Background="RoyalBlue" Command="{Binding openViewAppointment}">
                           <StackPanel>
                                 <Image Source="/View/PatientUI/Images/calendar.png" Height="32" Width="70"/>
                                 <TextBlock Text="Pregled termina" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
-                        <Button Grid.Row="4" Background="RoyalBlue" Click="viewMedicalRecordClick">
+                        <Button Grid.Row="4" Background="RoyalBlue" Command="{Binding openViewMedicalRecord}">
                             <StackPanel>
                                 <Image Source="/View/PatientUI/Images/book.png" Height="32" Width="70"/>
                                 <TextBlock Text="Zdravstveni karton" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
-                        <Button Grid.Row="5" Background="RoyalBlue" Click="viewPrescriptions">
+                        <Button Grid.Row="5" Background="RoyalBlue" Command="{Binding openViewPrescriptions}">
                             <StackPanel>
                                 <Image Source="/View/PatientUI/Images/survival.png" Height="32" Width="70"/>
                                 <TextBlock Text="Uvid u recepte" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
-                        <Button Grid.Row="6" Background="RoyalBlue" Click="SurveyClick">
+                        <Button Grid.Row="6" Background="RoyalBlue" Command="{Binding openSurvey}">
                             <StackPanel>
                                 <Image Source="/View/PatientUI/Images/ankete.png" Height="32" Width="70"/>
                                 <TextBlock Text="Aktivne ankete" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
-                        <Button Grid.Row="8" Background="RoyalBlue" Click="logOutClick">
-                            <StackPanel>
-                                <Image Source="/View/PatientUI/Images/logout.png" Height="32" Width="70"/>
-                                <TextBlock Text="  Sign out" Foreground="White" FontStyle="Italic" FontSize="12"/>
-                            </StackPanel>
+                        <Button Grid.Row="8" Background="RoyalBlue" Command="{Binding openMainWindow}">
+                        <StackPanel>
+                            <Image Source="/View/PatientUI/Images/logout.png" Height="32" Width="70"/>
+                            <TextBlock Text="  Sign out" Foreground="White" FontStyle="Italic" FontSize="12"/>
+                        </StackPanel>
                         </Button>
                     </Grid>
                 </Border>
@@ -79,7 +79,7 @@
             </Grid>
 
         </DockPanel>
-        <Frame x:Name="Main" Margin="115,0,0,0" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2"/>
+        <Frame x:Name="Main" Margin="115,0,0,0" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
 

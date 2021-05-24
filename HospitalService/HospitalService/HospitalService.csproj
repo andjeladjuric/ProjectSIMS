@@ -56,4 +56,8 @@
     <Resource Include="View\PatientUI\Images\user.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="View\PatientUI\Views\" />
+  </ItemGroup>
+
 </Project>
