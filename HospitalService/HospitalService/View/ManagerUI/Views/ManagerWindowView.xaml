@@ -1,0 +1,150 @@
+﻿<Window x:Class="HospitalService.View.ManagerUI.Views.ManagerWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        mc:Ignorable="d"
+       d:DesignHeight="768" d:DesignWidth="1024" Background="White"
+      Title="MainView" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Storyboard x:Key="OpenMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="55"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="55"/>
+
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="OpenMenuButton">
+            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
+        </EventTrigger>
+
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="CloseMenuButton">
+            <BeginStoryboard Storyboard="{StaticResource CloseMenu}"/>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid x:Name="MainGrid" Height="768" Width="1024">
+        <Grid
+            Height="50"
+            VerticalAlignment="Top"
+            Background="#cad9c4">
+
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Left" Margin="826,0,0,0" Width="198">
+                <Button x:Name="Profile" Margin="5" VerticalAlignment="Center" Width="35" Height="35" Background="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" >
+                    <materialDesign:PackIcon Kind="UserOutline"  Width="30" Height="30" />
+                </Button>
+                <Button x:Name="Notification" Margin="5" VerticalAlignment="Center" Width="35" Height="34" Background="{x:Null}" BorderThickness="0" >
+                    <materialDesign:PackIcon Kind="BellOutline"  Width="30" Height="30" />
+                </Button>
+                <Button x:Name="Help" Margin="5" VerticalAlignment="Center" Width="35" Height="34" Background="{x:Null}" BorderThickness="0" >
+                    <materialDesign:PackIcon Kind="HelpCircleOutline"  Width="30" Height="30" />
+                </Button>
+
+                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" Width="30" Height="30" StaysOpen="False" Margin="10">
+                    <StackPanel Width="100">
+                        <Button Content="Demo"/>
+                        <Separator/>
+                        <Button Content="Log Out" Command="{Binding LogoutCommand}"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="GridMenu" Panel.ZIndex="1" Background="#cad9c4" HorizontalAlignment="Left"
+              Width="55">
+            <StackPanel>
+                <Grid Height="200">
+                    <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
+                        <Button x:Name="OpenMenuButton" Width="35" Height="35" Background="{x:Null}" Margin="0,12,0,0" BorderThickness="0" HorizontalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Menu" Foreground="Black" Width="35" Height="35"/>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=GridMenu, Path=Width}" Value="200">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button x:Name="CloseMenuButton" Background="{x:Null}" BorderThickness="0" Margin="0,12,0,0" HorizontalAlignment="Right">
+                            <materialDesign:PackIcon Kind="Menu" Width="35" Height="35" />
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=GridMenu, Path=Width}" Value="200">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+                <ListView x:Name="ListViewMenu" FontFamily="Gill Sans MT" FontSize="18" Foreground="Black" 
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="{x:Null}" BorderThickness="0" 
+                          SelectedIndex="{Binding SelectedItem}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged" >
+                            <i:InvokeCommandAction Command="{Binding ChangePage}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ListViewItem x:Name="RoomsPage" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="HospitalBuilding" Height="35" Width="35" Margin="4"/>
+                            <TextBlock Text="Sobe" VerticalAlignment="Center" Margin="40 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="InventoryPage" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Bed" Height="35" Width="35" Margin="4"/>
+                            <TextBlock Text="Inventar" VerticalAlignment="Center" Margin="40 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="StaffPage" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Users" Height="35" Width="35" Margin="4"/>
+                            <TextBlock Text="Zaposleni" VerticalAlignment="Center"  Margin="40 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="RequestsPage" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Message" Height="35" Width="35" Margin="4"/>
+                            <TextBlock Text="Zahtevi" VerticalAlignment="Center"  Margin="40 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="MedicationsPage" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Pill" Height="35" Width="35" Margin="4"/>
+                            <TextBlock Text="Lekovi" VerticalAlignment="Center" Margin="40 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
+        <Frame x:Name="MainFrame" Margin="55,50,0,0" NavigationUIVisibility="Hidden" Source="/View/ManagerUI/Views/RoomsView.xaml"/>
+        
+    </Grid>
+
+</Window>
+
+
+

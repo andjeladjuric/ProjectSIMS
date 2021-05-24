@@ -23,7 +23,7 @@ namespace HospitalService.View.ManagerUI.Validations
             }
             catch
             {
-                return new ValidationResult(false, "Nepoznata greška!");
+                return new ValidationResult(false, "Samo celi brojevi!");
             }
         }
     }

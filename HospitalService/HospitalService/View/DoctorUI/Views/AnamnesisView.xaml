@@ -1,0 +1,17 @@
+﻿<Page x:Class="HospitalService.View.DoctorUI.Views.AnamnesisView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="420" d:DesignWidth="310"
+         Title="Anamneza" FontSize="16" FontFamily="Gill Sans MT">
+    <Grid Background="White" Height="420" Width="310">
+        <Border BorderThickness="1" BorderBrush="Black" Margin="0,50,0,0" Height="350" Width="250">
+            <TextBlock Background="WhiteSmoke" Text="{Binding Anamnesis}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Height="330" Width="230"/>
+        </Border>
+        <Label Content="Anamneza:" HorizontalAlignment="Left" Margin="42,28,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Page>
