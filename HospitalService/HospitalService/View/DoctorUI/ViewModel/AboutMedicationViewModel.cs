@@ -1,4 +1,5 @@
-﻿using HospitalService.View.DoctorUI.Commands;
+﻿using HospitalService.Service;
+using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Views;
 using Model;
 using System;
@@ -35,9 +36,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
             this.Medication = selectedMedication;
             this.ThisWindow = window;
             this.ParentWindow = parent;
-            this.Replacement = new MedicationStorage().getOne(selectedMedication.Replacement); // prebaciti u servis
+            this.Replacement = new MedicationService().GetOne(selectedMedication.Replacement); 
             this.Replacements = new ObservableCollection<Medication>();
-            new MedicationStorage().GetAll().ForEach(Replacements.Add); // servis
+            new MedicationService().GetAll().ForEach(Replacements.Add); 
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             ApplyCommand = new RelayCommand(Executed_ApplyCommand,
               CanExecute_ApplyCommand);
@@ -68,7 +69,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_ApplyCommand(object obj)
         {
             Medication.Replacement = Replacement.Id;
-            new MedicationStorage().Update(Medication); // prebaciti u servis
+            new MedicationService().UpdateMedication(Medication); 
             ParentWindow.Refresh();
             ThisWindow.Close();
         }

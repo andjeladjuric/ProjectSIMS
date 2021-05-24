@@ -1,4 +1,5 @@
-﻿using HospitalService.View.DoctorUI.Commands;
+﻿using HospitalService.Service;
+using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Views;
 using Model;
 using Storage;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
@@ -85,14 +87,17 @@ namespace HospitalService.View.DoctorUI.ViewModel
             Date = selectedAppointment.StartTime.Date;
             StartTime = selectedAppointment.StartTime;
             EndTime = selectedAppointment.EndTime;
-            Room = selectedAppointment.room;
             RoomType roomType;
             if (selectedAppointment.Type == AppointmentType.Pregled)
                 roomType = RoomType.ExaminationRoom;
             else
                 roomType = RoomType.OperatingRoom;
             Rooms = new ObservableCollection<Room>();
-            new RoomFileStorage().getByType(roomType).ForEach(Rooms.Add); // servis
+            //new RoomService().GetByType(roomType).ForEach(Rooms.Add);
+            new RoomService().GetAll().ForEach(Rooms.Add);
+            Room = selectedAppointment.room;
+            MessageBox.Show(Room.Id);
+
         }
 
         public void Executed_EditCommand(object obj)
@@ -102,7 +107,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             AppointmentForEditing.StartTime = Convert.ToDateTime(start);
             AppointmentForEditing.EndTime = Convert.ToDateTime(end);
             AppointmentForEditing.room = Room;
-            new AppointmentStorage().Edit(AppointmentForEditing.Id, Convert.ToDateTime(start), Convert.ToDateTime(end), Room);
+            new AppointmentStorage().Edit(AppointmentForEditing.Id, Convert.ToDateTime(start), Convert.ToDateTime(end), Room); // servis
             ParentWindow.Refresh();
             ThisWindow.Close();
         }

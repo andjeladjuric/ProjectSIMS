@@ -1,4 +1,5 @@
 ﻿using HospitalService.Model;
+using HospitalService.Service;
 using HospitalService.View.DoctorUI.Commands;
 using Model;
 using Storage;
@@ -64,7 +65,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         {
             this.HospitalTreatent.EndTime = SelectedDate;
             this.MedicalRecord.EditTreatment(HospitalTreatent);
-            new MedicalRecordStorage().Edit(MedicalRecord);
+            new MedicalRecordService().UpdateRecord(MedicalRecord); 
             this.ParentWindow.Refresh();
             this.Frame.Content = null;
         }

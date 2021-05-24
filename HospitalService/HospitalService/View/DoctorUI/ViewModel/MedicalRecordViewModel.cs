@@ -1,4 +1,5 @@
 ﻿using HospitalService.Model;
+using HospitalService.Service;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Views;
 using Model;
@@ -161,7 +162,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             else {
                 Male = true;
             }
-            this.MedicalRecord = new MedicalRecordStorage().GetOne(Patient.medicalRecordId);
+            this.MedicalRecord = new MedicalRecordService().GetOne(Patient.medicalRecordId);
             this.Diagnoses = new ObservableCollection<Diagnosis>();
             this.Prescriptions = new ObservableCollection<Prescription>();
             this.Treatments = new ObservableCollection<HospitalTreatment>();
@@ -266,7 +267,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public void Refresh()
         {
-            this.MedicalRecord = new MedicalRecordStorage().GetOne(Patient.medicalRecordId);
+            this.MedicalRecord = new MedicalRecordService().GetOne(Patient.medicalRecordId); 
             this.Diagnoses = new ObservableCollection<Diagnosis>();
             this.MedicalRecord.Diagnoses.ForEach(Diagnoses.Add);
             this.Prescriptions = new ObservableCollection<Prescription>();

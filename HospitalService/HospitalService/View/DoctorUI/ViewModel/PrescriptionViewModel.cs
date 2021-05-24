@@ -1,4 +1,5 @@
 ﻿using HospitalService.Model;
+using HospitalService.Service;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Views;
 using Model;
@@ -120,7 +121,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             Prescription newPrescription = new Prescription(SelectedMedication.MedicineName, Hours, Days, Info, SelectedDate);
             MedicalRecord medicalRecord = this.ParentWindow.MedicalRecord;
             medicalRecord.Prescriptions.Add(newPrescription);
-            new MedicalRecordStorage().Edit(medicalRecord); // prebaciti u servis
+            new MedicalRecordService().UpdateRecord(medicalRecord); 
             this.ParentWindow.Refresh();
             this.Window.Close();
 

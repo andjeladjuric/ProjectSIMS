@@ -1,4 +1,6 @@
-﻿using HospitalService.Storage;
+﻿using HospitalService.Repositories;
+using HospitalService.Service;
+using HospitalService.Storage;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Views;
 using Model;
@@ -37,7 +39,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             this.Frame = frame;
             this.MedicalRecord = medicalRecord;
             this.Ingredients = new ObservableCollection<MedicationIngredients>();
-            new IngredientStorage().GetAll().ForEach(Ingredients.Add); // prebaciti na servis
+            new IngredientsRepository().GetAll().ForEach(Ingredients.Add); // prebaciti na servis
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             ApplyCommand = new RelayCommand(Executed_ApplyCommand,
               CanExecute_ApplyCommand);
@@ -72,7 +74,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_ApplyCommand(object obj)
         {
             this.MedicalRecord.Allergies.Add(SelectedIngredient);
-            new MedicalRecordStorage().Edit(MedicalRecord);
+            new MedicalRecordService().UpdateRecord(MedicalRecord); 
             this.Frame.NavigationService.Navigate(new AllergiesView(MedicalRecord.Allergies, Frame, MedicalRecord));
         }
 

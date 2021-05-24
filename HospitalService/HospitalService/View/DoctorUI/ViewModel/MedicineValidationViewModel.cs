@@ -1,4 +1,5 @@
-﻿using HospitalService.Storage;
+﻿using HospitalService.Service;
+using HospitalService.Storage;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Views;
 using Model;
@@ -85,8 +86,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
         {
             Medication.DoctorsComment = DoctorsComment;
             Medication.IsApproved = IsApproved ? MedicineStatus.Approved : MedicineStatus.NotApproved;
-            new MedicationStorage().Update(Medication); // prebaciti u servis
-            new MedicineValidationStorage().Delete(Medication.Id); // prebaciti u servis
+            new MedicationService().UpdateMedication(Medication); 
+            new MedicineValidationService().Delete(Medication.Id); 
             ParentWindow.Refresh();
             ThisWindow.Close();
         }

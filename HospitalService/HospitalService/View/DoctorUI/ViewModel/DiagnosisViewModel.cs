@@ -1,4 +1,5 @@
 ﻿using HospitalService.Model;
+using HospitalService.Service;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Views;
 using Model;
@@ -92,7 +93,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 Anamnesis = this.Anamnesis
             };
             this.MedicalRecord.Diagnoses.Add(newDiagnosis);
-            new MedicalRecordStorage().Edit(MedicalRecord); // prebaciti u servis
+            new MedicalRecordService().UpdateRecord(MedicalRecord); 
             this.ParentWindow.Refresh();
             this.Window.Close();
 

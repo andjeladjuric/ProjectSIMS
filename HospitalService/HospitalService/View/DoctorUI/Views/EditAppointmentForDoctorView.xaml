@@ -12,7 +12,7 @@
         <TextBox Text="{Binding Path=AppointmentForEditing.Id}" IsReadOnly="True" HorizontalAlignment="Left" Height="35" Margin="252,40,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168" RenderTransformOrigin="0.485,-0.456"/>
         <TextBox  Text="{Binding Path=StartTime, Mode=TwoWay, StringFormat=HH:mm}" HorizontalAlignment="Left" Height="37" Margin="254,148,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168" RenderTransformOrigin="1.684,0.193"/>
         <TextBox Text="{Binding Path=EndTime, Mode=TwoWay, StringFormat=HH:mm}"  HorizontalAlignment="Left" Height="36" Margin="254,211,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168"/>
-        <ComboBox ItemsSource="{Binding Rooms}" SelectedItem="{Binding Path=Room, Mode=TwoWay}" IsSynchronizedWithCurrentItem="True" HorizontalAlignment="Left" Margin="252,282,0,0" VerticalAlignment="Top" Width="168" Height="34" RenderTransformOrigin="0.538,-0.42">
+        <ComboBox ItemsSource="{Binding Rooms}" SelectedItem="{Binding Room, Mode=TwoWay}" IsSynchronizedWithCurrentItem="True" HorizontalAlignment="Left" Margin="252,282,0,0" VerticalAlignment="Top" Width="168" Height="34" RenderTransformOrigin="0.538,-0.42">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>

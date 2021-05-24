@@ -1,6 +1,7 @@
 ﻿using HospitalService.Repositories;
 using Model;
 using Newtonsoft.Json;
+using Storage;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -111,6 +112,16 @@ namespace HospitalService.Service
             File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
             Task t = new Task(() => RunThread(mr));
             t.Start();
+        }
+
+        public int GetNextAvailableBed(string roomId)
+        {
+            RoomInventory roomInventory = GetRoomInventoryByIds(roomId, 321);
+            int takenBeds = new MedicalRecordService().TakenBeds(roomId); 
+            if (roomInventory.Quantity == takenBeds)
+                return 0;
+            else
+                return ++takenBeds;
         }
 
         public List<RoomInventory> GetAll() => roomInventoryRepository.GetAll();

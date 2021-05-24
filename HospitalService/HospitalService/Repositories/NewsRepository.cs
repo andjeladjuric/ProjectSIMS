@@ -34,7 +34,7 @@ namespace HospitalService.Repositories
             File.WriteAllText(FileLocation, JsonConvert.SerializeObject(allNews));
         }
 
-        public List<News> getAll()
+        public List<News> GetAll()
         {
             return allNews;
         }

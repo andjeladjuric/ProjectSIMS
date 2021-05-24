@@ -1,4 +1,5 @@
 ﻿using HospitalService.Model;
+using HospitalService.Service;
 using HospitalService.Storage;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Views;
@@ -185,7 +186,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 Reason = this.Reason
             };
             this.MedicalRecord.HospitalTreatments.Add(newHospitalTreatment);
-            new MedicalRecordStorage().Edit(MedicalRecord);
+            new MedicalRecordService().UpdateRecord(MedicalRecord); 
             this.ParentWindow.Refresh();
             this.Window.Close();
         }
@@ -198,7 +199,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_GetRoomsCommand(object obj)
         {
             this.Rooms = new ObservableCollection<Room>();
-            new RoomFileStorage().getByType(RoomType.PatientRoom).ForEach(Rooms.Add);
+            new RoomService().GetByType(RoomType.PatientRoom).ForEach(Rooms.Add);
             this.IsEnabled = true;
         }
 
@@ -219,7 +220,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public void Executed_BedCommand(object obj)
         {
-            this.BedNum = new RoomInventoryStorage().GetNextAvailableBed(SelectedRoom.Id);
+            this.BedNum = new RoomInventoryService().GetNextAvailableBed(SelectedRoom.Id);
             if (BedNum == 0)
                 MessageBox.Show("Nema slobodnih kreveta za izabranu sobu.");
         }

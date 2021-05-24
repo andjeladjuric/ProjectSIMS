@@ -1,4 +1,5 @@
-﻿using HospitalService.View.DoctorUI.Commands;
+﻿using HospitalService.Service;
+using HospitalService.View.DoctorUI.Commands;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
             this.Frame = frame;
             ParentWindow = window;
             Medications = new ObservableCollection<Medication>();
-            new MedicationStorage().GetAll().ForEach(Medications.Add); // servis, na sta nije alergican
+            MedicalRecord record = ParentWindow.ParentWindow.MedicalRecord;
+            new MedicationService().GetAllAllowed(record.Allergies).ForEach(Medications.Add);
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             ApplyCommand = new RelayCommand(Executed_ApplyCommand,
               CanExecute_ApplyCommand);
