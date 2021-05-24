@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalService.Model;
+using HospitalService.Service;
 using HospitalService.Storage;
 using Model;
 using Storage;
@@ -23,46 +24,38 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class DoctorChoice : Page
     {
-        public Patient patient { get; set; }
-        public Doctor doctor { get; set; }
-        public Surveys surveys { get; set; }
+        private AppointmentsService appointmentService;
+        private DoctorSurveyService doctorSurveyService;
+        public Patient surveyorPatient { get; set; }
+        public Surveys pageShowingSurveys { get; set; }
         
-        public DoctorChoice(Patient p, Surveys s)
+        public DoctorChoice(Patient patient, Surveys pageSurveys)
         {
             InitializeComponent();
-            patient = p;
-            surveys = s;
-            DoctorStorage ds = new DoctorStorage();
-            List<Doctor> ld = ds.GetAll();
-            cbDoctors.ItemsSource = ld;
+            surveyorPatient = patient;
+            pageShowingSurveys = pageSurveys;
+            DoctorStorage doctorStorage = new DoctorStorage();
+            List<Doctor> surveyedDoctors = doctorStorage.GetAll();
+            cbSurveyedDoctors.ItemsSource = surveyedDoctors;
+            appointmentService = new AppointmentsService();
+            doctorSurveyService = new DoctorSurveyService();
         }
 
         private void DoDoctorSurvey(object sender, RoutedEventArgs e)
         {
-            Doctor d = (Doctor)cbDoctors.SelectedItem;
-            AppointmentStorage s= new AppointmentStorage();
-            List<Appointment> a = s.GetAll();
-            List<Appointment> filteredAppointments = a.Where(ap => ap.doctor.Jmbg.Equals(d.Jmbg) && ap.patient.Jmbg.Equals(patient.Jmbg) && ap.EndTime < DateTime.Now).ToList();
-            filteredAppointments.Sort((t1, t2) => DateTime.Compare(t1.EndTime, t2.EndTime));
+            Doctor chosenDoctor = (Doctor)cbSurveyedDoctors.SelectedItem;
+            Appointment lastFinishedAppointment = appointmentService.getLastFinishedAppointment(chosenDoctor,surveyorPatient);
+            SurveyDoctorPatient lastFinishedSurvey = doctorSurveyService.getLastFinishedDoctorSurvey(chosenDoctor,surveyorPatient);
 
-            Appointment lastFinished = filteredAppointments[filteredAppointments.Count - 1];
-
-            DoctorSurveyStorage dss = new DoctorSurveyStorage();
-            List<SurveyDoctorPatient> sur = dss.GetAll();
-            List<SurveyDoctorPatient> filteredSurveys = sur.Where(su => su.doctor.Jmbg.Equals(d.Jmbg) && su.patient.Jmbg.Equals(patient.Jmbg)).ToList();
-            filteredSurveys.Sort((a1, a2) => DateTime.Compare(a1.ExecutionTime, a2.ExecutionTime));
-
-            SurveyDoctorPatient lastSurvey = filteredSurveys[filteredSurveys.Count - 1];
-
-            if (lastSurvey.ExecutionTime > lastFinished.EndTime && lastSurvey.ExecutionTime < DateTime.Now)
+            if (lastFinishedSurvey.ExecutionTime > lastFinishedAppointment.EndTime && lastFinishedSurvey.ExecutionTime < DateTime.Now)
             {
 
-                surveys.NavigationService.Navigate(new LastFinishedSurvey(d,lastSurvey));
+                pageShowingSurveys.NavigationService.Navigate(new LastFinishedSurvey(chosenDoctor,lastFinishedSurvey));
                 
             }
             else {
 
-                surveys.NavigationService.Navigate(new DoctorSurvey(patient, d));
+                pageShowingSurveys.NavigationService.Navigate(new DoctorSurvey(surveyorPatient, chosenDoctor));
 
             }
 

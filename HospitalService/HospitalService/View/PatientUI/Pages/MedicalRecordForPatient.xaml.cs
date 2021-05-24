@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalService.Model;
+using HospitalService.Service;
 using HospitalService.Storage;
 using Model;
 using Storage;
@@ -22,6 +23,7 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class MedicalRecordForPatient : Page
     {
+        private NotesService notesService;
         public Patient Patient { get; set; }
         public MedicalRecordForPatient(Patient patient)
         {
@@ -31,21 +33,21 @@ namespace HospitalService.View.PatientUI.Pages
             MedicalRecord md = mrs.getOneByPatient(Patient);
             historyList.ItemsSource = md.Diagnoses;
             IdLabel.Content = md.Id;
+            notesService = new NotesService();
         }
 
         
 
-        private void showDetails(object sender, MouseButtonEventArgs e)
+        private void showDiagnosisDetails(object sender, MouseButtonEventArgs e)
         {
-            Diagnosis d = (Diagnosis)historyList.SelectedItem;
-            NotesStorage notesStorage = new NotesStorage();
-            Note note = notesStorage.getOneByPatient(Patient,d);
+            Diagnosis selectedDiagnosis = (Diagnosis)historyList.SelectedItem;
+            Note note = notesService.getNoteByPatient(Patient,selectedDiagnosis);
             if (note != null)
             {
-                RecordPage.Content = new DiagnosisForPatient(d,note);
+                RecordPage.Content = new DiagnosisForPatient(selectedDiagnosis,note);
             }
             else {
-                RecordPage.Content = new DiagnosisWithoutNote(d,Patient);
+                RecordPage.Content = new DiagnosisWithoutNote(selectedDiagnosis,Patient);
             }
         }
     }

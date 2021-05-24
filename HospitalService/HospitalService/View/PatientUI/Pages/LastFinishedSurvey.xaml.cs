@@ -20,19 +20,18 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class LastFinishedSurvey : Page
     {
-        public LastFinishedSurvey(Doctor d, SurveyDoctorPatient sdp)
+        public LastFinishedSurvey(Doctor surveyedDoctor, SurveyDoctorPatient lastFinishedDoctorSurvey)
         {
 
             InitializeComponent();
-            String s = d.Name + " " + d.Surname;
-            lbDoctor.Content = s;
-            lbDate.Content = sdp.ExecutionTime.ToShortDateString();
-            lbKomunik.Content = sdp.Communication;
-            lbLjubaznost.Content = sdp.Courtesy;
-            lbStrucnost.Content = sdp.Professionalism;
-            lbBriga.Content = sdp.CareForPatient;
-            lbInfo.Content = sdp.ProvidingInformation;
-            lbVrijeme.Content = sdp.DevotedTime;
+            lbDoctor.Content = surveyedDoctor.Name + " " + surveyedDoctor.Surname;
+            lbDate.Content = lastFinishedDoctorSurvey.ExecutionTime.ToShortDateString();
+            lbCommunication.Content = lastFinishedDoctorSurvey.Communication;
+            lbCourtesy.Content = lastFinishedDoctorSurvey.Courtesy;
+            lbProfessionalism.Content = lastFinishedDoctorSurvey.Professionalism;
+            lbCareForPatient.Content = lastFinishedDoctorSurvey.CareForPatient;
+            lbProvidingInformation.Content = lastFinishedDoctorSurvey.ProvidingInformation;
+            lbDevotedTime.Content = lastFinishedDoctorSurvey.DevotedTime;
 
         }
     }

@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HospitalService.Service;
 using Model;
 using Storage;
 
@@ -21,23 +22,24 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class ViewAppointment : Page
     {
-        private int colNum = 0;
+        private AppointmentsService appointmentsService;
         AppointmentStorage appointmentStorage;
         RoomFileStorage rooms;
-        public Patient patient { get; set; }
+        public Patient Patient { get; set; }
 
         public List<Appointment> appointments
         {
             get;
             set;
         }
-        public ViewAppointment(Patient p)
+        public ViewAppointment(Patient patient)
         {
             InitializeComponent();
             this.DataContext = this;
-            patient = p;
+            appointmentsService = new AppointmentsService();
+            Patient = patient;
             appointmentStorage = new AppointmentStorage();
-            appointments = appointmentStorage.getByPatient(patient).Where(ap => ap.EndTime > DateTime.Now).ToList();
+            appointments = appointmentsService.getNotFinishedAppointments(Patient);
             rooms = new RoomFileStorage();
             tableViewAppointment.ItemsSource = appointments;
         }
@@ -45,17 +47,17 @@ namespace HospitalService.View.PatientUI.Pages
         private void DeleteClick(object sender, RoutedEventArgs e)
         {
 
-            Appointment a = (Appointment)tableViewAppointment.SelectedItem;
-            if (a == null)
+            Appointment selctedAppointment = (Appointment)tableViewAppointment.SelectedItem;
+            if (selctedAppointment == null)
             {
                 MessageBox.Show("Morate odabrati jedan termin!");
             }
             else
             { 
-                appointmentStorage.Delete(a.Id);
-                appointmentStorage.SetIds();
+                appointmentsService.delete(selctedAppointment.Id);
+                appointmentsService.SetIds();
                 tableViewAppointment.ItemsSource = null;
-                tableViewAppointment.ItemsSource = appointmentStorage.getByPatient(patient).Where(ap => ap.EndTime > DateTime.Now).ToList();
+                tableViewAppointment.ItemsSource = appointmentsService.getNotFinishedAppointments(Patient);
                 
 
             }
@@ -70,17 +72,15 @@ namespace HospitalService.View.PatientUI.Pages
             }
             else
             {
-                List<Appointment> la = appointmentStorage.GetAll();
-                List<Appointment> movedAppointments = la.Where(ap => ap.patient.Jmbg.Equals(patient.Jmbg) && ap.Status == Status.Moved).ToList();
-                
-                if (selectedAppointment.Status == Status.Moved || movedAppointments.Count >= 3)
+                int movedAppointments = appointmentsService.getNumberOfMovedAppointments(Patient);
+                if (selectedAppointment.Status == Status.Moved || movedAppointments >= 3)
                 {
-                    String st = "Termin je vec pomjeran, ne mozete ga pomjeriti ponovo" + "\n" + "(Moguce i da ste prekoracili dozvoljen broj pomjerenih termina!)";
-                    MessageBox.Show(st);
+                    String messageForMoving = "Termin je vec pomjeran, ne mozete ga pomjeriti ponovo" + "\n" + "(Moguce i da ste prekoracili dozvoljen broj pomjerenih termina!)";
+                    MessageBox.Show(messageForMoving);
                 }
                 else
                 {
-                    this.NavigationService.Navigate(new MoveAppointment(selectedAppointment, tableViewAppointment, appointmentStorage, patient));
+                    this.NavigationService.Navigate(new MoveAppointment(selectedAppointment, tableViewAppointment, appointmentStorage, Patient));
                 } 
             }
         }

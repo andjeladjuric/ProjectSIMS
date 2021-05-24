@@ -28,7 +28,7 @@
                 <Button Grid.Row="2" Grid.Column="2" Width="110" Height="45" Background="RoyalBlue" Foreground="White" Content="Uradi" FontStyle="Italic" FontSize="24" Click="ChooseDoctor"/>
             </Grid>
         </DockPanel>
-        <Frame x:Name="Ankete" Margin="525,0,0,0" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2"/>
+        <Frame x:Name="SurveyFrame" Margin="525,0,0,0" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2"/>
     </Grid>
     
 </Page>

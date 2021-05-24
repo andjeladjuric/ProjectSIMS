@@ -19,8 +19,8 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class DiagnosisForPatient : Page
     {
-        public Diagnosis Diagnosis { get; set; }
-        public Note Note { get; set; }
+        public Diagnosis chosenDiagnosis { get; set; }
+        public Note noteOfChosenDiagnosis { get; set; }
        
         public DiagnosisForPatient(Diagnosis diagnosis, Note note)
         {
@@ -30,14 +30,14 @@ namespace HospitalService.View.PatientUI.Pages
             tbSymptoms.Text = diagnosis.Symptoms;
             tbAnamnesis.Text = diagnosis.Anamnesis;
             tbNotes.Text = note.noteForPatient;
-            Diagnosis = diagnosis;
-            Note = note;
+            chosenDiagnosis = diagnosis;
+            noteOfChosenDiagnosis = note;
            
         }
 
         private void setReminder(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new NotesNotification(Diagnosis,Note,btnReminder,this));
+            this.NavigationService.Navigate(new NotesNotification(chosenDiagnosis,noteOfChosenDiagnosis));
         }
     }
 }

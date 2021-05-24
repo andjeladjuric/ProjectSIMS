@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalService.Model;
+using HospitalService.Service;
 using HospitalService.Storage;
 using Model;
 
@@ -21,110 +22,109 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class HospitalSurvey : Page
     {
-
-        public Patient patient { get; set; }
-        
-        public HospitalSurvey(Patient p)
+        private HospitalSurveyService hospitalSurveyService;
+        public Patient surveyor { get; set; }       
+        public HospitalSurvey(Patient patient)
         {
             InitializeComponent();
-            patient = p;
+            surveyor = patient;
+            hospitalSurveyService = new HospitalSurveyService();
         }
 
-        private void ConfirmClick(object sender, RoutedEventArgs e)
+        private void doHospitalSurvey(object sender, RoutedEventArgs e)
         {
-            String profSurvey;
-            if (NStrucnost.IsChecked == true)
+            String ratingForStaffExpertise;
+            if (NStaffExpertise.IsChecked == true)
             {
-                profSurvey = NStrucnost.Content.ToString();
+                ratingForStaffExpertise = NStaffExpertise.Content.ToString();
             }
-            else if (DZStrucnost.IsChecked == true)
+            else if (DZStaffExpertise.IsChecked == true)
             {
-                profSurvey = DZStrucnost.Content.ToString();
-            }
-            else
-            {
-                profSurvey = ZStrucnost.Content.ToString();
-            }
-
-            String courtesySurvey;
-            if (NLjubaznost.IsChecked == true)
-            {
-                courtesySurvey = NLjubaznost.Content.ToString();
-            }
-            else if (DZLjubaznost.IsChecked == true)
-            {
-                courtesySurvey = DZLjubaznost.Content.ToString();
+                ratingForStaffExpertise = DZStaffExpertise.Content.ToString();
             }
             else
             {
-                courtesySurvey = ZLjubaznost.Content.ToString();
+                ratingForStaffExpertise = ZStaffExpertise.Content.ToString();
             }
 
-            String timeSurvey;
-            if (NCekanje.IsChecked == true)
+            String ratingForCourtesy;
+            if (NCourtesy.IsChecked == true)
             {
-                timeSurvey = NCekanje.Content.ToString();
+                ratingForCourtesy = NCourtesy.Content.ToString();
             }
-            else if (DZCekanje.IsChecked == true)
+            else if (DZCourtesy.IsChecked == true)
             {
-                timeSurvey = DZCekanje.Content.ToString();
+                ratingForCourtesy = DZCourtesy.Content.ToString();
             }
             else
             {
-                timeSurvey = ZCekanje.Content.ToString();
+                ratingForCourtesy = ZCourtesy.Content.ToString();
             }
 
-            String hygieneSurvey;
-            if (NHigijena.IsChecked == true)
+            String ratingForTimeliness;
+            if (NTimeliness.IsChecked == true)
             {
-                hygieneSurvey = NHigijena.Content.ToString();
+                ratingForTimeliness = NTimeliness.Content.ToString();
             }
-            else if (DZHigijena.IsChecked == true)
+            else if (DZTimeliness.IsChecked == true)
             {
-                hygieneSurvey = DZHigijena.Content.ToString();
+                ratingForTimeliness = DZTimeliness.Content.ToString();
             }
             else
             {
-                hygieneSurvey = ZHigijena.Content.ToString();
+                ratingForTimeliness = ZTimeliness.Content.ToString();
             }
 
-            String serviceSurvey;
-            if (NKvalitet.IsChecked == true)
+            String ratingForHygiene;
+            if (NHygiene.IsChecked == true)
             {
-                serviceSurvey = NKvalitet.Content.ToString();
+                ratingForHygiene = NHygiene.Content.ToString();
             }
-            else if (DZKvalitet.IsChecked == true)
+            else if (DZHygiene.IsChecked == true)
             {
-                serviceSurvey = DZKvalitet.Content.ToString();
+                ratingForHygiene = DZHygiene.Content.ToString();
             }
             else
             {
-                serviceSurvey = ZKvalitet.Content.ToString();
+                ratingForHygiene = ZHygiene.Content.ToString();
             }
 
-            String priseSurvey;
-            if (NCijene.IsChecked == true)
+            String ratingForQualityOfService;
+            if (NQualityOfService.IsChecked == true)
             {
-                priseSurvey = NCijene.Content.ToString();
+                ratingForQualityOfService = NQualityOfService.Content.ToString();
             }
-            else if (DZCijene.IsChecked == true)
+            else if (DZQualityOfService.IsChecked == true)
             {
-                priseSurvey = DZCijene.Content.ToString();
+                ratingForQualityOfService = DZQualityOfService.Content.ToString();
             }
             else
             {
-                priseSurvey = ZCijene.Content.ToString();
+                ratingForQualityOfService = ZQualityOfService.Content.ToString();
             }
 
-            SurveyHospitalPatient a = new SurveyHospitalPatient {StaffExpertise=profSurvey, StaffCourtesy=courtesySurvey, WaitingForReception=timeSurvey, RoomHygiene=hygieneSurvey, QualityOfService=serviceSurvey, ServicePrices=priseSurvey, patient=patient, ExecutionTime=DateTime.Now };
-            HospitalSurveyStorage hss = new HospitalSurveyStorage();
-            hss.Save(a);
-            this.NavigationService.Navigate(new Surveys(patient));
+            String ratingForServicePrices;
+            if (NServicePrices.IsChecked == true)
+            {
+                ratingForServicePrices = NServicePrices.Content.ToString();
+            }
+            else if (DZServicePrices.IsChecked == true)
+            {
+                ratingForServicePrices = DZServicePrices.Content.ToString();
+            }
+            else
+            {
+                ratingForServicePrices = ZServicePrices.Content.ToString();
+            }
+
+            SurveyHospitalPatient newSurvey = new SurveyHospitalPatient {StaffExpertise=ratingForStaffExpertise, StaffCourtesy=ratingForCourtesy, WaitingForReception=ratingForTimeliness, RoomHygiene=ratingForHygiene, QualityOfService=ratingForQualityOfService, ServicePrices=ratingForServicePrices, patient=surveyor, ExecutionTime=DateTime.Now };
+            hospitalSurveyService.saveHospitalSurvey(newSurvey);
+            this.NavigationService.Navigate(new Surveys(surveyor));
         }
 
         private void CancelClick(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Surveys(patient));
+            this.NavigationService.Navigate(new Surveys(surveyor));
         }
     }
 }
