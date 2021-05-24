@@ -13,7 +13,7 @@ namespace HospitalService.Service
         {
             repository = new AppointmentsRepository();
         }
-
+        // u repo
         public void SetIds()
         {
             List<Appointment> appointments = repository.GetAll();
@@ -54,10 +54,8 @@ namespace HospitalService.Service
             SetIds();
         }
 
-        public void AddAppointment(Appointment newAppointment)
-        {
-            repository.Save(newAppointment);
-        }
+        public void AddAppointment(Appointment newAppointment) => repository.Save(newAppointment);
+       
 
         public Boolean IsTaken(DateTime start, DateTime end, Doctor doctor)
         {

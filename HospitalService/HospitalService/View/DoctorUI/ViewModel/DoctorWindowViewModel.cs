@@ -184,11 +184,11 @@ namespace HospitalService.View.DoctorUI.ViewModel
             this.News = new ObservableCollection<News>();
             Date = DateTime.Now;
             List<Appointment> todaysAppointments = new AppointmentsService().GetByDoctor(loggedDoctor, Date);
-            List<Patient> allPatients = new PatientsRepository().GetAll(); // prebaciti na servis
+            List<Patient> allPatients = new PatientService().GetAll(); 
             List<MedicineValidationRequest> validationRequests = new MedicineValidationService().GetForDoctor(Doctor.Jmbg); 
             List<Medication> medications = new MedicationService().GetForApproval(validationRequests); 
             List<Medication> allMedications = new MedicationService().GetAllApproved(); 
-            List<News> news = new NewsStorage().GetForRole(Role.doktori); // servis
+            List<News> news = new NewsService().GetForRole(Role.doktori); 
             news.ForEach(News.Add);
             todaysAppointments.ForEach(Appointments.Add);
             allPatients.ForEach(Patients.Add);
@@ -277,7 +277,6 @@ namespace HospitalService.View.DoctorUI.ViewModel
             List<MedicineValidationRequest> validationRequests = new MedicineValidationService().GetForDoctor(Doctor.Jmbg);
             List<Medication> medications = new MedicationService().GetForApproval(validationRequests);
             List<Medication> allMedications = new MedicationService().GetAllApproved();
-            todaysAppointments.ForEach(Appointments.Add);
             medications.ForEach(MedicationsForApproval.Add);
             allMedications.ForEach(ApprovedMedications.Add);
         }

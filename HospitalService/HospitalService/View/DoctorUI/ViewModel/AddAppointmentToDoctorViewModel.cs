@@ -178,10 +178,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
         }
         public void Executed_AddCommand(object obj)
         {
-            String start = Date.ToString("MM/dd/yyyy") + " " + StartTime.ToString("HH: mm");
-            String end = Date.ToString("MM/dd/yyyy") + " " + EndTime.ToString("HH: mm");
-            newAppointment.StartTime = Convert.ToDateTime(start);
-            newAppointment.EndTime = Convert.ToDateTime(end);
+            DateService dateService = new DateService();
+            newAppointment.StartTime = dateService.CreateDate(Date, StartTime);
+            newAppointment.EndTime = dateService.CreateDate(Date, EndTime);
             newAppointment.Id = NextId;
             newAppointment.Type = AppointmentType;
             newAppointment.room = Room;
@@ -194,17 +193,18 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public bool CanExecute_AddCommand(object obj)
         {
-            String start = Date.ToString("MM/dd/yyyy") + " " + StartTime.ToString("HH: mm");
-            String end = Date.ToString("MM/dd/yyyy") + " " + EndTime.ToString("HH: mm");
-            newAppointment.StartTime = Convert.ToDateTime(start);
-            newAppointment.EndTime = Convert.ToDateTime(end);
+            DateService dateService = new DateService();
+            newAppointment.StartTime = dateService.CreateDate(Date, StartTime);
+            newAppointment.EndTime = dateService.CreateDate(Date, EndTime);
             Doctor doctor = DoctorWindow.Doctor;
 
             if (StartTime == null || EndTime == null || AppointmentsType == null || Room == null || Patient == null)
             {
                 MessageBox.Show("Sva polja  moraju biti popunjena!");
                 return false;
-            } else if (new AppointmentsService().IsTaken(newAppointment.StartTime, newAppointment.EndTime, doctor))
+            } 
+
+            if (new AppointmentsService().IsTaken(newAppointment.StartTime, newAppointment.EndTime, doctor))
             {
                 MessageBox.Show("Termin je vec zauzet"); // Ispitati da li je soba slobodna i da li je pacijent slobodan?
                 return false;

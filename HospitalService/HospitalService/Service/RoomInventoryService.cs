@@ -117,7 +117,7 @@ namespace HospitalService.Service
         public int GetNextAvailableBed(string roomId)
         {
             RoomInventory roomInventory = GetRoomInventoryByIds(roomId, 321);
-            int takenBeds = new MedicalRecordStorage().TakenBeds(roomId); // servis
+            int takenBeds = new MedicalRecordService().TakenBeds(roomId); 
             if (roomInventory.Quantity == takenBeds)
                 return 0;
             else

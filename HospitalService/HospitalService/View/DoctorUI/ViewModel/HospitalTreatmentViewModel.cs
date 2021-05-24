@@ -186,7 +186,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 Reason = this.Reason
             };
             this.MedicalRecord.HospitalTreatments.Add(newHospitalTreatment);
-            new MedicalRecordStorage().Edit(MedicalRecord); // servis
+            new MedicalRecordService().UpdateRecord(MedicalRecord); 
             this.ParentWindow.Refresh();
             this.Window.Close();
         }

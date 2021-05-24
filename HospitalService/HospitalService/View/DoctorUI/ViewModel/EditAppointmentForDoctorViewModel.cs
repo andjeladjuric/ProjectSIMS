@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
@@ -86,14 +87,17 @@ namespace HospitalService.View.DoctorUI.ViewModel
             Date = selectedAppointment.StartTime.Date;
             StartTime = selectedAppointment.StartTime;
             EndTime = selectedAppointment.EndTime;
-            Room = selectedAppointment.room;
             RoomType roomType;
             if (selectedAppointment.Type == AppointmentType.Pregled)
                 roomType = RoomType.ExaminationRoom;
             else
                 roomType = RoomType.OperatingRoom;
             Rooms = new ObservableCollection<Room>();
-            new RoomService().GetByType(roomType).ForEach(Rooms.Add); 
+            //new RoomService().GetByType(roomType).ForEach(Rooms.Add);
+            new RoomService().GetAll().ForEach(Rooms.Add);
+            Room = selectedAppointment.room;
+            MessageBox.Show(Room.Id);
+
         }
 
         public void Executed_EditCommand(object obj)

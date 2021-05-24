@@ -33,6 +33,11 @@ namespace HospitalService.Repositories
             return doctors.Find(x => x.Username == username);
         }
 
+        public Doctor GetOneByJmbg(String jmbg)
+        {
+            return doctors.Find(x => x.Jmbg == jmbg);
+        }
+
         public void Edit(Doctor editedDoctor)
         {
             Doctor doctor;

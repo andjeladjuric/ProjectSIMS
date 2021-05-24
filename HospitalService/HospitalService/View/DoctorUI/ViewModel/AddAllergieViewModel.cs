@@ -1,4 +1,5 @@
 ﻿using HospitalService.Repositories;
+using HospitalService.Service;
 using HospitalService.Storage;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Views;
@@ -73,7 +74,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_ApplyCommand(object obj)
         {
             this.MedicalRecord.Allergies.Add(SelectedIngredient);
-            new MedicalRecordStorage().Edit(MedicalRecord); // servis
+            new MedicalRecordService().UpdateRecord(MedicalRecord); 
             this.Frame.NavigationService.Navigate(new AllergiesView(MedicalRecord.Allergies, Frame, MedicalRecord));
         }
 

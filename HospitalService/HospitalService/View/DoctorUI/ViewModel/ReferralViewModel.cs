@@ -1,4 +1,5 @@
 ﻿using HospitalService.Model;
+using HospitalService.Service;
 using HospitalService.Storage;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Views;
@@ -135,7 +136,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 Reason = Reason
             };
             MedicalRecord.Referrals.Add(newReferral);
-            new MedicalRecordStorage().Edit(MedicalRecord); // servis
+            new MedicalRecordService().UpdateRecord(MedicalRecord); 
             ThisWindow.Close();
         
         }
@@ -148,7 +149,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_GetDoctorsCommand(object obj)
         {
             this.Doctors = new ObservableCollection<Doctor>();
-            List<Doctor> doctors = new DoctorStorage().GetByDepartment(SelectedDepartment); // servis
+            List<Doctor> doctors = new DoctorService().GetByDepartment(SelectedDepartment); 
             doctors.ForEach(Doctors.Add);
             IsEnabled = true;
         }
