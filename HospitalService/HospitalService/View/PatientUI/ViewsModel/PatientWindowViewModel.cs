@@ -9,7 +9,7 @@ using Model;
 
 namespace HospitalService.View.PatientUI.ViewsModel
 {
-    public class PatientWindowViewModel
+    public class PatientWindowViewModel:ViewModelPatientClass
     {
         private NavigationService navigationService;
         private AppointmentsService appointmentService;

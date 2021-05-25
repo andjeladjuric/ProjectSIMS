@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalService.Service;
+using HospitalService.View.PatientUI.ViewsModel;
 using Model;
 using Storage;
 
@@ -22,29 +23,32 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class ViewAppointment : Page
     {
-        private AppointmentsService appointmentsService;
-        AppointmentStorage appointmentStorage;
-        RoomFileStorage rooms;
-        public Patient Patient { get; set; }
+        //private AppointmentsService appointmentsService;
+        //AppointmentStorage appointmentStorage;
+        //RoomFileStorage rooms;
+       // public Patient Patient { get; set; }
 
-        public List<Appointment> appointments
+        /*public List<Appointment> appointments
         {
             get;
             set;
-        }
+        }*/
+
+        private ViewAppointmentViewModel viewModel;
         public ViewAppointment(Patient patient)
         {
             InitializeComponent();
-            this.DataContext = this;
-            appointmentsService = new AppointmentsService();
-            Patient = patient;
-            appointmentStorage = new AppointmentStorage();
-            appointments = appointmentsService.getNotFinishedAppointments(Patient);
-            rooms = new RoomFileStorage();
-            tableViewAppointment.ItemsSource = appointments;
+            viewModel = new ViewAppointmentViewModel(patient,this);
+            this.DataContext = viewModel;
+            //appointmentsService = new AppointmentsService();
+            //Patient = patient;
+            //appointmentStorage = new AppointmentStorage();
+            //appointments = appointmentsService.getNotFinishedAppointments(Patient);
+            //rooms = new RoomFileStorage();
+            //tableViewAppointment.ItemsSource = appointments;
         }
 
-        private void DeleteClick(object sender, RoutedEventArgs e)
+        /*private void DeleteClick(object sender, RoutedEventArgs e)
         {
 
             Appointment selctedAppointment = (Appointment)tableViewAppointment.SelectedItem;
@@ -102,6 +106,6 @@ namespace HospitalService.View.PatientUI.Pages
         private void PayClick(object sender, RoutedEventArgs e)
         {
 
-        }
+        }*/
     }
 }

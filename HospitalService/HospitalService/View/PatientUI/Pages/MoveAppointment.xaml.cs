@@ -27,13 +27,13 @@ namespace HospitalService.View.PatientUI.Pages
         public Patient Patient { get; set; }
         public List<Appointment> Appointments { get; set; }
         public List<Room> Rooms { get; set; }
-        public MoveAppointment(Appointment appointment, DataGrid appointmentTable, AppointmentStorage appointmentStorage, Patient patient)
+        public MoveAppointment(Appointment appointment, Patient patient)
         {
             InitializeComponent();
             this.DataContext = this;
             Appointment = appointment;
-            TableOfPatientAppointments = appointmentTable;
-            AppointmentStorage = appointmentStorage;
+            
+            AppointmentStorage = new AppointmentStorage();
             Patient = patient;
             Appointments = AppointmentStorage.GetAll();
             RoomFileStorage bazaSala = new RoomFileStorage();
@@ -62,7 +62,7 @@ namespace HospitalService.View.PatientUI.Pages
                     {
 
                         AppointmentStorage.Move(Appointment.Id, startTimeOfAppointment, endTimeOfAppointment, Appointment.room);
-                        TableOfPatientAppointments.Items.Refresh();
+                        
                         this.NavigationService.Navigate(new ViewAppointment(Patient));
 
 
