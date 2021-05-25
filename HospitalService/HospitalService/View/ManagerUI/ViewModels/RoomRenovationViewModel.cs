@@ -85,7 +85,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Other Functions
-        private bool CheckDateEntry(DateTime startDate, DateTime endDate)
+        private bool CheckDateEntry(DateTime startDate, DateTime endDate) /*promijeni na servis*/
         {
             foreach (Appointment a in new AppointmentStorage().GetAll())
             {
