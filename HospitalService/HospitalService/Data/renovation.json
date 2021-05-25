@@ -1,1 +1,13 @@
-[{"RoomId":"102","Start":"2021-05-25T00:00:00","End":"2021-05-29T00:00:00"}]
+[
+  {
+    "RoomId": "102",
+    "Start": "2021-05-25T00:00:00",
+    "End": "2021-05-29T00:00:00",
+    "Type": 0,
+    "SecondRoomId": null,
+    "NewRoomId": null,
+    "NewRoomType": 0,
+    "NewRoomName": null,
+    "NewSize": 0.0
+  }
+]

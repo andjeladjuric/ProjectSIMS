@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views"
       xmlns:conv="clr-namespace:HospitalService.View.ManagerUI.Converters"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations"
       xmlns:model="clr-namespace:Model"
       mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="969"
@@ -68,12 +69,12 @@
 
         <Border Height="546" VerticalAlignment="Top" Margin="536,90,36,0"
                 CornerRadius="10" BorderThickness="0.5" BorderBrush="Black"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="584,110,0,0" 
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="42,28,0,0" 
                    Text="Zakaži renoviranje" TextWrapping="Wrap" VerticalAlignment="Top"
                    Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" 
                    TextAlignment="Center" Foreground="#474746"/>
 
-        <StackPanel Orientation="Vertical" Margin="580,168,79,151">
+        <StackPanel Orientation="Vertical" Margin="580,124,79,142">
             <StackPanel Orientation="Horizontal" Height="138">
                 <StackPanel Orientation="Vertical">
                     <Label x:Name="id" Content="Soba" HorizontalAlignment="Left" VerticalAlignment="Top" 
@@ -87,13 +88,13 @@
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="18,0,0,0">
                     <TextBox x:Name="IDBox" IsEnabled="False" HorizontalAlignment="Left"
-                 Height="30" Width="154" VerticalAlignment="Top"
-                 Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
-                 TextWrapping="Wrap"
-                 HorizontalContentAlignment="Center"
-                 Text="{Binding SelectedRoom.Name}"/>
+                             Height="30" Width="154" VerticalAlignment="Top"
+                             Foreground="#474746"
+                             FontFamily="Gill Sans MT"
+                             FontSize="16"
+                             TextWrapping="Wrap"
+                             HorizontalContentAlignment="Center"
+                             Text="{Binding SelectedRoom.Name}"/>
                     <Separator Opacity="0" Height="10"/>
                     <DatePicker x:Name="startPicker" HorizontalAlignment="Left" Width="154"
                     DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding Start}" VerticalAlignment="Top"/>
@@ -112,20 +113,20 @@
                 </StackPanel>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Height="222" >
+            <StackPanel Orientation="Horizontal" Height="257" >
                 <StackPanel Orientation="Vertical" Width="125">
                     <Label x:Name="newId" Content="Novi Id" HorizontalAlignment="Left" 
                        Width="126" Height="34"/>
-                    <Separator Opacity="0" Height="5"/>
+                    <Separator Opacity="0" Height="15"/>
                     <Label x:Name="newName" Content="Novo Ime" HorizontalAlignment="Left" VerticalAlignment="Top" 
                        Width="112" Height="34"/>
-                    <Separator Opacity="0" Height="5"/>
-                    <Label x:Name="newSize" Content="Nova veličina" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                       Width="112" Height="34"/>
-                    <Separator Opacity="0" Height="5"/>
+                    <Separator Opacity="0" Height="15"/>
                     <Label x:Name="roomtype" Content="Novi Tip" HorizontalAlignment="Left" VerticalAlignment="Top" 
                        Width="112" Height="34"/>
-                    <Separator Opacity="0" Height="5"/>
+                    <Separator Opacity="0" Height="15"/>
+                    <Label x:Name="newSize" Content="Nova veličina" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                       Width="112" Height="34"/>
+                    <Separator Opacity="0" Height="15"/>
                     <Label x:Name="merge" Content="Soba za spajanje" HorizontalAlignment="Left" 
                        Width="120" Height="34"/>
                 </StackPanel>
@@ -136,30 +137,51 @@
                              FontFamily="Gill Sans MT"
                              FontSize="16"
                              TextWrapping="Wrap"
-                             HorizontalContentAlignment="Center"
-                             Text="{Binding NewId}"/>
-                    <Separator Opacity="0" Height="5"/>
+                             HorizontalContentAlignment="Center">
+                        <TextBox.Text>
+                            <Binding Path="NewID" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:RoomNumberValidation ValidationStep="RawProposedValue"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="textBox"/>
+                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020" ToolTip="Pravilan format: 101a, 202, 303, 400b, itd."/>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
+                    <Separator Opacity="0" Height="15"/>
                     <TextBox x:Name="NewNameBox" HorizontalAlignment="Left"
                              Height="30" Width="154" VerticalAlignment="Top"
                              Foreground="#474746"
                              FontFamily="Gill Sans MT"
                              FontSize="16"
                              TextWrapping="Wrap"
-                             HorizontalContentAlignment="Center"
-                             Text="{Binding NewName}"/>
-                    <Separator Opacity="0" Height="5"/>
-                    <TextBox x:Name="NewSizeBox" HorizontalAlignment="Left"
-                             Height="30" Width="154" VerticalAlignment="Top"
-                             Foreground="#474746"
-                             FontFamily="Gill Sans MT"
-                             FontSize="16"
-                             TextWrapping="Wrap"
-                             HorizontalContentAlignment="Center"
-                             Text="{Binding NewSize}"/>
-                    <Separator Opacity="0" Height="5"/>
+                             HorizontalContentAlignment="Center">
+                        <TextBox.Text>
+                            <Binding Path="NewName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:NameValidation ValidationStep="RawProposedValue"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="textBox"/>
+                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020" ToolTip="Pravilan format: Soba 1, Operaciona sala"/>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
+                    <Separator Opacity="0" Height="15"/>
                     <ComboBox x:Name="TypeBox" IsEnabled="True" HorizontalAlignment="Left"
                               Height="30" Width="154" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
-                              SelectedItem="{Binding SecondRoom}"
+                              SelectedItem="{Binding NewType}"
                               Foreground="#474746"
                               FontFamily="Gill Sans MT"
                               FontSize="16"
@@ -170,10 +192,41 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Separator Opacity="0" Height="10"/>
+                    <Separator Opacity="0" Height="20"/>
+                    <TextBox x:Name="NewSizeBox" HorizontalAlignment="Left"
+                             Height="30" Width="154" VerticalAlignment="Top"
+                             Foreground="#474746"
+                             FontFamily="Gill Sans MT"
+                             FontSize="16"
+                             TextWrapping="Wrap"
+                             HorizontalContentAlignment="Center">
+                        <TextBox.Resources>
+                            <validation:MaxSizeProxy x:Key="proxy" Data="{Binding}"/>
+                        </TextBox.Resources>
+                        <TextBox.Text>
+                            <Binding Path="NewSize" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:RoomRenovationValidation ValidationStep="RawProposedValue">
+                                        <validation:RoomRenovationValidation.Wrapper>
+                                            <validation:MaxSizeWrapper Max ="{Binding Path=Data.SelectedRoom.Size, Source={StaticResource proxy}}"/>
+                                        </validation:RoomRenovationValidation.Wrapper>
+                                    </validation:RoomRenovationValidation>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                        <Validation.ErrorTemplate>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <AdornedElementPlaceholder x:Name="textBox"/>
+                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020" />
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Validation.ErrorTemplate>
+                    </TextBox>
+                    <Separator Opacity="0" Height="15"/>
                     <ComboBox x:Name="SecondRoomBox" IsEnabled="True" HorizontalAlignment="Left"
                               Height="30" Width="154" VerticalAlignment="Top" ItemsSource="{Binding Rooms}"
-                              SelectedItem="{Binding NewType}"
+                              SelectedItem="{Binding SecondRoom}"
                               Foreground="#474746"
                               FontFamily="Gill Sans MT"
                               FontSize="16"

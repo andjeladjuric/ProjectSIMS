@@ -15,8 +15,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private string roomId;
         private string roomName;
         private RoomType roomType;
-        private int roomFloor;
-        private double roomSize;
+        private string roomFloor;
+        private string roomSize;
         private bool isFree;
         private Room selectedRoom;
         private ObservableCollection<Room> rooms;
@@ -42,7 +42,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
         }
 
-        public int RoomFloor
+        public string RoomFloor
         {
             get { return roomFloor; }
             set
@@ -52,7 +52,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
         }
 
-        public double RoomSize
+        public string RoomSize
         {
             get { return roomSize; }
             set
@@ -119,7 +119,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void OnConfirm()
         {
             RoomService roomService = new RoomService();
-            roomService.Edit(SelectedRoom.Id, RoomName, RoomType, IsFree);
+            roomService.Edit(SelectedRoom.Id, RoomName, RoomType);
             this.Frame.NavigationService.Navigate(new RoomsView());
 
         }
@@ -145,8 +145,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
             this.Rooms = rooms;
             this.RoomName = SelectedRoom.Name;
             this.RoomId = SelectedRoom.Id;
-            this.RoomFloor = SelectedRoom.Floor;
-            this.RoomSize = SelectedRoom.Size;
+            this.RoomFloor = SelectedRoom.Floor.ToString();
+            this.RoomSize = SelectedRoom.Size.ToString();
             this.RoomType = SelectedRoom.Type;
             this.IsFree = SelectedRoom.IsFree;
         }

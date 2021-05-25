@@ -127,7 +127,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             RoomRenovationService renovationService = new RoomRenovationService();
             MessageBox.Show(Start.ToString());
             MessageBox.Show(End.ToString());
-            string[] rooms = SelectedRoom.ToString().Split("/");
+            string[] rooms = SecondRoom.ToString().Split("/");
             string selectedId = rooms[0];
 
             if (CheckDateEntry(Start, End) && renovationService.CheckExistingRenovations(SelectedRoom.Id, Start, End) &&

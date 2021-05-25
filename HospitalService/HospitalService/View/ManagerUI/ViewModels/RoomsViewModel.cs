@@ -56,6 +56,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Constructors
         public RoomsViewModel(Frame currentFrame)
         {
+            RoomRenovationService service = new RoomRenovationService();
+            service.CheckRenovationRequests();
             LoadRooms();
             AddCommand = new MyICommand(OnAdd, CanAddRoom);
             DeleteCommand = new MyICommand(OnDelete, CanExecute);
