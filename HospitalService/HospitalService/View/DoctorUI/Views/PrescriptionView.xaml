@@ -6,10 +6,21 @@
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-         Title="Recept" Height="600" Width="450" FontSize="18"  FontFamily="Open Sans" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
-    <Grid Height="600" Width="450" Margin="0,0,0,-6" RenderTransformOrigin="0.482,0.924">
+         Title="Recept" Height="590" Width="450" FontSize="18"  FontFamily="Open Sans" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Height="590" Width="450" Margin="0,0,0,-6" RenderTransformOrigin="0.482,0.924">
         <Label  Content="Recept" FontSize="24" HorizontalAlignment="Left" Margin="189,22,0,0" VerticalAlignment="Top"/>
         <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="57,98,0,0" VerticalAlignment="Top"/>
         <Label  Content="Lijek*:" HorizontalAlignment="Left" Margin="57,150,0,0" VerticalAlignment="Top"/>
@@ -19,10 +30,7 @@
         <TextBox Text="{Binding PatientsName}" HorizontalAlignment="Left" Margin="210,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" IsEnabled="False"/>
         <TextBox Text="{Binding Days, Mode=TwoWay}" HorizontalAlignment="Left" Margin="210,258,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
         <TextBox Text="{Binding Hours, Mode=TwoWay}" HorizontalAlignment="Left" Margin="210,207,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70" />
-        <Button  Content="Odustani" HorizontalAlignment="Left" Margin="113,532,0,0" VerticalAlignment="Top" Width="83" >
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
+        <Button  Content="Odustani" HorizontalAlignment="Left" Margin="120,532,0,0" VerticalAlignment="Top" Width="83" >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
@@ -36,9 +44,6 @@
             </i:Interaction.Behaviors>
         </Button>
         <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="246,532,0,0" VerticalAlignment="Top" Width="87" RenderTransformOrigin="0.528,0.804">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>
@@ -51,11 +56,12 @@
                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
             </i:Interaction.Behaviors>
         </Button>
-        <TextBox Background="WhiteSmoke" Text="{Binding Info, Mode=TwoWay}" HorizontalAlignment="Left" Margin="71,417,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="324" Height="74"/>
+        <TextBox BorderThickness="1" Background="#fafafa" Text="{Binding Info, Mode=TwoWay}" HorizontalAlignment="Left" Margin="60,417,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="350" Height="74"/>
         <Label   Content="Datum  početka*:" HorizontalAlignment="Left" Margin="57,313,0,0" VerticalAlignment="Top"/>
         <DatePicker SelectedDate="{Binding SelectedDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="210,315,0,0" VerticalAlignment="Top" Width="123"/>
         <TextBox  Text="{Binding SelectedMedication.MedicineName, Mode=TwoWay}" HorizontalAlignment="Left" Margin="210,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" IsEnabled="False" RenderTransformOrigin="0.484,0.713"/>
-        <Button Content="+" HorizontalAlignment="Left" Margin="369,154,0,0" VerticalAlignment="Top" Width="26" Height="24">
+        <Button HorizontalAlignment="Left" Margin="350,150,0,0" VerticalAlignment="Top"  Background="{x:Null}" BorderThickness="0" Height="40" Width="65">
+            <materialDesign:PackIcon Kind="AddCircle" Height="30" Width="30" Foreground="#3f51b5"/>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding AddMedicationCommand}"/>
@@ -68,7 +74,7 @@
                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
             </i:Interaction.Behaviors>
         </Button>
-        <Frame x:Name="Frame"  NavigationUIVisibility="Hidden">
+        <Frame x:Name="Frame"  NavigationUIVisibility="Hidden" Margin="0,0,0,20" Height="570">
         </Frame>
     </Grid>
 </Window>

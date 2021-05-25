@@ -5,9 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
          Title="Novi termin" Height="450" Width="768" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" FontSize="16">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Label Content="ID:" HorizontalAlignment="Left" Margin="40,35,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <Label Content="Od:" HorizontalAlignment="Left" Margin="40,161,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
@@ -76,7 +87,9 @@
         </Button>
         <TextBox IsEnabled="False" Text="{Binding Path=PatientsName}" HorizontalAlignment="Left" Height="33" Margin="525,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163">
         </TextBox>
-        <Button Content="+" HorizontalAlignment="Left" Margin="693,163,0,0" VerticalAlignment="Top" Width="29" Height="33">
+        <Button  HorizontalAlignment="Left" Margin="680,0,0,70" Background="{x:Null}" BorderThickness="0" Height="40" Width="65">
+            <materialDesign:PackIcon Kind="AddCircle" Height="30" Width="30" Foreground="#3f51b5"/>
+
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding FindCommand}"/>

@@ -5,24 +5,36 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="280" d:DesignWidth="400"
       Title="AddAllergieView" FontSize="16" FontFamily="Open Sans">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid Background="White" Height="270" Width="400">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <ListView Margin="25,44,25,39" Grid.RowSpan="2" ItemsSource="{Binding Ingredients}" SelectedItem="{Binding SelectedIngredient, Mode=TwoWay}">
+        <ListView Margin="25,44,25,48" Grid.RowSpan="2" ItemsSource="{Binding Ingredients}" SelectedItem="{Binding SelectedIngredient, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=IngredientName}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Margin="219,146,117,10" Content="Potvrdi" Grid.Row="1">
+        <Button Margin="280,137,0,10"  Grid.Row="1" Background="{x:Null}" BorderThickness="0" Height="40" Width="65">
+            <materialDesign:PackIcon Kind="TickCircle" Height="30" Width="30" Foreground="#3f51b5"/>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>
@@ -35,7 +47,8 @@
                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
             </i:Interaction.Behaviors>
         </Button>
-        <Button Margin="121,146,211,10" Content="Odustani" Grid.Row="1">
+        <Button Margin="150,137,0,10" Grid.Row="1" Background="{x:Null}" BorderThickness="0" Height="40" Width="65">
+            <materialDesign:PackIcon Kind="CancelCircle" Height="30" Width="30" Foreground="#474746"/>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding CancelCommand}"/>

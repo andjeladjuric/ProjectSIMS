@@ -5,9 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
          xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MedicalRecordView" Height="600" Width="800" FontSize="16" FontFamily="Open Sans" UseLayoutRounding="True" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+        Title="MedicalRecordView" Height="600" Width="800" FontSize="16" FontFamily="Baskerville" UseLayoutRounding="True" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Height="600" Width="800">
         <TabControl TabStripPlacement="Left">
             <TabControl.Resources>
@@ -29,12 +40,13 @@
             <TabItem Header="Informacije" Margin="-5,-2,0,-2">
                 <StackPanel>
                     <StackPanel Height="300" Orientation="Horizontal">
-                        <StackPanel Width="200">
+                        <StackPanel Width="250">
+                            <materialDesign:PackIcon Kind="UserCircle" Width="250" Height="200" Foreground="#6e7bb3"/>
                             <Label Content="Broj kartona:" Width="120"/>
-                            <Label Content="{Binding Path=Patient.medicalRecordId}" Width="64"/>
+                            <Label Content="{Binding Path=Patient.medicalRecordId}" Width="64" FontWeight="Bold" Foreground="#3f51b5"/>
                         </StackPanel>
-                        <StackPanel Width="510">
-                            <StackPanel Height="19"></StackPanel>
+                        <StackPanel Width="386" Margin="40,0,0,0">
+                            <StackPanel Height="19" ></StackPanel>
                             <StackPanel Height="30" Orientation="Horizontal">
                                 <Label Content="Ime i prezime:  " Margin="20, 0, 0, 0"/>
                                 <TextBox Width="248" Text="{Binding Path=PatientName}" IsEnabled="False"/>
@@ -68,7 +80,7 @@
                     </StackPanel>
                     <StackPanel Height="280" Orientation="Horizontal">
                         <StackPanel Width="400" Height="280">
-                            <Frame x:Name="AllergiesFrame" NavigationUIVisibility="Hidden">
+                            <Frame x:Name="AllergiesFrame" NavigationUIVisibility="Hidden" Height="277">
                             </Frame>
                         </StackPanel>
                         <StackPanel Width="310">
@@ -111,17 +123,38 @@
             </TabItem>
             <TabItem Header="Dijagnoze" Margin="-5,-2,0,-2">
                 <StackPanel>
-                    <StackPanel Margin="10,20,0,0">
-                        <Label Content="Dijagnoze:"/>
+                    <StackPanel Margin="12,20,0,0">
+                        <Label Content="Dijagnoze"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="420" Margin="0,10,0,0">
                         <StackPanel Width="400">
-                            <DataGrid ItemsSource="{Binding Diagnoses}" SelectedItem="{Binding SelectedDiagnosis, Mode=TwoWay}" IsReadOnly="True" Height="417" Width="384"
+                            <DataGrid BorderThickness="2" ItemsSource="{Binding Diagnoses}" SelectedItem="{Binding SelectedDiagnosis, Mode=TwoWay}" IsReadOnly="True" Height="417" Width="384"
                   SelectionMode="Single" AutoGenerateColumns="False" Margin="10,0,0,0">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Dijagnoza" Binding="{Binding Illness}" Width="*"/>
-                                    <DataGridTextColumn Header="Simptomi" Binding="{Binding Symptoms}" Width="*"/>
-                                    <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat=\{0:MM/dd/yyyy\}}" Width="*"/>
+                                    <DataGridTextColumn Header="Dijagnoza" Binding="{Binding Illness}" Width="*">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                                <Setter Property="Foreground" Value="#333333"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Simptomi" Binding="{Binding Symptoms}" Width="*">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                                <Setter Property="Foreground" Value="#333333	"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat=\{0:MM/dd/yyyy\}}" Width="*">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                                <Setter Property="Foreground" Value="#333333"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
                                 </DataGrid.Columns>
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseDoubleClick" >
@@ -160,16 +193,37 @@
             </TabItem>
             <TabItem Header="Terapije" Margin="-5,-2,0,-2"  >
                 <StackPanel>
-                    <StackPanel Margin="200,20,0,20" Width="405">
+                    <StackPanel Margin="0,20,0,20" Width="135">
                         <Label Content="Istorija terapija" Width="387"/>
                     </StackPanel>
-                        <StackPanel >
-                        <DataGrid ItemsSource="{Binding Prescriptions}" IsReadOnly="True" Height="417" Width="500"
+                    <StackPanel>
+                        <DataGrid BorderThickness="2" ItemsSource="{Binding Prescriptions}" IsReadOnly="True" Height="417" Width="500"
                   SelectionMode="Single" AutoGenerateColumns="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Terapija" Binding="{Binding Medication}" Width="*"/>
-                                <DataGridTextColumn Header="Početak" Binding="{Binding Start, StringFormat=dd/MM/yyyy}" Width="*"/>
-                                <DataGridTextColumn Header="Trajanje u danima"  Binding="{Binding HowLong}" Width="*"/>
+                                <DataGridTextColumn Header="Terapija" Binding="{Binding Medication}" Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="Foreground" Value="#333333"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Početak" Binding="{Binding Start, StringFormat=dd/MM/yyyy}" Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="Foreground" Value="#333333"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Trajanje u danima"  Binding="{Binding HowLong}" Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="Foreground" Value="#333333"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>
@@ -198,12 +252,33 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="420" Margin="0,10,0,0">
                         <StackPanel Width="400">
-                            <DataGrid ItemsSource="{Binding Treatments}" SelectedItem="{Binding SelectedTreatment, Mode=TwoWay}" IsReadOnly="True" Height="417" Width="384"
+                            <DataGrid BorderThickness="2" ItemsSource="{Binding Treatments}" SelectedItem="{Binding SelectedTreatment, Mode=TwoWay}" IsReadOnly="True" Height="417" Width="384"
                   SelectionMode="Single" AutoGenerateColumns="False" Margin="10,0,0,0">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Početak" Binding="{Binding StartDate, StringFormat=\{0:MM/dd/yyyy\}}" Width="*"/>
-                                    <DataGridTextColumn Header="Kraj" Binding="{Binding EndTime, StringFormat=\{0:MM/dd/yyyy\}}" Width="*"/>
-                                    <DataGridTextColumn Header="Odjeljenje" Binding="{Binding Department}" Width="*"/>
+                                    <DataGridTextColumn Header="Početak" Binding="{Binding StartDate, StringFormat=\{0:MM/dd/yyyy\}}" Width="*">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                                <Setter Property="Foreground" Value="#333333"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Kraj" Binding="{Binding EndTime, StringFormat=\{0:MM/dd/yyyy\}}" Width="*">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                                <Setter Property="Foreground" Value="#333333"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Odjeljenje" Binding="{Binding Department}" Width="*">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                                <Setter Property="Foreground" Value="#333333"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
                                 </DataGrid.Columns>
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseDoubleClick" >

@@ -6,15 +6,34 @@
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Height="600" Width="950"
       Title="Glavni prozor"  UseLayoutRounding="True" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <DockPanel Height="600" Width="950">
-            <Menu DockPanel.Dock="Top" Height="40" FontSize="16" FontFamily="Open Sans">
-                <MenuItem Header="Profil" Width="65">
-                    <MenuItem Header="Posjeti profil"/>
+            <Menu DockPanel.Dock="Top" Height="40" FontSize="16" FontFamily="Baskerville">
+                <MenuItem Header="Profil" Width="120">
+                    <MenuItem Header="Posjeti profil">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="UserCircle" Foreground="#3f51b5"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
                     <MenuItem Header="Log Out">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Logout" Foreground="#3f51b5"/>
+                        </MenuItem.Icon>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click" >
                                 <i:InvokeCommandAction Command="{Binding LogOutCommand}"/>
@@ -22,10 +41,25 @@
                         </i:Interaction.Triggers>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Opcije" Height="40" Width="65">
-                    <MenuItem Header="Zahtjev za odmor"/>
-                    <MenuItem Header="Zahtjev za materijal"/>
-                    <MenuItem Header="Tutorial"/>
+                <Separator/>
+                <MenuItem Header="Opcije" Height="40" Width="70">
+                    <MenuItem Header="Zahtjev za odmor">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="PalmTree" Foreground="#3f51b5"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="Zahtjev za materijal">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Injection" Foreground="#3f51b5"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="Tutorial">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Help" Foreground="#3f51b5"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
             </Menu>
             <StackPanel></StackPanel>
@@ -59,13 +93,7 @@
                         </DatePicker>
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                        <Button Margin="280,0,0,0" Width="52">Obriši
-                            <Button.Background>
-                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
-                            </Button.Background>
-                            <Button.Effect>
-                                <DropShadowEffect/>
-                            </Button.Effect>
+                        <Button Margin="300,0,0,0" Width="52">Obriši
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click" >
                                     <i:InvokeCommandAction Command="{Binding DeleteAppointmentCommand}"/>
@@ -79,12 +107,6 @@
                             </i:Interaction.Behaviors>
                         </Button>
                         <Button Margin="30,0,0,0" Width="58">Izmjeni
-                            <Button.Background>
-                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
-                            </Button.Background>
-                            <Button.Effect>
-                                <DropShadowEffect/>
-                            </Button.Effect>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click" >
                                     <i:InvokeCommandAction Command="{Binding EditAppointmentCommand}"/>
@@ -98,12 +120,6 @@
                             </i:Interaction.Behaviors>
                         </Button>
                         <Button  Margin="30,0,0,0" Width="69" RenderTransformOrigin="0.49,0.111" Content="Zakaži">
-                            <Button.Background>
-                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
-                            </Button.Background>
-                            <Button.Effect>
-                                <DropShadowEffect/>
-                            </Button.Effect>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click" >
                                     <i:InvokeCommandAction Command="{Binding AddAppointmentCommand}"/>
@@ -117,15 +133,57 @@
                             </i:Interaction.Behaviors>
                         </Button>
                     </StackPanel>
-                    <DataGrid SelectedItem="{Binding Path=SelectedAppointment}" x:Name="AppointmentsTable" IsReadOnly="True"  ItemsSource="{Binding Path=Appointments}"
+                    <DataGrid BorderThickness="2" SelectedItem="{Binding Path=SelectedAppointment}" x:Name="AppointmentsTable" IsReadOnly="True"  ItemsSource="{Binding Path=Appointments}"
                   SelectionMode="Single" AutoGenerateColumns="False" Height="300" Width="760" Margin="0,0,0,20" SelectionUnit="FullRow">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Ime"  Binding="{Binding patient.Name}" Width="*"/>
-                            <DataGridTextColumn Header="Prezime" Binding="{Binding patient.Surname}" Width="*"/>
-                            <DataGridTextColumn Header="Od" Binding="{Binding StartTime, StringFormat=HH:mm}" Width="*"/>
-                            <DataGridTextColumn Header="Do" Binding="{Binding EndTime, StringFormat=HH:mm}" Width="*"/>
-                            <DataGridTextColumn Header="Tip" Binding="{Binding Type}" Width="*"/>
-                            <DataGridTextColumn Header="Soba" Binding="{Binding room.Id}" Width="*"/>
+                            <DataGridTextColumn Header="Ime"  Binding="{Binding patient.Name}" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="Foreground" Value="#474746"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Prezime" Binding="{Binding patient.Surname}" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="Foreground" Value="#474746"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Od" Binding="{Binding StartTime, StringFormat=HH:mm}" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="Foreground" Value="#474746"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Do" Binding="{Binding EndTime, StringFormat=HH:mm}" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="Foreground" Value="#474746"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Tip" Binding="{Binding Type}" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="Foreground" Value="#474746"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Soba" Binding="{Binding room.Id}" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="Foreground" Value="#474746"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DockPanel>
@@ -136,12 +194,6 @@
                         <Label Content="Pretraga" Margin="780,0,0,0"/>
                     </StackPanel>
                     <Button  DockPanel.Dock="Bottom" Margin="0,0,0,0" Width="147" Height="24"  Content="Prikazi karton">
-                        <Button.Background>
-                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
-                        </Button.Background>
-                        <Button.Effect>
-                            <DropShadowEffect/>
-                        </Button.Effect>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click" >
                                 <i:InvokeCommandAction Command="{Binding OpenRecordCommand}"/>
@@ -154,14 +206,49 @@
                             <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
                         </i:Interaction.Behaviors>
                     </Button>
-                    <DataGrid x:Name="PatientsTable" IsReadOnly="True"  ItemsSource="{Binding Path=Patients}"
+                    <DataGrid BorderThickness="2" IsReadOnly="True"  ItemsSource="{Binding Path=Patients}"
                   SelectionMode="Single" SelectedItem="{Binding Path=SelectedPatient, Mode=TwoWay}" AutoGenerateColumns="False" Height="300" Width="760" Margin="0,0,0,20">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Ime"  Binding="{Binding Name}" Width="*"/>
-                            <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}" Width="*"/>
-                            <DataGridTextColumn Header="JMBG" Binding="{Binding Jmbg}" Width="*"/>
-                            <DataGridTextColumn Header="Datum rođenja" Binding="{Binding DateOfBirth, StringFormat={}{0:MM/dd/yyyy}}" Width="*"/>
-                            <DataGridTextColumn Header="Karton"  Binding="{Binding medicalRecordId}" Width="*"/>
+                            <DataGridTextColumn Header="Ime"  Binding="{Binding Name}" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="Foreground" Value="#474746"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="Foreground" Value="#474746"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="JMBG" Binding="{Binding Jmbg}" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="Foreground" Value="#474746"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Datum rođenja" Binding="{Binding DateOfBirth, StringFormat={}{0:MM/dd/yyyy}}" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="Foreground" Value="#474746"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Karton"  Binding="{Binding medicalRecordId}" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="Foreground" Value="#474746"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DockPanel>
@@ -170,47 +257,52 @@
                 <UniformGrid Columns="2">
                     <StackPanel>
                         <Label  Width="147" Height="45"  Margin="10, 20, 20, 450" FontSize="20" FontWeight="Normal" >Za odobravanje</Label>
-                        <ListView SelectedItem="{Binding Path=SelectedMedication, Mode=TwoWay}" Name="ForApprovalListView" Width="300" Height="400"  Margin="0, -450, 0, 0"  ItemsSource="{Binding Path=MedicationsForApproval}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding MedicineName}" />
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseDoubleClick">
-                                    <i:InvokeCommandAction Command="{Binding ValidateCommand}"/>
-                                </i:EventTrigger>
-                                <i:EventTrigger EventName="KeyUp" >
-                                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <i:Interaction.Behaviors>
-                                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
-                            </i:Interaction.Behaviors>
-                        </ListView>
+                        <Border Width="300" Height="400" Margin="0, -450, 0, 0" BorderThickness="2" BorderBrush="#3f51b5">
+                            <ListView SelectedItem="{Binding Path=SelectedMedication, Mode=TwoWay}" Name="ForApprovalListView" ItemsSource="{Binding Path=MedicationsForApproval}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding MedicineName}" FontSize="16" FontFamily="Baskerville" />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <i:InvokeCommandAction Command="{Binding ValidateCommand}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="KeyUp" >
+                                        <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <i:Interaction.Behaviors>
+                                    <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                                </i:Interaction.Behaviors>
+                            </ListView>
+                        </Border>
+
 
                     </StackPanel>
 
                     <StackPanel>
                         <Label  Width="180" Height="45"  Margin="50, 20, 20, 450" FontSize="20" FontWeight="Normal" >Odobreni lijekovi</Label>
-                        <ListView SelectedItem="{Binding Path=SelectedMedication, Mode=TwoWay}" Name="ApprovedMedsListView"  Width="300" Height="400"  Margin="0, -450, 0, 0"  ItemsSource="{Binding Path=ApprovedMedications}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding MedicineName}" />
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseDoubleClick">
-                                    <i:InvokeCommandAction Command="{Binding AboutMedicationCommand}"/>
-                                </i:EventTrigger>
-                                <i:EventTrigger EventName="KeyUp" >
-                                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <i:Interaction.Behaviors>
-                                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
-                            </i:Interaction.Behaviors>
-                        </ListView>
+                        <Border Width="300" Height="400" Margin="0, -450, 0, 0" BorderThickness="2" BorderBrush="#3f51b5">
+                            <ListView SelectedItem="{Binding Path=SelectedMedication, Mode=TwoWay}" Name="ApprovedMedsListView"  ItemsSource="{Binding Path=ApprovedMedications}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding MedicineName}" FontSize="16" FontFamily="Baskerville" />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <i:InvokeCommandAction Command="{Binding AboutMedicationCommand}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="KeyUp" >
+                                        <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <i:Interaction.Behaviors>
+                                    <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                                </i:Interaction.Behaviors>
+                            </ListView>
+                        </Border>
                     </StackPanel>
 
                 </UniformGrid>
@@ -221,30 +313,32 @@
                         <Label Content="Novosti" FontSize="30"/>
                     </StackPanel>
                     <StackPanel Height="350" Margin="0,20,0,0">
-                        <ListView SelectedItem="{Binding SelectedNews, Mode=TwoWay}" ItemsSource="{Binding News}" Height="350" Margin="40,0,40,0">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <WrapPanel>
-                                        <TextBlock Text="Naslov: " />
-                                        <TextBlock Text="{Binding Title}" FontWeight="Bold" />
-                                        <TextBlock Text=" (" />
-                                        <TextBlock Text="{Binding PublishingDate, StringFormat=MM/dd/yyyy}" Foreground="CornflowerBlue" />
-                                        <TextBlock Text=")" />
-                                    </WrapPanel>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseDoubleClick" >
-                                    <i:InvokeCommandAction Command="{Binding ShowNewsCommand}"/>
-                                </i:EventTrigger>
-                                <i:EventTrigger EventName="KeyUp" >
-                                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <i:Interaction.Behaviors>
-                                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
-                            </i:Interaction.Behaviors>
-                        </ListView>
+                        <Border BorderThickness="2" BorderBrush="#3f51b5" Height="350" Margin="40,0,40,0">
+                            <ListView SelectedItem="{Binding SelectedNews, Mode=TwoWay}" ItemsSource="{Binding News}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel>
+                                            <TextBlock Text="Naslov: " />
+                                            <TextBlock Text="{Binding Title}" FontWeight="Bold" />
+                                            <TextBlock Text=" (" />
+                                            <TextBlock Text="{Binding PublishingDate, StringFormat=MM/dd/yyyy}" Foreground="CornflowerBlue" />
+                                            <TextBlock Text=")" />
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick" >
+                                        <i:InvokeCommandAction Command="{Binding ShowNewsCommand}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="KeyUp" >
+                                        <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <i:Interaction.Behaviors>
+                                    <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                                </i:Interaction.Behaviors>
+                            </ListView>
+                        </Border>
                     </StackPanel>
                     <StackPanel Width="100" Margin="0,40,0,0">
                         <Button Content="Ukloni sve">

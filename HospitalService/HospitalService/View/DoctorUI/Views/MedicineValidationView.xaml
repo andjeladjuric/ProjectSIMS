@@ -8,6 +8,17 @@
         xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
         mc:Ignorable="d"
          Title="Validacija lijeka" Height="600" Width="700" FontSize="18"  FontFamily="Open Sans" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Height="600" Width="700">
         <Label Content="Ime lijeka:" HorizontalAlignment="Left" Margin="37,66,0,0" VerticalAlignment="Top"/>
         <Label Content="Tip lijeka:" HorizontalAlignment="Left" Margin="37,126,0,0" VerticalAlignment="Top"/>
@@ -15,23 +26,22 @@
         <Label Content="Sastojci:" HorizontalAlignment="Left" Margin="485,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Odobreno*:" HorizontalAlignment="Left" Margin="37,260,0,0" VerticalAlignment="Top"/>
         <Label Content="Komentar:" HorizontalAlignment="Left" Margin="37,324,0,0" VerticalAlignment="Top"/>
-        <ListView ItemsSource="{Binding Ingredients}" Margin="403,66,37,129">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Border BorderThickness="1" BorderBrush="#6e7bb3" Margin="403,66,37,129">
+            <ListView ItemsSource="{Binding Ingredients}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
         <TextBox Text="{Binding Path=Medication.MedicineName}" IsEnabled="False"  HorizontalAlignment="Left" Margin="158,70,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
         <TextBox Text="{Binding Path=Medication.Type}" IsEnabled="False"  HorizontalAlignment="Left" Margin="158,129,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
         <TextBox Text="{Binding Path=Medication.Format}" IsEnabled="False"  HorizontalAlignment="Left" Margin="158,190,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
-        <TextBox Text="{Binding Path=DoctorsComment}" Name="CommentTextBox" HorizontalAlignment="Left" Margin="37,372,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="313" Height="83"/>
+        <TextBox Background="#fafafa" Text="{Binding Path=DoctorsComment}" BorderThickness="1" HorizontalAlignment="Left" Margin="37,372,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="313" Height="83"/>
         <RadioButton  IsChecked="{Binding Path=IsApproved}" Content="DA" Margin="158,267,489,0" Height="27" VerticalAlignment="Top"/>
         <RadioButton IsChecked="True" Content="NE" Margin="240,267,406,0" Height="27" VerticalAlignment="Top"/>
         <Button Content="Odustani" HorizontalAlignment="Left" Margin="226,536,0,0" VerticalAlignment="Top" Width="82">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
@@ -45,9 +55,6 @@
             </i:Interaction.Behaviors>
         </Button>
         <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="380,536,0,0" VerticalAlignment="Top" Width="83">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>

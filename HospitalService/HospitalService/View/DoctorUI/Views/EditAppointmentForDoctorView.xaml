@@ -8,6 +8,17 @@
         xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
         mc:Ignorable="d"
          Title="Izmjena termina" Height="490" Width="514" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" FontSize="16">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid x:Name="editGrid" Margin="0,0,4,-6" >
         <TextBox Text="{Binding Path=AppointmentForEditing.Id}" IsReadOnly="True" HorizontalAlignment="Left" Height="35" Margin="252,40,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168" RenderTransformOrigin="0.485,-0.456"/>
         <TextBox  Text="{Binding Path=StartTime, Mode=TwoWay, StringFormat=HH:mm}" HorizontalAlignment="Left" Height="37" Margin="254,148,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168" RenderTransformOrigin="1.684,0.193"/>
