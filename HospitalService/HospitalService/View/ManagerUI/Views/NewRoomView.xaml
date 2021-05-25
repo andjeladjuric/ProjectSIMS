@@ -32,19 +32,20 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
-        <Border HorizontalAlignment="Center" Height="442" VerticalAlignment="Top" Width="398" Margin="0,133,0,0"
-                CornerRadius="10" BorderThickness="0.5" BorderBrush="Black"/>
-        <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="336,199,0,0" VerticalAlignment="Top" 
+        <Border HorizontalAlignment="Center" Height="442" VerticalAlignment="Top" Width="398"
+                CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="0,166,0,0"/>
+        <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="336,231,0,0" VerticalAlignment="Top" 
                Width="125" Height="36"/>
-        <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="336,253,0,0" VerticalAlignment="Top" 
+        <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="336,285,0,0" VerticalAlignment="Top" 
                Width="125" Height="36"/>
-        <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="336,420,0,0" VerticalAlignment="Top" 
+        <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="336,452,0,0" VerticalAlignment="Top" 
                Width="125"/>
-        <TextBox x:Name="IDBox" HorizontalAlignment="Left" Height="36" Margin="468,190,0,0"
+        <TextBox x:Name="IDBox" HorizontalAlignment="Left" Height="36" Margin="468,222,0,0"
                  VerticalAlignment="Top" Width="172" 
                  Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
+                 FontFamily="Roboto"
+                 FontWeight="Light"
+                 FontSize="14"
                  TextWrapping="Wrap"
                  HorizontalContentAlignment="Center">
             <TextBox.Text>
@@ -64,13 +65,14 @@
             </Validation.ErrorTemplate>
         </TextBox>
 
-        <Label x:Name="floor" Content="Sprat" HorizontalAlignment="Left" Margin="336,307,0,0" VerticalAlignment="Top" 
+        <Label x:Name="floor" Content="Sprat" HorizontalAlignment="Left" Margin="336,339,0,0" VerticalAlignment="Top" 
                Width="125"/>
-        <TextBox x:Name="FloorBox" HorizontalAlignment="Left" Height="36" Margin="468,300,0,0"
+        <TextBox x:Name="FloorBox" HorizontalAlignment="Left" Height="36" Margin="468,333,0,0"
                  VerticalAlignment="Top" Width="172" 
                  Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
+                 FontFamily="Roboto"
+                 FontWeight="Light"
+                 FontSize="14"
                  TextWrapping="Wrap"
                  HorizontalContentAlignment="Center">
             <TextBox.Text>
@@ -89,13 +91,14 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </TextBox>
-        <Label x:Name="size" Content="Kvadratura" HorizontalAlignment="Left" Margin="336,363,0,0" VerticalAlignment="Top" 
+        <Label x:Name="size" Content="Kvadratura" HorizontalAlignment="Left" Margin="336,395,0,0" VerticalAlignment="Top" 
                Width="125"/>
-        <TextBox x:Name="SizeBox" HorizontalAlignment="Left" Height="36" Margin="468,356,0,0"
+        <TextBox x:Name="SizeBox" HorizontalAlignment="Left" Height="36" Margin="468,388,0,0"
                  VerticalAlignment="Top" Width="172" 
                  Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
+                 FontFamily="Roboto"
+                 FontWeight="Light"
+                 FontSize="14"
                  TextWrapping="Wrap"
                  HorizontalContentAlignment="Center">
             <TextBox.Text>
@@ -115,10 +118,11 @@
             </Validation.ErrorTemplate>
         </TextBox>
 
-        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="35" Margin="468,245,0,0" VerticalAlignment="Top" Width="172"
+        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="35" Margin="468,277,0,0" VerticalAlignment="Top" Width="172"
                  Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
+                 FontFamily="Roboto"
+                 FontWeight="Light"
+                 FontSize="14"
                  TextWrapping="Wrap"
                  HorizontalContentAlignment="Center">
             <TextBox.Text>
@@ -139,7 +143,7 @@
         </TextBox>
 
         <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
-                  HorizontalAlignment="Left" Height="34" Margin="468,417,0,0" Width="172"
+                  HorizontalAlignment="Left" Height="34" Margin="468,449,0,0" Width="172"
                   SelectedItem="{Binding RoomType}" VerticalAlignment="Top">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -147,7 +151,7 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="370,499,0,0" VerticalAlignment="Top" 
+        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="370,531,0,0" VerticalAlignment="Top" 
                 Height="26" Width="91" 
                 Command="{Binding AddCommand}">
             <Button.Style>
@@ -174,9 +178,9 @@
             </Button.Style>
         </Button>
 
-        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="509,499,0,0" VerticalAlignment="Top" Height="26" Width="90" 
+        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="509,531,0,0" VerticalAlignment="Top" Height="26" Width="90" 
                 Command="{Binding CancelCommand}"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="332,56,0,0" Text="Dodaj sobu" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="332,88,0,0" Text="Dodaj sobu" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
 
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

@@ -43,16 +43,17 @@
         <TextBox x:Name="IDBox" IsReadOnly="True" Text="{Binding RoomId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" 
                  Height="30" Margin="303,281,0,0" VerticalAlignment="Top" Width="154" IsEnabled="False"
                  Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
+                 FontFamily="Roboto"
+                 FontSize="14"
+                 FontWeight="Light"
                  TextWrapping="Wrap"
                  HorizontalContentAlignment="Center"/>
         <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="32" Margin="630,331,0,0"
                  VerticalAlignment="Top" Width="154" 
                  Foreground="#474746"
-                 FontFamily="Gill Sans MT"
+                 FontFamily="Roboto"
                  FontWeight="Light"
-                 FontSize="16"
+                 FontSize="14"
                  TextWrapping="Wrap"
                  HorizontalContentAlignment="Center">
             <TextBox.Text>
@@ -77,9 +78,9 @@
         <TextBox x:Name="FloorBox" HorizontalAlignment="Left" Height="36" Margin="305,329,0,0"
                  VerticalAlignment="Top" Width="154" IsEnabled="False"
                  Foreground="#474746"
-                 FontFamily="Gill Sans MT"
+                 FontFamily="Roboto"
                  FontWeight="Light"
-                 FontSize="16"
+                 FontSize="14"
                  TextWrapping="Wrap"
                  HorizontalContentAlignment="Center"
                  Text="{Binding RoomFloor}"/>
@@ -87,8 +88,8 @@
         <TextBox x:Name="SizeBox" HorizontalAlignment="Left" Height="36" Margin="305,381,0,0"
                  VerticalAlignment="Top" Width="154" IsEnabled="False"
                  Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
+                 FontFamily="Roboto"
+                 FontSize="14"
                  FontWeight="Light"
                  TextWrapping="Wrap"
                  HorizontalContentAlignment="Center"
@@ -98,8 +99,8 @@
                       SelectedItem="{Binding RoomType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       HorizontalAlignment="Left" Height="30" Margin="630,389,0,0" VerticalAlignment="Top" Width="154" 
                       Foreground="#474746"
-                      FontFamily="Gill Sans MT"
-                      FontSize="16"
+                      FontFamily="Roboto"
+                      FontSize="14"
                       FontWeight="Light"
                       HorizontalContentAlignment="Center">
             <ComboBox.ItemTemplate>
@@ -130,9 +131,10 @@
 
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="512,488,0,0" VerticalAlignment="Top" Height="30" Width="80"
                     Command="{Binding CancelCommand}"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="118,142,0,0" Text="Izmena prostorije" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="250" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="118,142,0,0" Text="Izmena prostorije" TextWrapping="Wrap" 
+                   VerticalAlignment="Top" Height="57" Width="306" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
 
-        <!--<Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>-->
+        <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>
 

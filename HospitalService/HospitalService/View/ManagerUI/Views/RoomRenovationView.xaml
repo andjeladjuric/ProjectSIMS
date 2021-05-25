@@ -7,6 +7,7 @@
       xmlns:conv="clr-namespace:HospitalService.View.ManagerUI.Converters"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
       xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:model="clr-namespace:Model"
       mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="969"
@@ -35,13 +36,16 @@
     <Grid Background="#f5f5f5">
         <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding Appointments}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
-                  Height="546" VerticalAlignment="Top" Width="476" FontFamily="Gill Sans MT" FontSize="14"
+                  Height="546" VerticalAlignment="Top" Width="476" FontFamily="Roboto" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5"
                   Margin="42,90,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Datum" Binding="{Binding StartTime, StringFormat=dd.MM.yyyy.}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -50,6 +54,9 @@
                 <DataGridTextColumn Header="Dan" Width="*"  Binding="{Binding StartTime.DayOfWeek, Converter={StaticResource enumConverter}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -58,6 +65,9 @@
                 <DataGridTextColumn Header="Vreme" Width="*"  Binding="{Binding StartTime, StringFormat=HH:mm}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -71,12 +81,12 @@
                 CornerRadius="10" BorderThickness="0.5" BorderBrush="Black"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="42,28,0,0" 
                    Text="Zakaži renoviranje" TextWrapping="Wrap" VerticalAlignment="Top"
-                   Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" 
+                   Height="57" Width="302" FontFamily="Roboto" FontSize="36" FontStyle="Italic" 
                    TextAlignment="Center" Foreground="#474746"/>
 
-        <StackPanel Orientation="Vertical" Margin="580,124,79,142">
-            <StackPanel Orientation="Horizontal" Height="138">
-                <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Vertical" Margin="580,118,65,150">
+            <StackPanel Orientation="Horizontal" Height="139" Width="322">
+                <StackPanel Orientation="Vertical" Width="123">
                     <Label x:Name="id" Content="Soba" HorizontalAlignment="Left" VerticalAlignment="Top" 
                Width="112" Height="35"/>
                     <Separator Opacity="0" Height="5"/>
@@ -90,52 +100,63 @@
                     <TextBox x:Name="IDBox" IsEnabled="False" HorizontalAlignment="Left"
                              Height="30" Width="154" VerticalAlignment="Top"
                              Foreground="#474746"
-                             FontFamily="Gill Sans MT"
-                             FontSize="16"
+                             FontFamily="Roboto"
+                             FontWeight="Light"
+                             FontSize="14"
                              TextWrapping="Wrap"
                              HorizontalContentAlignment="Center"
                              Text="{Binding SelectedRoom.Name}"/>
                     <Separator Opacity="0" Height="10"/>
                     <DatePicker x:Name="startPicker" HorizontalAlignment="Left" Width="154"
-                    DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding Start}" VerticalAlignment="Top"/>
+                                DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding Start}" VerticalAlignment="Top"
+                                FontFamily="Roboto"
+                                FontSize="14"
+                                FontWeight="Light"
+                                HorizontalContentAlignment="Center"/>
                     <Separator Opacity="0" Height="10"/>
                     <DatePicker x:Name="endPicker" HorizontalAlignment="Left" Width="154"
-                    DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding End}" VerticalAlignment="Top"/>
+                                DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding End}" VerticalAlignment="Top"
+                                FontFamily="Roboto"
+                                FontSize="14"
+                                FontWeight="Light"
+                                HorizontalContentAlignment="Center"/>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="50">
+            <StackPanel Orientation="Horizontal" Height="55">
                 <StackPanel Orientation="Vertical">
                     <Label Content="Vrsta" Width="112" Height="35"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Width="103" Margin="30,2,0,0">
                     <RadioButton Content="Podeli sobu" IsChecked="True"/>
+                    <Separator Opacity="0" Height="5"/>
                     <RadioButton Content="Spajanje soba" IsChecked="{Binding IsChecked}"/>
                 </StackPanel>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Height="257" >
-                <StackPanel Orientation="Vertical" Width="125">
-                    <Label x:Name="newId" Content="Novi Id" HorizontalAlignment="Left" 
+            <StackPanel Orientation="Horizontal" Height="274" Width="322" >
+                <StackPanel Orientation="Vertical" Width="136">
+                    <Label x:Name="newId" Content="Novi broj sobe" HorizontalAlignment="Left" 
                        Width="126" Height="34"/>
                     <Separator Opacity="0" Height="15"/>
-                    <Label x:Name="newName" Content="Novo Ime" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    <Label x:Name="newName" Content="Novo ime" HorizontalAlignment="Left" VerticalAlignment="Top" 
                        Width="112" Height="34"/>
                     <Separator Opacity="0" Height="15"/>
-                    <Label x:Name="roomtype" Content="Novi Tip" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    <Label x:Name="roomtype" Content="Nova vrsta" HorizontalAlignment="Left" VerticalAlignment="Top" 
                        Width="112" Height="34"/>
                     <Separator Opacity="0" Height="15"/>
                     <Label x:Name="newSize" Content="Nova veličina" HorizontalAlignment="Left" VerticalAlignment="Top" 
                        Width="112" Height="34"/>
                     <Separator Opacity="0" Height="15"/>
                     <Label x:Name="merge" Content="Soba za spajanje" HorizontalAlignment="Left" 
-                       Width="120" Height="34"/>
+                       Width="126" Height="34"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="5,0,0,0">
                     <TextBox x:Name="NewIDBox" HorizontalAlignment="Left"
                              Height="30" Width="154" VerticalAlignment="Top"
                              Foreground="#474746"
-                             FontFamily="Gill Sans MT"
-                             FontSize="16"
+                             FontFamily="Roboto"
+                             FontWeight="Light"
+                             FontSize="14"
                              TextWrapping="Wrap"
                              HorizontalContentAlignment="Center">
                         <TextBox.Text>
@@ -158,8 +179,9 @@
                     <TextBox x:Name="NewNameBox" HorizontalAlignment="Left"
                              Height="30" Width="154" VerticalAlignment="Top"
                              Foreground="#474746"
-                             FontFamily="Gill Sans MT"
-                             FontSize="16"
+                             FontFamily="Roboto"
+                             FontWeight="Light"
+                             FontSize="14"
                              TextWrapping="Wrap"
                              HorizontalContentAlignment="Center">
                         <TextBox.Text>
@@ -183,8 +205,9 @@
                               Height="30" Width="154" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
                               SelectedItem="{Binding NewType}"
                               Foreground="#474746"
-                              FontFamily="Gill Sans MT"
-                              FontSize="16"
+                              FontFamily="Roboto"
+                              FontWeight="Light"
+                              FontSize="14"
                               HorizontalContentAlignment="Center">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -196,10 +219,21 @@
                     <TextBox x:Name="NewSizeBox" HorizontalAlignment="Left"
                              Height="30" Width="154" VerticalAlignment="Top"
                              Foreground="#474746"
-                             FontFamily="Gill Sans MT"
-                             FontSize="16"
+                             FontFamily="Roboto"
+                             FontWeight="Light"
+                             FontSize="14"
                              TextWrapping="Wrap"
                              HorizontalContentAlignment="Center">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+                                <Setter Property="IsEnabled" Value="True"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
                         <TextBox.Resources>
                             <validation:MaxSizeProxy x:Key="proxy" Data="{Binding}"/>
                         </TextBox.Resources>
@@ -224,13 +258,24 @@
                         </Validation.ErrorTemplate>
                     </TextBox>
                     <Separator Opacity="0" Height="15"/>
-                    <ComboBox x:Name="SecondRoomBox" IsEnabled="True" HorizontalAlignment="Left"
+                    <ComboBox x:Name="SecondRoomBox" HorizontalAlignment="Left"
                               Height="30" Width="154" VerticalAlignment="Top" ItemsSource="{Binding Rooms}"
                               SelectedItem="{Binding SecondRoom}"
                               Foreground="#474746"
-                              FontFamily="Gill Sans MT"
-                              FontSize="16"
+                              FontFamily="Roboto"
+                              FontWeight="Light"
+                              FontSize="14"
                               HorizontalContentAlignment="Center">
+                        <ComboBox.Style>
+                            <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+                                <Setter Property="IsEnabled" Value="True"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked}" Value="False">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>
                     </ComboBox>
                 </StackPanel>
             </StackPanel>

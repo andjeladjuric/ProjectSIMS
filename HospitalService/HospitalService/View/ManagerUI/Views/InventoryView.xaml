@@ -26,17 +26,20 @@
 
     <Grid Background="#f5f5f5">
         <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0,33,0,0" Text="Inventar" 
-                   TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="152" FontFamily="Gill Sans MT" FontSize="46" FontStyle="Italic" TextAlignment="Left"/>
+                   TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="178" FontFamily="Roboto" FontSize="46" FontStyle="Italic" TextAlignment="Left"/>
 
         <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding Inventory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedItem}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
-                  Height="450" VerticalAlignment="Center" Width="635" FontFamily="Gill Sans MT" FontSize="14"
+                  Height="450" VerticalAlignment="Center" Width="635" FontFamily="Roboto" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Šifra" Binding="{Binding Id}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -45,6 +48,9 @@
                 <DataGridTextColumn Header="Naziv" Width="*"  Binding="{Binding Name}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -53,6 +59,9 @@
                 <DataGridTextColumn Header="Vrsta" Width="*"  Binding="{Binding EquipmentType, Converter={StaticResource typeConverter}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -61,6 +70,9 @@
                 <DataGridTextColumn Header="Količina" Width="*"  Binding="{Binding Quantity}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -69,6 +81,9 @@
                 <DataGridTextColumn Header="Proizvođač" Width="*"  Binding="{Binding Supplier}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -87,7 +102,7 @@
         <ComboBox x:Name="InventoryType" SelectedIndex="{Binding SelectedType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   HorizontalAlignment="Left" Margin="167,97,0,0" VerticalAlignment="Top" 
                   Width="140" Foreground="#474746"
-                  FontFamily="Gill Sans MT"
+                  FontFamily="Roboto"
                   FontSize="16"
                   HorizontalContentAlignment="Center">
             <i:Interaction.Triggers>
@@ -141,7 +156,7 @@
                     </i:Interaction.Triggers>
                 </TextBox>
                 <Separator/>
-                <Button Content="Poništi pretragu" FontFamily="Gill Sans MT" Foreground="Black"
+                <Button Content="Poništi pretragu" FontFamily="Roboto" Foreground="Black"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
             </StackPanel>
         </materialDesign:PopupBox>

@@ -62,7 +62,7 @@ namespace HospitalService.View.ManagerUI.Validations
                 if (Wrapper != null)
                 {
                     if (double.Parse(value.ToString()) > Wrapper.Max)
-                        return new ValidationResult(false, "Kvadratura ne može biti veća od postojeće!");
+                        return new ValidationResult(false, "Kvadratura mora biti manja!");
                 }
 
                 return new ValidationResult(true, null);

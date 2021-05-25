@@ -45,8 +45,9 @@
 
         <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="34" Margin="304,256,0,0" TextWrapping="Wrap" 
                  VerticalAlignment="Top" Width="172" Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
+                 FontFamily="Roboto"
+                 FontWeight="Light"
+                 FontSize="14"
                  HorizontalContentAlignment="Center">
             <TextBox.Text>
                 <Binding Path="MedicationName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
@@ -92,22 +93,24 @@
                 VerticalAlignment="Top" Height="26" Width="90"
                 Command="{Binding CancelCommand}"/>
 
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="126,134,0,0" Text="Dodavanje leka" 
-                   TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="223" FontFamily="Gill Sans MT" 
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="111,134,0,0" Text="Dodavanje leka" 
+                   TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="282" FontFamily="Roboto" 
                    FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
 
         <ComboBox x:Name="doctorsBox" Opacity="100" ItemsSource="{Binding Doctors}" SelectedItem="{Binding Doctor}"
                   HorizontalAlignment="Left" Height="34" Margin="304,435,0,0" Width="172" VerticalAlignment="Top"
                   Foreground="#474746"
-                  FontFamily="Gill Sans MT"
-                  FontSize="16"
+                  FontFamily="Roboto"
+                  FontWeight="Light"
+                  FontSize="14"
                   HorizontalContentAlignment="Center"/>
 
         <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
                   HorizontalAlignment="Left" Height="34" Margin="304,370,0,0" VerticalAlignment="Top" Width="172"
                   Foreground="#474746"
-                  FontFamily="Gill Sans MT"
-                  FontSize="16"
+                  FontFamily="Roboto"
+                  FontWeight="Light"
+                  FontSize="14"
                   HorizontalContentAlignment="Center">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -131,8 +134,8 @@
                 <DataTemplate>
                     <TextBlock x:Name="Medicine" Text="{Binding}"
                                Foreground="#474746"
-                               FontFamily="Gill Sans MT"
-                               FontSize="16"
+                               FontFamily="Roboto"
+                               FontSize="14"
                                FontWeight="Light"
                                TextAlignment="Center"/>
                 </DataTemplate>
@@ -145,8 +148,9 @@
                Width="125" Height="36"/>
         <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="36" Margin="304,311,0,0" TextWrapping="Wrap" 
                  VerticalAlignment="Top" Width="172" Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
+                 FontFamily="Roboto"
+                 FontWeight="Light"
+                 FontSize="14"
                  HorizontalContentAlignment="Center">
             <Validation.ErrorTemplate>
                 <ControlTemplate>

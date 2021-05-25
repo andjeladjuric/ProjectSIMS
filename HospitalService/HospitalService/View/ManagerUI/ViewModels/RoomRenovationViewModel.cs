@@ -133,7 +133,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             if (CheckDateEntry(Start, End) && renovationService.CheckExistingRenovations(SelectedRoom.Id, Start, End) &&
                 renovationService.CheckAppointmentsForDate(Start, End, SelectedRoom.Id))
             {
-                if (IsChecked && renovationService.CheckAppointmentsForDate(Start, End, selectedId))
+                if (IsChecked && renovationService.CheckAppointmentsForDate(Start, End, selectedId) && CheckFloor(SelectedRoom.Id, selectedId))
                     renovationService.Save(new Renovation(SelectedRoom.Id, Start, End, RenovationType.Merge, selectedId, NewID, NewType, NewName));
                 else
                     renovationService.Save(new Renovation(SelectedRoom.Id, Start, End, RenovationType.Split, NewID, newType, NewName, Double.Parse(NewSize)));
@@ -157,6 +157,20 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Other Functions
+        private bool CheckFloor(string firstRoom, string secondRoom)
+        {
+            RoomService roomService = new RoomService();
+            Room first = roomService.GetOne(firstRoom);
+            Room second = roomService.GetOne(secondRoom);
+
+            if(first.Floor == second.Floor)
+            {
+                MessageBox.Show("Sobe moraju biti na istom spratu!");
+                return false;
+            }
+
+            return true;
+        }
         private bool CheckDateEntry(DateTime startDate, DateTime endDate)
         {
             if (DateTime.Compare(startDate.Date, endDate.Date) > 0)

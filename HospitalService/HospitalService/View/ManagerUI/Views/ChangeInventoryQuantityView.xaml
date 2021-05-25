@@ -28,13 +28,16 @@
         <DataGrid ItemsSource="{Binding DynamicInventory}" SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                   x:Name="tableBinding" IsReadOnly="True"  Margin="16,0,0,0"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
-                  Height="450" VerticalAlignment="Center" Width="566" FontFamily="Gill Sans MT" FontSize="14"
+                  Height="450" VerticalAlignment="Center" Width="566" FontFamily="Roboto" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
  
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Šifra" Binding="{Binding Id}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -43,6 +46,9 @@
                 <DataGridTextColumn Header="Naziv" Width="*"  Binding="{Binding Name}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -51,6 +57,9 @@
                 <DataGridTextColumn Header="Količina" Width="*" Binding="{Binding Quantity}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -59,6 +68,9 @@
                 <DataGridTextColumn Header="Proizvođač" Width="*"  Binding="{Binding Supplier}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -74,8 +86,9 @@
                    Width="139" Height="30"/>
             <TextBox x:Name="quantityBox" HorizontalAlignment="Left" Height="32" Margin="187,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" 
                      Width="154" Foreground="#474746"
-                     FontFamily="Gill Sans MT"
-                     FontSize="16"
+                     FontFamily="Roboto"
+                     FontWeight="Light"
+                     FontSize="14"
                      HorizontalContentAlignment="Center">
                 <TextBox.Resources>
                     <validation:MaxInventoryProxy x:Key="proxy" Data="{Binding}"/>
@@ -85,7 +98,7 @@
                         <Binding.ValidationRules>
                             <validation:MoveQuantityValidation ValidationStep="RawProposedValue" Min="1">
                                 <validation:MoveQuantityValidation.Wrapper>
-                                    <validation:MaxInventoryWrapper Max ="{Binding Path=Data.SelectedItem.Quantity, Source={StaticResource proxy}}"/>
+                                    <validation:MaxWrapper Max ="{Binding Path=Data.SelectedItem.Quantity, Source={StaticResource proxy}}"/>
                                 </validation:MoveQuantityValidation.Wrapper>
                             </validation:MoveQuantityValidation>
                         </Binding.ValidationRules>
@@ -120,14 +133,15 @@
 
             <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="215,318,0,0" VerticalAlignment="Top" 
                     Height="30" Width="80" Command="{Binding CancelCommand}"/>
-            <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0,110,0,0" Text="Izmeni stanje" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0,110,0,0" Text="Izmeni stanje" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
             <Label x:Name="Stavka" Content="Izabrana stavka" HorizontalAlignment="Left" Margin="36,191,0,0" 
                    VerticalAlignment="Top" Width="112" Height="30"/>
             <TextBox x:Name="IDBox" Text="{Binding SelectedItem.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" 
                      HorizontalAlignment="Left" Height="32" Margin="187,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"
                      Foreground="#474746"
-                     FontFamily="Gill Sans MT"
-                     FontSize="16"
+                     FontFamily="Roboto"
+                     FontWeight="Light"
+                     FontSize="14"
                      HorizontalContentAlignment="Center"/>
         </Grid>
 
@@ -154,7 +168,7 @@
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <Button Content="Poništi pretragu" FontFamily="Gill Sans MT" Foreground="Black"
+                <Button Content="Poništi pretragu" FontFamily="Roboto" Foreground="Black"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
             </StackPanel>
         </materialDesign:PopupBox>

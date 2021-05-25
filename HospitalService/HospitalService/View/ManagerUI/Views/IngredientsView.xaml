@@ -40,7 +40,7 @@
                     <TextBlock x:Name="Medicine" Text="{Binding Path = IngredientName}" 
                                FontWeight="Light"
                                Foreground="#474746"
-                               FontFamily="Gill Sans MT"
+                               FontFamily="Roboto"
                                FontSize="16"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -68,7 +68,7 @@
                     <TextBlock x:Name="Ingredient" Text="{Binding}" 
                                FontWeight="Light" 
                                Foreground="#474746"
-                               FontFamily="Gill Sans MT"
+                               FontFamily="Roboto"
                                FontSize="16"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -85,8 +85,9 @@
         <Label x:Name="quantity" Content="Količina" Height="30" Margin="541,453,347,235"/>
         <TextBox x:Name="quantityBox" Height="30" Margin="627,446,168,242"
                  Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
+                 FontFamily="Roboto"
+                 FontWeight="Light"
+                 FontSize="14"
                  HorizontalContentAlignment="Center">
             <TextBox.Text>
                 <Binding Path="Quantity" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
@@ -139,8 +140,8 @@
             VerticalAlignment="Top" Height="26" Width="80" Command="{Binding DeleteIngredientCommand}"/>
 
         <Frame x:Name="quantityFrame" NavigationUIVisibility="Hidden" Margin="484,179,109,150"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="130,106,0,0" Text="Sastojci lekova" 
-                   TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" 
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="130,134,0,0" Text="Sastojci lekova" 
+                   TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Roboto" FontSize="36" 
                    FontStyle="Italic" TextAlignment="Left"/>
 
         <!--<Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>-->
