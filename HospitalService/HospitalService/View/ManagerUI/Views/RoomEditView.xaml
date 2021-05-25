@@ -160,7 +160,7 @@
 
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="512,488,0,0" VerticalAlignment="Top" Height="30" Width="80"
                     Command="{Binding CancelCommand}"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="118,142,0,0" Text="Izmeni sobu" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="226" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="118,142,0,0" Text="Izmena prostorije" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="250" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
 
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

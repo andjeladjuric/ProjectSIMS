@@ -106,12 +106,10 @@
         </TextBox>
 
 
-        <Button x:Name="cancel" Background="{x:Null}" BorderThickness="0" Height="40" Width="65" 
-                ToolTip="Završi dodavanje" Margin="750,489,154,189" Command="{Binding CancelCommand}">
-            <materialDesign:PackIcon Kind="CancelCircle" Height="30" Width="30" Foreground="#474746"/>
-        </Button>
+        <Button x:Name="cancel" Height="26" Content="Potvrdi" Width="80"
+                ToolTip="Završi dodavanje" Margin="766,575,123,117" Command="{Binding CancelCommand}"/>
         <Button x:Name="add" Background="{x:Null}" BorderThickness="0" Height="40" Width="65"
-                ToolTip="Dodaj izabrani sastojak" Margin="522,492,382,186" Command="{Binding AddIngredientToMedCommand}">
+                ToolTip="Dodaj izabrani sastojak" Margin="550,492,354,186" Command="{Binding AddIngredientToMedCommand}">
             <materialDesign:PackIcon Kind="AddCircle" Height="30" Width="30" Foreground="#474746"/>
             <Button.Style>
                 <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
@@ -128,11 +126,11 @@
             </Button.Style>
         </Button>
         <Button x:Name="removeIng" Background="{x:Null}" BorderThickness="0" Height="40" Width="65" 
-                ToolTip="Ukloni sastojak iz leka" Margin="674,492,230,186" Command="{Binding DeleteIngredientFromMedCommand}">
+                ToolTip="Ukloni sastojak iz leka" Margin="734,492,170,186" Command="{Binding DeleteIngredientFromMedCommand}">
             <materialDesign:PackIcon Kind="TrashCanCircle" Height="30" Width="30" Foreground="#474746"/>
         </Button>
         <Button x:Name="editIng" Background="{x:Null}" BorderThickness="0" Height="40" Width="65" 
-                ToolTip="Izmeni količinu sastojka iz leka" Margin="596,492,308,186" Command="{Binding EditIngredientCommand}">
+                ToolTip="Izmeni količinu sastojka iz leka" Margin="642,492,262,186" Command="{Binding EditIngredientCommand}">
             <materialDesign:PackIcon Kind="PencilCircle" Height="30" Width="30" Foreground="#474746"/>
         </Button>
         <Button x:Name="addNewIngredient" Content="Dodaj novi" HorizontalAlignment="Left" Margin="130,575,0,0"
@@ -145,7 +143,7 @@
                    TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="36" 
                    FontStyle="Italic" TextAlignment="Left"/>
 
-        <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
+        <!--<Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>-->
     </Grid>
 </Page>
 
