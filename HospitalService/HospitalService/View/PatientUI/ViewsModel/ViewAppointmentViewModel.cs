@@ -133,7 +133,7 @@ namespace HospitalService.View.PatientUI.ViewsModel
 
             
             this.Appointments = new ObservableCollection<Appointment>();
-            List<Appointment> todaysAppointments = appointmentService.GetByPatient(patient,Date);
+            List<Appointment> todaysAppointments = appointmentService.getAppointmentsByDate(patient,Date);
             todaysAppointments.ForEach(Appointments.Add);
             showAppointments = new RelayCommand(Execute_ShowAppointments,CanExecute_Command);
             deleteAppointment = new RelayCommand(Execute_DeleteAppointment,CanExecute_Command);

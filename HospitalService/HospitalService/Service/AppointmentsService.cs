@@ -85,21 +85,7 @@ namespace HospitalService.Service
             return movedAppointments.Count;
         }
 
-        public List<Appointment> GetByPatient(Patient patient, DateTime date)
-        {
-            Appointment appointment;
-            List<Appointment> appointments = repository.GetAll();
-            List<Appointment> appointmentsForSelectedDate = new List<Appointment>();
-            for (int i = 0; i < appointments.Count; i++)
-            {
-                appointment = appointments[i];
-                if (appointment.doctor.Jmbg.Equals(patient.Jmbg) && appointment.StartTime.Date == date.Date)
-                {
-                    appointmentsForSelectedDate.Add(appointment);
-                }
-            }
-            return appointmentsForSelectedDate;
-        }
+        
 
         public List<Appointment> GetByDoctor(Doctor doctor, DateTime date)
         {
