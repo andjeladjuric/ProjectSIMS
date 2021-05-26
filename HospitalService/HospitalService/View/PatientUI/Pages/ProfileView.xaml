@@ -34,20 +34,20 @@
         </Grid.ColumnDefinitions>
         <Label Content="Pregled profila" Grid.Row="1" Grid.Column="1" FontStyle="Italic" FontSize="27"/>
         <Label Content="Pol:" Grid.Row="3" Grid.Column="1" FontStyle="Italic" FontSize="24"/>
-        <Label x:Name="genderLabel" Grid.Row="3" Grid.Column="2" FontStyle="Italic" FontSize="24"/>
+        <Label Content="{Binding Path=PatientGender}" x:Name="genderLabel" Grid.Row="3" Grid.Column="2" FontStyle="Italic" FontSize="24"/>
         <Label Content="Datum rodjenja:" Grid.Row="4" Grid.Column="1" FontStyle="Italic" FontSize="24"/>
-        <Label x:Name="dobLabel" Grid.Row="4" Grid.Column="2" FontStyle="Italic" FontSize="24"/>
+        <Label Content="{Binding Path=DateOfBirth}" x:Name="dobLabel" Grid.Row="4" Grid.Column="2" FontStyle="Italic" FontSize="24"/>
         <Label Content="JMBG:" Grid.Row="5" Grid.Column="1" FontStyle="Italic" FontSize="24"/>
-        <Label x:Name="jmbgLabel" Grid.Row="5" Grid.Column="2" FontStyle="Italic" FontSize="24"/>
+        <Label Content="{Binding Path=Jmbg}" x:Name="jmbgLabel" Grid.Row="5" Grid.Column="2" FontStyle="Italic" FontSize="24"/>
         <Label Content="Adresa stanovanja:" Grid.Row="6" Grid.Column="1" FontStyle="Italic" FontSize="24"/>
-        <Label x:Name="addressLabel" Grid.Row="6" Grid.Column="2" FontStyle="Italic" FontSize="24"/>
+        <Label Content="{Binding Path=Address}" x:Name="addressLabel" Grid.Row="6" Grid.Column="2" FontStyle="Italic" FontSize="24"/>
         <Label Content="E-mail adresa:" Grid.Row="7" Grid.Column="1" FontStyle="Italic" FontSize="24"/>
-        <Label x:Name="emailLabel" Grid.Row="7" Grid.Column="2" FontStyle="Italic" FontSize="24"/>
+        <Label Content="{Binding Path=Email}" x:Name="emailLabel" Grid.Row="7" Grid.Column="2" FontStyle="Italic" FontSize="24"/>
         <Label Content="Broj telefona:" Grid.Row="8" Grid.Column="1" FontStyle="Italic" FontSize="24"/>
-        <Label x:Name="phoneLabel" Grid.Row="8" Grid.Column="2" FontStyle="Italic" FontSize="24"/>
+        <Label Content="{Binding Path=Phone}" x:Name="phoneLabel" Grid.Row="8" Grid.Column="2" FontStyle="Italic" FontSize="24"/>
         <StackPanel Grid.Column="3" Grid.Row="1" Grid.RowSpan="5" Orientation="Vertical">
             <Image Source="/View/PatientUI/Images/programmer.jpg" Width="230" Height="200"/>
-            <TextBlock x:Name="patientLabel" FontStyle="Italic" FontSize="24" HorizontalAlignment="Center"/>
+            <TextBlock  Text="{Binding Path=Patient}" x:Name="patientLabel" FontStyle="Italic" FontSize="24" HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </Page>

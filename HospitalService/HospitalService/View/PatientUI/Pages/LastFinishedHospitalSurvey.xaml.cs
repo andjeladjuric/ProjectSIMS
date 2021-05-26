@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalService.Model;
+using HospitalService.View.PatientUI.ViewsModel;
 
 namespace HospitalService.View.PatientUI.Pages
 {
@@ -19,17 +20,13 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class LastFinishedHospitalSurvey : Page
     {
+        private LastFinishedHospitalSurveyViewModel viewModel;
         public LastFinishedHospitalSurvey(SurveyHospitalPatient lastFinishedHospitalSurvey)
         {
             InitializeComponent();
-            this.DataContext = this;
-            lbExecutionDate.Content = lastFinishedHospitalSurvey.ExecutionTime.ToShortDateString();
-            lbStaffExpertise.Content = lastFinishedHospitalSurvey.StaffExpertise;
-            lbStaffCourtesy.Content = lastFinishedHospitalSurvey.StaffCourtesy;
-            lbWaitingForReception.Content = lastFinishedHospitalSurvey.WaitingForReception;
-            lbHygiene.Content = lastFinishedHospitalSurvey.RoomHygiene;
-            lbQualityOfService.Content = lastFinishedHospitalSurvey.QualityOfService;
-            lbServicePrices.Content = lastFinishedHospitalSurvey.ServicePrices;
+            viewModel = new LastFinishedHospitalSurveyViewModel(lastFinishedHospitalSurvey);
+            this.DataContext = viewModel;
+            
 
         }
     }

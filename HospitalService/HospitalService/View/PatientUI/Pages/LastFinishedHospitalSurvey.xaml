@@ -34,18 +34,18 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="1" Grid.Column="1" Content="Anketa je vec radjena!"  FontStyle="Italic" FontSize="24" FontWeight="Bold"/>
         <Label Grid.Row="1" Grid.Column="2" Content="Datum radjenja ankete:" FontStyle="Italic" FontSize="24"/>
-        <Label x:Name="lbExecutionDate" Grid.Row="1" Grid.Column="3" FontStyle="Italic" FontSize="24"/>
+        <Label Content="{Binding Path=Date}" x:Name="lbExecutionDate" Grid.Row="1" Grid.Column="3" FontStyle="Italic" FontSize="24"/>
         <Label Grid.Row="3" Grid.Column="1" Content="Strucnost osoblja:" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
-        <Label x:Name="lbStaffExpertise" Grid.Row="3" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
+        <Label Content="{Binding Path=StaffExpertise}" x:Name="lbStaffExpertise" Grid.Row="3" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
         <Label Grid.Row="4" Grid.Column="1" Content="Ljubaznost osoblja:" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
-        <Label x:Name="lbStaffCourtesy" Grid.Row="4" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
+        <Label Content="{Binding Path=StaffCourtesy}" x:Name="lbStaffCourtesy" Grid.Row="4" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
         <Label Grid.Row="5" Grid.Column="1" Content="Duzina cekanja na prijem:" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
-        <Label x:Name="lbWaitingForReception" Grid.Row="5" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
+        <Label Content="{Binding Path=WaitingForReception}" x:Name="lbWaitingForReception" Grid.Row="5" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
         <Label Grid.Row="6" Grid.Column="1" Content="Higijena prostorija:" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
-        <Label x:Name="lbHygiene" Grid.Row="6" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
+        <Label Content="{Binding Path=Hygiene}" x:Name="lbHygiene" Grid.Row="6" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
         <Label Grid.Row="7" Grid.Column="1" Content="Kvalitet nasih usluga:" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
-        <Label x:Name="lbQualityOfService" Grid.Row="7" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
+        <Label Content="{Binding Path=QualityOfService}" x:Name="lbQualityOfService" Grid.Row="7" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
         <Label Grid.Row="8" Grid.Column="1" Content="Cijene usluga bolnice:" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
-        <Label x:Name="lbServicePrices" Grid.Row="8" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
+        <Label Content="{Binding Path=ServicePrices}" x:Name="lbServicePrices" Grid.Row="8" Grid.Column="2" FontStyle="Italic" FontSize="22" VerticalAlignment="Center"/>
     </Grid>
 </Page>
