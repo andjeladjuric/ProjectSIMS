@@ -1,14 +1,7 @@
-﻿using HospitalService.Service;
-using HospitalService.View.ManagerUI.Validations;
-using HospitalService.View.ManagerUI.ViewModels;
-using Model;
+﻿using HospitalService.View.ManagerUI.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -22,18 +15,16 @@ using System.Windows.Shapes;
 namespace HospitalService.View.ManagerUI.Views
 {
     /// <summary>
-    /// Interaction logic for NewRoomView.xaml
+    /// Interaction logic for StartDemo.xaml
     /// </summary>
-    public partial class NewRoomView : Page
+    public partial class StartDemo : UserControl
     {
-        NewRoomViewModel currentViewModel;
-        public NewRoomView(bool demoOn)
+        StartDemoViewModel currentViewModel;
+        public StartDemo(Frame frame)
         {
             InitializeComponent();
-            currentViewModel = new NewRoomViewModel(newFrame, demoOn);
+            currentViewModel = new StartDemoViewModel(frame);
             this.DataContext = currentViewModel;
         }
     }
 }
-
-

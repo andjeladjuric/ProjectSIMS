@@ -87,7 +87,7 @@
         <TextBlock x:Name="Room" Text="Inventar sobe:" HorizontalAlignment="Left" Margin="344,36,0,0" VerticalAlignment="Top" 
                Width="152" Height="31" FontSize="24" FontFamily="Roboto" FontStyle="Italic"/>
         <TextBox x:Name="IDBox" IsReadOnly="True"  HorizontalAlignment="Left" Height="30" Margin="518,37,0,0" TextWrapping="Wrap" 
-                 TextAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top"
+                 TextAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Text="{Binding SelectedRoom.Id}"
                  Width="154" 
                  Foreground="#474746"
                  FontFamily="Roboto"

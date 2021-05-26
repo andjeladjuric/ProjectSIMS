@@ -4,6 +4,8 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -21,6 +23,16 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Properties
+        private bool demoOn;
+        public bool DemoOn
+        {
+            get { return demoOn; }
+            set 
+            { 
+                demoOn = value;
+                OnPropertyChanged();
+            }
+        }
         public string RoomId
         {
             get { return roomId; }
@@ -107,12 +119,42 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         #endregion
 
+        #region Other Functions
+        private async Task DemoIsOn()
+        {
+            if (DemoOn)
+            {
+                RoomService rooms = new RoomService();
+
+                await Task.Delay(1500);
+                RoomId = "403a";
+                await Task.Delay(2000);
+                RoomName = "Operaciona sala";
+                await Task.Delay(2000);
+                RoomFloor = "3";
+                await Task.Delay(2000);
+                RoomSize = "35.4";
+                await Task.Delay(2000);
+                RoomType = RoomType.OperatingRoom;
+                await Task.Delay(2000);
+                OnAdd();
+
+                await Task.Delay(2000);
+                MessageBox.Show("Počinje DEMO za sledeću funkcionalnost - Rukovanje inventarom");
+                await Task.Delay(1500);
+                this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(rooms.GetOne("105")));
+            }
+        }
+        #endregion
+
         #region Constructors
-        public NewRoomViewModel(Frame frame)
+        public NewRoomViewModel(Frame frame, bool demo)
         {
             AddCommand = new MyICommand(OnAdd, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanExecute);
             this.Frame = frame;
+            this.DemoOn = demo;
+            DemoIsOn();
         }
         #endregion
     }

@@ -13,9 +13,11 @@ namespace HospitalService.View.ManagerUI.ViewModels
     {
         #region Fields
         public Manager Manager { get; set; }
+        public Grid grid { get; set; }
         public Window Window { get; set; }
         public Frame Frame { get; set; }
         public Button Menu { get; set; }
+        public bool DemoOn { get; set; }
         private int selected;
         public int SelectedItem
         {
@@ -32,6 +34,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         public MyICommand NotificationCommand { get; set; }
         public MyICommand ProfileCommand { get; set; }
         public MyICommand LogoutCommand { get; set; }
+        public MyICommand DemoCommand { get; set; }
+        public MyICommand StopDemo { get; set; }
         public MyICommand HelpCommand { get; set; }
         public MyICommand ChangePage { get; set; }
         #endregion
@@ -42,6 +46,20 @@ namespace HospitalService.View.ManagerUI.ViewModels
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Window.Close();
+        }
+
+        private void OnDemo()
+        {
+            DemoOn = true;
+            MessageBox.Show("Demo počinje - DODAVANJE SOBE");
+            this.Frame.NavigationService.Navigate(new NewRoomView(DemoOn));
+        }
+
+        private void OnStopDemo()
+        {
+            DemoOn = false;
+            MessageBox.Show("DEMO završen!");
+            this.Frame.NavigationService.Navigate(new RoomsView());
         }
 
         private void OnChange()
@@ -65,7 +83,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         private void CustomizeGridSize()
         {
-            Menu.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            if(grid.Width == 200)
+                Menu.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
         private bool CanExecute()
@@ -75,17 +94,21 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Constructors
-        public ManagerWindowViewModel(Window currentWindow, Frame currentFrame, Button close,Manager currentUser)
+        public ManagerWindowViewModel(Window currentWindow, Frame currentFrame, Button close, Grid menu, Manager currentUser)
         {
             this.Manager = currentUser;
             this.Window = currentWindow;
             this.Frame = currentFrame;
             this.Menu = close;
+            this.grid = menu;
+            this.DemoOn = false;
 
             RoomRenovationService service = new RoomRenovationService();
             service.CheckRenovationRequests();
             LogoutCommand = new MyICommand(OnLogout, CanExecute);
             ChangePage = new MyICommand(OnChange, CanExecute);
+            DemoCommand = new MyICommand(OnDemo, CanExecute);
+            StopDemo = new MyICommand(OnStopDemo, CanExecute);
         }
         #endregion
     }
