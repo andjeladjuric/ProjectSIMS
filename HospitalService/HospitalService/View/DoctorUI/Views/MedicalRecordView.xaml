@@ -83,7 +83,7 @@
                             <Frame x:Name="AllergiesFrame" NavigationUIVisibility="Hidden" Height="277">
                             </Frame>
                         </StackPanel>
-                        <StackPanel Width="310">
+                        <StackPanel Width="311">
                             <StackPanel Width="130" Height="25" Margin="0,80,0,0">
                                 <Button Content="Izdaj uput">
                                     <i:Interaction.Triggers>

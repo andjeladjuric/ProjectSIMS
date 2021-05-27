@@ -192,9 +192,9 @@
                 <DockPanel Margin="0,0,0,80">
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="31" Margin="0,10,0,10">
                         <Label Content="Pretraži:" Margin="650,0,0,0"/>
-                        <TextBox Width="150" BorderThickness="1" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Background="#fafafa" BorderBrush="#3f51b5" Width="150" BorderThickness="1" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
-                    <Button  DockPanel.Dock="Bottom" Margin="0,0,0,0" Width="147" Height="24"  Content="Prikazi karton">
+                    <Button  DockPanel.Dock="Bottom" Margin="0,0,0,0" Width="147" Height="24"  Content="Prikaži karton">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click" >
                                 <i:InvokeCommandAction Command="{Binding OpenRecordCommand}"/>

@@ -25,12 +25,7 @@
         <Label Content="Format lijeka:" HorizontalAlignment="Left" Margin="37,186,0,0" VerticalAlignment="Top"/>
         <Label Content="Sastojci:" HorizontalAlignment="Left" Margin="485,10,0,0" VerticalAlignment="Top"/>
         <Border BorderThickness="1" BorderBrush="#6e7bb3" Margin="403,66,37,129">
-            <ListView ItemsSource="{Binding Ingredients}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
+            <ListView ItemsSource="{Binding Ingredients}" Foreground="#3f51b5">
             </ListView>
         </Border>
         <TextBox Text="{Binding Path=Medication.MedicineName}" IsEnabled="False"  HorizontalAlignment="Left" Margin="158,70,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
