@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalService.Model;
+using HospitalService.View.PatientUI.ViewsModel;
 using Model;
 using Storage;
 
@@ -23,25 +24,27 @@ namespace HospitalService.View.PatientUI.Pages
     public partial class MedicalRecordWithPrescriptions : Page
     {
 
-        public Patient Patient { get; set; }
-        public List<Prescription> prescriptions { get; set; }
+        /* public Patient Patient { get; set; }
+         public List<Prescription> prescriptions { get; set; }
 
-        public MedicalRecordStorage medicalRecordStorage;
+         public MedicalRecordStorage medicalRecordStorage;
 
-        public Timer medicationReminder;
-        public Prescription prescription;
-        public String notification = "";
+         public Timer medicationReminder;
+         public Prescription prescription;
+         public String notification = "";*/
+        private PatientPrescriptionsViewModel viewModel;
         public MedicalRecordWithPrescriptions(Patient patient)
         {
             InitializeComponent();
-            this.DataContext = this;
-            Patient = patient;
+            viewModel = new PatientPrescriptionsViewModel(patient);
+            this.DataContext = viewModel;
+            /*Patient = patient;
             medicalRecordStorage = new MedicalRecordStorage();
             prescriptions = medicalRecordStorage.getByPatient(Patient);
-            tablePrescriptions.ItemsSource = prescriptions;
+            tablePrescriptions.ItemsSource = prescriptions;*/
         }
 
-        private void setMedicationReminder(object sender, RoutedEventArgs e)
+       /* private void setMedicationReminder(object sender, RoutedEventArgs e)
         {
             
             prescription = (Prescription)tablePrescriptions.SelectedItem;
@@ -73,6 +76,6 @@ namespace HospitalService.View.PatientUI.Pages
                 MessageBox.Show(theString);
 
             }
-        }
+        }*/
     }
 }

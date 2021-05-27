@@ -39,17 +39,17 @@
                 <ColumnDefinition Width="226.25"/>
                 <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Height="45" Width="300" Content="Podesavanje podsjetnika" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue" Click="setMedicationReminder"/>
+            <Button Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Height="45" Width="300" Content="Podesavanje podsjetnika" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue" Command="{Binding setReminder}"/>
 
         </Grid>
-        <DataGrid x:Name="tablePrescriptions" IsReadOnly="True" 
+        <DataGrid ItemsSource="{Binding Path=Prescriptions}" SelectedItem="{Binding Path=SelectedPrescription}" x:Name="tablePrescriptions" IsReadOnly="True" 
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
                   Height="390"  VerticalAlignment="Top" Width="850">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv lijeka" Binding="{Binding Medication}" Width="*"/>
                 <DataGridTextColumn Header="Doza" Binding="{Binding HowOften}" Width="*"/>
                 <DataGridTextColumn Header="Trajanje" Binding="{Binding HowLong}" Width="*"/>
-                <DataGridTextColumn Header="Pocetak" Binding="{Binding start}" Width="*"/>
+                <DataGridTextColumn Header="Pocetak" Binding="{Binding Start}" Width="*"/>
                 <DataGridTextColumn Header="Dodatni opis" Binding="{Binding AdditionalInfos}" Width="*"/>
                 
             </DataGrid.Columns>
