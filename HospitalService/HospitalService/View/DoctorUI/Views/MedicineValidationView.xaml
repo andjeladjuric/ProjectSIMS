@@ -39,6 +39,8 @@
         <TextBox Text="{Binding Path=Medication.Type}" IsEnabled="False"  HorizontalAlignment="Left" Margin="158,129,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
         <TextBox Text="{Binding Path=Medication.Format}" IsEnabled="False"  HorizontalAlignment="Left" Margin="158,190,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
         <TextBox Background="#fafafa" Text="{Binding Path=DoctorsComment}" BorderThickness="1" HorizontalAlignment="Left" Margin="37,372,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="313" Height="83"/>
+        <TextBlock Text="{Binding ValidationErrors[DoctorsComment]}"
+                               Foreground="Red" Margin="37,460,350,78"  FontSize="12" />
         <RadioButton  IsChecked="{Binding Path=IsApproved}" Content="DA" Margin="158,267,489,0" Height="27" VerticalAlignment="Top"/>
         <RadioButton IsChecked="True" Content="NE" Margin="240,267,406,0" Height="27" VerticalAlignment="Top"/>
         <Button Content="Odustani" HorizontalAlignment="Left" Margin="226,536,0,0" VerticalAlignment="Top" Width="82">

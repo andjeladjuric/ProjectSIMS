@@ -1,6 +1,7 @@
 ﻿using HospitalService.Model;
 using HospitalService.Service;
 using HospitalService.View.DoctorUI.Commands;
+using HospitalService.View.DoctorUI.Validation;
 using HospitalService.View.DoctorUI.Views;
 using Model;
 using Storage;
@@ -12,7 +13,7 @@ using System.Windows.Controls;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
-    public class PrescriptionViewModel : ViewModelClass
+    public class PrescriptionViewModel : ValidationBase
     {
         private Medication selectedMedication;
         private int hours;
@@ -36,7 +37,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 selectedMedication = value;
-                OnPropertyChanged();
+                OnPropertyChanged("SelectedMedication");
             }
         }
 
@@ -46,7 +47,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 hours = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Hours");
             }
         }
 
@@ -56,7 +57,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 days = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Days");
             }
         }
 
@@ -66,7 +67,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 selectedDate = value;
-                OnPropertyChanged();
+                OnPropertyChanged("SelectedDate");
             }
         }
 
@@ -76,7 +77,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 info = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Info");
             }
         }
 
@@ -107,13 +108,13 @@ namespace HospitalService.View.DoctorUI.ViewModel
         }
         public bool CanExecute_ApplyCommand(object obj)
         {
-            if (SelectedMedication == null || Hours == 0 || Days == 0)
+            this.Validate();
+            if (this.IsValid)
             {
-                MessageBox.Show("Obavezna polja nisu popunjena.");
-                return false;
+                return true;
             }
             else
-                return true;
+                return false;
         }
 
         public void Executed_ApplyCommand(object obj)
@@ -144,6 +145,12 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void SelectMedication(Medication medication)
         {
             this.SelectedMedication = medication;
+        }
+
+        protected override void ValidateSelf()
+        {
+            if (SelectedMedication == null)
+                this.ValidationErrors["Medication"] = "Izaberite lijek";
         }
     }
 }

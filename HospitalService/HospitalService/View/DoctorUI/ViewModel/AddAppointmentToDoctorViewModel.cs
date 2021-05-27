@@ -1,6 +1,7 @@
 ﻿using HospitalService.Service;
 using HospitalService.Storage;
 using HospitalService.View.DoctorUI.Commands;
+using HospitalService.View.DoctorUI.Validation;
 using HospitalService.View.DoctorUI.Views;
 using Model;
 using Storage;
@@ -17,18 +18,13 @@ namespace HospitalService.View.DoctorUI.ViewModel
 {
     public class AddAppointmentToDoctorViewModel : ViewModelClass
     {
+        private AppointmentValidation appointment;
+        private AppointmentType appointmentType;
         private string nextId;
-        private bool isEnabled;
-        private string patientsName;
         private Appointment newAppointment;
         private ObservableCollection<String> appointmentsType;
         private ObservableCollection<Room> rooms;
         private DateTime date;
-        private DateTime startTime;
-        private DateTime endTime;
-        private AppointmentType appointmentType;
-        private Room room;
-        private Patient patient;
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
         public RelayCommand FindCommand { get; set; }
@@ -48,23 +44,14 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
-        public bool IsEnabled
-        {
-            get { return isEnabled; }
-            set
-            {
-                isEnabled = value;
-                OnPropertyChanged();
-            }
-        }
 
 
-        public string PatientsName
+        public AppointmentValidation Appointment
         {
-            get { return patientsName; }
+            get { return appointment; }
             set
             {
-                patientsName = value;
+                appointment = value;
                 OnPropertyChanged();
             }
         }
@@ -100,53 +87,13 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
-        public DateTime StartTime
-        {
-            get { return startTime; }
-            set
-            {
-                startTime = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public DateTime EndTime
-        {
-            get { return endTime; }
-            set
-            {
-                endTime = value;
-                OnPropertyChanged();
-            }
-        }
-
         public AppointmentType AppointmentType
         {
             get { return appointmentType; }
             set
             {
                 appointmentType = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Room Room
-        {
-            get { return room; }
-            set
-            {
-                room = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Patient Patient
-        {
-            get { return patient; }
-            set
-            {
-                patient = value;
-                OnPropertyChanged();
+                OnPropertyChanged("AppointmentType");
             }
         }
 
@@ -154,13 +101,14 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public AddAppointmentToDoctorViewModel(AddAppointmentToDoctorView window, DoctorWindowViewModel doctorWindow, Frame currentFrame)
         {
+            Appointment = new AppointmentValidation();
             this.Frame = currentFrame;
-            IsEnabled = false;
+            this.AppointmentType = AppointmentType.Pregled;
             DoctorWindow = doctorWindow;
             thisWindow = window;
             Date = DateTime.Today.Date;
-            StartTime = DateTime.Now;
-            EndTime = DateTime.Now;
+            Appointment.StartTime = DateTime.Now;
+            Appointment.EndTime = DateTime.Now;
             AddCommand = new RelayCommand(Executed_AddCommand,
                CanExecute_AddCommand);
             FindCommand = new RelayCommand(Executed_FindCommand, CanExecute_CancelCommand);
@@ -174,17 +122,17 @@ namespace HospitalService.View.DoctorUI.ViewModel
             Enum.GetNames(typeof(AppointmentType)).ToList().ForEach(AppointmentsType.Add);
             newAppointment = new Appointment();
             Rooms = new ObservableCollection<Room>();
-            new RoomService().GetAll().ForEach(Rooms.Add); 
+            new RoomService().GetByType(RoomType.ExaminationRoom).ForEach(Rooms.Add);
         }
         public void Executed_AddCommand(object obj)
         {
             DateService dateService = new DateService();
-            newAppointment.StartTime = dateService.CreateDate(Date, StartTime);
-            newAppointment.EndTime = dateService.CreateDate(Date, EndTime);
+            newAppointment.StartTime = dateService.CreateDate(Date, Appointment.StartTime);
+            newAppointment.EndTime = dateService.CreateDate(Date, Appointment.EndTime);
             newAppointment.Id = NextId;
             newAppointment.Type = AppointmentType;
-            newAppointment.room = Room;
-            newAppointment.patient = Patient;
+            newAppointment.room = Appointment.Room;
+            newAppointment.patient = Appointment.Patient;
             newAppointment.doctor = DoctorWindow.Doctor;
             new AppointmentsService().AddAppointment(newAppointment);
             DoctorWindow.Refresh();
@@ -193,6 +141,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public bool CanExecute_AddCommand(object obj)
         {
+            /*
             DateService dateService = new DateService();
             newAppointment.StartTime = dateService.CreateDate(Date, StartTime);
             newAppointment.EndTime = dateService.CreateDate(Date, EndTime);
@@ -209,7 +158,12 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 MessageBox.Show("Termin je vec zauzet"); // Ispitati da li je soba slobodna i da li je pacijent slobodan?
                 return false;
             }
-            return true;
+            return true;*/
+            Appointment.Validate();
+            if (Appointment.IsValid)
+                return true;
+            else
+                return false;
         }
 
         public void Executed_CancelCommand(object obj)
@@ -227,7 +181,6 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
              Rooms = new ObservableCollection<Room>();
              new RoomService().GetByType(roomType).ForEach(Rooms.Add);
-            IsEnabled = true;
         }
 
         public void Executed_FindCommand(object obj)
@@ -246,8 +199,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public void SelectPatient(Patient patient)
         {
-            this.Patient = patient;
-            PatientsName = Patient.Name + " " + Patient.Surname;
+            this.Appointment.Patient = patient;
+            Appointment.PatientsName = Appointment.Patient.Name + " " + Appointment.Patient.Surname;
         }
 
     }

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+                xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
          Title="Izmjena termina" Height="490" Width="514" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" FontSize="16">
     <Window.Resources>
@@ -73,7 +74,7 @@
                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
             </i:Interaction.Behaviors>
         </Button>
-        <DatePicker SelectedDate="{Binding Path=Date, Mode=TwoWay}" HorizontalAlignment="Left" Margin="255,97,0,0" VerticalAlignment="Top" Width="165" Height="26"/>
+        <DatePicker DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding Path=Date, Mode=TwoWay}" HorizontalAlignment="Left" Margin="255,97,0,0" VerticalAlignment="Top" Width="165" Height="26"/>
         <Label Content="Datum:" HorizontalAlignment="Left" Margin="69,97,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
 
     </Grid>

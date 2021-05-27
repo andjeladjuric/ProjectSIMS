@@ -22,10 +22,13 @@
     </Page.Resources>
 
     <Grid  Background="White" Height="100" Width="430">
-        <StackPanel Orientation="Horizontal">
-            <DatePicker Height="28" Margin="150,0,0,0" SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+            <StackPanel Width="218">
+                    <DatePicker Height="28" Margin="150,40,0,0" SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
+                </StackPanel>
             <StackPanel Margin="50,0,0,0" Orientation="Horizontal">
-                <Button    Background="{x:Null}" BorderThickness="0" Height="40" Width="65" >
+                <Button    Background="{x:Null}" BorderThickness="0" Height="40" Width="65" Margin="0,30,0,0" >
                     <materialDesign:PackIcon Kind="TickCircle" Height="30" Width="30" Foreground="#3f51b5"/>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click" >
@@ -39,7 +42,7 @@
                         <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
                     </i:Interaction.Behaviors>
                 </Button>
-                <Button Background="{x:Null}" BorderThickness="0" Height="40" Width="65">
+                    <Button Background="{x:Null}" BorderThickness="0" Height="40" Width="65"  Margin="0,30,0,0">
                     <materialDesign:PackIcon Kind="CancelCircle" Height="30" Width="30" Foreground="#474746"/>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click" >
@@ -55,6 +58,8 @@
                 </Button>
             </StackPanel>
         </StackPanel>
-
+            <TextBlock Text="{Binding ValidationErrors[Date]}"
+                               Foreground="Red" Margin="100,0,0,0"  FontSize="14" />
+        </StackPanel>
     </Grid>
 </Page>
