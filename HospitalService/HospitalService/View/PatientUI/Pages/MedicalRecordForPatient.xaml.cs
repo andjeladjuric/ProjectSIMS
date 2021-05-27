@@ -24,8 +24,7 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class MedicalRecordForPatient : Page
     {
-       /* private NotesService notesService;
-        public Patient Patient { get; set; }*/
+       
 
         private MedicalRecordForPatientViewModel viewModel;
         public MedicalRecordForPatient(Patient patient)
@@ -33,27 +32,11 @@ namespace HospitalService.View.PatientUI.Pages
             InitializeComponent();
             viewModel = new MedicalRecordForPatientViewModel(patient, RecordPage.NavigationService);
             this.DataContext = viewModel;
-           /* Patient = patient;
-            MedicalRecordStorage mrs = new MedicalRecordStorage();
-            MedicalRecord md = mrs.getOneByPatient(Patient);
-            historyList.ItemsSource = md.Diagnoses;
-            IdLabel.Content = md.Id;
-            notesService = new NotesService();*/
+           
         }
 
         
 
-        /*private void showDiagnosisDetails(object sender, MouseButtonEventArgs e)
-        {
-            Diagnosis selectedDiagnosis = (Diagnosis)historyList.SelectedItem;
-            Note note = notesService.getNoteByPatient(Patient,selectedDiagnosis);
-            if (note != null)
-            {
-                RecordPage.Content = new DiagnosisForPatient(selectedDiagnosis,note);
-            }
-            else {
-                RecordPage.Content = new DiagnosisWithoutNote(selectedDiagnosis,Patient);
-            }
-        }*/
+        
     }
 }

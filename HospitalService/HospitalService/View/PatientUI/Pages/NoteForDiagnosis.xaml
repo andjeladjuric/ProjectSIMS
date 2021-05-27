@@ -24,11 +24,11 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="1" Grid.Column="1" Content="Biljeska:" HorizontalAlignment="Center" FontStyle="Italic" FontSize="22"/>
         <Border Grid.Row="2" Grid.Column="1"  BorderThickness="1" BorderBrush="Black">
-            <TextBox x:Name="tbNotes" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" AcceptsReturn="True" FontStyle="Italic" FontSize="20"/>
+            <TextBox Text="{Binding Path=PatientNotes}" x:Name="tbNotes" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" AcceptsReturn="True" FontStyle="Italic" FontSize="20"/>
         </Border>
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-            <Button Height="40" Width="130" Content="Potvrdi" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White" Margin="102.5,0,0,0" Click="createNoteForDiagnosis"/>
-            <Button Height="40" Width="130" Content="Odustani" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White" Margin="35,0,0,0" Click="cancelClick"/>
+            <Button Height="40" Width="130" Content="Potvrdi" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White" Margin="102.5,0,0,0" Command="{Binding confirmMakeNote}"/>
+            <Button Height="40" Width="130" Content="Odustani" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White" Margin="35,0,0,0" Command="{Binding cancelMakeNote}"/>
         </StackPanel>
     </Grid>
 </Page>

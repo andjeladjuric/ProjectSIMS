@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalService.Model;
+using HospitalService.View.PatientUI.ViewsModel;
 
 namespace HospitalService.View.PatientUI.Pages
 {
@@ -19,25 +20,17 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class DiagnosisForPatient : Page
     {
-        public Diagnosis chosenDiagnosis { get; set; }
-        public Note noteOfChosenDiagnosis { get; set; }
-       
+        
+        private DiagnosisForPatientViewModel viewModel;
         public DiagnosisForPatient(Diagnosis diagnosis, Note note)
         {
             InitializeComponent();
-            lbDate.Content = diagnosis.Datum.ToShortDateString();
-            lbIllness.Content = diagnosis.Illness;
-            tbSymptoms.Text = diagnosis.Symptoms;
-            tbAnamnesis.Text = diagnosis.Anamnesis;
-            tbNotes.Text = note.noteForPatient;
-            chosenDiagnosis = diagnosis;
-            noteOfChosenDiagnosis = note;
+            viewModel = new DiagnosisForPatientViewModel(diagnosis,note,this);
+            this.DataContext = viewModel;
+            
            
         }
 
-        private void setReminder(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new NotesNotification(chosenDiagnosis,noteOfChosenDiagnosis));
-        }
+        
     }
 }

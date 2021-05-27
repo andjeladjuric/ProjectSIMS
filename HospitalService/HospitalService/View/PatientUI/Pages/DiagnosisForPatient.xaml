@@ -33,23 +33,23 @@
             <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="Izvjestaj doktora za odabrani pregled:" FontStyle="Italic" FontSize="18"/>
             <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
                 <Label Grid.Row="2" Grid.Column="1" Content="Datum pregleda:" FontStyle="Italic" FontSize="16" Margin="120,0,0,0"/>
-                <Label x:Name="lbDate" Grid.Row="2" Grid.Column="2" FontStyle="Italic" FontSize="16" Margin="20,0,0,0"/>
+                <Label Content="{Binding Path=Date}" x:Name="lbDate" Grid.Row="2" Grid.Column="2" FontStyle="Italic" FontSize="16" Margin="20,0,0,0"/>
             </StackPanel>
             <Label Grid.Row="3" Grid.Column="1" Content="Dijagnoza:" FontStyle="Italic" FontSize="16"/>
-            <Label x:Name="lbIllness" Grid.Row="3" Grid.Column="2" FontStyle="Italic" FontSize="16"/>
+            <Label Content="{Binding Path=PatientIllness}" x:Name="lbIllness" Grid.Row="3" Grid.Column="2" FontStyle="Italic" FontSize="16"/>
             <Label Grid.Row="4" Grid.Column="1" Content="Simptomi:" FontStyle="Italic" FontSize="16"/>
             <Border Grid.Row="4" Grid.Column="2" BorderThickness="1" BorderBrush="Black">
-            <TextBlock Grid.Row="4" Grid.Column="2" TextWrapping="Wrap" x:Name="tbSymptoms" FontStyle="Italic" FontSize="16"/>
+            <TextBlock Text="{Binding Path=PatientSymptoms}" Grid.Row="4" Grid.Column="2" TextWrapping="Wrap" x:Name="tbSymptoms" FontStyle="Italic" FontSize="16"/>
             </Border>
             <Label Grid.Row="6" Grid.Column="1" Content="Anamneza:" FontStyle="Italic" FontSize="16"/>
             <Border Grid.Row="6" Grid.Column="2" BorderThickness="1" BorderBrush="Black">
-            <TextBlock Grid.Row="6" Grid.Column="2" TextWrapping="Wrap" x:Name="tbAnamnesis" FontStyle="Italic" FontSize="16"/>
+            <TextBlock Text="{Binding Path=PatientAnamnesis}" Grid.Row="6" Grid.Column="2" TextWrapping="Wrap" x:Name="tbAnamnesis" FontStyle="Italic" FontSize="16"/>
             </Border>
             <Label Grid.Row="8" Grid.Column="1" Content="Biljeska:" FontStyle="Italic" FontSize="16"/>
             <Border Grid.Row="8" Grid.Column="2" BorderThickness="1" BorderBrush="Black">
-            <TextBlock Grid.Row="8" Grid.Column="2" TextWrapping="Wrap" x:Name="tbNotes" FontStyle="Italic" FontSize="16"/>
+            <TextBlock Text="{Binding Path=PatientNote}" Grid.Row="8" Grid.Column="2" TextWrapping="Wrap" x:Name="tbNotes" FontStyle="Italic" FontSize="16"/>
             </Border>
-            <Button x:Name="btnReminder" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Height="40" Width="130" Content="Podsjetnik" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White" Click="setReminder"/>
+            <Button x:Name="btnReminder" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Height="40" Width="130" Content="Podsjetnik" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White" Command="{Binding setReminder}"/>
         </Grid>
     
 </Page>
