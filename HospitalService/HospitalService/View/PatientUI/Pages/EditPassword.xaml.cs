@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HospitalService.View.PatientUI.ViewsModel;
 using Model;
 using Newtonsoft.Json;
 
@@ -21,61 +22,17 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class EditPassword : Page
     {
-        public EditProfile editProfile { get; set; }
-        public Patient patient { get; set; }
-        public EditPassword(Patient p, EditProfile ep)
+      
+
+        private EditPasswordViewModel viewModel;
+        public EditPassword(Patient patient, EditProfile editPassword)
         {
             InitializeComponent();
-            this.DataContext = this;
-            editProfile = ep;
-            patient = p;
-            oldPasswordPb.Password = patient.Password;
+            viewModel = new EditPasswordViewModel(patient, oldPasswordPb, newPasswordPB, confirmPb,editPassword);
+            this.DataContext = viewModel;
+           
         }
 
-        private void confirmClick(object sender, RoutedEventArgs e)
-        {
-            String newPassword = newPasswordPB.Password;
-            String confirmPassword = confirmPb.Password;
-            if (!newPassword.Equals(confirmPassword))
-            {
-                MessageBox.Show("Sifre se ne poklapaju");
-            }
-            else {
-                PatientStorage ps = new PatientStorage();
-                ps.Edit(patient.Jmbg, patient.Username, newPassword, patient.DateOfBirth, patient.Phone, patient.Address, patient.Email, patient.PatientType);
-                editPassword(newPassword);
-                editProfile.NavigationService.Navigate(new EditProfile(patient));
-
-            }
-        }
-
-        private void editPassword(String password) {
-
-            String FileLocation = @"..\..\..\Data\users.json";
-            List<Account> users = new List<Account>();
-            users = JsonConvert.DeserializeObject<List<Account>>(File.ReadAllText(FileLocation));
-            Account a;
-            for (int i = 0; i < users.Count; i++)
-            {
-                a = users[i];
-                if (a.Username.Equals(patient.Username))
-                {
-                    a.Password = password;
-                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(users,
-                        new JsonSerializerSettings()
-                        {
-                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                        }));
-
-                    break;
-                }
-            }
-
-        }
-
-        private void cancelClick(object sender, RoutedEventArgs e)
-        {
-            editProfile.NavigationService.Navigate(new EditProfile(patient));
-        }
+      
     }
 }
