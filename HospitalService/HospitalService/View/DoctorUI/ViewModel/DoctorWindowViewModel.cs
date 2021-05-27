@@ -8,8 +8,10 @@ using Storage;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace HospitalService.View.DoctorUI.ViewModel
@@ -27,6 +29,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private Medication selectedMedication;
         private Patient selectedPatient;
         private News selectedNews;
+        private string _filterString;
+        private ICollectionView _dataGridCollection;
         public RelayCommand AddAppointmentCommand { get; set; }
         public RelayCommand RemoveNewsCommand { get; set; }
         public RelayCommand ShowNewsCommand { get; set; }
@@ -38,9 +42,26 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public RelayCommand ValidateCommand { get; set; }
         public RelayCommand LogOutCommand { get; set; }
         public DoctorWindowView Window { get; set; }
-
-
         public RelayCommand KeyUpCommandWithKey { get; set; }
+
+        public ICollectionView DataGridCollection
+        {
+            get { return _dataGridCollection; }
+            set { _dataGridCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string FilterString
+        {
+            get { return _filterString; }
+            set
+            {
+                _filterString = value;
+                OnPropertyChanged();
+                FilterCollection();
+            }
+        }
 
         public Doctor Doctor
         {
@@ -194,6 +215,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
             allPatients.ForEach(Patients.Add);
             medications.ForEach(MedicationsForApproval.Add);
             allMedications.ForEach(ApprovedMedications.Add);
+            DataGridCollection = CollectionViewSource.GetDefaultView(Patients);
+            DataGridCollection.Filter = new Predicate<object>(Filter);
         }
 
        
@@ -314,6 +337,40 @@ namespace HospitalService.View.DoctorUI.ViewModel
         {
             new MedicalRecordView(SelectedPatient).ShowDialog();
         }
+
+        public bool Filter(object obj)
+        {
+            var data = obj as Patient;
+            if (data != null)
+            {
+                if (!string.IsNullOrEmpty(_filterString))
+                {
+                    return data.Name.ToLower().Contains(_filterString.ToLower().Trim()) || data.Surname.ToLower().Contains(_filterString.ToLower().Trim()) || data.Jmbg.Contains(_filterString.Trim()) || data.medicalRecordId.Contains(_filterString.Trim());
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private void FilterCollection()
+        {
+            if (_dataGridCollection != null)
+            {
+                _dataGridCollection.Refresh();
+            }
+        }
+        public void SetFilter(Predicate<object> filter)
+        {
+            if (DataGridCollection.CurrentItem != null && !filter(DataGridCollection.CurrentItem))
+            {
+                DataGridCollection = null;
+                OnPropertyChanged("DataGridCollection");
+            }
+            DataGridCollection.Filter = filter;
+            if (DataGridCollection.CurrentItem == null && !DataGridCollection.IsEmpty)
+                DataGridCollection.MoveCurrentToFirst();
+        }
     }
+
 
 }

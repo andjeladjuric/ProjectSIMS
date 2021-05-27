@@ -4,9 +4,11 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace HospitalService.View.DoctorUI.ViewModel
@@ -15,11 +17,34 @@ namespace HospitalService.View.DoctorUI.ViewModel
     {
         private ObservableCollection<Patient> patients;
         private Patient patient;
+        private string _filterString;
+        private ICollectionView _dataGridCollection;
 
         public RelayCommand SelectCommand { get; set; }
         public RelayCommand KeyUpCommandWithKey { get; set; }
         public AddAppointmentToDoctorViewModel ParentWindow { get; set; }
         public Frame Frame { get; set; }
+
+        public ICollectionView DataGridCollection
+        {
+            get { return _dataGridCollection; }
+            set
+            {
+                _dataGridCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string FilterString
+        {
+            get { return _filterString; }
+            set
+            {
+                _filterString = value;
+                OnPropertyChanged();
+                FilterCollection();
+            }
+        }
 
 
         public ObservableCollection<Patient> Patients
@@ -50,6 +75,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             SelectCommand = new RelayCommand(Executed_SelectCommand,
               CanExecute_SelectCommand);
+            DataGridCollection = CollectionViewSource.GetDefaultView(Patients);
+            DataGridCollection.Filter = new Predicate<object>(Filter);
         }
 
         public bool CanExecute_SelectCommand(object obj)
@@ -71,6 +98,39 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         private void Executed_KeyDownCommandWithKey(object obj)
         {
+        }
+
+        public bool Filter(object obj)
+        {
+            var data = obj as Patient;
+            if (data != null)
+            {
+                if (!string.IsNullOrEmpty(_filterString))
+                {
+                    return data.Name.ToLower().Contains(_filterString.ToLower().Trim()) || data.Surname.ToLower().Contains(_filterString.ToLower().Trim()) || data.Jmbg.Contains(_filterString.Trim()) || data.medicalRecordId.Contains(_filterString.Trim());
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private void FilterCollection()
+        {
+            if (_dataGridCollection != null)
+            {
+                _dataGridCollection.Refresh();
+            }
+        }
+        public void SetFilter(Predicate<object> filter)
+        {
+            if (DataGridCollection.CurrentItem != null && !filter(DataGridCollection.CurrentItem))
+            {
+                DataGridCollection = null;
+                OnPropertyChanged("DataGridCollection");
+            }
+            DataGridCollection.Filter = filter;
+            if (DataGridCollection.CurrentItem == null && !DataGridCollection.IsEmpty)
+                DataGridCollection.MoveCurrentToFirst();
         }
     }
 }

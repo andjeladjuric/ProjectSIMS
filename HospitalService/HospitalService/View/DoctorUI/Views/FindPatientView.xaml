@@ -22,7 +22,7 @@
     </Page.Resources>
 
     <Grid Background="White" Height="450" Width="768">
-        <DataGrid IsReadOnly="True"  ItemsSource="{Binding Path=Patients}" SelectedItem="{Binding Path=Patient, Mode=TwoWay}"
+        <DataGrid IsReadOnly="True"  ItemsSource="{Binding DataGridCollection}" SelectedItem="{Binding Path=Patient, Mode=TwoWay}"
                   SelectionMode="Single" AutoGenerateColumns="False" Height="250" Margin="0,65,0,85" HorizontalAlignment="Center" Width="715">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ime"  Binding="{Binding Name}" Width="*"/>
@@ -46,6 +46,8 @@
             </i:Interaction.Behaviors>
         </Button>
         <Label Content="Baza pacijenata" HorizontalAlignment="Left" Margin="313,41,0,0" VerticalAlignment="Top"/>
+        <Label Content="Pretraži: " HorizontalAlignment="Left" Margin="537,11,0,0" VerticalAlignment="Top"/>
+        <TextBox BorderThickness="1" HorizontalAlignment="Left" Margin="610,10,0,0" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Top" Width="132"/>
 
     </Grid>
 </Page>

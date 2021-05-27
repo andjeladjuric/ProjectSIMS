@@ -27,20 +27,6 @@
     "Address": "Balzakova 23",
     "Email": "sladjanac@gmail.com",
     "Gender": 0
-  },
-  {
-    "PatientType": 0,
-    "medicalRecordId": null,
-    "Username": "",
-    "Password": "",
-    "Name": "Nikola",
-    "Surname": "Kojic",
-    "DateOfBirth": null,
-    "Jmbg": "1234554321678",
-    "Phone": "",
-    "Address": "",
-    "Email": "",
-    "Gender": 0
   }
 
 ]
