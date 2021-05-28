@@ -34,44 +34,44 @@
         <Label  Grid.Row="1" Grid.Column="1"  Content="Anketa za bolnicu:" FontStyle="Italic" FontSize="24"/>
         <Label Grid.Row="3" Grid.Column="1" Content="Strucnost osoblja" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <RadioButton x:Name="NStaffExpertise" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
-            <RadioButton x:Name="DZStaffExpertise" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
-            <RadioButton x:Name="ZStaffExpertise" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=NStaffExpertiseChecked}" x:Name="NStaffExpertise" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=DZStaffExpertiseChecked}" x:Name="DZStaffExpertise" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=ZStaffExpertiseChecked}" x:Name="ZStaffExpertise" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
         </StackPanel>
         <Label Grid.Row="4" Grid.Column="1" Content="Ljubaznost osoblja" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <RadioButton x:Name="NCourtesy" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
-            <RadioButton x:Name="DZCourtesy" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
-            <RadioButton x:Name="ZCourtesy" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=NCourtesyChecked}" x:Name="NCourtesy" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=DZCourtesyChecked}" x:Name="DZCourtesy" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=ZCourtesyChecked}" x:Name="ZCourtesy" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
         </StackPanel>
         <Label Grid.Row="5" Grid.Column="1" Content="Duzina cekanja na prijem" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <RadioButton x:Name="NTimeliness" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
-            <RadioButton x:Name="DZTimeliness" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
-            <RadioButton x:Name="ZTimeliness" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=NTimelinessChecked}" x:Name="NTimeliness" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=DZTimelinessChecked}" x:Name="DZTimeliness" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=ZTimelinessChecked}" x:Name="ZTimeliness" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
         </StackPanel>
         <Label Grid.Row="6" Grid.Column="1" Content="Higijena prostorija" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <RadioButton x:Name="NHygiene" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
-            <RadioButton x:Name="DZHygiene" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
-            <RadioButton x:Name="ZHygiene" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=NHygieneChecked}" x:Name="NHygiene" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=DZHygieneChecked}" x:Name="DZHygiene" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=ZHygieneChecked}" x:Name="ZHygiene" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
         </StackPanel>
         <Label Grid.Row="7" Grid.Column="1" Content="Kvalitet nasih usluga" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="7" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <RadioButton x:Name="NQualityOfService" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
-            <RadioButton x:Name="DZQualityOfService" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
-            <RadioButton x:Name="ZQualityOfService" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=NQualityOfServiceChecked}" x:Name="NQualityOfService" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=DZQualityOfServiceChecked}" x:Name="DZQualityOfService" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=ZQualityOfServiceChecked}" x:Name="ZQualityOfService" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
         </StackPanel>
         <Label Grid.Row="8" Grid.Column="1" Content="Cijene usluga bolnice" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="8" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <RadioButton x:Name="NServicePrices" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
-            <RadioButton x:Name="DZServicePrices" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
-            <RadioButton x:Name="ZServicePrices" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=NServicePricesChecked}" x:Name="NServicePrices" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=DZServicePricesChecked}" x:Name="DZServicePrices" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
+            <RadioButton IsChecked="{Binding Path=ZServicePricesChecked}" x:Name="ZServicePrices" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
         </StackPanel>
         
         <StackPanel Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button Content="Potvrdi" Width="110" Height="45" FontStyle="Italic" FontSize="24" Background="RoyalBlue" Foreground="White" Margin="0,2.5,40,2.5" Click="doHospitalSurvey"/>
-            <Button Content="Odustani" Width="110" Height="45" FontStyle="Italic" FontSize="24" Background="RoyalBlue" Foreground="White" Margin="0,2.5,40,2.5" Click="CancelClick"/>
+            <Button Content="Potvrdi" Width="110" Height="45" FontStyle="Italic" FontSize="24" Background="RoyalBlue" Foreground="White" Margin="0,2.5,40,2.5" Command="{Binding confirmHospitalSurvey}"/>
+            <Button Content="Odustani" Width="110" Height="45" FontStyle="Italic" FontSize="24" Background="RoyalBlue" Foreground="White" Margin="0,2.5,40,2.5" Command="{Binding cancelHospitalSurvey}"/>
 
         </StackPanel>
     </Grid>
