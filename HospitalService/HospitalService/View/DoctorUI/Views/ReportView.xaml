@@ -1,0 +1,68 @@
+﻿<Window x:Class="HospitalService.View.DoctorUI.Views.ReportView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Izvještaj" Height="260" Width="350" UseLayoutRounding="True" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Height="260" Width="350">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="40,30,0,0">
+                <Label Content="Pacijent: "/>
+                <TextBox Width="150" Margin="10,0,0,0" IsEnabled="False" Text="{Binding PatientsName}"/>
+            </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="40,15,0,0">
+                    <Label Content="Od*: "/>
+                    <DatePicker Width="150" Margin="35,0,0,0" SelectedDate="{Binding StartDate}"/>
+                </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="40,15,0,0">
+                <Label Content="Do*: " />
+                <DatePicker Width="150" Margin="35,0,0,0" SelectedDate="{Binding EndDate}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20,40,0,0">
+                <Button Content="Odustani" Margin="60,0,0,0" Width="70">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="KeyUp" >
+                            <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <i:Interaction.Behaviors>
+                        <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                    </i:Interaction.Behaviors>
+                </Button>
+                <Button Content="Generiši" Margin="40,0,0,0" Width="70">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="KeyUp" >
+                            <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <i:Interaction.Behaviors>
+                        <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                    </i:Interaction.Behaviors>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+        
+    </Grid>
+</Window>

@@ -174,7 +174,19 @@
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Height="100" Orientation="Horizontal">
-                        <Button Width="70" Margin="70,35,0,35">Izvještaj</Button>
+                        <Button Width="70" Margin="70,35,0,35">Izvještaj
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click" >
+                                    <i:InvokeCommandAction Command="{Binding ReportCommand}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="KeyUp" >
+                                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <i:Interaction.Behaviors>
+                                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                            </i:Interaction.Behaviors>
+                        </Button>
                         <Button Width="108" Margin="70,35,0,35" Content="Daj dijagnozu">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click" >
