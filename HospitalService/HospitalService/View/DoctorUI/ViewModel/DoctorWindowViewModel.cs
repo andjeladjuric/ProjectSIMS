@@ -41,6 +41,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public RelayCommand AboutMedicationCommand { get; set; }
         public RelayCommand ValidateCommand { get; set; }
         public RelayCommand LogOutCommand { get; set; }
+        public RelayCommand ProfileCommand { get; set; }
         public DoctorWindowView Window { get; set; }
         public RelayCommand KeyUpCommandWithKey { get; set; }
 
@@ -195,6 +196,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
                CanExecute_RemoveNewsCommand);
             ShowNewsCommand = new RelayCommand(Executed_ShowNewsCommand,
                CanExecute_ShowNewsCommand);
+            ProfileCommand = new RelayCommand(Executed_ProfileCommand,
+             CanExecute_ProfileCommand);
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             this.Window = doctorWindow;
             this.Doctor = loggedDoctor;
@@ -302,6 +305,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
             List<Medication> allMedications = new MedicationService().GetAllApproved();
             medications.ForEach(MedicationsForApproval.Add);
             allMedications.ForEach(ApprovedMedications.Add);
+        }
+
+        public bool CanExecute_ProfileCommand(object obj)
+        {
+            return true;
+        }
+
+        public void Executed_ProfileCommand(object obj)
+        {
+            new ProfileView(this.Doctor).ShowDialog();
         }
 
         public bool CanExecute_ValidateCommand(object obj)

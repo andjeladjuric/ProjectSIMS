@@ -28,6 +28,11 @@
                         <MenuItem.Icon>
                             <materialDesign:PackIcon Kind="UserCircle" Foreground="#3f51b5"/>
                         </MenuItem.Icon>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click" >
+                                <i:InvokeCommandAction Command="{Binding ProfileCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </MenuItem>
                     <Separator/>
                     <MenuItem Header="Log Out">
