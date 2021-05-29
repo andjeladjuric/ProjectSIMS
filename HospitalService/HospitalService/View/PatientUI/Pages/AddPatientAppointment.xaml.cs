@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,29 +10,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using HospitalService.Model;
 using HospitalService.View.PatientUI.ViewsModel;
+using Model;
 
 namespace HospitalService.View.PatientUI.Pages
 {
     /// <summary>
-    /// Interaction logic for NotesNotification.xaml
+    /// Interaction logic for AddPatientAppointment.xaml
     /// </summary>
-    public partial class NotesNotification : Page
+    public partial class AddPatientAppointment : Page
     {
-        
-
-        private NotesNotificationViewModel viewModel;
-        public NotesNotification(Diagnosis diagnosis, Note note)
+        private AddPatientAppointmentViewModel viewModel;
+        public AddPatientAppointment(Patient patient)
         {
-            InitializeComponent();
-            viewModel = new NotesNotificationViewModel(diagnosis,note,this);
-            this.DataContext = viewModel;
-            
-            
-            
-        }
 
-        
+            InitializeComponent();
+            viewModel = new AddPatientAppointmentViewModel(patient,this);
+            this.DataContext = viewModel;
+        }
     }
 }

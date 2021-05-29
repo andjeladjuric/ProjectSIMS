@@ -9,7 +9,7 @@ using Model;
 
 namespace HospitalService.View.PatientUI.ViewsModel
 {
-    public class PatientWindowViewModel
+    public class PatientWindowViewModel:ViewModelPatientClass
     {
         private NavigationService navigationService;
         private AppointmentsService appointmentService;
@@ -58,10 +58,10 @@ namespace HospitalService.View.PatientUI.ViewsModel
             else
             {
 
-                this.navigationService.Navigate(new AddAppointmentToPatient(patient));
+                this.navigationService.Navigate(new PreferencesForAppointment(patient));
             }
 
-            this.navigationService.Navigate(new PreferencesForAppointment(patient));
+            
         }
         private void Execute_NavigateToViewAppointment(object obj)
         {

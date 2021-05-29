@@ -3,55 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using HospitalService.Storage;
+using HospitalService.Repositories;
+using HospitalService.Service;
+using HospitalService.View.PatientUI.Pages;
 using Model;
-using Storage;
 
-namespace HospitalService.View.PatientUI
+namespace HospitalService.View.PatientUI.ViewsModel
 {
-    /// <summary>
-    /// Interaction logic for UrgentAppointment.xaml
-    /// </summary>
-    public partial class UrgentAppointment : Window
+    public class UrgentPatientAppointmentViewModel:ViewModelPatientClass
     {
-        public Patient patient { get; set; }
 
-        public List<Appointment> appointments { get; set; }
-        public List<Doctor> doctors { get; set; }
-        public List<Room> rooms { get; set; }
-
-        public AppointmentStorage appointmentStorage { get; set; }
-        public UrgentAppointment(Patient p)
-
+        private DateTime date { get; set; }
+        public DateTime Date
         {
-            InitializeComponent();
-            this.DataContext = this;
-            patient = p;
-            appointmentStorage = new AppointmentStorage();
-            appointments = appointmentStorage.GetAll();
-            DoctorStorage bazaDoktora = new DoctorStorage();
-            doctors = bazaDoktora.GetAll();
-            RoomFileStorage bazaSala = new RoomFileStorage();
-            rooms = bazaSala.GetAll();
-            
+            get { return date; }
+            set
+            {
+                date = value;
+                OnPropertyChanged();
+            }
         }
+        public String StartTimeAppointment { get; set; }
 
-        private void ConfirmClick(object sender, RoutedEventArgs e)
-        {
-            String start = tb1.Text;
-            String end = tb2.Text;
-            String date = dp.Text;
-            DateTime startTime = Convert.ToDateTime(date + " " + start + ":00");
-            DateTime endTime = Convert.ToDateTime(date + " " + end + ":00");
-            Doctor availableDoctor= getFirtsAvailableDoctor(startTime, endTime);
+        public String EndTimeAppointment { get; set; }
+        public RelayCommand confirmAddAppointment { get; set; }
+        public RelayCommand cancelAddAppointment { get; set; }
+        private Patient patient;
+        private UrgentPatientAppointment urgentPatientAppointment;
+        private List<Appointment> appointments;
+        private List<Doctor> doctors;
+        private List<Room> rooms;
+        private AppointmentsRepository appointmentRepository;
+        private void Execute_ConfirmAddAppointment(object obj) {
+
             
+            DateTime startTime = Convert.ToDateTime(Date.ToShortDateString() + " " + StartTimeAppointment + ":00");
+            DateTime endTime = Convert.ToDateTime(Date.ToShortDateString() + " " + EndTimeAppointment + ":00");
+            Doctor availableDoctor = getFirtsAvailableDoctor(startTime, endTime);
+
             if (availableDoctor == null)
             {
                 MessageBox.Show("Nema slobodnog doktora!");
@@ -60,7 +49,7 @@ namespace HospitalService.View.PatientUI
             else
             {
                 Room availableRoom = getFirstAvailableRoom(startTime, endTime);
- 
+
                 if (availableRoom == null)
                 {
                     MessageBox.Show("Nema slobodnih sala!");
@@ -76,7 +65,7 @@ namespace HospitalService.View.PatientUI
                     }
                     else
                     {
-                        int appointmentId = appointments.Count+1;
+                        int appointmentId = appointments.Count + 1;
                         Appointment newAppointment = new Appointment()
                         {
                             Id = appointmentId.ToString(),
@@ -88,20 +77,18 @@ namespace HospitalService.View.PatientUI
                             patient = patient
 
                         };
-                        appointmentStorage.Save(newAppointment);
-                        this.Close();
+                        appointmentRepository.Save(newAppointment);
+                        urgentPatientAppointment.NavigationService.Navigate(new ViewAppointment(patient));
                     }
 
                 }
             }
 
 
-
-
         }
         private bool moreThanTwoAppointmentsInOneDay(DateTime startTime)
         {
-            List<Appointment> la = appointmentStorage.GetAll();
+            List<Appointment> la = appointmentRepository.GetAll();
             List<Appointment> sameDateAppointments = la.Where(ap => ap.patient.Jmbg.Equals(patient.Jmbg) && startTime.ToShortDateString().Equals(ap.StartTime.ToShortDateString())).ToList();
             if (sameDateAppointments.Count > 1)
             {
@@ -216,10 +203,28 @@ namespace HospitalService.View.PatientUI
             }
             return availableDoctor;
         }
-
-        private void CancelClick(object sender, RoutedEventArgs e)
+        private void Execute_CancelAddAppointment(object obj)
         {
-            this.Close();
+            urgentPatientAppointment.NavigationService.Navigate(new ViewAppointment(patient));
+
+        }
+        private bool CanExecute_Command(object obj) {
+            return true;
+        }
+
+        public UrgentPatientAppointmentViewModel(Patient patient, UrgentPatientAppointment urgentPatientAppointment) {
+            this.patient = patient;
+            this.urgentPatientAppointment = urgentPatientAppointment;
+            Date = DateTime.Now;
+            appointmentRepository = new AppointmentsRepository();
+            appointments = appointmentRepository.GetAll();
+            DoctorService doctorService = new DoctorService();
+            doctors = doctorService.GetAll();
+            RoomService roomService = new RoomService();
+            rooms = roomService.GetAll();
+            confirmAddAppointment = new RelayCommand(Execute_ConfirmAddAppointment, CanExecute_Command);
+            cancelAddAppointment = new RelayCommand(Execute_CancelAddAppointment,CanExecute_Command);
+        
         }
     }
 }

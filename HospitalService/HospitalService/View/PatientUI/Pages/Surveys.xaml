@@ -23,9 +23,9 @@
                     <ColumnDefinition Width="130"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="1" Content="Anketa za bolnicu" FontStyle="Italic" FontSize="24"/>
-                <Button Grid.Row="1" Grid.Column="2" Width="110" Height="45" Background="RoyalBlue" Foreground="White" Content="Uradi" FontStyle="Italic" FontSize="24" Click="DoHospitalSurvey"/>
+                <Button Grid.Row="1" Grid.Column="2" Width="110" Height="45" Background="RoyalBlue" Foreground="White" Content="Uradi" FontStyle="Italic" FontSize="24" Command="{Binding doHospitalSurvey}"/>
                 <Label Grid.Row="2" Grid.Column="1" Content="Anketa za doktora" FontStyle="Italic" FontSize="24"/>
-                <Button Grid.Row="2" Grid.Column="2" Width="110" Height="45" Background="RoyalBlue" Foreground="White" Content="Uradi" FontStyle="Italic" FontSize="24" Click="ChooseDoctor"/>
+                <Button Grid.Row="2" Grid.Column="2" Width="110" Height="45" Background="RoyalBlue" Foreground="White" Content="Uradi" FontStyle="Italic" FontSize="24" Command="{Binding doDoctorSurvey}"/>
             </Grid>
         </DockPanel>
         <Frame x:Name="SurveyFrame" Margin="525,0,0,0" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2"/>

@@ -61,6 +61,16 @@ namespace HospitalService.Service
 
         }
 
+        public List<Appointment> getAppointmentsByDate(Patient patient, DateTime date) {
+            repository = new AppointmentsRepository();
+            List<Appointment> appointments = repository.GetAll();
+            List<Appointment> appointmentsForSelectedDate = new List<Appointment>();
+            appointmentsForSelectedDate= appointments.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.StartTime.Date == date.Date).ToList();
+            return appointmentsForSelectedDate;
+
+
+        }
+
         public void delete(String id) {
 
             repository = new AppointmentsRepository();
@@ -74,6 +84,8 @@ namespace HospitalService.Service
             List<Appointment> movedAppointments = appointments.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.Status == Status.Moved).ToList();
             return movedAppointments.Count;
         }
+
+        
 
         public List<Appointment> GetByDoctor(Doctor doctor, DateTime date)
         {
