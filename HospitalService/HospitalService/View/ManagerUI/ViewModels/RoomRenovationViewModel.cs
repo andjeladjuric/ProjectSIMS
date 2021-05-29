@@ -1,4 +1,5 @@
 ﻿using HospitalService.Service;
+using HospitalService.View.ManagerUI.Validations;
 using HospitalService.View.ManagerUI.Views;
 using Model;
 using Storage;
@@ -11,7 +12,7 @@ using System.Windows.Controls;
 
 namespace HospitalService.View.ManagerUI.ViewModels
 {
-    public class RoomRenovationViewModel : ViewModel
+    public class RoomRenovationViewModel : ValidationBase
     {
         #region Fields
         private Room selected;
@@ -111,6 +112,16 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 OnPropertyChanged();
             }
         }
+        private string validation;
+        public string ValidationMessage
+        {
+            get { return validation; }
+            set
+            {
+                validation = value;
+                OnPropertyChanged();
+            }
+        }
         public List<string> Rooms { get; set; }
         public ObservableCollection<Appointment> Appointments { get; set; }
         public Frame Frame { get; set; }
@@ -125,24 +136,30 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void OnConfirm()
         {
             RoomRenovationService renovationService = new RoomRenovationService();
-            MessageBox.Show(Start.ToString());
-            MessageBox.Show(End.ToString());
-            string[] rooms = SecondRoom.ToString().Split("/");
-            string selectedId = rooms[0];
+            DateService dateService = new DateService();
+            this.Validate();
 
-            if (CheckDateEntry(Start, End) && renovationService.CheckExistingRenovations(SelectedRoom.Id, Start, End) &&
-                renovationService.CheckAppointmentsForDate(Start, End, SelectedRoom.Id))
+            if (IsValid)
             {
-                if (IsChecked && renovationService.CheckAppointmentsForDate(Start, End, selectedId) && CheckFloor(SelectedRoom.Id, selectedId))
-                    renovationService.Save(new Renovation(SelectedRoom.Id, Start, End, RenovationType.Merge, selectedId, NewID, NewType, NewName));
-                else
-                    renovationService.Save(new Renovation(SelectedRoom.Id, Start, End, RenovationType.Split, NewID, newType, NewName, Double.Parse(NewSize)));
-                
-                renovationService.SerializeRenovations();
-            }
+                if (CheckDateEntry(Start, End) && dateService.CheckExistingRenovations(SelectedRoom.Id, Start, End) &&
+                    renovationService.CheckAppointmentsForDate(Start, End, SelectedRoom.Id))
+                {
+                    if (IsChecked)
+                    {
+                        string[] rooms = SecondRoom.ToString().Split("/");
+                        string selectedId = rooms[0];
+                        if (renovationService.CheckAppointmentsForDate(Start, End, selectedId) && CheckFloor(SelectedRoom.Id, selectedId))
+                            renovationService.Save(new Renovation(SelectedRoom.Id, Start, End, RenovationType.Merge, selectedId, NewID, NewType, NewName));
+                    }
+                    else
+                        renovationService.Save(new Renovation(SelectedRoom.Id, Start, End, RenovationType.Split, NewID, newType, NewName, Double.Parse(NewSize)));
 
-            renovationService.CheckRenovationRequests();
-            this.Frame.NavigationService.Navigate(new RoomsView());
+                    renovationService.SerializeRenovations();
+                }
+
+                renovationService.CheckRenovationRequests();
+                this.Frame.NavigationService.Navigate(new RoomsView());
+            }
         }
 
         private void OnCancel()
@@ -151,7 +168,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         }
 
         private bool CanExecute()
-        {
+        { 
             return true;
         }
         #endregion
@@ -209,6 +226,23 @@ namespace HospitalService.View.ManagerUI.ViewModels
                     Appointments.Add(a);
                 }
             }
+        }
+
+        protected override void ValidateSelf()
+        {
+            DateService dateService = new DateService();
+            RoomRenovationService renovationService = new RoomRenovationService();
+            if (!dateService.CheckExistingRenovations(this.SelectedRoom.Id, this.Start, this.End))
+            {
+                this.ValidationErrors["Existing"] = "Već postoji zakazano renoviranje \n u ovom periodu!";
+                ValidationMessage = this.ValidationErrors["Existing"];
+            }
+            if (!renovationService.CheckAppointmentsForDate(this.Start, this.End, this.SelectedRoom.Id))
+            {
+                this.ValidationErrors["Appointment"] = "Postoje zakazani termini \n u ovom periodu!";
+                ValidationMessage = this.ValidationErrors["Appointment"];
+            }
+
         }
         #endregion
 

@@ -17,49 +17,6 @@ namespace HospitalService.Service
             renovations = new RenovationsRepository();
         }
 
-        public bool CheckExistingRenovations(string roomId, DateTime startReno, DateTime endReno)
-        {
-            List<Renovation> renovationRequests = renovations.GetAll();
-            bool returnValue = true;
-
-            if (renovations != null && renovationRequests.Count != 0)
-            {
-                foreach (Renovation renovation in renovationRequests)
-                {
-                    if (renovation.RoomId.Equals(roomId))
-                    {
-                        if (DateTime.Compare(startReno, renovation.Start) <= 0 && DateTime.Compare(endReno, renovation.End) >= 0)
-                        {
-                            returnValue = false;
-                            break;
-                        }
-                        else if (DateTime.Compare(startReno, renovation.Start) <= 0 && DateTime.Compare(endReno, renovation.End) <= 0 &&
-                            DateTime.Compare(endReno, renovation.Start) >= 0)
-                        {
-                            returnValue = false;
-                            break;
-                        }
-                        else if (DateTime.Compare(startReno, renovation.Start) >= 0 && DateTime.Compare(endReno, renovation.End) <= 0)
-                        {
-                            returnValue = false;
-                            break;
-                        }
-                        else if (DateTime.Compare(startReno, renovation.Start) >= 0 && DateTime.Compare(endReno, renovation.End) >= 0 &&
-                            DateTime.Compare(startReno, renovation.End) <= 0)
-                        {
-                            returnValue = false;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            if (!returnValue)
-                MessageBox.Show("Već postoji zakazano renoviranje u datom periodu!");
-
-            return returnValue;
-        }
-
         public void CheckRenovationRequests()
         {
             List<Renovation> renovationRequests = renovations.GetAll();
@@ -135,7 +92,6 @@ namespace HospitalService.Service
                 {
                     if (DateTime.Compare(startDate.Date, a.StartTime.Date) <= 0 && DateTime.Compare(endDate.Date, a.StartTime.Date) >= 0)
                     {
-                        MessageBox.Show("U datom periodu postoje zakazani termini!");
                         return false;
                     }
                 }

@@ -30,7 +30,7 @@
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
                   Height="450" VerticalAlignment="Center" Width="566" FontFamily="Roboto" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
-   
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Šifra" Binding="{Binding Id}" Width="*">
                     <DataGridTextColumn.ElementStyle>
@@ -84,7 +84,7 @@
             <Border HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="350" Margin="12,33,0,0"
                     CornerRadius="10" BorderThickness="0.5" BorderBrush="Black"/>
 
-            <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="45,281,0,0" VerticalAlignment="Top" 
+            <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="36,289,0,0" VerticalAlignment="Top" 
                    Width="112" Height="30"/>
             <Label x:Name="quantity" Content="Količina" HorizontalAlignment="Left" Margin="45,334,0,0" VerticalAlignment="Top" 
                    Width="112" Height="30"/>
@@ -112,14 +112,15 @@
                     <ControlTemplate>
                         <StackPanel>
                             <AdornedElementPlaceholder x:Name="textBox"/>
-                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020"/>
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020">
+                            </TextBlock>
                         </StackPanel>
                     </ControlTemplate>
                 </Validation.ErrorTemplate>
             </TextBox>
 
             <ComboBox x:Name="comboBox" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}" HorizontalAlignment="Left" 
-                      Height="30" Margin="169,280,0,0" VerticalAlignment="Top" Width="154"
+                      Height="30" Margin="169,286,0,0" VerticalAlignment="Top" Width="154"
                       Foreground="#474746"
                       FontFamily="Roboto"
                       FontWeight="Light"
@@ -170,10 +171,10 @@
             <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="206,399,0,0" VerticalAlignment="Top" Height="30" 
                     Width="80" Command="{Binding CancelCommand}"/>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="36,49,0,0" Text="Premesti stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
-            <Label x:Name="Stavka" Content="Izabrana stavka" HorizontalAlignment="Left" Margin="45,138,0,0" VerticalAlignment="Top" 
-                   Width="112" Height="30"/>
+            <Label x:Name="Stavka" Content="Izabrana stavka" HorizontalAlignment="Left" Margin="36,138,0,0" VerticalAlignment="Top" 
+                   Width="121" Height="30"/>
             <TextBox x:Name="IDBox" Text="{Binding SelectedItem.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" 
-                     HorizontalAlignment="Left" Height="32" Margin="169,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" 
+                     HorizontalAlignment="Left" Height="32" Margin="169,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" 
                      Foreground="#474746"
                      FontWeight="Light"
                      FontFamily="Roboto"
@@ -181,12 +182,12 @@
                      HorizontalContentAlignment="Center"/>
 
             <DatePicker x:Name="datePicker" DisplayDate="{Binding Date}" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Left"
-                        Margin="169,236,0,0" VerticalAlignment="Top" Width="154" Height="30"
+                        Margin="169,188,0,0" VerticalAlignment="Top" Width="154" Height="30"
                         Foreground="#474746"
                         FontFamily="Roboto"
                         FontWeight="Light"
                         FontSize="14"
-                        HorizontalContentAlignment="Center">   
+                        HorizontalContentAlignment="Center">
                 <DatePicker.Style>
                     <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource {x:Type DatePicker}}">
                         <Setter Property="IsEnabled" Value="True"/>
@@ -198,12 +199,12 @@
                     </Style>
                 </DatePicker.Style>
             </DatePicker>
-            
-            <Label x:Name="time" Content="Vreme" HorizontalAlignment="Left" Margin="45,188,0,0" VerticalAlignment="Top" 
+
+            <Label x:Name="time" Content="Vreme" HorizontalAlignment="Left" Margin="36,0,0,0" VerticalAlignment="Center" 
                    Width="112" Height="30"/>
-            <Label x:Name="date" Content="Datum" HorizontalAlignment="Left" Margin="45,232,0,0" VerticalAlignment="Top" 
+            <Label x:Name="date" Content="Datum" HorizontalAlignment="Left" Margin="36,191,0,0" VerticalAlignment="Top" 
                    Width="112" Height="30"/>
-            <TextBox x:Name="TimeBox" HorizontalAlignment="Left" Height="32" Margin="169,185,0,0" TextWrapping="Wrap" 
+            <TextBox x:Name="TimeBox" HorizontalAlignment="Left" Height="32" Margin="169,235,0,0" TextWrapping="Wrap" 
                      VerticalAlignment="Top" Width="154"
                      Foreground="#474746"
                      FontFamily="Roboto"
@@ -220,10 +221,17 @@
                         </Style.Triggers>
                     </Style>
                 </TextBox.Style>
+                <TextBox.Resources>
+                    <validation:TimeProxy x:Key="proxy" Data="{Binding}"/>
+                </TextBox.Resources>
                 <TextBox.Text>
-                    <Binding Path="EnteredTime" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="EnteredTime" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <validation:DateTimeValidation ValidationStep="RawProposedValue"/>
+                            <validation:DateTimeValidation ValidationStep="RawProposedValue">
+                                <validation:DateTimeValidation.Wrapper>
+                                    <validation:TimeWrapper Time ="{Binding Path=Data.Date, Source={StaticResource proxy}}"/>
+                                </validation:DateTimeValidation.Wrapper>
+                            </validation:DateTimeValidation>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>

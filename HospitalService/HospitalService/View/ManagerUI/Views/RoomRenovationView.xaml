@@ -84,8 +84,8 @@
                    Height="57" Width="302" FontFamily="Roboto" FontSize="36" FontStyle="Italic" 
                    TextAlignment="Center" Foreground="#474746"/>
 
-        <StackPanel Orientation="Vertical" Margin="580,118,65,150">
-            <StackPanel Orientation="Horizontal" Height="139" Width="322">
+        <StackPanel Orientation="Vertical" Margin="572,112,73,137">
+            <StackPanel Orientation="Horizontal" Height="149" Width="322">
                 <StackPanel Orientation="Vertical" Width="123">
                     <Label x:Name="id" Content="Soba" HorizontalAlignment="Left" VerticalAlignment="Top" 
                Width="112" Height="35"/>
@@ -96,9 +96,9 @@
                     <Label x:Name="end" Content="Kraj" HorizontalAlignment="Left" VerticalAlignment="Top" 
                Width="112" Height="34"/>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="18,0,0,0">
+                <StackPanel Orientation="Vertical" Margin="18,0,0,0" Width="180">
                     <TextBox x:Name="IDBox" IsEnabled="False" HorizontalAlignment="Left"
-                             Height="30" Width="154" VerticalAlignment="Top"
+                             Height="30" Width="180"
                              Foreground="#474746"
                              FontFamily="Roboto"
                              FontWeight="Light"
@@ -107,33 +107,37 @@
                              HorizontalContentAlignment="Center"
                              Text="{Binding SelectedRoom.Name}"/>
                     <Separator Opacity="0" Height="10"/>
-                    <DatePicker x:Name="startPicker" HorizontalAlignment="Left" Width="154"
+                    <DatePicker x:Name="startPicker" HorizontalAlignment="Left" Width="180"
                                 DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding Start}" VerticalAlignment="Top"
                                 FontFamily="Roboto"
                                 FontSize="14"
                                 FontWeight="Light"
                                 HorizontalContentAlignment="Center"/>
                     <Separator Opacity="0" Height="10"/>
-                    <DatePicker x:Name="endPicker" HorizontalAlignment="Left" Width="154"
-                                DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding End}" VerticalAlignment="Top"
+                    <DatePicker x:Name="endPicker" HorizontalAlignment="Left" Width="180"
+                                DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding End}"
+                                VerticalAlignment="Top"
                                 FontFamily="Roboto"
                                 FontSize="14"
                                 FontWeight="Light"
                                 HorizontalContentAlignment="Center"/>
+                    <TextBlock Text="{Binding ValidationMessage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                               Foreground="#FFE52020" TextWrapping="Wrap">
+                    </TextBlock>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="55">
+            <StackPanel Orientation="Horizontal" Height="54">
                 <StackPanel Orientation="Vertical">
                     <Label Content="Vrsta" Width="112" Height="35"/>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Width="103" Margin="30,2,0,0">
+                <StackPanel Orientation="Horizontal" Width="232" Margin="0,10,0,0">
                     <RadioButton Content="Podeli sobu" IsChecked="True"/>
-                    <Separator Opacity="0" Height="5"/>
+                    <Separator Opacity="0" Width="15"/>
                     <RadioButton Content="Spajanje soba" IsChecked="{Binding IsChecked}"/>
                 </StackPanel>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Height="274" Width="322" >
+            <StackPanel Orientation="Horizontal" Height="273" Width="322" >
                 <StackPanel Orientation="Vertical" Width="136">
                     <Label x:Name="newId" Content="Novi broj sobe" HorizontalAlignment="Left" 
                        Width="126" Height="34"/>
@@ -152,7 +156,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="5,0,0,0">
                     <TextBox x:Name="NewIDBox" HorizontalAlignment="Left"
-                             Height="30" Width="154" VerticalAlignment="Top"
+                             Height="30" Width="180" VerticalAlignment="Top"
                              Foreground="#474746"
                              FontFamily="Roboto"
                              FontWeight="Light"
@@ -177,7 +181,7 @@
                     </TextBox>
                     <Separator Opacity="0" Height="15"/>
                     <TextBox x:Name="NewNameBox" HorizontalAlignment="Left"
-                             Height="30" Width="154" VerticalAlignment="Top"
+                             Height="30" Width="180" VerticalAlignment="Top"
                              Foreground="#474746"
                              FontFamily="Roboto"
                              FontWeight="Light"
@@ -202,7 +206,7 @@
                     </TextBox>
                     <Separator Opacity="0" Height="15"/>
                     <ComboBox x:Name="TypeBox" IsEnabled="True" HorizontalAlignment="Left"
-                              Height="30" Width="154" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
+                              Height="30" Width="180" VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
                               SelectedItem="{Binding NewType}"
                               Foreground="#474746"
                               FontFamily="Roboto"
@@ -217,7 +221,7 @@
                     </ComboBox>
                     <Separator Opacity="0" Height="20"/>
                     <TextBox x:Name="NewSizeBox" HorizontalAlignment="Left"
-                             Height="30" Width="154" VerticalAlignment="Top"
+                             Height="30" Width="180" VerticalAlignment="Top"
                              Foreground="#474746"
                              FontFamily="Roboto"
                              FontWeight="Light"
@@ -259,7 +263,7 @@
                     </TextBox>
                     <Separator Opacity="0" Height="15"/>
                     <ComboBox x:Name="SecondRoomBox" HorizontalAlignment="Left"
-                              Height="30" Width="154" VerticalAlignment="Top" ItemsSource="{Binding Rooms}"
+                              Height="30" Width="180" VerticalAlignment="Top" ItemsSource="{Binding Rooms}"
                               SelectedItem="{Binding SecondRoom}"
                               Foreground="#474746"
                               FontFamily="Roboto"
@@ -282,7 +286,40 @@
         </StackPanel>
 
         <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="646,590,0,0" VerticalAlignment="Top" Height="30" Width="80"
-                    Command="{Binding ConfirmCommand}"/>
+                    Command="{Binding ConfirmCommand}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="IsEnabled" Value="True"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=NewIDBox, Path=Text}" Value="">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=NewIDBox, Path=(Validation.HasError)}" Value="True">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=NewNameBox, Path=Text}" Value="">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=NewNameBox, Path=(Validation.HasError)}" Value="True">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=NewSizeBox, Path=Text}" Value="">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=NewSizeBox, Path=(Validation.HasError)}" Value="True">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=SecondRoomBox, Path=IsEnabled}" Value="True"/>
+                                <Condition Binding="{Binding ElementName=SecondRoomBox, Path=SelectedIndex}" Value="-1"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="740,590,0,0" VerticalAlignment="Top" Height="30" Width="82" 
                     Command="{Binding CancelCommand}"/>
 
