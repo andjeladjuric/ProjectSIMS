@@ -50,7 +50,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <TextBlock Text="{Binding Appointment.ValidationErrors[Room]}"
-                               Foreground="Red" Margin="525,138,0,0"/>
+                               Foreground="Red" Margin="525,138,0,0" FontSize="12"/>
         <ComboBox ItemsSource="{Binding Path=AppointmentsType}" SelectedIndex="0" SelectedItem="{Binding Path=AppointmentType, Mode=TwoWay}"  Name="AppointmentTypeBox" HorizontalAlignment="Left" Margin="525,37,0,0" VerticalAlignment="Top" Width="163" Height="35">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged" >
@@ -89,7 +89,7 @@
         <TextBox IsEnabled="False" Text="{Binding Path=Appointment.PatientsName}" HorizontalAlignment="Left" Height="33" Margin="525,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163">
         </TextBox>
         <TextBlock Text="{Binding Appointment.ValidationErrors[Patient]}"
-                               Foreground="Red" Margin="525,200,0,0"/>
+                               Foreground="Red" Margin="525,200,0,0" FontSize="12"/>
         <Button  HorizontalAlignment="Left" Margin="680,0,0,70" Background="{x:Null}" BorderThickness="0" Height="40" Width="65">
             <materialDesign:PackIcon Kind="AddCircle" Height="30" Width="30" Foreground="#3f51b5"/>
 

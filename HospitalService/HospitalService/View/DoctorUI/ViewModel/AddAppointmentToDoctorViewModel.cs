@@ -159,9 +159,41 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 return false;
             }
             return true;*/
+            DateService dateService = new DateService();
+            newAppointment.StartTime = dateService.CreateDate(Date, Appointment.StartTime);
+            newAppointment.EndTime = dateService.CreateDate(Date, Appointment.EndTime);
+            Doctor doctor = DoctorWindow.Doctor;
             Appointment.Validate();
             if (Appointment.IsValid)
+            {
+                if (new AppointmentsService().IsTaken(newAppointment.StartTime, newAppointment.EndTime, doctor))
+                {
+                    MessageBox.Show("Postoji termin u izabranom periodu.");
+                    return false;
+                }
+                if (new AppointmentsService().IsRoomTaken(newAppointment.StartTime, newAppointment.EndTime, Appointment.Room))
+                {
+                    RoomType roomType;
+                    if (AppointmentType == AppointmentType.Pregled)
+                        roomType = RoomType.ExaminationRoom;
+                    else
+                        roomType = RoomType.OperatingRoom;
+                    List<Room> available = new AppointmentsService().GetAvailableRooms(newAppointment.StartTime, newAppointment.EndTime, roomType);
+                    try {
+                        if (available[0] != null) {
+                            MessageBox.Show("Odabrana soba je zauzeta. Slobodna je soba: " + available[0].Id);
+                            return false;
+                        }
+                    }
+                    catch {
+                        
+                            MessageBox.Show("Nema slobodnih soba za odabrano vrijeme.");
+                            return false;
+                        
+                    }
+                }
                 return true;
+            }
             else
                 return false;
         }

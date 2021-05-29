@@ -121,16 +121,5 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 _dataGridCollection.Refresh();
             }
         }
-        public void SetFilter(Predicate<object> filter)
-        {
-            if (DataGridCollection.CurrentItem != null && !filter(DataGridCollection.CurrentItem))
-            {
-                DataGridCollection = null;
-                OnPropertyChanged("DataGridCollection");
-            }
-            DataGridCollection.Filter = filter;
-            if (DataGridCollection.CurrentItem == null && !DataGridCollection.IsEmpty)
-                DataGridCollection.MoveCurrentToFirst();
-        }
     }
 }
