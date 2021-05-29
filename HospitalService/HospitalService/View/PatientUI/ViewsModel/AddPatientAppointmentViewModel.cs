@@ -218,6 +218,7 @@ namespace HospitalService.View.PatientUI.ViewsModel
             this.patient = patient;
             this.addPatientAppointment = addPatientAppointment;
             Date = DateTime.Now;
+            AppointmentId = new AppointmentsService().GetNextId();
             doctorService = new DoctorService();
             List<Doctor> docttorsForAppointment = doctorService.GetAll();
             Doctors = new ObservableCollection<Doctor>();

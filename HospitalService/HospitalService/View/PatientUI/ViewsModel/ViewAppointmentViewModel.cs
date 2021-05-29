@@ -82,13 +82,19 @@ namespace HospitalService.View.PatientUI.ViewsModel
             }
             else
             {
-                appointmentService.Delete(SelectedAppointment.Id);
-                appointmentService = new AppointmentsService();
-                List<Appointment> todaysAppointments = appointmentService.getAppointmentsByDate(patient, Date);
-                this.Appointments = new ObservableCollection<Appointment>();
-                todaysAppointments.ForEach(Appointments.Add);
-                
+                if (appointmentService.getNumberOfCanceledAppointments(patient) >= 2)
+                {
+                    MessageBox.Show("Prekoracili ste broj termina za otkazivanje!");
+                }
+                else
+                {
+                    appointmentService.DeletePatientAppointment(SelectedAppointment.Id);
+                    appointmentService = new AppointmentsService();
+                    List<Appointment> todaysAppointments = appointmentService.getAppointmentsByDate(patient, Date);
+                    this.Appointments = new ObservableCollection<Appointment>();
+                    todaysAppointments.ForEach(Appointments.Add);
 
+                }
 
             }
 
