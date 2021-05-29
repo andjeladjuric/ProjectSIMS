@@ -52,6 +52,11 @@
                         <MenuItem.Icon>
                             <materialDesign:PackIcon Kind="PalmTree" Foreground="#3f51b5"/>
                         </MenuItem.Icon>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click" >
+                                <i:InvokeCommandAction Command="{Binding VacationCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </MenuItem>
                     <Separator/>
                     <MenuItem Header="Zahtjev za materijal">
