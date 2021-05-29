@@ -9,8 +9,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Storage;
+using HospitalService.Service;
 using Model;
+using HospitalService.Repositories;
 
 namespace HospitalService.View.SecretaryUI
 {
@@ -29,12 +30,11 @@ namespace HospitalService.View.SecretaryUI
         {
             lvAppointments.ItemsSource = null;
 
-            List<Appointment> temp = new AppointmentStorage().GetAll();
+            List<Appointment> temp = new AppointmentsRepository().GetAll();
             List<Appointment> items = new List<Appointment>();
             List<SortNode> sNodes = new List<SortNode>();
 
-            //Izdvajam relevantne termine u listu SortNodova
-            //u SortNode constructor se izracunava vreme sledeceg slobodnog
+            
 
             foreach (Appointment app in temp)
             {
@@ -44,10 +44,10 @@ namespace HospitalService.View.SecretaryUI
                 }
             }
 
-            //Sortiranje po startNext
+            
             sNodes.Sort((x, y) => x.startNext.CompareTo(y.startNext));
 
-            //Izdvajanje termina u listu
+           
             foreach(SortNode node in sNodes)
             {
                 items.Add(node.appointment);
@@ -58,11 +58,11 @@ namespace HospitalService.View.SecretaryUI
         private void Move_Click(object sender, RoutedEventArgs e)
         {
             Appointment app = (Appointment)lvAppointments.SelectedItem;
-            Appointment ret = new AppointmentStorage().findNextAvailable(app);
+            Appointment ret = new AppointmentsService().findNextAvailable(app);
             if (ret != null)
             {
                 MessageBox.Show("Novi vreme početka termina: " + ret.StartTime, "Uspešno pomeranje");
-                AppointmentStorage storage = new AppointmentStorage();
+                AppointmentsRepository storage = new AppointmentsRepository();
                 storage.Edit(app.Id, ret.StartTime, ret.EndTime, ret.room);
                 refreshView();
             }
@@ -80,10 +80,10 @@ namespace HospitalService.View.SecretaryUI
             Appointment ret = null;
 
 
-            //Pokusavam da zakazem za prvi slobodan
+           
             while(ret == null)
             {
-                ret = new AppointmentStorage().createAppointment(appointment, oblast);
+                ret = new AppointmentsService().createAppointment(appointment, oblast);
                 if (ret!=null) break;
                 else
                     appointment.setDates(appointment.StartTime.AddHours(1), shData.duration);
@@ -91,7 +91,7 @@ namespace HospitalService.View.SecretaryUI
             }
             if(ret!=null)
             {
-                new AppointmentStorage().storeAppointment(ret);
+                new AppointmentsService().storeAppointment(ret);
                 MessageBox.Show("Uspešno ste zakazali hitni termin!\n" + "Vreme: " + appointment.StartTime, "Potvrda");
             }
             else

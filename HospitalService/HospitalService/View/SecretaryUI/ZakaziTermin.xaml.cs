@@ -1,6 +1,7 @@
-﻿using HospitalService.Storage;
+﻿
 using Model;
-using Storage;
+using HospitalService.Service;
+using HospitalService.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using HospitalService.Repositories;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -28,14 +30,14 @@ namespace HospitalService.View.SecretaryUI
         {
             appointment.StartTime = dt;
             appointment.EndTime = dt.AddHours(1);
-            appointment.room = new RoomFileStorage().GetAll().Find(x => x.Id == roomId);
+            appointment.room = new RoomsRepository().GetAll().Find(x => x.Id == roomId);
 
 
             InitializeComponent();
             start.Content = appointment.StartTime.TimeOfDay.ToString();
             end.Content = appointment.EndTime.TimeOfDay.ToString();
-            doktori.ItemsSource = new DoctorStorage().GetAll();
-            pacijenti.ItemsSource = new PatientStorage().GetAll();
+            doktori.ItemsSource = new DoctorService().GetAll();
+            pacijenti.ItemsSource = new PatientService().GetAll();
             sala.Content = roomId;
 
 
@@ -46,7 +48,7 @@ namespace HospitalService.View.SecretaryUI
             try
             {
                 int id = 0;
-                foreach (Appointment item in new AppointmentStorage().GetAll())
+                foreach (Appointment item in new AppointmentsRepository().GetAll())
                 {
                     if (id < int.Parse(item.Id))
                     {
@@ -60,7 +62,7 @@ namespace HospitalService.View.SecretaryUI
                 appointment.Type = (AppointmentType)Enum.Parse(typeof(AppointmentType), (string)tipovi.SelectionBoxItem);
 
 
-                foreach (Appointment item in new AppointmentStorage().GetAll())
+                foreach (Appointment item in new AppointmentsRepository().GetAll())
                 {
 
                     if (item.doctor.Jmbg == appointment.doctor.Jmbg && item.StartTime == appointment.StartTime)
@@ -75,7 +77,7 @@ namespace HospitalService.View.SecretaryUI
                     }
                 }
 
-                new AppointmentStorage().Save(appointment);
+                new AppointmentsRepository().Save(appointment);
                 MessageBox.Show("Uspesno ste zakazali termin.");
                 this.Close();
             }

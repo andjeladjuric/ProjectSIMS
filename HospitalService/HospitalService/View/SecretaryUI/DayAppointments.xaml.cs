@@ -1,5 +1,5 @@
 ﻿using Model;
-using Storage;
+//using Storage;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HospitalService.Service;
+using HospitalService.Repositories;
 
 namespace HospitalService.View.SecretaryUI
 {
@@ -104,7 +106,7 @@ namespace HospitalService.View.SecretaryUI
             }
             Appointment a = o1.Appointments[index].Item2;
             if (!a.isUrgent) {
-                new AppointmentStorage().Delete(a.Id);
+                new AppointmentsService().Delete(a.Id);
                 MessageBox.Show("Uspesno ste obrisali termin");
                 this.Close();
             }
@@ -116,7 +118,7 @@ namespace HospitalService.View.SecretaryUI
 
         private void RefreshTable()
         {
-            List<Appointment> temp = new AppointmentStorage().GetAll();
+            List<Appointment> temp = new AppointmentsRepository().GetAll();
             Dictionary<string, List<Appointment>> dict = new Dictionary<string, List<Appointment>>();
             ch = new BindingList<CalendarHelper>();
 

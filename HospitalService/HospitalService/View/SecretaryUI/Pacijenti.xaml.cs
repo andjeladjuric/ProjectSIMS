@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HospitalService.Service;
 
 namespace HospitalService.View.SecretaryUI
 {
@@ -18,7 +19,7 @@ namespace HospitalService.View.SecretaryUI
     /// </summary>
     public partial class Pacijenti : Window
     {
-        private PatientStorage storage;
+        private PatientService storage;
         private Secretary secretary;
         public List<Patient> patients { get; set; }
 
@@ -27,7 +28,7 @@ namespace HospitalService.View.SecretaryUI
             InitializeComponent();
             this.DataContext = this;
            
-            storage = new PatientStorage();
+            storage = new PatientService();
             patients = storage.GetAll();
             tableBinding.ItemsSource = patients;
         }

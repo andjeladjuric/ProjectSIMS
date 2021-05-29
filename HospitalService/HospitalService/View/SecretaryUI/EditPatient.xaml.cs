@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalService.Service;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,9 +20,9 @@ namespace HospitalService.View.SecretaryUI
     public partial class EditPatient : Window
     {
         public Patient patient { get; set; }
-        public PatientStorage storage { get; set; }
+        public PatientService storage { get; set; }
         public DataGrid Table { get; set; }
-        public EditPatient(Patient p, PatientStorage ps, DataGrid dg)
+        public EditPatient(Patient p, PatientService ps, DataGrid dg)
         {
             InitializeComponent();
             patient = p;

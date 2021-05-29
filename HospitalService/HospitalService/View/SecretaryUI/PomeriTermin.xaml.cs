@@ -1,5 +1,6 @@
 ﻿using Model;
-using Storage;
+using HospitalService.Service;
+using HospitalService.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -57,7 +58,7 @@ namespace HospitalService.View.SecretaryUI
                 return;
             }
 
-            foreach (Appointment item in new AppointmentStorage().GetAll())
+            foreach (Appointment item in new AppointmentsRepository().GetAll())
             {
                 if (item.StartTime == date && item.room.Id == ((Room)sala.SelectedItem).Id)
                 {
@@ -76,7 +77,7 @@ namespace HospitalService.View.SecretaryUI
                 }
             }
 
-            new AppointmentStorage().Edit(appointment.Id, date, date.Add(new TimeSpan(1, 0, 0)), (Room)sala.SelectedItem);
+            new AppointmentsRepository().Edit(appointment.Id, date, date.Add(new TimeSpan(1, 0, 0)), (Room)sala.SelectedItem);
             MessageBox.Show("Uspesno promenjen termin");
             this.Close();
         }

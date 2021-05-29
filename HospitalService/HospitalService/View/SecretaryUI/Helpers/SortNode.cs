@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Model;
-using Storage;
+using HospitalService.Service;
+
 namespace HospitalService.View.SecretaryUI
 {
     class SortNode
@@ -10,11 +11,11 @@ namespace HospitalService.View.SecretaryUI
         public SortNode(Appointment app)
         {
             this.appointment = app;
-            startNext = new AppointmentStorage().findNextAvailable(app).StartTime;
+            startNext = new AppointmentsService().findNextAvailable(app).StartTime;
         }
         public Appointment appointment;
 
-        //Pocetak sledeceg slobodnog termina
+      
         public DateTime startNext;
     }
 }

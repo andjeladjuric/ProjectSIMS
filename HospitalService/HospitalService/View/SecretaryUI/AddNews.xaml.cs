@@ -1,5 +1,5 @@
 ﻿using Model;
-using Storage;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HospitalService.Repositories;
+using HospitalService.Service;
 
 namespace HospitalService.View.SecretaryUI
 {
@@ -30,7 +32,7 @@ namespace HospitalService.View.SecretaryUI
 
            
             roleComboBox.ItemsSource = Enum.GetValues(typeof(Role)).Cast<Role>();
-            allPatients = new PatientStorage().GetAll();
+            allPatients = new PatientService().GetAll();
             foreach (Patient patient in allPatients)
             {
                 specificPatientComboBox.Items.Add(patient.Name + patient.Surname);
@@ -64,7 +66,7 @@ namespace HospitalService.View.SecretaryUI
 
             newOne.Content = newsText.Text;
 
-            NewsStorage.getInstance().Save(newOne);
+            NewsRepository.getInstance().Save(newOne);
             NewsWindow.getInstance().refreshListViewData();
             this.Hide();
 
