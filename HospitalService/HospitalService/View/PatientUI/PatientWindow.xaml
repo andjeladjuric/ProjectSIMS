@@ -20,7 +20,8 @@
                             <RowDefinition Height="60"/>
                             <RowDefinition Height="60"/>
                             <RowDefinition Height="60"/>
-                            <RowDefinition Height="140"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="80"/>
                             <RowDefinition Height="60"/>
                         </Grid.RowDefinitions>
 
@@ -66,7 +67,13 @@
                                 <TextBlock Text="Aktivne ankete" Foreground="White" FontStyle="Italic" FontSize="12"/>
                             </StackPanel>
                         </Button>
-                        <Button Grid.Row="8" Background="RoyalBlue" Command="{Binding openMainWindow}">
+                        <Button Grid.Row="7" Background="RoyalBlue" Command="{Binding openPatientNews}">
+                            <StackPanel>
+                                <Image Source="/View/PatientUI/Images/news.png" Height="32" Width="70"/>
+                                <TextBlock Text="    Novosti" Foreground="White" FontStyle="Italic" FontSize="12"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Grid.Row="9" Background="RoyalBlue" Command="{Binding openMainWindow}">
                         <StackPanel>
                             <Image Source="/View/PatientUI/Images/logout.png" Height="32" Width="70"/>
                             <TextBlock Text="  Sign out" Foreground="White" FontStyle="Italic" FontSize="12"/>

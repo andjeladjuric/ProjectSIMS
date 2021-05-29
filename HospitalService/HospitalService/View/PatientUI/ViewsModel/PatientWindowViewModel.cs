@@ -27,8 +27,15 @@ namespace HospitalService.View.PatientUI.ViewsModel
 
         public RelayCommand openSurvey { get; set; }
 
+        public RelayCommand openPatientNews { get; set; }
+
         public RelayCommand openMainWindow { get; set; }
 
+        private void Execute_OpenPatientNews(object obj) {
+
+            this.navigationService.Navigate(
+               new PatientNews());
+        }
         private void Execute_NavigateToMainWindow(object obj)
         {
             new MainWindow().Show();
@@ -108,6 +115,7 @@ namespace HospitalService.View.PatientUI.ViewsModel
             openViewPrescriptions = new RelayCommand(Execute_NavigateToPrescriptions,CanExecute_NavigateCommand);
             openSurvey = new RelayCommand(Execute_NavigateToSurvey,CanExecute_NavigateCommand);
             openMainWindow = new RelayCommand(Execute_NavigateToMainWindow,CanExecute_NavigateCommand);
+            openPatientNews = new RelayCommand(Execute_OpenPatientNews,CanExecute_NavigateCommand);
 
 
 
