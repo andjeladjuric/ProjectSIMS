@@ -32,8 +32,10 @@
         <Label Grid.Row="4" Grid.Column="1" Content="Kraj termina" FontStyle="Italic" FontSize="22"/>
         <TextBox Text="{Binding Path=StartTimeAppointment}" Height="50" Width="200" x:Name="tb1" Grid.Row="3" Grid.Column="2" FontStyle="Italic" FontSize="22"/>
         <TextBox Text="{Binding Path=EndTimeAppointment}" Height="50" Width="200" x:Name="tb2" Grid.Row="4" Grid.Column="2" FontStyle="Italic" FontSize="22"/>
-        <Button Content="Potvrdi" Grid.Row="6" Grid.Column="1" FontStyle="Italic" FontSize="22" Height="45" Width="110" Background="RoyalBlue" Foreground="White" Command="{Binding confirmAddAppointment}"/>
-        <Button Content="Odustani" Grid.Row="6" Grid.Column="2" FontStyle="Italic" FontSize="22" Height="45" Width="110" Background="RoyalBlue" Foreground="White" Command="{Binding cancelAddAppointment}"/>
+        <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button Content="Potvrdi"  FontStyle="Italic" FontSize="22" Height="45" Width="110" Background="RoyalBlue" Foreground="White" Command="{Binding confirmAddAppointment}" Margin="80,0,0,0"/>
+            <Button Content="Odustani"  FontStyle="Italic" FontSize="22" Height="45" Width="110" Background="RoyalBlue" Foreground="White" Command="{Binding cancelAddAppointment}"  Margin="40,0,0,0"/>
+        </StackPanel>
     </Grid>
     
 </Page>

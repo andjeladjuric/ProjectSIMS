@@ -65,16 +65,21 @@ namespace HospitalService.Service
             repository = new AppointmentsRepository();
             List<Appointment> appointments = repository.GetAll();
             List<Appointment> appointmentsForSelectedDate = new List<Appointment>();
-            appointmentsForSelectedDate= appointments.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.StartTime.Date == date.Date).ToList();
+            appointmentsForSelectedDate= appointments.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.StartTime.Date == date.Date && appointment.Status!=Status.Canceled).ToList();
             return appointmentsForSelectedDate;
 
 
         }
 
-        public void delete(String id) {
+        public int getNumberOfCanceledAppointments(Patient patient) {
 
+            
             repository = new AppointmentsRepository();
-            repository.Delete(id);
+            List<Appointment> appointments = repository.GetAll();
+            List<Appointment> canceledAppointments = new List<Appointment>();
+            canceledAppointments = appointments.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.Status==Status.Canceled).ToList();
+            return canceledAppointments.Count;
+
         }
 
         public int getNumberOfMovedAppointments(Patient patient) {
@@ -106,6 +111,13 @@ namespace HospitalService.Service
         public void Delete(String AppointmentID)
         {
             repository.Delete(AppointmentID);
+            SetIds();
+        }
+
+        public void DeletePatientAppointment(String AppointmentID)
+        {
+            
+            repository.DeletePatientAppointment(AppointmentID);
             SetIds();
         }
 

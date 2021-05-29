@@ -110,5 +110,20 @@ namespace HospitalService.Repositories
                 }
             }
         }
+
+        public void DeletePatientAppointment(String id)
+        {
+            Appointment appointment;
+            for (int i = 0; i < appointments.Count; i++)
+            {
+                appointment = appointments[i];
+                if (appointment.Id.Equals(id))
+                {
+                    appointment.Status = Status.Canceled;
+                    SerializeAppointments();
+                    break;
+                }
+            }
+        }
     }
 }

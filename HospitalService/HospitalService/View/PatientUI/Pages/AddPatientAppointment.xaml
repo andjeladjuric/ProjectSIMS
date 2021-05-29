@@ -52,8 +52,9 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button Grid.Column="1" Grid.Row="8" Height="45" Width="150" Background="RoyalBlue" Foreground="White" FontStyle="Italic" FontSize="24" Content="Potvrdi" Command="{Binding confirmAddAppointment}"/>
-        <Button Grid.Column="2" Grid.Row="8" Height="45" Width="150" Background="RoyalBlue" Foreground="White" FontStyle="Italic" FontSize="24" Content="Odustani" Command="{Binding cancelAddAppointment}"/>
-
+        <StackPanel Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button  Height="45" Width="130" Background="RoyalBlue" Foreground="White" FontStyle="Italic" FontSize="24" Content="Potvrdi" Command="{Binding confirmAddAppointment}" Margin="90,0,0,0"/>
+            <Button  Height="45" Width="130" Background="RoyalBlue" Foreground="White" FontStyle="Italic" FontSize="24" Content="Odustani" Command="{Binding cancelAddAppointment}"  Margin="40,0,0,0"/>
+        </StackPanel>
     </Grid>
 </Page>
