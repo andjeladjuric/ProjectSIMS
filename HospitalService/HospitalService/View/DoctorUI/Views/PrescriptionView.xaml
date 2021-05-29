@@ -31,7 +31,11 @@
         <TextBlock Text="{Binding ValidationErrors[Medication]}"
                                Foreground="Red" Margin="210,188,0,0"  FontSize="12" />
         <TextBox Text="{Binding Days, Mode=TwoWay}" HorizontalAlignment="Left" Margin="210,258,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+        <TextBlock Text="{Binding ValidationErrors[Days]}"
+                               Foreground="Red" Margin="210,292,0,280"  FontSize="12" />
         <TextBox Text="{Binding Hours, Mode=TwoWay}" HorizontalAlignment="Left" Margin="210,207,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70" />
+        <TextBlock Text="{Binding ValidationErrors[Hours]}"
+                               Foreground="Red" Margin="210,240,0,337"  FontSize="12" />
         <Button  Content="Odustani" HorizontalAlignment="Left" Margin="120,532,0,0" VerticalAlignment="Top" Width="83" >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >

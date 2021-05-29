@@ -8,6 +8,7 @@ using Storage;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,8 +17,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
     public class PrescriptionViewModel : ValidationBase
     {
         private Medication selectedMedication;
-        private int hours;
-        private int days;
+        private string hours;
+        private string days;
         private DateTime selectedDate;
         private string info;
 
@@ -41,7 +42,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
-        public int Hours
+        public string Hours
         {
             get { return hours; }
             set
@@ -51,7 +52,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
-        public int Days
+        public string Days
         {
             get { return days; }
             set
@@ -119,7 +120,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public void Executed_ApplyCommand(object obj)
         {
-            Prescription newPrescription = new Prescription(SelectedMedication.MedicineName, Hours, Days, Info, SelectedDate);
+            Prescription newPrescription = new Prescription(SelectedMedication.MedicineName, Int32.Parse(Hours), Int32.Parse(Days), Info, SelectedDate);
             MedicalRecord medicalRecord = this.ParentWindow.MedicalRecord;
             medicalRecord.Prescriptions.Add(newPrescription);
             new MedicalRecordService().UpdateRecord(medicalRecord); 
@@ -149,8 +150,13 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         protected override void ValidateSelf()
         {
+            Regex regex = new Regex("^[0-9]+$");
             if (SelectedMedication == null)
                 this.ValidationErrors["Medication"] = "Izaberite lijek";
+            if (string.IsNullOrWhiteSpace(Hours) || !regex.IsMatch(Hours))
+                this.ValidationErrors["Hours"] = "Unesite broj";
+            if (string.IsNullOrWhiteSpace(Days) || !regex.IsMatch(Days))
+                this.ValidationErrors["Days"] = "Unesite broj";
         }
     }
 }
