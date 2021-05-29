@@ -1,69 +1,70 @@
-﻿using HospitalService.Storage;
-using Model;
-using Storage;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using HospitalService.Repositories;
+using HospitalService.Service;
+using HospitalService.View.PatientUI.Pages;
+using Model;
 
-namespace HospitalService.View.PatientUI
+namespace HospitalService.View.PatientUI.ViewsModel
 {
-    /// <summary>
-    /// Interaction logic for AddAppointmentToPatient.xaml
-    /// </summary>
-    public partial class AddAppointmentToPatient : Window
+   public class AddPatientAppointmentViewModel:ViewModelPatientClass
     {
-        public AppointmentStorage appointmentStorage { get; set; }
-        public RoomFileStorage roomStorage { get; set; }
+        public String AppointmentId { get; set; }
+        private DateTime date { get; set; }
+        public DateTime Date
+        {
+            get { return date; }
+            set
+            {
+                date = value;
+                OnPropertyChanged();
+            }
+        }
+        private Doctor selectedDoctor;
+        private ObservableCollection<Doctor> doctors;
+        public ObservableCollection<Doctor> Doctors
+        {
+            get { return doctors; }
+            set
+            {
+                doctors = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public DoctorStorage doctorStorage { get; set; }
-        public Patient patient { get; set; }
 
+        public Doctor SelectedDoctor
+        {
+            get { return selectedDoctor; }
+            set
+            {
+                selectedDoctor = value;
+                OnPropertyChanged();
+            }
+        }
+        public String StartTimeAppointment { get; set; }
+        public String EndTimeAppointment { get; set; }
+        public RelayCommand confirmAddAppointment { get; set; }
+        public RelayCommand cancelAddAppointment { get; set; }
+        private DoctorService doctorService;
+        private AppointmentsRepository appointmentsRepository;
         public List<Appointment> appointments { get; set; }
-
-        public List<Doctor> doctors { get; set; }
-        
         public List<Room> rooms { get; set; }
-        public AddAppointmentToPatient(Patient p)
-        {
-            InitializeComponent();
-            roomStorage = new RoomFileStorage();
-            rooms = roomStorage.GetAll();
-            appointmentStorage = new AppointmentStorage();
-            appointments = appointmentStorage.GetAll();
-            patient = p;
-            doctorStorage = new DoctorStorage();
-            doctors = doctorStorage.GetAll(); 
-            DoctorBox.ItemsSource = doctors;
-            IdBox.Text = appointmentStorage.GetNextId();
+
+        private void Execute_ConfirmAddAppointment(object obj) {
 
 
-        }
+           
+            DateTime startTime = Convert.ToDateTime(Date.ToShortDateString() + " " + StartTimeAppointment + ":00");
+            DateTime endTime = Convert.ToDateTime(Date.ToShortDateString() + " " + EndTimeAppointment + ":00");
+           
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
 
-        private void Confirm_Click(object sender, RoutedEventArgs e)
-        {
-            String start = StartBox.Text;
-            String end = EndBox.Text;
-            String date = DateBox.Text;
-            DateTime startTime = Convert.ToDateTime(date + " " + start + ":00");
-            DateTime endTime = Convert.ToDateTime(date + " " + end + ":00");
-            Doctor selectedDoctor = (Doctor)DoctorBox.SelectedItem;
-            
 
-            
             if (!isDoctorAvailable(startTime, endTime, selectedDoctor))
             {
 
@@ -71,9 +72,9 @@ namespace HospitalService.View.PatientUI
             }
             else
             {
-                
-                Room availableRoom= getFirstAvailableRoom(startTime, endTime);
-                
+
+                Room availableRoom = getFirstAvailableRoom(startTime, endTime);
+
 
                 if (availableRoom == null)
                 {
@@ -82,7 +83,7 @@ namespace HospitalService.View.PatientUI
                 }
                 else
                 {
-                    
+
                     if (moreThanTwoAppointmentsInOneDay(startTime))
                     {
                         MessageBox.Show("Vise od dva termina u jednom danu!");
@@ -91,7 +92,7 @@ namespace HospitalService.View.PatientUI
                     {
                         Appointment newAppointment = new Appointment()
                         {
-                            Id = IdBox.Text,
+                            Id = AppointmentId,
                             StartTime = startTime,
                             EndTime = endTime,
                             Type = AppointmentType.Pregled,
@@ -100,8 +101,8 @@ namespace HospitalService.View.PatientUI
                             patient = patient
 
                         };
-                        appointmentStorage.Save(newAppointment);
-                        this.Close();
+                        appointmentsRepository.Save(newAppointment);
+                        addPatientAppointment.NavigationService.Navigate(new ViewAppointment(patient));
                     }
 
                 }
@@ -110,13 +111,11 @@ namespace HospitalService.View.PatientUI
 
 
             }
-
-
         }
 
         private bool moreThanTwoAppointmentsInOneDay(DateTime startTime)
         {
-            List<Appointment> la = appointmentStorage.GetAll();
+            List<Appointment> la = appointmentsRepository.GetAll();
             List<Appointment> sameDateAppointments = la.Where(ap => ap.patient.Jmbg.Equals(patient.Jmbg) && startTime.ToShortDateString().Equals(ap.StartTime.ToShortDateString())).ToList();
             if (sameDateAppointments.Count > 1)
             {
@@ -180,7 +179,7 @@ namespace HospitalService.View.PatientUI
 
         private bool isDoctorAvailable(DateTime startTime, DateTime endTime, Doctor selectedDoctor)
         {
-            
+
             for (int i = 0; i < appointments.Count; i++)
             {
 
@@ -206,6 +205,30 @@ namespace HospitalService.View.PatientUI
 
             return true;
         }
+        private void Execute_CancelAddAppointment(object obj) {
+
+            addPatientAppointment.NavigationService.Navigate(new ViewAppointment(patient));
+        }
+        private bool CanExecute_Command(object obj) {
+            return true;
+        }
+        private Patient patient;
+        private AddPatientAppointment addPatientAppointment;
+        public AddPatientAppointmentViewModel(Patient patient,AddPatientAppointment addPatientAppointment) {
+            this.patient = patient;
+            this.addPatientAppointment = addPatientAppointment;
+            Date = DateTime.Now;
+            doctorService = new DoctorService();
+            List<Doctor> docttorsForAppointment = doctorService.GetAll();
+            Doctors = new ObservableCollection<Doctor>();
+            docttorsForAppointment.ForEach(this.Doctors.Add);
+            appointmentsRepository = new AppointmentsRepository();
+            appointments = appointmentsRepository.GetAll();
+            RoomService roomService = new RoomService();
+            rooms = roomService.GetAll();
+            confirmAddAppointment = new RelayCommand(Execute_ConfirmAddAppointment,CanExecute_Command);
+            cancelAddAppointment = new RelayCommand(Execute_CancelAddAppointment,CanExecute_Command);
+
+        }
     }
 }
-

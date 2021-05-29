@@ -16,22 +16,17 @@ using Model;
 namespace HospitalService.View.PatientUI.Pages
 {
     /// <summary>
-    /// Interaction logic for PreferencesForAppointment.xaml
+    /// Interaction logic for AddPatientAppointment.xaml
     /// </summary>
-    public partial class PreferencesForAppointment : Page
+    public partial class AddPatientAppointment : Page
     {
-
-        
-
-        private PreferencesForAppointmentViewModel viewModel;
-        public PreferencesForAppointment(Patient patient)
+        private AddPatientAppointmentViewModel viewModel;
+        public AddPatientAppointment(Patient patient)
         {
-            InitializeComponent();
-            viewModel = new PreferencesForAppointmentViewModel(patient,this);
-            this.DataContext = viewModel;
-           
-        }
 
-        
+            InitializeComponent();
+            viewModel = new AddPatientAppointmentViewModel(patient,this);
+            this.DataContext = viewModel;
+        }
     }
 }

@@ -64,6 +64,7 @@ namespace HospitalService.View.PatientUI.ViewsModel
         private void Execute_ShowAppointments(object obj)
         {
             DateTime selectedDate = Date;
+            appointmentService=new AppointmentsService();
             List<Appointment> todaysAppointments = appointmentService.getAppointmentsByDate(patient, selectedDate);
             this.Appointments = new ObservableCollection<Appointment>();
             todaysAppointments.ForEach(this.Appointments.Add);
@@ -82,7 +83,7 @@ namespace HospitalService.View.PatientUI.ViewsModel
             else
             {
                 appointmentService.Delete(SelectedAppointment.Id);
-                
+                appointmentService = new AppointmentsService();
                 List<Appointment> todaysAppointments = appointmentService.getAppointmentsByDate(patient, Date);
                 this.Appointments = new ObservableCollection<Appointment>();
                 todaysAppointments.ForEach(Appointments.Add);

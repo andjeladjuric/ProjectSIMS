@@ -65,7 +65,7 @@ namespace HospitalService.Service
             repository = new AppointmentsRepository();
             List<Appointment> appointments = repository.GetAll();
             List<Appointment> appointmentsForSelectedDate = new List<Appointment>();
-            appointmentsForSelectedDate= appointments.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.StartTime.Date == date).ToList();
+            appointmentsForSelectedDate= appointments.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.StartTime.Date == date.Date).ToList();
             return appointmentsForSelectedDate;
 
 

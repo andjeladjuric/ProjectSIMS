@@ -58,10 +58,10 @@ namespace HospitalService.View.PatientUI.ViewsModel
             else
             {
 
-                this.navigationService.Navigate(new AddAppointmentToPatient(patient));
+                this.navigationService.Navigate(new PreferencesForAppointment(patient));
             }
 
-            this.navigationService.Navigate(new PreferencesForAppointment(patient));
+            
         }
         private void Execute_NavigateToViewAppointment(object obj)
         {
