@@ -21,14 +21,12 @@ namespace HospitalService.View.PatientUI.ViewsModel
             if (CheckedNo == true)
             {
                 preferencesForAppointment.NavigationService.Navigate(new AddPatientAppointment(patient));
-                /*AddAppointmentToPatient addAppointmentWindow = new AddAppointmentToPatient(patient);
-                addAppointmentWindow.Show();*/
+               
             }
             else if (CheckedYes == true)
             {
-
-                UrgentAppointment urgentAppointmentWindow = new UrgentAppointment(patient);
-                urgentAppointmentWindow.Show();
+                preferencesForAppointment.NavigationService.Navigate(new UrgentPatientAppointment(patient));
+                
 
             }
             else {
