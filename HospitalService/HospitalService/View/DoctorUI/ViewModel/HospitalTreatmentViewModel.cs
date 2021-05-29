@@ -170,7 +170,12 @@ namespace HospitalService.View.DoctorUI.ViewModel
             this.Validate();
             if (this.IsValid)
             {
-                return true;
+                if(DateTime.Compare(StartDate, EndDate) >= 0)
+                {
+                    MessageBox.Show("Pogrešan unos datuma.");
+                    return false;
+                }else
+                    return true;
             }
             return false;
         }
