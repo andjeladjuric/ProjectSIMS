@@ -1,0 +1,31 @@
+﻿<Window x:Class="HospitalService.View.SecretaryUI.FreeDaysView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalService.View.SecretaryUI"
+        mc:Ignorable="d"
+        Title="FreeDaysView" ResizeMode="NoResize" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Button Click="Back_Click" Grid.Row="0" Grid.Column="0" Margin="5,7,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Image Name="MenuIcon" Source="/Images/back.png"/>
+        </Button>
+        <ListView Name="lvDays" Margin="24,61,16,28" RenderTransformOrigin="0.5,0.5" >
+            <ListView.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="-0.011"/>
+                    <RotateTransform Angle="0.258"/>
+                    <TranslateTransform Y="-0.036"/>
+                </TransformGroup>
+            </ListView.RenderTransform>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Tip" Width="150" DisplayMemberBinding="{Binding Type }" />
+                    <GridViewColumn Header="Pocetak" Width="115" DisplayMemberBinding="{Binding Start, StringFormat=d}" />
+                    <GridViewColumn Header="Kraj" Width="115" DisplayMemberBinding="{Binding End, StringFormat=d}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

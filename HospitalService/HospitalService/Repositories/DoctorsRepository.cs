@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalService.Model;
+using Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,32 @@ namespace HospitalService.Repositories
                     break;
                 }
             }
+        }
+
+        public void Delete(String jmbg)
+        {
+            Doctor doctor = doctors.Find(x => x.Jmbg == jmbg);
+            doctors.Remove(doctor);
+            SerializeDoctors();
+
+        }
+        public void Save(Doctor newDoctor)
+        {
+            doctors.Add(newDoctor);
+            SerializeDoctors();
+        }
+
+        public void AddHolidays(string jmbg, Holidays holidays)
+        {
+            Doctor doctor = GetOneByJmbg(jmbg);
+            if (doctor.Holidays == null)
+            {
+                doctor.Holidays = new List<Holidays>();
+                doctor.Holidays.Add(holidays);
+            }
+
+            doctor.Holidays.Add(holidays);
+            SerializeDoctors();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using HospitalService.Repositories;
+﻿using HospitalService.Model;
+using HospitalService.Repositories;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,11 @@ namespace HospitalService.Service
         public Doctor GetOne(string username) => repository.GetOne(username);
         public Doctor GetOneByJmbg(string jmbg) => repository.GetOneByJmbg(jmbg);
         public void Edit(Doctor doctor) => repository.Edit(doctor);
+        public void Delete(String jmbg) => repository.Delete(jmbg);
+        public void Save(Doctor doctor) => repository.Save(doctor);
+
+      
+
     }
 
 }

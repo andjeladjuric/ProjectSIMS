@@ -85,7 +85,7 @@ namespace HospitalService.View.SecretaryUI
 
         private void AddNews_Selected(object sender, RoutedEventArgs e)
         {
-
+            new Doctors().ShowDialog();
         }
 
         private void Info_Selected(object sender, RoutedEventArgs e)
