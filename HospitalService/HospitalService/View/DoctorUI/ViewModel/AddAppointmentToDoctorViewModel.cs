@@ -141,24 +141,6 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public bool CanExecute_AddCommand(object obj)
         {
-            /*
-            DateService dateService = new DateService();
-            newAppointment.StartTime = dateService.CreateDate(Date, StartTime);
-            newAppointment.EndTime = dateService.CreateDate(Date, EndTime);
-            Doctor doctor = DoctorWindow.Doctor;
-
-            if (StartTime == null || EndTime == null || AppointmentsType == null || Room == null || Patient == null)
-            {
-                MessageBox.Show("Sva polja  moraju biti popunjena!");
-                return false;
-            } 
-
-            if (new AppointmentsService().IsTaken(newAppointment.StartTime, newAppointment.EndTime, doctor))
-            {
-                MessageBox.Show("Termin je vec zauzet"); // Ispitati da li je soba slobodna i da li je pacijent slobodan?
-                return false;
-            }
-            return true;*/
             DateService dateService = new DateService();
             newAppointment.StartTime = dateService.CreateDate(Date, Appointment.StartTime);
             newAppointment.EndTime = dateService.CreateDate(Date, Appointment.EndTime);
@@ -166,6 +148,12 @@ namespace HospitalService.View.DoctorUI.ViewModel
             Appointment.Validate();
             if (Appointment.IsValid)
             {
+                if (DateTime.Compare(newAppointment.StartTime, DateTime.Now) <= 0)
+                {
+                    MessageBox.Show("Odabrano vrijeme je prošlo.");
+                    return false;
+                }
+
                 if (new AppointmentsService().IsTaken(newAppointment.StartTime, newAppointment.EndTime, doctor))
                 {
                     MessageBox.Show("Postoji termin u izabranom periodu.");
@@ -173,11 +161,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 }
                 if (new AppointmentsService().IsRoomTaken(newAppointment.StartTime, newAppointment.EndTime, Appointment.Room))
                 {
-                    RoomType roomType;
-                    if (AppointmentType == AppointmentType.Pregled)
-                        roomType = RoomType.ExaminationRoom;
-                    else
-                        roomType = RoomType.OperatingRoom;
+                    RoomType roomType = new RoomService().GetRoomType(AppointmentType);
                     List<Room> available = new AppointmentsService().GetAvailableRooms(newAppointment.StartTime, newAppointment.EndTime, roomType);
                     try {
                         if (available[0] != null) {
@@ -205,14 +189,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public void Executed_GetRoomsCommand(object obj)
         {
-             RoomType roomType;
-             if (AppointmentType == AppointmentType.Pregled)
-                 roomType = RoomType.ExaminationRoom;
-             else
-                 roomType = RoomType.OperatingRoom;
-
-             Rooms = new ObservableCollection<Room>();
-             new RoomService().GetByType(roomType).ForEach(Rooms.Add);
+            RoomType roomType = new RoomService().GetRoomType(AppointmentType);
+            Rooms = new ObservableCollection<Room>();
+            new RoomService().GetByType(roomType).ForEach(Rooms.Add);
         }
 
         public void Executed_FindCommand(object obj)
