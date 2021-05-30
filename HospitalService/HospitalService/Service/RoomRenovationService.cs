@@ -86,7 +86,8 @@ namespace HospitalService.Service
 
         public bool CheckAppointmentsForDate(DateTime startDate, DateTime endDate, string roomId)
         {
-            foreach (Appointment a in new AppointmentStorage().GetAll())
+            AppointmentsService appointments = new AppointmentsService();
+            foreach (Appointment a in appointments.GetAll())
             {
                 if (a.room.Id.Equals(roomId))
                 {

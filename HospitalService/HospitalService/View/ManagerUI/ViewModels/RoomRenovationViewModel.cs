@@ -272,6 +272,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             if (DemoOn)
             {
                 RoomInventoryService service = new RoomInventoryService();
+                MessageViewModel.Message = "Završena druga funkcionalnost \n Sledi - manipulisanje inventarom";
                 RoomService rooms = new RoomService();
                 ct.ThrowIfCancellationRequested();
 
@@ -292,13 +293,13 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
                 await Task.Delay(2000, ct);
                 IsPopupOpen = true;
-                await Task.Delay(1500, ct);
+                await Task.Delay(3000, ct);
                 IsPopupOpen = false;
                 await Task.Delay(1500, ct);
                 this.Frame.NavigationService.Navigate(new RoomsView());
-                await Task.Delay(1500, ct);
+                await Task.Delay(2000, ct);
                 this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(rooms.GetOne("105")));
-                await Task.Delay(1500, ct);
+                await Task.Delay(2000, ct);
                 this.Frame.NavigationService.Navigate(new MoveInventoryView(rooms.GetOne("105"),
                     service.LoadRoomInventory(rooms.GetOne("105")), DemoOn));
             }
