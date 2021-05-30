@@ -3,6 +3,7 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 
 namespace HospitalService.Service
 {
@@ -28,7 +29,7 @@ namespace HospitalService.Service
         #endregion
 
         #region Functions 
-        
+
         public void DeleteMedication(string medicineId)
         {
             RemoveValidationRequest(medicineId);
@@ -56,23 +57,16 @@ namespace HospitalService.Service
             ingredients.Delete(name);
         }
 
-        private void DeleteIngredientsFromMedication(string name)
+        public void DeleteIngredientsFromMedication(string name)
         {
-            MedicationIngredients ingredient;
-            for (int i = 0; i < ingredients.GetAll().Count; i++)
+            Medication med;
+            for (int j = 0; j < medications.GetAll().Count; j++)
             {
-                ingredient = ingredients.GetAll()[i];
-                if (ingredient.IngredientName.Equals(name))
+                med = medications.GetAll()[j];
+                if (med.Ingredients.ContainsKey(name))
                 {
-                    foreach (Medication med in medications.GetAll())
-                    {
-                        if (med.Ingredients.ContainsKey(name))
-                        {
-                            med.Ingredients.Remove(name);
-                            medications.SerializeMedication();
-                            break;
-                        }
-                    }
+                    med.Ingredients.Remove(name);
+                    UpdateMedication(med);
                 }
             }
         }

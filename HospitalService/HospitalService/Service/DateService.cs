@@ -29,24 +29,24 @@ namespace HospitalService.Service
                 {
                     if (renovation.RoomId.Equals(roomId))
                     {
-                        if (IsFirstBefore(startReno, renovation.Start) && IsFirstAfter(endReno, renovation.End))
+                        if (IsBefore(startReno, renovation.Start) && IsAfter(endReno, renovation.End))
                         {
                             returnValue = false;
                             break;
                         }
-                        else if (IsFirstBefore(startReno, renovation.Start) && IsFirstBefore(endReno, renovation.End) &&
-                            IsFirstAfter(endReno, renovation.Start))
+                        else if (IsBefore(startReno, renovation.Start) && IsBefore(endReno, renovation.End) &&
+                            IsAfter(endReno, renovation.Start))
                         {
                             returnValue = false;
                             break;
                         }
-                        else if (IsFirstAfter(startReno, renovation.Start) && IsFirstBefore(endReno, renovation.End))
+                        else if (IsAfter(startReno, renovation.Start) && IsBefore(endReno, renovation.End))
                         {
                             returnValue = false;
                             break;
                         }
-                        else if (IsFirstAfter(startReno, renovation.Start) && IsFirstAfter(endReno, renovation.End) &&
-                            IsFirstBefore(startReno, renovation.End))
+                        else if (IsAfter(startReno, renovation.Start) && IsAfter(endReno, renovation.End) &&
+                            IsBefore(startReno, renovation.End))
                         {
                             returnValue = false;
                             break;
@@ -58,7 +58,7 @@ namespace HospitalService.Service
             return returnValue;
         }
 
-        private bool IsFirstBefore(DateTime firstDate, DateTime secondDate)
+        private bool IsBefore(DateTime firstDate, DateTime secondDate)
         {
             if (DateTime.Compare(firstDate, secondDate) <= 0)
                 return true;
@@ -66,7 +66,7 @@ namespace HospitalService.Service
             return false;
         }
 
-        private bool IsFirstAfter(DateTime firstDate, DateTime secondDate)
+        private bool IsAfter(DateTime firstDate, DateTime secondDate)
         {
             if (DateTime.Compare(firstDate, secondDate) >= 0)
                 return true;

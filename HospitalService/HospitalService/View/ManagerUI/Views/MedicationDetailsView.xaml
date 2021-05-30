@@ -49,7 +49,7 @@
                        Foreground="#474746"/>
             <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                 ItemsSource="{Binding Ingredients}"
+                 ItemsSource="{Binding Ingredients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  x:Name="Validation" Margin="452,193,78,268">
 
                 <ListBox.ItemsPanel >

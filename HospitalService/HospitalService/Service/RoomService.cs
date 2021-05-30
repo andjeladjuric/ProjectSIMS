@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Windows;
 
 namespace HospitalService.Service
 {
@@ -30,10 +31,29 @@ namespace HospitalService.Service
 
         public void DeleteRoom(string roomId)
         {
-            DeleteMovingRequests(roomId);
-            DeleteRenovationRequests(roomId);
-            MoveItemsToStorage(roomId);
-            roomsRepository.Delete(roomId);
+            if (CheckTakenBeds(roomId))
+            {
+                DeleteMovingRequests(roomId);
+                DeleteRenovationRequests(roomId);
+                MoveItemsToStorage(roomId);
+                roomsRepository.Delete(roomId);
+            }
+            else
+            {
+                MessageBox.Show("Soba je zauzeta!");
+            }
+        }
+
+        private bool CheckTakenBeds(string roomId)
+        {
+            RoomInventoryService service = new RoomInventoryService();
+            int takenBeds = new MedicalRecordService().TakenBeds(roomId);
+            if (takenBeds > 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private void DeleteMovingRequests(string roomId)
@@ -96,7 +116,6 @@ namespace HospitalService.Service
                 }
             }
         }
-
 
         public Room getFirstAvailableRoom(DateTime startTime, DateTime endTime)
         {

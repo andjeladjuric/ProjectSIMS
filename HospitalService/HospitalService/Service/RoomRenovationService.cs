@@ -118,15 +118,9 @@ namespace HospitalService.Service
         private void ChangeRoomAvailability(Renovation renovation, bool IsAvailable)
         {
             RoomService roomService = new RoomService();
-            foreach (Room room in roomService.GetAll())
-            {
-                if (room.Id.Equals(renovation.RoomId))
-                {
-                    room.IsFree = IsAvailable;
-                    roomService.UpdateRoom(room);
-                    break;
-                }
-            }
+            Room room = roomService.GetOne(renovation.RoomId);
+            room.IsFree = IsAvailable;
+            roomService.UpdateRoom(room);
         }
 
         public bool IsRoomReservationPossible(DateTime appointmentStart, DateTime appointmentEnd)

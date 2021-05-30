@@ -61,42 +61,9 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Actions
         private void OnConfirm()
         {
-            Inventory item;
             int enteredQuantity = Int32.Parse(Quantity);
-            InventoryService inventoryService = new InventoryService();
-            for (int i = 0; i < inventoryService.GetAll().Count; i++)
-            {
-                item = inventoryService.GetAll()[i];
-                if (item.Id == SelectedItem.Id)
-                {
-                    if (item.Quantity == enteredQuantity)
-                    {
-                        inventoryService.GetAll().RemoveAt(i);
-                    }
-                    else
-                    {
-                        item.Quantity -= enteredQuantity;
-                    }
-
-                    inventoryService.EditItem(item);
-                    break;
-                }
-            }
-
-            RoomInventoryService roomInventoryService = new RoomInventoryService();
-            RoomInventory inventoryInRoom = roomInventoryService.GetRoomInventoryByIds(Room.Id, SelectedItem.Id);
-
-            if (inventoryInRoom.Quantity == enteredQuantity)
-            {
-                roomInventoryService.GetAll().Remove(inventoryInRoom);
-            }
-            else
-            {
-                inventoryInRoom.Quantity -= enteredQuantity;
-            }
-
-            roomInventoryService.EditItem(inventoryInRoom);
-
+            InventoryService service = new InventoryService();
+            service.ReduceQuantity(enteredQuantity, SelectedItem, Room);
             this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(Room));
         }
 
