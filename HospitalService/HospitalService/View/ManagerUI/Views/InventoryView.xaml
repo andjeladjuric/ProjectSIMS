@@ -103,13 +103,9 @@
                   HorizontalAlignment="Left" Margin="167,97,0,0" VerticalAlignment="Top" 
                   Width="140" Foreground="#474746"
                   FontFamily="Roboto"
+                  FontWeight="Light"
                   FontSize="16"
                   HorizontalContentAlignment="Center">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged" >
-                    <i:InvokeCommandAction Command="{Binding FilterTypeCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
             <ComboBoxItem Content="Sva oprema"/>
             <ComboBoxItem Content="Statička oprema"/>
             <ComboBoxItem Content="Dinamička oprema"/>
@@ -120,43 +116,25 @@
                 <materialDesign:PackIcon Kind="Search" Height="30" Width="30" />
             </materialDesign:PopupBox.ToggleContent>
             <StackPanel Width="150" Height="160">
-                <TextBox x:Name="searchId" Text="{Binding ItemId}"
+                <TextBox x:Name="searchId" Text="{Binding FilterId, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="šifra..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="KeyUp" >
-                            <i:InvokeCommandAction Command="{Binding SearchCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <TextBox x:Name="searchName" Text="{Binding ItemName}"
+                <TextBox x:Name="searchName" Text="{Binding FilterName, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="naziv..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="KeyUp" >
-                            <i:InvokeCommandAction Command="{Binding SearchCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <TextBox x:Name="searchSupplier" Text="{Binding Supplier}"
+                <TextBox x:Name="searchSupplier" Text="{Binding FilterSupplier, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="proizvođač..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="KeyUp" >
-                            <i:InvokeCommandAction Command="{Binding SearchCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
+                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <Button Content="Poništi pretragu" FontFamily="Roboto" Foreground="Black"
+                <Button Content="Poništi pretragu" FontFamily="Roboto" Foreground="Black" Command="{Binding CancelSearch}"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
             </StackPanel>
         </materialDesign:PopupBox>

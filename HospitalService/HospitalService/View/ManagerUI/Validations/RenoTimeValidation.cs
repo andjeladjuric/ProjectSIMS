@@ -40,7 +40,8 @@ namespace HospitalService.View.ManagerUI.Validations
 
     public class RoomWrapper : DependencyObject
     {
-        public static readonly DependencyProperty FirstRoomProperty = DependencyProperty.Register("FirstRoom", typeof(Room), typeof(RoomWrapper),
+        public static readonly DependencyProperty FirstRoomProperty = DependencyProperty.Register("FirstRoom", typeof(Room), 
+            typeof(RoomWrapper),
             null);
 
         public Room FirstRoom
@@ -49,7 +50,8 @@ namespace HospitalService.View.ManagerUI.Validations
             set => SetValue(FirstRoomProperty, value);
         }
 
-        public static readonly DependencyProperty StartDateProperty = DependencyProperty.Register("StartDate", typeof(DateTime), typeof(RoomWrapper),
+        public static readonly DependencyProperty StartDateProperty = DependencyProperty.Register("StartDate", typeof(DateTime), 
+            typeof(RoomWrapper),
             null);
 
         public DateTime StartDate

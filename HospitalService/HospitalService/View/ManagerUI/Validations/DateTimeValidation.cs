@@ -32,7 +32,7 @@ namespace HospitalService.View.ManagerUI.Validations
 
                 var enteredTime = Wrapper.Time.Add(TimeSpan.ParseExact(value.ToString(), "c", null));
 
-                if (DateTime.Compare(enteredTime, DateTime.Now) <= 0)
+                if (DateTime.Compare(enteredTime, DateTime.Now) < 0)
                 {
                     return new ValidationResult(false, "Vreme koje ste uneli je prošlo!");
                 }

@@ -197,8 +197,20 @@
 
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="509,531,0,0" VerticalAlignment="Top" Height="26" Width="90" 
                 Command="{Binding CancelCommand}"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="332,88,0,0" Text="Dodaj sobu" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
-
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="286,106,0,0" Text="Dodaj sobu" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="196" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
+        <Button x:Name="StopDemo" Margin="552,111,287,0" VerticalAlignment="Top" Height="34" 
+                        BorderThickness="1" Command="{Binding StopDemo}" Content="Zaustavi DEMO">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DemoOn}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>

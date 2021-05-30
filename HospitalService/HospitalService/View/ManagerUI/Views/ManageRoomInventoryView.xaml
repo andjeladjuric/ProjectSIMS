@@ -84,11 +84,11 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <TextBlock x:Name="Room" Text="Inventar sobe:" HorizontalAlignment="Left" Margin="344,36,0,0" VerticalAlignment="Top" 
+        <TextBlock x:Name="Room" Text="Inventar sobe:" HorizontalAlignment="Left" Margin="175,87,0,0" VerticalAlignment="Top" 
                Width="152" Height="31" FontSize="24" FontFamily="Roboto" FontStyle="Italic"/>
-        <TextBox x:Name="IDBox" IsReadOnly="True"  HorizontalAlignment="Left" Height="30" Margin="518,37,0,0" TextWrapping="Wrap" 
+        <TextBox x:Name="IDBox" IsReadOnly="True"  HorizontalAlignment="Left" Height="30" Margin="349,88,0,0" TextWrapping="Wrap" 
                  TextAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Text="{Binding SelectedRoom.Id}"
-                 Width="154" 
+                 Width="135" 
                  Foreground="#474746"
                  FontFamily="Roboto"
                  FontSize="16"
@@ -99,41 +99,30 @@
         <Button x:Name="changeQuantity" Content="Izmena stanja" HorizontalAlignment="Left" Margin="309,606,0,0" 
                 VerticalAlignment="Top" Height="26" Width="115" Command="{Binding ChangeQuantityCommand}"/>
 
-        <ComboBox x:Name="InventoryType"
-                  HorizontalAlignment="Left" Margin="170,97,0,0" VerticalAlignment="Top" 
-                  Width="140"
-                  Foreground="#474746"
-                  FontFamily="Roboto"
-                  FontSize="16"
-                  HorizontalContentAlignment="Center">
-            <ComboBoxItem Content="Sva oprema"/>
-            <ComboBoxItem Content="Statička oprema"/>
-            <ComboBoxItem Content="Dinamička oprema"/>
-        </ComboBox>
-        <materialDesign:PopupBox x:Name="Popup" PlacementMode="RightAndAlignTopEdges" Width="32" Height="30" StaysOpen="True" Margin="768,94,0,594">
+        <materialDesign:PopupBox x:Name="Popup" PlacementMode="RightAndAlignTopEdges" Width="32" Height="30" StaysOpen="True" Margin="763,88,0,600">
             <materialDesign:PopupBox.ToggleContent>
-                <materialDesign:PackIcon Kind="Search" Height="30" Width="30" />
+                <materialDesign:PackIcon Kind="Search" Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </materialDesign:PopupBox.ToggleContent>
             <StackPanel Width="150" Height="160">
-                <TextBox x:Name="searchId"
+                <TextBox x:Name="searchId" Text="{Binding FilterId, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="šifra..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <TextBox x:Name="searchName"
+                <TextBox x:Name="searchName" Text="{Binding FilterName, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="naziv..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <TextBox x:Name="searchSupplier"
+                <TextBox x:Name="searchSupplier" Text="{Binding FilterSupplier, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="proizvođač..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <Button Content="Poništi pretragu" FontFamily="Roboto" Foreground="Black"
+                <Button Content="Poništi pretragu" FontFamily="Roboto" Foreground="Black" Command="{Binding CancelSearch}"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
             </StackPanel>
         </materialDesign:PopupBox>

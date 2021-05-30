@@ -7,6 +7,7 @@
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
       xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="969"
       Title="MoveInventory">
@@ -181,7 +182,7 @@
                      FontSize="14"
                      HorizontalContentAlignment="Center"/>
 
-            <DatePicker x:Name="datePicker" DisplayDate="{Binding Date}" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Left"
+            <DatePicker x:Name="datePicker" SelectedDate="{Binding Date}" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Left"
                         Margin="169,188,0,0" VerticalAlignment="Top" Width="154" Height="30"
                         Foreground="#474746"
                         FontFamily="Roboto"
@@ -246,7 +247,7 @@
             </TextBox>
         </Grid>
 
-        <ComboBox x:Name="InventoryType"
+        <ComboBox x:Name="InventoryType" SelectedIndex="{Binding SelectedType}"
                   HorizontalAlignment="Left" Margin="24,91,0,0" VerticalAlignment="Top" 
                   Width="140" Foreground="#474746"
                   FontFamily="Roboto"
@@ -262,25 +263,25 @@
                 <materialDesign:PackIcon Kind="Search" Height="30" Width="30" />
             </materialDesign:PopupBox.ToggleContent>
             <StackPanel Width="150" Height="160">
-                <TextBox x:Name="searchId"
+                <TextBox x:Name="searchId" Text="{Binding FilterId, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="šifra..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <TextBox x:Name="searchName"
+                <TextBox x:Name="searchName" Text="{Binding FilterName, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="naziv..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <TextBox x:Name="searchSupplier"
+                <TextBox x:Name="searchSupplier" Text="{Binding FilterSupplier, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="proizvođač..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <Button Content="Poništi pretragu" FontFamily="Roboto" Foreground="Black"
+                <Button Content="Poništi pretragu" FontFamily="Roboto" Foreground="Black" Command="{Binding CancelSearch}"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
             </StackPanel>
         </materialDesign:PopupBox>

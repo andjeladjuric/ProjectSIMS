@@ -4,6 +4,7 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,6 +13,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
     public class ManagerWindowViewModel : ViewModel
     {
         #region Fields
+        private CancellationTokenSource cts = new CancellationTokenSource();
         public Manager Manager { get; set; }
         public Grid grid { get; set; }
         public Window Window { get; set; }
@@ -25,6 +27,17 @@ namespace HospitalService.View.ManagerUI.ViewModels
             set
             {
                 selected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isOpen;
+        public bool IsPopupOpen
+        {
+            get { return isOpen; }
+            set
+            {
+                isOpen = value;
                 OnPropertyChanged();
             }
         }
@@ -51,15 +64,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void OnDemo()
         {
             DemoOn = true;
-            MessageBox.Show("Demo počinje - DODAVANJE SOBE");
+            IsPopupOpen = true;
             this.Frame.NavigationService.Navigate(new NewRoomView(DemoOn));
-        }
-
-        private void OnStopDemo()
-        {
-            DemoOn = false;
-            MessageBox.Show("DEMO završen!");
-            this.Frame.NavigationService.Navigate(new RoomsView());
         }
 
         private void OnChange()
@@ -108,7 +114,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
             LogoutCommand = new MyICommand(OnLogout, CanExecute);
             ChangePage = new MyICommand(OnChange, CanExecute);
             DemoCommand = new MyICommand(OnDemo, CanExecute);
-            StopDemo = new MyICommand(OnStopDemo, CanExecute);
         }
         #endregion
     }

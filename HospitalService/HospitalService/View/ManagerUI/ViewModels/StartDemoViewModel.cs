@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace HospitalService.View.ManagerUI.ViewModels
@@ -9,8 +10,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
     public class StartDemoViewModel : ViewModel
     {
         #region Fields
-        public Frame Frame { get; set; }
         public bool DemoOn { get; set; }
+        public UserControl PopUp { get; set; }
         #endregion
 
         #region Commands
@@ -22,13 +23,13 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void OnOkay()
         {
             DemoOn = true;
-            this.Frame.NavigationService.Navigate(new NewRoomView(DemoOn));
+            PopUp.Visibility = Visibility.Hidden;
         }
 
         private void OnCancel()
         {
             DemoOn = false;
-            this.Frame.NavigationService.GoBack();
+            PopUp.Visibility = Visibility.Hidden;
         }
 
         private bool CanNavigate()
@@ -38,10 +39,10 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Constructors
-        public StartDemoViewModel(Frame newFrame)
+        public StartDemoViewModel(UserControl control)
         {
-            this.Frame = newFrame;
             this.DemoOn = false;
+            this.PopUp = control;
             OkayCommand = new MyICommand(OnOkay, CanNavigate);
             CancelCommand = new MyICommand(OnCancel, CanNavigate);
         }

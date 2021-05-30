@@ -1,13 +1,1 @@
-[
-  {
-    "RoomId": "321",
-    "Start": "2021-05-29T16:27:48.5275376+02:00",
-    "End": "2021-05-30T00:00:00",
-    "Type": 0,
-    "SecondRoomId": null,
-    "NewRoomId": "323",
-    "NewRoomType": 0,
-    "NewRoomName": "sobasobasobna",
-    "NewSize": 14.0
-  }
-]
+[]

@@ -5,9 +5,11 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace HospitalService.View.ManagerUI.ViewModels
 {
@@ -85,12 +87,73 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
         }
 
+        private string filterId;
+        public string FilterId
+        {
+            get { return filterId; }
+            set
+            {
+                filterId = value;
+                OnPropertyChanged();
+                FilterCollection();
+            }
+        }
+
+        private string filterName;
+        public string FilterName
+        {
+            get { return filterName; }
+            set
+            {
+                filterName = value;
+                OnPropertyChanged();
+                FilterCollection();
+            }
+        }
+
+        private string filterSupplier;
+        public string FilterSupplier
+        {
+            get { return filterSupplier; }
+            set
+            {
+                filterSupplier = value;
+                OnPropertyChanged();
+                FilterCollection();
+            }
+        }
+
+        private ICollectionView inventoryView;
+        public ICollectionView InventoryView
+        {
+            get { return inventoryView; }
+            set
+            {
+                inventoryView = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int selectedType;
+        public int SelectedType
+        {
+            get { return selectedType; }
+            set
+            {
+                selectedType = value;
+                OnPropertyChanged();
+                FilterCollection();
+            }
+        }
+
         public List<String> Rooms { get; set; }
         #endregion
 
         #region Commands
         public MyICommand ConfirmCommand { get; set; }
         public MyICommand CancelCommand { get; set; }
+        public MyICommand CancelSearch { get; set; }
+        public MyICommand FilterTypeCommand { get; set; }
         #endregion
 
         #region Actions
@@ -140,6 +203,13 @@ namespace HospitalService.View.ManagerUI.ViewModels
             this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(Room));
         }
 
+        private void OnCancelSearch()
+        {
+            FilterName = "";
+            FilterId = "";
+            FilterSupplier = "";
+        }
+
         private bool CanExecute()
         {
             return SelectedItem != null;
@@ -166,6 +236,22 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 }
             }
         }
+
+        private void FilterCollection()
+        {
+            if (InventoryView != null)
+            {
+                InventoryView.Refresh();
+            }
+        }
+
+        public bool Filter(object obj)
+        {
+            RoomInventoryService service = new RoomInventoryService();
+            var data = obj as Inventory;
+
+            return service.Filter(obj, FilterId, FilterName, FilterSupplier, SelectedType);
+        }
         #endregion
 
         #region Constructors
@@ -174,10 +260,16 @@ namespace HospitalService.View.ManagerUI.ViewModels
             this.Frame = currentFrame;
             this.Room = room;
             this.RoomInventory = inv;
-            //this.Date = DateTime.Now;
+            this.Date = DateTime.Today;
             LoadRooms();
+            this.FilterName = "";
+            this.FilterId = "";
+            this.FilterSupplier = "";
+            InventoryView = CollectionViewSource.GetDefaultView(RoomInventory);
+            InventoryView.Filter = new Predicate<object>(Filter);
             ConfirmCommand = new MyICommand(OnConfirm, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanNavigate);
+            CancelSearch = new MyICommand(OnCancelSearch, CanNavigate);
         }
         #endregion
     }

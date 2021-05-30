@@ -124,6 +124,39 @@ namespace HospitalService.Service
                 return ++takenBeds;
         }
 
+        public bool Filter(object obj, string FilterId, string FilterName, string FilterSupplier, int SelectedType)
+        {
+            var data = obj as Inventory;
+            if (data != null)
+            {
+                if (!FilterId.Equals(string.Empty) || !FilterName.Equals(string.Empty) ||
+                    !FilterSupplier.Equals(string.Empty))
+                {
+                    return data.Id.ToString().Trim().Contains(FilterId) && data.Name.ToLower().Trim().Contains(FilterName) &&
+                        data.Supplier.ToLower().Trim().Contains(FilterSupplier);
+                }
+
+                if (SelectedType != -1)
+                {
+                    if (SelectedType == 0)
+                        return true;
+
+                    if (SelectedType == 1)
+                        return data.EquipmentType.Equals(Equipment.Static);
+
+                    if (SelectedType == 2)
+                        return data.EquipmentType.Equals(Equipment.Dynamic);
+
+                    return true;
+                }
+
+                return true;
+            }
+            return false;
+        }
+
+      
+
         public List<RoomInventory> GetAll() => roomInventoryRepository.GetAll();
         public RoomInventory GetRoomInventoryByIds(string roomId, int itemId) => roomInventoryRepository.GetRoomInventoryByIds(roomId, itemId);
         public void EditItem(RoomInventory r) => roomInventoryRepository.EditItem(r);

@@ -4,6 +4,7 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
     public class NewRoomViewModel : ViewModel
     {
         #region Fields
+        private CancellationTokenSource cts = new CancellationTokenSource();
         private string roomId;
         private string roomName;
         private string roomFloor;
@@ -96,6 +98,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Commands
         public MyICommand AddCommand { get; set; }
         public MyICommand CancelCommand { get; set; }
+        public MyICommand StopDemo { get; set; }
 
         #endregion
 
@@ -104,6 +107,13 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             RoomService roomService = new RoomService();
             roomService.AddRoom(new Room(RoomType, RoomId, RoomName, Double.Parse(RoomSize), Int32.Parse(RoomFloor), true));
+            this.Frame.NavigationService.Navigate(new RoomsView());
+        }
+
+        private void OnStop()
+        {
+            cts.Cancel();
+            MessageBox.Show("Demo zavrsen");
             this.Frame.NavigationService.Navigate(new RoomsView());
         }
 
@@ -120,28 +130,30 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Other Functions
-        private async Task DemoIsOn()
+        private async Task DemoIsOn(CancellationToken ct)
         {
             if (DemoOn)
             {
                 RoomService rooms = new RoomService();
+                ct.ThrowIfCancellationRequested();
 
-                await Task.Delay(1500);
+                await Task.Delay(1500, ct);
                 RoomId = "403a";
-                await Task.Delay(2000);
+                await Task.Delay(2000, ct);
                 RoomName = "Operaciona sala";
-                await Task.Delay(2000);
+                await Task.Delay(2000, ct);
                 RoomFloor = "3";
-                await Task.Delay(2000);
+                await Task.Delay(2000, ct);
                 RoomSize = "35.4";
-                await Task.Delay(2000);
+                await Task.Delay(2000, ct);
                 RoomType = RoomType.OperatingRoom;
-                await Task.Delay(2000);
+                await Task.Delay(2000, ct);
                 OnAdd();
 
-                await Task.Delay(2000);
+                await Task.Delay(2000, ct);
                 MessageBox.Show("Počinje DEMO za sledeću funkcionalnost - Rukovanje inventarom");
-                await Task.Delay(1500);
+                await Task.Delay(1500, ct);
+                rooms.DeleteRoom(RoomId);
                 this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(rooms.GetOne("105")));
             }
         }
@@ -152,9 +164,18 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             AddCommand = new MyICommand(OnAdd, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanExecute);
+            StopDemo = new MyICommand(OnStop, CanExecute);
             this.Frame = frame;
             this.DemoOn = demo;
-            DemoIsOn();
+
+            try
+            {
+               DemoIsOn(cts.Token);
+            }
+            catch(OperationCanceledException)
+            {
+                MessageBox.Show("Gotovo");
+            }
         }
         #endregion
     }

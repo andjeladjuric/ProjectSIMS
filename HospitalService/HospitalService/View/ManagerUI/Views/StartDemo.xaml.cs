@@ -20,10 +20,10 @@ namespace HospitalService.View.ManagerUI.Views
     public partial class StartDemo : UserControl
     {
         StartDemoViewModel currentViewModel;
-        public StartDemo(Frame frame)
+        public StartDemo()
         {
             InitializeComponent();
-            currentViewModel = new StartDemoViewModel(frame);
+            currentViewModel = new StartDemoViewModel(this);
             this.DataContext = currentViewModel;
         }
     }
