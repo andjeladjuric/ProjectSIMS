@@ -147,7 +147,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 await Task.Delay(2000, ct);
                 ItemName = "Izmenjen naziv";
                 await Task.Delay(2000, ct);
-                Supplier = "Izmenjen proizvo]a;";
+                Supplier = "Izmenjen proizvođač";
                 await Task.Delay(2000, ct);
                 Quantity = "15";
                 await Task.Delay(2000, ct);

@@ -90,7 +90,8 @@ namespace HospitalService.Service
             {
                 if (a.room.Id.Equals(roomId))
                 {
-                    if (DateTime.Compare(startDate.Date, a.StartTime.Date) <= 0 && DateTime.Compare(endDate.Date, a.StartTime.Date) >= 0)
+                    if (DateTime.Compare(startDate.Date, a.StartTime.Date) <= 0 && 
+                        DateTime.Compare(endDate.Date, a.StartTime.Date) >= 0)
                     {
                         return false;
                     }
