@@ -36,6 +36,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public RelayCommand PrescriptionCommand { get; set; }
         public RelayCommand ShowTreatmentCommand { get; set; }
         public RelayCommand EditTreatmentCommand { get; set; }
+        public RelayCommand ReportCommand { get; set; }
         public RelayCommand KeyUpCommandWithKey { get; set; }
 
         public ObservableCollection<Diagnosis> Diagnoses
@@ -185,6 +186,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
          CanExecute_ShowTreatmentCommand);
             EditTreatmentCommand = new RelayCommand(Executed_EditTreatmentCommand,
         CanExecute_EditTreatmentCommand);
+            ReportCommand = new RelayCommand(Executed_ReportCommand,
+       CanExecute_ReportCommand);
         }
 
         public bool CanExecute_TreatmentCommand(object obj)
@@ -263,6 +266,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
         }
         private void Executed_KeyDownCommandWithKey(object obj)
         {
+        }
+
+        public void Executed_ReportCommand(object obj)
+        {
+            new ReportView(MedicalRecord).ShowDialog();
+        }
+
+        public bool CanExecute_ReportCommand(object obj)
+        {
+            return true;
         }
 
         public void Refresh()

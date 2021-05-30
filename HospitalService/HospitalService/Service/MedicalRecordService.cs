@@ -94,6 +94,16 @@ namespace HospitalService.Service
             return currentlyTakenBeds;
         }
 
+        public List<Diagnosis> GetForTimePeriod(string id, DateTime startDate, DateTime endDate)
+        {
+            MedicalRecord record = GetOne(id);
+            List<Diagnosis> diagnoses = new List<Diagnosis>();
+            foreach (Diagnosis diagnosis in record.Diagnoses)
+                if (DateTime.Compare(diagnosis.Datum, startDate) >= 0 && DateTime.Compare(diagnosis.Datum, endDate) <= 0)
+                    diagnoses.Add(diagnosis);
+            return diagnoses;
+        }
+
         public void AddNewRecord(MedicalRecord record) => repository.Save(record);
         public List<MedicalRecord> GetAll() => repository.GetAll();
         public MedicalRecord GetOne(string Id) => repository.GetOne(Id);

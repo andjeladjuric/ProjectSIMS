@@ -1,22 +1,24 @@
 ﻿using HospitalService.Model;
 using HospitalService.Service;
 using HospitalService.View.DoctorUI.Commands;
+using HospitalService.View.DoctorUI.Validation;
 using HospitalService.View.DoctorUI.Views;
 using Model;
 using Storage;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
-    public class PrescriptionViewModel : ViewModelClass
+    public class PrescriptionViewModel : ValidationBase
     {
         private Medication selectedMedication;
-        private int hours;
-        private int days;
+        private string hours;
+        private string days;
         private DateTime selectedDate;
         private string info;
 
@@ -36,27 +38,27 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 selectedMedication = value;
-                OnPropertyChanged();
+                OnPropertyChanged("SelectedMedication");
             }
         }
 
-        public int Hours
+        public string Hours
         {
             get { return hours; }
             set
             {
                 hours = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Hours");
             }
         }
 
-        public int Days
+        public string Days
         {
             get { return days; }
             set
             {
                 days = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Days");
             }
         }
 
@@ -66,7 +68,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 selectedDate = value;
-                OnPropertyChanged();
+                OnPropertyChanged("SelectedDate");
             }
         }
 
@@ -76,7 +78,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 info = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Info");
             }
         }
 
@@ -107,18 +109,18 @@ namespace HospitalService.View.DoctorUI.ViewModel
         }
         public bool CanExecute_ApplyCommand(object obj)
         {
-            if (SelectedMedication == null || Hours == 0 || Days == 0)
+            this.Validate();
+            if (this.IsValid)
             {
-                MessageBox.Show("Obavezna polja nisu popunjena.");
-                return false;
+                return true;
             }
             else
-                return true;
+                return false;
         }
 
         public void Executed_ApplyCommand(object obj)
         {
-            Prescription newPrescription = new Prescription(SelectedMedication.MedicineName, Hours, Days, Info, SelectedDate);
+            Prescription newPrescription = new Prescription(SelectedMedication.MedicineName, Int32.Parse(Hours), Int32.Parse(Days), Info, SelectedDate);
             MedicalRecord medicalRecord = this.ParentWindow.MedicalRecord;
             medicalRecord.Prescriptions.Add(newPrescription);
             new MedicalRecordService().UpdateRecord(medicalRecord); 
@@ -144,6 +146,17 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void SelectMedication(Medication medication)
         {
             this.SelectedMedication = medication;
+        }
+
+        protected override void ValidateSelf()
+        {
+            Regex regex = new Regex("^[0-9]+$");
+            if (SelectedMedication == null)
+                this.ValidationErrors["Medication"] = "Izaberite lijek";
+            if (string.IsNullOrWhiteSpace(Hours) || !regex.IsMatch(Hours))
+                this.ValidationErrors["Hours"] = "Unesite broj";
+            if (string.IsNullOrWhiteSpace(Days) || !regex.IsMatch(Days))
+                this.ValidationErrors["Days"] = "Unesite broj";
         }
     }
 }

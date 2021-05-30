@@ -97,6 +97,7 @@ namespace HospitalService.Service
             }
         }
 
+
         public Room getFirstAvailableRoom(DateTime startTime, DateTime endTime)
         {
             roomsRepository = new RoomsRepository();
@@ -139,6 +140,17 @@ namespace HospitalService.Service
                 }
             }
             return true;
+        }
+
+
+        public RoomType GetRoomType(AppointmentType appointmentType)
+        {
+            RoomType roomType;
+            if (appointmentType == AppointmentType.Pregled)
+                roomType = RoomType.ExaminationRoom;
+            else
+                roomType = RoomType.OperatingRoom;
+            return roomType;
         }
 
         public List<Room> GetAll() => roomsRepository.GetAll();
