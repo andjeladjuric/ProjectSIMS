@@ -157,8 +157,9 @@ namespace HospitalService.Service
         public Room GetOne(string Id) => roomsRepository.GetOne(Id);
         public List<Room> GetByType(RoomType Type) => roomsRepository.GetByType(Type);
         public void AddRoom(Room newRoom) => roomsRepository.Save(newRoom);
-        public void Edit(String id, String name, RoomType type, Boolean free) => roomsRepository.Edit(id, name, type, free);
+        public void Edit(String id, String name, RoomType type) => roomsRepository.Edit(id, name, type);
         public void UpdateRoom(Room room) => roomsRepository.UpdateRoom(room);
+        public void SerializeRooms() => roomsRepository.SerializeRooms();
 
         #endregion
     }

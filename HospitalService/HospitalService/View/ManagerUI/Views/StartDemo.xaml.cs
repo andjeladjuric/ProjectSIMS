@@ -1,9 +1,6 @@
-﻿using HospitalService.Storage;
-using HospitalService.View.ManagerUI.ViewModels;
-using Model;
+﻿using HospitalService.View.ManagerUI.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,17 +15,16 @@ using System.Windows.Shapes;
 namespace HospitalService.View.ManagerUI.Views
 {
     /// <summary>
-    /// Interaction logic for InventoryView.xaml
+    /// Interaction logic for StartDemo.xaml
     /// </summary>
-    public partial class InventoryView : Page
+    public partial class StartDemo : UserControl
     {
-        InventoryViewModel currentViewModel;
-        public InventoryView()
+        StartDemoViewModel currentViewModel;
+        public StartDemo()
         {
             InitializeComponent();
-            currentViewModel = new InventoryViewModel(newFrame);
+            currentViewModel = new StartDemoViewModel(this);
             this.DataContext = currentViewModel;
         }
     }
 }
-

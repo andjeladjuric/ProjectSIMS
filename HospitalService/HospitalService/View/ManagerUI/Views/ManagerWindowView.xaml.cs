@@ -26,7 +26,7 @@ namespace HospitalService.View.ManagerUI.Views
         public ManagerWindowView(Manager m)
         {
             InitializeComponent();
-            currentViewModel = new ManagerWindowViewModel(this, MainFrame, CloseMenuButton, m);
+            currentViewModel = new ManagerWindowViewModel(this, MainFrame, CloseMenuButton, GridMenu, m);
             this.DataContext = currentViewModel;
         }
 

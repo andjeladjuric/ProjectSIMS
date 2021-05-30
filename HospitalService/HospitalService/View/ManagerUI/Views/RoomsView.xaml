@@ -25,16 +25,21 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="202,56,0,0" Text="Sobe" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" FontSize="46" FontStyle="Italic" TextAlignment="Left"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="167,54,0,0" Text="Sobe" TextWrapping="Wrap" 
+                   VerticalAlignment="Top" Height="57" Width="193" FontFamily="Roboto" FontSize="46" FontStyle="Italic" 
+                   TextAlignment="Left"/>
 
         <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
-                  Height="450" VerticalAlignment="Center" Width="635" FontFamily="Gill Sans MT" FontSize="14"
+                  Height="450" VerticalAlignment="Center" Width="635" FontFamily="Roboto" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Broj sobe" Binding="{Binding Id}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -43,6 +48,9 @@
                 <DataGridTextColumn Header="Naziv" Width="*"  Binding="{Binding Name}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -51,6 +59,9 @@
                 <DataGridTextColumn Header="Tip sobe" Width="*"  Binding="{Binding Type, Converter={StaticResource enumConverter}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -59,7 +70,10 @@
                 <DataGridTextColumn Header="Dostupnost" Width="*" Binding="{Binding IsFree, Converter={StaticResource availabilityConv}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>

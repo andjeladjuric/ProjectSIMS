@@ -5,6 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace HospitalService.View.ManagerUI.ViewModels
@@ -18,11 +21,30 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private string quantity;
         private Equipment type;
         private Inventory item;
-        private ObservableCollection<Inventory> inventory;
         private Frame frame;
+        private bool demoOn;
+        private bool isOpen;
         #endregion
 
         #region Properties
+        public bool IsPopupOpen
+        {
+            get { return isOpen; }
+            set
+            {
+                isOpen = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool DemoOn
+        {
+            get { return demoOn; }
+            set
+            {
+                demoOn = value;
+                OnPropertyChanged();
+            }
+        }
         public int ItemId
         {
             get { return itemId; }
@@ -83,8 +105,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        public ObservableCollection<Inventory> Inventory { get; set; }
         #endregion
 
         #region Commands
@@ -111,20 +131,63 @@ namespace HospitalService.View.ManagerUI.ViewModels
         }
         #endregion
 
+        #region Other Functions
+        private async Task DemoIsOn(CancellationToken ct)
+        {
+            if (DemoOn)
+            {
+                InventoryService service = new InventoryService();
+                RoomService rooms = new RoomService();
+                ct.ThrowIfCancellationRequested();
+
+                await Task.Delay(1500, ct);
+                SelectedItem = service.GetOne(321);
+                await Task.Delay(2000, ct);
+                ItemId = SelectedItem.Id;
+                await Task.Delay(2000, ct);
+                ItemName = "Izmenjen naziv";
+                await Task.Delay(2000, ct);
+                Supplier = "Izmenjen proizvođač";
+                await Task.Delay(2000, ct);
+                Quantity = "15";
+                await Task.Delay(2000, ct);
+                Type = Equipment.Static;
+
+                await Task.Delay(2000, ct);
+                this.Frame.NavigationService.Navigate(new InventoryView());
+                IsPopupOpen = true;
+                await Task.Delay(1500, ct);
+                IsPopupOpen = false;
+                ManagerWindowViewModel.cts.Cancel();
+                DemoOn = false;
+            }
+        }
+        #endregion
+
         #region Constructors
-        public EditInventoryViewModel(Frame currentFrame, ObservableCollection<Inventory> table, Inventory item)
+        public EditInventoryViewModel(Frame currentFrame, Inventory item, bool demo)
         {
             this.Frame = currentFrame;
-            this.Inventory = table;
             this.SelectedItem = item;
             this.ItemId = SelectedItem.Id;
             this.ItemName = SelectedItem.Name;
             this.Supplier = SelectedItem.Supplier;
             this.Quantity = SelectedItem.Quantity.ToString();
             this.Type = SelectedItem.EquipmentType;
+            this.DemoOn = demo;
 
             ConfirmCommand = new MyICommand(OnConfirm, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanExecute);
+
+            CancellationTokenSource cts = ManagerWindowViewModel.cts;
+            try
+            {
+                DemoIsOn(cts.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                MessageBox.Show("Greška!");
+            }
         }
         #endregion
     }

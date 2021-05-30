@@ -37,22 +37,23 @@
         <Border HorizontalAlignment="Center" Height="356" VerticalAlignment="Top" Width="733" Margin="0,204,0,0"
                 CornerRadius="10" BorderThickness="0.5" BorderBrush="Black"/>
 
-        <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="188,271,0,0" VerticalAlignment="Top" Width="112" Height="30"/>
-        <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="188,329,0,0" VerticalAlignment="Top" Width="112" Height="32"/>
-        <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="188,385,0,0" VerticalAlignment="Top" Width="112" Height="30"/>
+        <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="188,285,0,0" VerticalAlignment="Top" Width="112" Height="30"/>
+        <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="527,335,0,0" VerticalAlignment="Top" Width="112" Height="32"/>
+        <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="527,391,0,0" VerticalAlignment="Top" Width="112" Height="30"/>
         <TextBox x:Name="IDBox" IsReadOnly="True" Text="{Binding RoomId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" 
-                 Height="30" Margin="291,271,0,0" VerticalAlignment="Top" Width="154" IsEnabled="False"
+                 Height="30" Margin="303,281,0,0" VerticalAlignment="Top" Width="154" IsEnabled="False"
                  Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
+                 FontFamily="Roboto"
+                 FontSize="14"
+                 FontWeight="Light"
                  TextWrapping="Wrap"
                  HorizontalContentAlignment="Center"/>
-        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="32" Margin="291,325,0,0"
+        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="32" Margin="630,331,0,0"
                  VerticalAlignment="Top" Width="154" 
                  Foreground="#474746"
-                 FontFamily="Gill Sans MT"
+                 FontFamily="Roboto"
                  FontWeight="Light"
-                 FontSize="16"
+                 FontSize="14"
                  TextWrapping="Wrap"
                  HorizontalContentAlignment="Center">
             <TextBox.Text>
@@ -72,64 +73,34 @@
             </Validation.ErrorTemplate>
         </TextBox>
 
-        <Label x:Name="floor" Content="Sprat" HorizontalAlignment="Left" Margin="517,334,0,0" VerticalAlignment="Top" 
+        <Label x:Name="floor" Content="Sprat" HorizontalAlignment="Left" Margin="193,340,0,0" VerticalAlignment="Top" 
                Width="94"/>
-        <TextBox x:Name="FloorBox" HorizontalAlignment="Left" Height="36" Margin="646,327,0,0"
-                 VerticalAlignment="Top" Width="154" 
+        <TextBox x:Name="FloorBox" HorizontalAlignment="Left" Height="36" Margin="305,329,0,0"
+                 VerticalAlignment="Top" Width="154" IsEnabled="False"
                  Foreground="#474746"
-                 FontFamily="Gill Sans MT"
+                 FontFamily="Roboto"
                  FontWeight="Light"
-                 FontSize="16"
+                 FontSize="14"
                  TextWrapping="Wrap"
-                 HorizontalContentAlignment="Center">
-            <TextBox.Text>
-                <Binding Path="RoomFloor" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <validation:FloorValidation ValidationStep="ConvertedProposedValue" Min="1"/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-            <Validation.ErrorTemplate>
-                <ControlTemplate>
-                    <StackPanel>
-                        <AdornedElementPlaceholder x:Name="textBox"/>
-                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020" ToolTip="Pravilan format: Soba 1, Operaciona sala"/>
-                    </StackPanel>
-                </ControlTemplate>
-            </Validation.ErrorTemplate>
-        </TextBox>
-        <Label x:Name="size" Content="Kvadratura" Margin="512,386,363,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="SizeBox" HorizontalAlignment="Left" Height="36" Margin="646,380,0,0"
-                 VerticalAlignment="Top" Width="154" 
+                 HorizontalContentAlignment="Center"
+                 Text="{Binding RoomFloor}"/>
+        <Label x:Name="size" Content="Kvadratura" Margin="188,392,687,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="SizeBox" HorizontalAlignment="Left" Height="36" Margin="305,381,0,0"
+                 VerticalAlignment="Top" Width="154" IsEnabled="False"
                  Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
+                 FontFamily="Roboto"
+                 FontSize="14"
                  FontWeight="Light"
                  TextWrapping="Wrap"
-                 HorizontalContentAlignment="Center">
-            <TextBox.Text>
-                <Binding Path="RoomSize" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <validation:RoomSizeValidation ValidationStep="ConvertedProposedValue" Min="1"/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-            <Validation.ErrorTemplate>
-                <ControlTemplate>
-                    <StackPanel>
-                        <AdornedElementPlaceholder x:Name="textBox"/>
-                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="#FFE52020" ToolTip="Pravilan format: Soba 1, Operaciona sala"/>
-                    </StackPanel>
-                </ControlTemplate>
-            </Validation.ErrorTemplate>
-        </TextBox>
+                 HorizontalContentAlignment="Center"
+                 Text="{Binding RoomSize}"/>
 
         <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
                       SelectedItem="{Binding RoomType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      HorizontalAlignment="Left" Height="30" Margin="291,383,0,0" VerticalAlignment="Top" Width="154" 
+                      HorizontalAlignment="Left" Height="30" Margin="630,389,0,0" VerticalAlignment="Top" Width="154" 
                       Foreground="#474746"
-                      FontFamily="Gill Sans MT"
-                      FontSize="16"
+                      FontFamily="Roboto"
+                      FontSize="14"
                       FontWeight="Light"
                       HorizontalContentAlignment="Center">
             <ComboBox.ItemTemplate>
@@ -160,7 +131,8 @@
 
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="512,488,0,0" VerticalAlignment="Top" Height="30" Width="80"
                     Command="{Binding CancelCommand}"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="118,142,0,0" Text="Izmeni sobu" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="226" FontFamily="Gill Sans MT" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="118,142,0,0" Text="Izmena prostorije" TextWrapping="Wrap" 
+                   VerticalAlignment="Top" Height="57" Width="306" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
 
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

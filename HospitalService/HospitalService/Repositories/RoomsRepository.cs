@@ -50,7 +50,7 @@ namespace HospitalService.Repositories
             }
         }
 
-        public void Edit(String id, String name, RoomType type, Boolean free)
+        public void Edit(String id, String name, RoomType type)
         {
             Room r;
             for (int i = 0; i < rooms.Count; i++)
@@ -60,7 +60,6 @@ namespace HospitalService.Repositories
                 {
                     r.Name = name;
                     r.Type = type;
-                    r.IsFree = free;
                     SerializeRooms();
                     break;
                 }

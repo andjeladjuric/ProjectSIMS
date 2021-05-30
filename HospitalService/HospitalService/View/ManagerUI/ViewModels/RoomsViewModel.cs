@@ -56,6 +56,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Constructors
         public RoomsViewModel(Frame currentFrame)
         {
+            RoomRenovationService service = new RoomRenovationService();
+            service.CheckRenovationRequests();
             LoadRooms();
             AddCommand = new MyICommand(OnAdd, CanAddRoom);
             DeleteCommand = new MyICommand(OnDelete, CanExecute);
@@ -84,7 +86,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Actions
         public void OnAdd()
         {
-            this.Frame.NavigationService.Navigate(new NewRoomView());
+            this.Frame.NavigationService.Navigate(new NewRoomView(false));
         }
 
         public void OnDelete()
@@ -106,7 +108,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         public void OpenRenovationView()
         {
-            this.Frame.NavigationService.Navigate(new RoomRenovationView(SelectedRoom));
+            this.Frame.NavigationService.Navigate(new RoomRenovationView(SelectedRoom, false));
         }
 
         private bool CanExecute()

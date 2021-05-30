@@ -34,19 +34,20 @@
 
     <Grid Background="#f5f5f5">
 
-        <Border HorizontalAlignment="Center" Height="495" CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" VerticalAlignment="Top" 
-                Width="716" Margin="0,129,0,0"/>
-        <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="172,264,0,0" VerticalAlignment="Top" Width="125" 
+        <Border HorizontalAlignment="Center" Height="391" CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" VerticalAlignment="Top" 
+                Width="716" Margin="0,191,0,0"/>
+        <Label x:Name="name" Content="Naziv" HorizontalAlignment="Left" Margin="172,260,0,0" VerticalAlignment="Top" Width="125" 
                Height="36"/>
-        <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="172,378,0,0" VerticalAlignment="Top" Width="125" 
+        <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="172,374,0,0" VerticalAlignment="Top" Width="125" 
                Height="34"/>
-        <Label x:Name="doctors" Content="Doktor" HorizontalAlignment="Left" Margin="172,447,0,0" VerticalAlignment="Top" Width="125" 
+        <Label x:Name="doctors" Content="Doktor" HorizontalAlignment="Left" Margin="172,443,0,0" VerticalAlignment="Top" Width="125" 
                Height="34"/>
 
-        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="34" Margin="304,260,0,0" TextWrapping="Wrap" 
+        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="34" Margin="304,256,0,0" TextWrapping="Wrap" 
                  VerticalAlignment="Top" Width="172" Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
+                 FontFamily="Roboto"
+                 FontWeight="Light"
+                 FontSize="14"
                  HorizontalContentAlignment="Center">
             <TextBox.Text>
                 <Binding Path="MedicationName" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
@@ -65,7 +66,7 @@
             </Validation.ErrorTemplate>
         </TextBox>
 
-        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="363,553,0,0" VerticalAlignment="Top" 
+        <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="363,537,0,0" VerticalAlignment="Top" 
                 Height="26" Width="91" Command="{Binding ConfirmCommand}">
             <Button.Style>
                 <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
@@ -88,26 +89,28 @@
             </Button.Style>
         </Button>
 
-        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="502,553,0,0" 
+        <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="502,537,0,0" 
                 VerticalAlignment="Top" Height="26" Width="90"
                 Command="{Binding CancelCommand}"/>
 
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0,167,0,0" Text="Dodaj lek" 
-                   TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Gill Sans MT" 
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="111,134,0,0" Text="Dodavanje leka" 
+                   TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="282" FontFamily="Roboto" 
                    FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
 
         <ComboBox x:Name="doctorsBox" Opacity="100" ItemsSource="{Binding Doctors}" SelectedItem="{Binding Doctor}"
-                  HorizontalAlignment="Left" Height="34" Margin="304,439,0,0" Width="172" VerticalAlignment="Top"
+                  HorizontalAlignment="Left" Height="34" Margin="304,435,0,0" Width="172" VerticalAlignment="Top"
                   Foreground="#474746"
-                  FontFamily="Gill Sans MT"
-                  FontSize="16"
+                  FontFamily="Roboto"
+                  FontWeight="Light"
+                  FontSize="14"
                   HorizontalContentAlignment="Center"/>
 
         <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
-                  HorizontalAlignment="Left" Height="34" Margin="304,374,0,0" VerticalAlignment="Top" Width="172"
+                  HorizontalAlignment="Left" Height="34" Margin="304,370,0,0" VerticalAlignment="Top" Width="172"
                   Foreground="#474746"
-                  FontFamily="Gill Sans MT"
-                  FontSize="16"
+                  FontFamily="Roboto"
+                  FontWeight="Light"
+                  FontSize="14"
                   HorizontalContentAlignment="Center">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -116,11 +119,11 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="558,264,179,237"/>
-        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="572,323,193,245"/>
+        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="558,260,179,241"/>
+        <Border CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="572,319,193,249"/>
         <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled"  ItemsSource="{Binding IngredientsView}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontSize="14"
-                 x:Name="Validation" Margin="572,323,193,247">
+                 x:Name="Validation" Margin="572,319,193,251">
 
             <ListBox.ItemsPanel >
                 <ItemsPanelTemplate >
@@ -131,22 +134,23 @@
                 <DataTemplate>
                     <TextBlock x:Name="Medicine" Text="{Binding}"
                                Foreground="#474746"
-                               FontFamily="Gill Sans MT"
-                               FontSize="16"
+                               FontFamily="Roboto"
+                               FontSize="14"
                                FontWeight="Light"
                                TextAlignment="Center"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button x:Name="addIngredients" Content="Dodaj sastojke" HorizontalAlignment="Left" Margin="614,282,0,0" 
+        <Button x:Name="addIngredients" Content="Dodaj sastojke" HorizontalAlignment="Left" Margin="614,278,0,0" 
                 VerticalAlignment="Top" Height="26" Width="120" Command="{Binding AddIngredientCommand}"/>
-        <Label x:Name="format" Content="Format leka" HorizontalAlignment="Left" Margin="172,323,0,0" VerticalAlignment="Top" 
+        <Label x:Name="format" Content="Format leka" HorizontalAlignment="Left" Margin="172,319,0,0" VerticalAlignment="Top" 
                Width="125" Height="36"/>
-        <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="36" Margin="304,315,0,0" TextWrapping="Wrap" 
+        <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="36" Margin="304,311,0,0" TextWrapping="Wrap" 
                  VerticalAlignment="Top" Width="172" Foreground="#474746"
-                 FontFamily="Gill Sans MT"
-                 FontSize="16"
+                 FontFamily="Roboto"
+                 FontWeight="Light"
+                 FontSize="14"
                  HorizontalContentAlignment="Center">
             <Validation.ErrorTemplate>
                 <ControlTemplate>

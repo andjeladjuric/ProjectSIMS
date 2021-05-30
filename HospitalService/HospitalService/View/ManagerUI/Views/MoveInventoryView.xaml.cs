@@ -27,10 +27,10 @@ namespace HospitalService.View.ManagerUI.Views
     {
         MoveInventoryViewModel currentViewModel;
 
-        public MoveInventoryView(Room room, ObservableCollection<Inventory> currentInventory)
+        public MoveInventoryView(Room room, ObservableCollection<Inventory> currentInventory, bool demo)
         {
             InitializeComponent();
-            currentViewModel = new MoveInventoryViewModel(newFrame, room, currentInventory);
+            currentViewModel = new MoveInventoryViewModel(newFrame, room, currentInventory, demo);
             this.DataContext = currentViewModel;
         }
 
