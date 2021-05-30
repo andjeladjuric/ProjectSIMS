@@ -72,6 +72,29 @@ namespace HospitalService.Repositories
                 }
             }
         }
+        public void Move(String id, DateTime st, DateTime et, Room r)
+        {
+            Appointment a;
+            for (int i = 0; i < appointments.Count; i++)
+            {
+                a = appointments[i];
+                if (a.Id.Equals(id))
+                {
+                    a.StartTime = st;
+                    a.EndTime = et;
+                    a.room = r;
+                    a.Status = Status.Moved;
+                    File.WriteAllText(FileLocation, JsonConvert.SerializeObject(appointments,
+                       new JsonSerializerSettings()
+                       {
+                           ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                       }));
+                    break;
+                }
+            }
+
+
+        }
 
         public void Delete(String id)
         {
@@ -82,6 +105,21 @@ namespace HospitalService.Repositories
                 if (appointment.Id.Equals(id))
                 {
                     appointments.RemoveAt(i);
+                    SerializeAppointments();
+                    break;
+                }
+            }
+        }
+
+        public void DeletePatientAppointment(String id)
+        {
+            Appointment appointment;
+            for (int i = 0; i < appointments.Count; i++)
+            {
+                appointment = appointments[i];
+                if (appointment.Id.Equals(id))
+                {
+                    appointment.Status = Status.Canceled;
                     SerializeAppointments();
                     break;
                 }

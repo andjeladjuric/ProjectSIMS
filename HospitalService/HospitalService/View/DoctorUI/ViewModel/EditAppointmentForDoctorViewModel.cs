@@ -87,33 +87,54 @@ namespace HospitalService.View.DoctorUI.ViewModel
             Date = selectedAppointment.StartTime.Date;
             StartTime = selectedAppointment.StartTime;
             EndTime = selectedAppointment.EndTime;
-            RoomType roomType;
-            if (selectedAppointment.Type == AppointmentType.Pregled)
-                roomType = RoomType.ExaminationRoom;
-            else
-                roomType = RoomType.OperatingRoom;
+            RoomType roomType = new RoomService().GetRoomType(AppointmentForEditing.Type);
             Rooms = new ObservableCollection<Room>();
-            //new RoomService().GetByType(roomType).ForEach(Rooms.Add);
-            new RoomService().GetAll().ForEach(Rooms.Add);
+            new RoomService().GetByType(roomType).ForEach(Rooms.Add);
+           // new RoomService().GetAll().ForEach(Rooms.Add);
             Room = selectedAppointment.room;
-            MessageBox.Show(Room.Id);
-
         }
 
         public void Executed_EditCommand(object obj)
         {
-            String start = Date.ToString("MM/dd/yyyy") + " " + StartTime.ToString("HH: mm");
-            String end = Date.ToString("MM/dd/yyyy") + " " + EndTime.ToString("HH: mm");
-            AppointmentForEditing.StartTime = Convert.ToDateTime(start);
-            AppointmentForEditing.EndTime = Convert.ToDateTime(end);
+            DateService dateService = new DateService();
+            DateTime Start = dateService.CreateDate(Date, StartTime);
+            DateTime End = dateService.CreateDate(Date,EndTime);
             AppointmentForEditing.room = Room;
-            new AppointmentStorage().Edit(AppointmentForEditing.Id, Convert.ToDateTime(start), Convert.ToDateTime(end), Room); // servis
+            new AppointmentsService().Edit(AppointmentForEditing.Id, Start, End, Room); 
             ParentWindow.Refresh();
             ThisWindow.Close();
         }
 
         public bool CanExecute_EditCommand(object obj)
         {
+            DateService dateService = new DateService();
+            DateTime Start = dateService.CreateDate(Date, StartTime);
+            DateTime End = dateService.CreateDate(Date, EndTime);
+            if (new AppointmentsService().IsTaken(Start, End, AppointmentForEditing.doctor))
+            {
+                MessageBox.Show("Postoji termin u izabranom periodu.");
+                return false;
+            }
+            if (new AppointmentsService().IsRoomTaken(Start, End, Room))
+            {
+                RoomType roomType = new RoomService().GetRoomType(AppointmentForEditing.Type);
+                List<Room> available = new AppointmentsService().GetAvailableRooms(AppointmentForEditing.StartTime, AppointmentForEditing.EndTime, roomType);
+                try
+                {
+                    if (available[0] != null)
+                    {
+                        MessageBox.Show("Odabrana soba je zauzeta. Slobodna je soba: " + available[0].Id);
+                        return false;
+                    }
+                }
+                catch
+                {
+
+                    MessageBox.Show("Nema slobodnih soba za odabrano vrijeme.");
+                    return false;
+
+                }
+            }
             return true;
         }
 

@@ -97,6 +97,62 @@ namespace HospitalService.Service
             }
         }
 
+
+        public Room getFirstAvailableRoom(DateTime startTime, DateTime endTime)
+        {
+            roomsRepository = new RoomsRepository();
+            List<Room> rooms = roomsRepository.GetAll();
+            bool isFindAvailableRoom = false;
+            Room availableRoom = new Room();
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                if (isCurrentRoomAvailable(startTime, endTime, rooms[i]))
+                {
+
+                    availableRoom = rooms[i];
+                    isFindAvailableRoom = true;
+                    break;
+                }
+            }
+            if (isFindAvailableRoom == false)
+            {
+                return null;
+            }
+            return availableRoom;
+        }
+        public bool isCurrentRoomAvailable(DateTime startTime, DateTime endTime, Room examinedRoom)
+        {
+            AppointmentsService appointmentsService = new AppointmentsService();
+            List<Appointment> appointments = appointmentsService.GetAll();
+            for (int j = 0; j < appointments.Count; j++)
+            {
+                if ((DateTime.Compare(appointments[j].StartTime, startTime) == 0 || DateTime.Compare(appointments[j].EndTime, endTime) == 0) && appointments[j].room.Id.Equals(examinedRoom.Id) && appointments[j].Status != Status.Canceled)
+                {
+                    return false;
+                }
+                else if (startTime >= appointments[j].StartTime && startTime < appointments[j].EndTime && appointments[j].room.Id.Equals(examinedRoom.Id) && appointments[j].Status != Status.Canceled)
+                {
+                    return false;
+                }
+                else if (endTime >= appointments[j].StartTime && endTime < appointments[j].EndTime && appointments[j].room.Id.Equals(examinedRoom.Id) && appointments[j].Status != Status.Canceled)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        public RoomType GetRoomType(AppointmentType appointmentType)
+        {
+            RoomType roomType;
+            if (appointmentType == AppointmentType.Pregled)
+                roomType = RoomType.ExaminationRoom;
+            else
+                roomType = RoomType.OperatingRoom;
+            return roomType;
+        }
+
         public List<Room> GetAll() => roomsRepository.GetAll();
         public Room GetOne(string Id) => roomsRepository.GetOne(Id);
         public List<Room> GetByType(RoomType Type) => roomsRepository.GetByType(Type);

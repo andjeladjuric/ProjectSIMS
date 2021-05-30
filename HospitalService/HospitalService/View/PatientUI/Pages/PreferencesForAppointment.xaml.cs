@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HospitalService.View.PatientUI.ViewsModel;
 using Model;
 
 namespace HospitalService.View.PatientUI.Pages
@@ -20,27 +21,17 @@ namespace HospitalService.View.PatientUI.Pages
     public partial class PreferencesForAppointment : Page
     {
 
-        public Patient Patient { get; set; }
+        
+
+        private PreferencesForAppointmentViewModel viewModel;
         public PreferencesForAppointment(Patient patient)
         {
             InitializeComponent();
-            this.DataContext = this;
-            Patient = patient;
+            viewModel = new PreferencesForAppointmentViewModel(patient,this);
+            this.DataContext = viewModel;
+           
         }
 
-        private void PreferenceClick(object sender, RoutedEventArgs e)
-        {
-            if (No.IsChecked == true)
-            {
-                AddAppointmentToPatient addAppointmentWindow = new AddAppointmentToPatient(Patient);
-                addAppointmentWindow.Show();
-            }
-
-            if (Yes.IsChecked == true)
-            {
-                UrgentAppointment urgentAppointmentWindow = new UrgentAppointment(Patient);
-                urgentAppointmentWindow.Show();
-            }
-        }
+        
     }
 }

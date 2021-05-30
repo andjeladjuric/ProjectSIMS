@@ -15,7 +15,6 @@ namespace HospitalService.Service
         {
             repository = new AppointmentsRepository();
         }
-        // u repo
         public void SetIds()
         {
             List<Appointment> appointments = repository.GetAll();
@@ -61,10 +60,25 @@ namespace HospitalService.Service
 
         }
 
-        public void delete(String id) {
-
+        public List<Appointment> getAppointmentsByDate(Patient patient, DateTime date) {
             repository = new AppointmentsRepository();
-            repository.Delete(id);
+            List<Appointment> appointments = repository.GetAll();
+            List<Appointment> appointmentsForSelectedDate = new List<Appointment>();
+            appointmentsForSelectedDate= appointments.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.StartTime.Date == date.Date && appointment.Status!=Status.Canceled).ToList();
+            return appointmentsForSelectedDate;
+
+
+        }
+
+        public int getNumberOfCanceledAppointments(Patient patient) {
+
+            
+            repository = new AppointmentsRepository();
+            List<Appointment> appointments = repository.GetAll();
+            List<Appointment> canceledAppointments = new List<Appointment>();
+            canceledAppointments = appointments.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.Status==Status.Canceled).ToList();
+            return canceledAppointments.Count;
+
         }
 
         public int getNumberOfMovedAppointments(Patient patient) {
@@ -74,6 +88,8 @@ namespace HospitalService.Service
             List<Appointment> movedAppointments = appointments.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.Status == Status.Moved).ToList();
             return movedAppointments.Count;
         }
+
+        
 
         public List<Appointment> GetByDoctor(Doctor doctor, DateTime date)
         {
@@ -97,6 +113,13 @@ namespace HospitalService.Service
             SetIds();
         }
 
+        public void DeletePatientAppointment(String AppointmentID)
+        {
+            
+            repository.DeletePatientAppointment(AppointmentID);
+            SetIds();
+        }
+
         public void AddAppointment(Appointment newAppointment) => repository.Save(newAppointment);
        
 
@@ -107,19 +130,74 @@ namespace HospitalService.Service
             for (int i = 0; i < appointments.Count; i++)
             {
                 appointment = appointments[i];
-                if (DateTime.Compare(appointment.StartTime, start) == 0)
-                {
-                    return true;
-                }
-                else if (DateTime.Compare(appointment.StartTime, start) < 0)
-                {
-                    if (DateTime.Compare(appointment.EndTime, start) > 0)
-                        return true;
-                }
-                else if (DateTime.Compare(appointment.StartTime, start) > 0 && DateTime.Compare(end, appointment.StartTime) > 0)
+                if (new DateService().ExsitstsAtTime(appointment, start, end))
                     return true;
             }
             return false;
         }
+
+        public Boolean IsRoomTaken(DateTime start, DateTime end, Room room)
+        {
+            Appointment appointment;
+            List<Appointment> appointments = GetForRoom(room.Id);
+            for (int i = 0; i < appointments.Count; i++)
+            {
+                appointment = appointments[i];
+                if (new DateService().ExsitstsAtTime(appointment, start, end))
+                    return true;
+            }
+            return false;
+        }
+
+        public void Save(Appointment appointment) {
+            repository = new AppointmentsRepository();
+            repository.Save(appointment);
+        }
+        public int getNumberOfSameDateAppointments(Patient patient, DateTime startTime) {
+            repository = new AppointmentsRepository();
+            List<Appointment> la = repository.GetAll();
+            List<Appointment> sameDateAppointments = la.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && startTime.ToShortDateString().Equals(appointment.StartTime.ToShortDateString()) && appointment.Status!=Status.Canceled).ToList();
+            return sameDateAppointments.Count;
+        }
+        public List<Appointment> GetAll() {
+
+            repository = new AppointmentsRepository();
+            List<Appointment> appointments = repository.GetAll();
+            return appointments;
+        
+        }
+        public void Move(String id, DateTime st, DateTime et, Room r) {
+            repository = new AppointmentsRepository();
+            repository.Move(id,st,et,r);
+        }
+
+        public List<Appointment> GetForRoom(string roomId)
+        {
+            Appointment appointment;
+            List<Appointment> appointments = repository.GetAll();
+            List<Appointment> appointmentsForSelectedRoom = new List<Appointment>();
+            for (int i = 0; i < appointments.Count; i++)
+            {
+                appointment = appointments[i];
+                if (appointment.room.Id.Equals(roomId))
+                {
+                    appointmentsForSelectedRoom.Add(appointment);
+                }
+            }
+            return appointmentsForSelectedRoom;
+        }
+
+        public List<Room> GetAvailableRooms(DateTime start, DateTime end, RoomType roomType)
+        {
+            List<Room> allRooms = new RoomService().GetByType(roomType);
+            List<Room> availableRooms = new List<Room>();
+            foreach (Room room in allRooms)
+                if (!IsRoomTaken(start, end, room))
+                    availableRooms.Add(room);
+            return availableRooms;
+        }
+
+        public void Edit(String id, DateTime startTime, DateTime endTime, Room room) => repository.Edit(id, startTime, endTime, room);
+
     }
 }

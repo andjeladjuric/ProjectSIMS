@@ -1,6 +1,7 @@
 ﻿using HospitalService.Model;
 using HospitalService.Service;
 using HospitalService.View.DoctorUI.Commands;
+using HospitalService.View.DoctorUI.Validation;
 using HospitalService.View.DoctorUI.Views;
 using Model;
 using Storage;
@@ -11,7 +12,7 @@ using System.Windows;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
-    public class DiagnosisViewModel : ViewModelClass
+    public class DiagnosisViewModel : ValidationBase
     {
         public MedicalRecord MedicalRecord { get; set; }
         public string PatientsName { get; set; }
@@ -31,7 +32,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 diagnosis = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Diagnosis");
             }
         }
 
@@ -41,7 +42,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 symptoms = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Symptoms");
             }
         }
 
@@ -51,7 +52,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 anamnesis = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Anamnesis");
             }
         }
 
@@ -74,13 +75,11 @@ namespace HospitalService.View.DoctorUI.ViewModel
         }
         public bool CanExecute_ApplyCommand(object obj)
         {
-            if (Diagnosis == null || Symptoms == null || Anamnesis == null)
-            {
-                MessageBox.Show("Sva polja moraju biti popunjena.");
-                return false;
-            }
-            else
+            this.Validate();
+            if (this.IsValid)
                 return true;
+            else
+                return false;
         }
        
         public void Executed_ApplyCommand(object obj)
@@ -106,6 +105,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         private void Executed_KeyDownCommandWithKey(object obj)
         {
+        }
+
+        protected override void ValidateSelf()
+        {
+            if (string.IsNullOrWhiteSpace(this.Diagnosis))
+                this.ValidationErrors["Diagnosis"] = "Obavezno polje";
+            if (string.IsNullOrWhiteSpace(this.Anamnesis))
+                this.ValidationErrors["Anamnesis"] = "Obavezno polje";
+            if (string.IsNullOrWhiteSpace(this.Symptoms))
+                this.ValidationErrors["Symptoms"] = "Obavezno polje";
         }
     }
 }

@@ -10,6 +10,7 @@
     <None Remove="Images\acc.png" />
     <None Remove="Images\back.png" />
     <None Remove="Images\calendarIcon.png" />
+    <None Remove="Images\doctor.jpg" />
     <None Remove="Images\helpIcon.png" />
     <None Remove="Images\hospitalIcon.png" />
     <None Remove="Images\logo.png" />
@@ -22,6 +23,7 @@
     <None Remove="View\PatientUI\Images\calendar.png" />
     <None Remove="View\PatientUI\Images\edit.png" />
     <None Remove="View\PatientUI\Images\logout.png" />
+    <None Remove="View\PatientUI\Images\news.png" />
     <None Remove="View\PatientUI\Images\plus.png" />
     <None Remove="View\PatientUI\Images\programmer.jpg" />
     <None Remove="View\PatientUI\Images\survival.png" />
@@ -39,6 +41,7 @@
     <Resource Include="Images\acc.png" />
     <Resource Include="Images\back.png" />
     <Resource Include="Images\calendarIcon.png" />
+    <Resource Include="Images\doctor.jpg" />
     <Resource Include="Images\helpIcon.png" />
     <Resource Include="Images\hospitalIcon.png" />
     <Resource Include="Images\logo.png" />
@@ -51,6 +54,7 @@
     <Resource Include="View\PatientUI\Images\calendar.png" />
     <Resource Include="View\PatientUI\Images\edit.png" />
     <Resource Include="View\PatientUI\Images\logout.png" />
+    <Resource Include="View\PatientUI\Images\news.png" />
     <Resource Include="View\PatientUI\Images\plus.png" />
     <Resource Include="View\PatientUI\Images\programmer.jpg" />
     <Resource Include="View\PatientUI\Images\survival.png" />

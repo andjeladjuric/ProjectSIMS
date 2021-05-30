@@ -1,6 +1,7 @@
 ﻿using HospitalService.Service;
 using HospitalService.Storage;
 using HospitalService.View.DoctorUI.Commands;
+using HospitalService.View.DoctorUI.Validation;
 using HospitalService.View.DoctorUI.Views;
 using Model;
 using System;
@@ -11,7 +12,7 @@ using System.Windows;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
-    class MedicineValidationViewModel : ViewModelClass
+    class MedicineValidationViewModel : ValidationBase
     {
         private bool isApproved;
         private string doctorsComment;
@@ -29,7 +30,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 isApproved = value;
-                OnPropertyChanged();
+                OnPropertyChanged("IsApproved");
             }
         }
 
@@ -39,7 +40,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 doctorsComment = value;
-                OnPropertyChanged();
+                OnPropertyChanged("DoctorsComment");
             }
         }
 
@@ -63,13 +64,13 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public bool CanExecute_ApplyCommand(object obj)
         {
-            if (IsApproved == false && DoctorsComment == null)
+            this.Validate();
+            if (this.IsValid)
             {
-                MessageBox.Show("Obavezan je razlog neodobravanja.");
-                return false;
+                return true;
             }
             else
-                return true;
+                return false;
         }
 
         public void Executed_CancelCommand(object obj)
@@ -94,6 +95,13 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         private void Executed_KeyDownCommandWithKey(object obj)
         {
+        }
+
+        protected override void ValidateSelf()
+        {
+            if (this.isApproved == false || this.DoctorsComment == "")
+                this.ValidationErrors["DoctorsComment"] = "Navedite razlog neodobravanja";
+           
         }
     }
 }

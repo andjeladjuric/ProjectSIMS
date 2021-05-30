@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HospitalService.View.PatientUI.ViewsModel;
 using Model;
 
 namespace HospitalService.View.PatientUI.Pages
@@ -19,25 +20,13 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class ProfileView : Page
     {
+        private ProfileViewViewModel viewModel;
         public ProfileView(Patient patient)
         {
             InitializeComponent();
-            this.DataContext = this;
-            if (patient.Gender == Gender.Female)
-            {
-                genderLabel.Content = "Zenski";
-            }
-            else {
-                genderLabel.Content = "Muski";
-            }
-            String [] dob= patient.DateOfBirth.ToString().Split(" ");
+            viewModel = new ProfileViewViewModel(patient);
+            this.DataContext = viewModel;
             
-            dobLabel.Content = dob[0];
-            jmbgLabel.Content = patient.Jmbg;
-            addressLabel.Content = patient.Address;
-            emailLabel.Content = patient.Email;
-            phoneLabel.Content = patient.Phone;
-            patientLabel.Text = patient.Name + " " + patient.Surname;
         }
     }
 }

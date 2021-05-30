@@ -12,11 +12,12 @@
         <GroupBox x:Name="rb" Margin="40,40,580,430">
             <StackPanel>
                 <Label FontWeight="Bold" FontSize="24" FontStyle="Italic">Brzo zakazivanje termina?</Label>
-                <RadioButton x:Name="Yes" FontSize="22" FontStyle="Italic">DA</RadioButton>
-                <RadioButton x:Name="No" FontSize="22" FontStyle="Italic">NE</RadioButton>
+                <RadioButton IsChecked="{Binding Path=CheckedYes}" x:Name="Yes" FontSize="22" FontStyle="Italic">DA</RadioButton>
+                <RadioButton IsChecked="{Binding Path=CheckedNo}" x:Name="No" FontSize="22" FontStyle="Italic">NE</RadioButton>
             </StackPanel>
         </GroupBox>
-        <Button Content="Zakazi termin" HorizontalAlignment="Left" Margin="110,240,0,0" VerticalAlignment="Top" Height="44" Width="174" FontSize="24" FontStyle="Italic" Click="PreferenceClick" Background="RoyalBlue" Foreground="White"/>
+        <Button Content="Zakazi termin" HorizontalAlignment="Left" Margin="110,240,0,0" VerticalAlignment="Top" Height="45" Width="174" FontSize="24" FontStyle="Italic" Command="{Binding addAppointment}" Background="RoyalBlue" Foreground="White"/>
+        <Button Content="Upute" Width="130" Height="45" Margin="802,40,33,535" Background="RoyalBlue" Foreground="White" FontStyle="Italic" FontSize="24" Command="{Binding showReferrals}"/>
 
     </Grid>
 </Page>

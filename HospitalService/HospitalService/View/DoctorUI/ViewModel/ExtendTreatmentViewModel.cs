@@ -1,6 +1,7 @@
 ﻿using HospitalService.Model;
 using HospitalService.Service;
 using HospitalService.View.DoctorUI.Commands;
+using HospitalService.View.DoctorUI.Validation;
 using Model;
 using Storage;
 using System;
@@ -11,7 +12,7 @@ using System.Windows.Controls;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
-    public class ExtendTreatmentViewModel : ViewModelClass
+    public class ExtendTreatmentViewModel : ValidationBase
     {
         public MedicalRecordViewModel ParentWindow { get; set; }
         public Frame Frame { get; set; }
@@ -27,7 +28,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 selectedDate = value;
-                OnPropertyChanged();
+                OnPropertyChanged("SelectedDate");
             }
 
         }
@@ -53,12 +54,11 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public bool CanExecute_ApplyCommand(object obj)
         {
-               if(DateTime.Compare(SelectedDate, HospitalTreatent.StartDate) < 0)
-            {
-                MessageBox.Show("Nije moguće da kraj bude prije početka.");
+            this.Validate();
+            if (this.IsValid)
+                return true;
+            else
                 return false;
-            }
-               return true;
         }
 
         public void Executed_ApplyCommand(object obj)
@@ -78,5 +78,12 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private void Executed_KeyDownCommandWithKey(object obj)
         {
         }
-}
+
+        protected override void ValidateSelf()
+        {
+            if (DateTime.Compare(SelectedDate, HospitalTreatent.StartDate) <= 0)
+                this.ValidationErrors["Date"] = "Datum mora biti posle " + HospitalTreatent.StartDate.ToString("dd/MM/yyyy");
+
+        }
+    }
 }

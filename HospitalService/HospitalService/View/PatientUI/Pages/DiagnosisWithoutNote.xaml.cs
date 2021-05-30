@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalService.Model;
+using HospitalService.View.PatientUI.ViewsModel;
 using Model;
 
 namespace HospitalService.View.PatientUI.Pages
@@ -20,23 +21,17 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class DiagnosisWithoutNote : Page
     {
-        public Patient Patient { get; set; }
-        public Diagnosis chosenDiagnosis { get; set; }
+       
+        private DiagnosisWithoutNoteViewModel viewModel;
         public DiagnosisWithoutNote(Diagnosis diagnosis, Patient patient)
         {
             InitializeComponent();
-            Patient = patient;
-            chosenDiagnosis = diagnosis;
-            lbDate.Content = diagnosis.Datum;
-            lbIllness.Content = diagnosis.Illness;
-            tbSymptoms.Text = diagnosis.Symptoms;
-            tbAnamnesis.Text = diagnosis.Anamnesis;
+            viewModel = new DiagnosisWithoutNoteViewModel(patient,diagnosis,this);
+            this.DataContext = viewModel;
+            
 
         }
 
-        private void makeNoteClick(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new NoteForDiagnosis(Patient,chosenDiagnosis));
-        }
+        
     }
 }

@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HospitalService.View.PatientUI.ViewsModel;
 using Model;
 
 namespace HospitalService.View.PatientUI.Pages
@@ -19,48 +20,16 @@ namespace HospitalService.View.PatientUI.Pages
     /// </summary>
     public partial class EditProfile : Page
     {
-        public Patient patient { get; set; }
-        public EditProfile(Patient p)
+        
+        private EditProfileViewModel viewModel;
+        public EditProfile(Patient patient)
         {
             InitializeComponent();
-            this.DataContext = this;
-            patient = p;
-            if (patient.Gender == Gender.Female)
-            {
-                genderLabel.Content = "Zenski";
-            }
-            else
-            {
-                genderLabel.Content = "Muski";
-            }
-            String[] dob = patient.DateOfBirth.ToString().Split(" ");
-
-            dobLabel.Content = dob[0];
-            jmbgLabel.Content = patient.Jmbg;
-            addressTb.Text = patient.Address;
-            emailTb.Text = patient.Email;
-            phoneTb.Text = patient.Phone;
+            viewModel = new EditProfileViewModel(patient,PasswordEdit.NavigationService,this);
+            this.DataContext = viewModel;
+           
         }
 
-        private void confirmClick(object sender, RoutedEventArgs e)
-        {
-            PatientStorage ps = new PatientStorage();
-            String newAddress = addressTb.Text;
-            String newEmail = emailTb.Text;
-            String newPhone = phoneTb.Text;
-            ps.Edit(patient.Jmbg, patient.Username, patient.Password, patient.DateOfBirth, newPhone, newAddress, newEmail, patient.PatientType);
-            Patient p = ps.GetOneByUsername(patient.Username);
-            this.NavigationService.Navigate(new ProfileView(p));
-        }
-
-        private void cancelClick(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new ProfileView(patient));
-        }
-
-        private void editPasswordClick(object sender, RoutedEventArgs e)
-        {
-            PasswordEdit.Content = new EditPassword(patient,this);
-        }
+        
     }
 }
