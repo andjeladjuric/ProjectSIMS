@@ -148,6 +148,29 @@ namespace HospitalService.Service
             }
             return false;
         }
+
+        public void Save(Appointment appointment) {
+            repository = new AppointmentsRepository();
+            repository.Save(appointment);
+        }
+        public int getNumberOfSameDateAppointments(Patient patient, DateTime startTime) {
+            repository = new AppointmentsRepository();
+            List<Appointment> la = repository.GetAll();
+            List<Appointment> sameDateAppointments = la.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && startTime.ToShortDateString().Equals(appointment.StartTime.ToShortDateString()) && appointment.Status!=Status.Canceled).ToList();
+            return sameDateAppointments.Count;
+        }
+        public List<Appointment> GetAll() {
+
+            repository = new AppointmentsRepository();
+            List<Appointment> appointments = repository.GetAll();
+            return appointments;
+        
+        }
+        public void Move(String id, DateTime st, DateTime et, Room r) {
+            repository = new AppointmentsRepository();
+            repository.Move(id,st,et,r);
+        }
+
         public List<Appointment> GetForRoom(string roomId)
         {
             Appointment appointment;
@@ -175,5 +198,6 @@ namespace HospitalService.Service
         }
 
         public void Edit(String id, DateTime startTime, DateTime endTime, Room room) => repository.Edit(id, startTime, endTime, room);
+
     }
 }

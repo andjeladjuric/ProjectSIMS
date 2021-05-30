@@ -60,6 +60,23 @@ namespace HospitalService.Service
             return prescriptions;
 
         }
+        public List<Referral> GetReferrals(Patient patient) {
+
+            MedicalRecord record;
+            List<Referral> referrals = new List<Referral>();
+            List<MedicalRecord> records = GetAll();
+
+            for (int i = 0; i < records.Count; i++)
+            {
+                record = records[i];
+                if (record.Patient.Jmbg.Equals(patient.Jmbg))
+                {
+                    referrals = records[i].Referrals;
+                    break;
+                }
+            }
+            return referrals;
+        }
 
         public int TakenBeds(string roomId)
         {

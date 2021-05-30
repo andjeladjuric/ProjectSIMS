@@ -15,6 +15,7 @@ namespace HospitalService.View.PatientUI.ViewsModel
         private PreferencesForAppointment preferencesForAppointment;
 
         public RelayCommand addAppointment { get; set; }
+        public RelayCommand showReferrals { get; set; }
 
         private void Execute_AddAppointment(object obj) {
 
@@ -37,6 +38,10 @@ namespace HospitalService.View.PatientUI.ViewsModel
             
 
         }
+        private void Execute_ShowReferrals(object obj) {
+
+            preferencesForAppointment.NavigationService.Navigate(new ReferralAppointment(patient));
+        }
 
         private bool CanExecute_Command(object obj) {
             return true;
@@ -46,6 +51,7 @@ namespace HospitalService.View.PatientUI.ViewsModel
             this.patient = patient;
             this.preferencesForAppointment = preferencesForAppointment;
             addAppointment = new RelayCommand(Execute_AddAppointment,CanExecute_Command);
+            showReferrals = new RelayCommand(Execute_ShowReferrals,CanExecute_Command);
         
         }
     }
