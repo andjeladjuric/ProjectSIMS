@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -15,6 +17,26 @@ namespace HospitalService.View.ManagerUI.ViewModels
     public class RoomRenovationViewModel : ValidationBase
     {
         #region Fields
+        private bool demoOn;
+        public bool DemoOn
+        {
+            get { return demoOn; }
+            set
+            {
+                demoOn = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool isOpen;
+        public bool IsPopupOpen
+        {
+            get { return isOpen; }
+            set
+            {
+                isOpen = value;
+                OnPropertyChanged();
+            }
+        }
         private Room selected;
         public Room SelectedRoom
         {
@@ -244,20 +266,71 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
 
         }
+
+        private async Task DemoIsOn(CancellationToken ct)
+        {
+            if (DemoOn)
+            {
+                RoomInventoryService service = new RoomInventoryService();
+                RoomService rooms = new RoomService();
+                ct.ThrowIfCancellationRequested();
+
+                await Task.Delay(1500, ct);
+                SelectedRoom = rooms.GetOne("330");
+                await Task.Delay(2000, ct);
+                Start = DateTime.Today;
+                await Task.Delay(2000, ct);
+                End = Start.AddDays(2);
+                await Task.Delay(2000, ct);
+                NewID = "105a";
+                await Task.Delay(2000, ct);
+                NewName = "Nova prostorija";
+                await Task.Delay(2000, ct);
+                NewType = RoomType.PatientRoom;
+                await Task.Delay(2000, ct);
+                NewSize = "22.2";
+
+                await Task.Delay(2000, ct);
+                IsPopupOpen = true;
+                await Task.Delay(1500, ct);
+                IsPopupOpen = false;
+                await Task.Delay(1500, ct);
+                this.Frame.NavigationService.Navigate(new RoomsView());
+                await Task.Delay(1500, ct);
+                this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(rooms.GetOne("105")));
+                await Task.Delay(1500, ct);
+                this.Frame.NavigationService.Navigate(new MoveInventoryView(rooms.GetOne("105"),
+                    service.LoadRoomInventory(rooms.GetOne("105")), DemoOn));
+            }
+        }
         #endregion
 
         #region Constructors
-        public RoomRenovationViewModel(Frame currentFrame, Room room)
+        public RoomRenovationViewModel(Frame currentFrame, Room room, bool demo)
         {
+            /*view*/
             this.Frame = currentFrame;
             this.SelectedRoom = room;
             this.Start = DateTime.Now;
             this.End = DateTime.Now;
+            this.DemoOn = demo;
             this.IsChecked = false;
             LoadAppointments();
             LoadRooms();
+
+            /*commands*/
             ConfirmCommand = new MyICommand(OnConfirm, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanExecute);
+
+            CancellationTokenSource cts = ManagerWindowViewModel.cts;
+            try
+            {
+                DemoIsOn(cts.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                MessageBox.Show("Greška!");
+            }
 
         }
         #endregion

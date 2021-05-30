@@ -108,7 +108,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         public void OpenRenovationView()
         {
-            this.Frame.NavigationService.Navigate(new RoomRenovationView(SelectedRoom));
+            this.Frame.NavigationService.Navigate(new RoomRenovationView(SelectedRoom, false));
         }
 
         private bool CanExecute()

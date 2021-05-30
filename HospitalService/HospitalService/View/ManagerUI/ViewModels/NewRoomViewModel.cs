@@ -25,6 +25,16 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Properties
+        private bool isOpen;
+        public bool IsPopupOpen
+        {
+            get { return isOpen; }
+            set
+            {
+                isOpen = value;
+                OnPropertyChanged();
+            }
+        }
         private bool demoOn;
         public bool DemoOn
         {
@@ -98,7 +108,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Commands
         public MyICommand AddCommand { get; set; }
         public MyICommand CancelCommand { get; set; }
-        public MyICommand StopDemo { get; set; }
 
         #endregion
 
@@ -107,13 +116,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             RoomService roomService = new RoomService();
             roomService.AddRoom(new Room(RoomType, RoomId, RoomName, Double.Parse(RoomSize), Int32.Parse(RoomFloor), true));
-            this.Frame.NavigationService.Navigate(new RoomsView());
-        }
-
-        private void OnStop()
-        {
-            cts.Cancel();
-            MessageBox.Show("Demo zavrsen");
             this.Frame.NavigationService.Navigate(new RoomsView());
         }
 
@@ -151,10 +153,13 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 OnAdd();
 
                 await Task.Delay(2000, ct);
-                MessageBox.Show("Počinje DEMO za sledeću funkcionalnost - Rukovanje inventarom");
+                IsPopupOpen = true;
                 await Task.Delay(1500, ct);
+                IsPopupOpen = false;
                 rooms.DeleteRoom(RoomId);
-                this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(rooms.GetOne("105")));
+                this.Frame.NavigationService.Navigate(new RoomsView());
+                await Task.Delay(1500, ct);
+                this.Frame.NavigationService.Navigate(new RoomRenovationView(rooms.GetOne("330"), DemoOn));
             }
         }
         #endregion
@@ -164,17 +169,16 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             AddCommand = new MyICommand(OnAdd, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanExecute);
-            StopDemo = new MyICommand(OnStop, CanExecute);
             this.Frame = frame;
             this.DemoOn = demo;
-
+            cts = ManagerWindowViewModel.cts;
             try
             {
                DemoIsOn(cts.Token);
             }
             catch(OperationCanceledException)
             {
-                MessageBox.Show("Gotovo");
+                MessageBox.Show("Greška!");
             }
         }
         #endregion

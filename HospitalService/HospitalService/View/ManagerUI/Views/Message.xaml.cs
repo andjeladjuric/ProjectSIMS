@@ -1,12 +1,7 @@
 ﻿using HospitalService.View.ManagerUI.ViewModels;
-using Model;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,16 +15,15 @@ using System.Windows.Shapes;
 namespace HospitalService.View.ManagerUI.Views
 {
     /// <summary>
-    /// Interaction logic for EditInventoryView.xaml
+    /// Interaction logic for Message.xaml
     /// </summary>
-    public partial class EditInventoryView : Page
+    public partial class Message : UserControl
     {
-        EditInventoryViewModel currentViewModel;
-
-        public EditInventoryView(Inventory selectedItem, bool DemoOn)
+        MessageViewModel currentViewModel;
+        public Message()
         {
             InitializeComponent();
-            currentViewModel = new EditInventoryViewModel(newFrame, selectedItem, DemoOn);
+            currentViewModel = new MessageViewModel();
             this.DataContext = currentViewModel;
         }
     }

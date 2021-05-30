@@ -90,7 +90,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Actions 
         private void OnMoveInventory()
         {
-            this.Frame.NavigationService.Navigate(new MoveInventoryView(SelectedRoom, Inventory));
+            this.Frame.NavigationService.Navigate(new MoveInventoryView(SelectedRoom, Inventory, false));
         }
 
         private void OnChangeQuantity()
@@ -114,24 +114,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Other Functions
         private void LoadRoomInventory()
         {
-            Inventory = new ObservableCollection<Inventory>();
             RoomInventoryService service = new RoomInventoryService();
-            InventoryService inventoryService = new InventoryService();
-
-            foreach (RoomInventory item in service.GetAll())
-            {
-                if (item.RoomId.Equals(SelectedRoom.Id))
-                {
-                    foreach (Inventory i in inventoryService.GetAll())
-                    {
-                        if (item.ItemId == i.Id)
-                        {
-                            Inventory.Add(new Inventory(item.ItemId, i.Name, i.EquipmentType, item.Quantity, i.Supplier));
-                            break;
-                        }
-                    }
-                }
-            }
+            Inventory = service.LoadRoomInventory(SelectedRoom);
         }
 
         private void FilterCollection()
@@ -152,16 +136,21 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Constructors
         public ManageRoomInventoryViewModel(Frame frame, Room selected)
         {
+            /*view*/
             this.Frame = frame;
             this.SelectedRoom = selected;
             LoadRoomInventory();
+
+            /*search filters*/
             this.FilterName = "";
             this.FilterId = "";
             this.FilterSupplier = "";
             InventoryView = CollectionViewSource.GetDefaultView(Inventory);
             InventoryView.Filter = new Predicate<object>(Filter);
-            this.ChangeQuantityCommand = new MyICommand(OnChangeQuantity, CanExecute);
-            this.MoveInventoryCommand = new MyICommand(OnMoveInventory, CanExecute);
+
+            /*commands*/
+            ChangeQuantityCommand = new MyICommand(OnChangeQuantity, CanExecute);
+            MoveInventoryCommand = new MyICommand(OnMoveInventory, CanExecute);
             CancelSearch = new MyICommand(OnCancel, CanExecute);
 
 

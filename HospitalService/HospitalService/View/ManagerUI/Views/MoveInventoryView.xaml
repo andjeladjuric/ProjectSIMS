@@ -24,8 +24,8 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="#f5f5f5">
 
+    <Grid Background="#f5f5f5">
         <DataGrid ItemsSource="{Binding RoomInventory}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" 
                   x:Name="tableBinding" IsReadOnly="True"  Margin="16,0,0,0"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
@@ -288,6 +288,8 @@
 
 
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
-
+        <Popup x:Name="pp" Placement="Center" IsOpen="{Binding IsPopupOpen}" Width="400" Height="200" AllowsTransparency="True">
+            <local:Message />
+        </Popup>
     </Grid>
 </Page>

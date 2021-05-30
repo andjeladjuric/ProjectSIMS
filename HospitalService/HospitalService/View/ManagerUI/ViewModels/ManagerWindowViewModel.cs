@@ -13,13 +13,22 @@ namespace HospitalService.View.ManagerUI.ViewModels
     public class ManagerWindowViewModel : ViewModel
     {
         #region Fields
-        private CancellationTokenSource cts = new CancellationTokenSource();
+        public static CancellationTokenSource cts = new CancellationTokenSource();
         public Manager Manager { get; set; }
         public Grid grid { get; set; }
         public Window Window { get; set; }
         public Frame Frame { get; set; }
         public Button Menu { get; set; }
-        public bool DemoOn { get; set; }
+        private bool demo;
+        public bool DemoOn
+        {
+            get { return demo; }
+            set
+            {
+                demo = value;
+                OnPropertyChanged();
+            }
+        }
         private int selected;
         public int SelectedItem
         {
@@ -48,9 +57,10 @@ namespace HospitalService.View.ManagerUI.ViewModels
         public MyICommand ProfileCommand { get; set; }
         public MyICommand LogoutCommand { get; set; }
         public MyICommand DemoCommand { get; set; }
-        public MyICommand StopDemo { get; set; }
         public MyICommand HelpCommand { get; set; }
         public MyICommand ChangePage { get; set; }
+        public MyICommand StopDemo { get; set; }
+
         #endregion
 
         #region Actions
@@ -59,6 +69,14 @@ namespace HospitalService.View.ManagerUI.ViewModels
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Window.Close();
+        }
+
+        private void OnStop()
+        {
+            cts.Cancel();
+            MessageBox.Show("Demo zavrsen");
+            DemoOn = false;
+            this.Frame.NavigationService.Navigate(new RoomsView());
         }
 
         private void OnDemo()
@@ -114,6 +132,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             LogoutCommand = new MyICommand(OnLogout, CanExecute);
             ChangePage = new MyICommand(OnChange, CanExecute);
             DemoCommand = new MyICommand(OnDemo, CanExecute);
+            StopDemo = new MyICommand(OnStop, CanExecute);
         }
         #endregion
     }

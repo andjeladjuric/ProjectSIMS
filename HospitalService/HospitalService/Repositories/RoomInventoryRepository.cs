@@ -44,6 +44,19 @@ namespace HospitalService.Repositories
             return inventoryInRoom;
         }
 
+        public RoomInventory GetInventoryForRoom(string roomId)
+        {
+            RoomInventory inventoryInRoom = null;
+
+            foreach (RoomInventory r in roomInventory)
+            {
+                if (r.RoomId.Equals(roomId))
+                    inventoryInRoom = r;
+            }
+
+            return inventoryInRoom;
+        }
+
         public void EditItem(RoomInventory inv)
         {
             for (int i = 0; i < GetAll().Count; i++)

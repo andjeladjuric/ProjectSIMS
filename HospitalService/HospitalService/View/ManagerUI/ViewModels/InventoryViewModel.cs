@@ -138,7 +138,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         private void OnEdit()
         {
-            this.Frame.NavigationService.Navigate(new EditInventoryView(SelectedItem, Inventory));
+            this.Frame.NavigationService.Navigate(new EditInventoryView(SelectedItem, false));
         }
 
         private void OnCancel()

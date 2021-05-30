@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HospitalService.View.ManagerUI.Views.StartDemo"
+﻿<UserControl x:Class="HospitalService.View.ManagerUI.Views.Message"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -28,16 +28,16 @@
                            FontFamily="Roboto"
                            FontStyle="Italic"
                            FontWeight="DemiBold"/>
-            <TextBlock FontSize="20" 
+            <TextBlock x:Name="poruka" FontSize="20" 
                            FontFamily="Roboto"
                            VerticalAlignment="Center"
                            TextWrapping="Wrap" 
-                           TextAlignment="Center">
-                    Pokrenut DEMO režim!
+                           TextAlignment="Center"
+                           Text="{Binding Message, Mode=TwoWay}">
             </TextBlock>
 
-            <Button x:Name="Ok" BorderThickness="0.5" Content="Zatvori" Height ="30" Width="80" Margin="292,145,28,25"
-                                Command="{Binding OkayCommand}"/>
+            <!--<Button x:Name="Ok" BorderThickness="0.5" Content="Zatvori" Height ="30" Width="80" Margin="292,145,28,25"
+                                Command="{Binding OkayCommand}"/>-->
             <!--<Button x:Name="Cancel" BorderThickness="0.5" Content ="Otkaži" Height ="30" Width="80" Margin="294,151,26,19"
                                 Command="{Binding CancelCommand}"/>-->
 
