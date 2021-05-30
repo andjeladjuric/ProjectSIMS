@@ -137,6 +137,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             if (DemoOn)
             {
                 RoomService rooms = new RoomService();
+                MessageViewModel.Message = "Završena prva funkcionalnost \n Sledi - renoviranje prostorije";
                 ct.ThrowIfCancellationRequested();
 
                 await Task.Delay(1500, ct);
@@ -150,13 +151,11 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 await Task.Delay(2000, ct);
                 RoomType = RoomType.OperatingRoom;
                 await Task.Delay(2000, ct);
-                OnAdd();
 
                 await Task.Delay(2000, ct);
                 IsPopupOpen = true;
                 await Task.Delay(1500, ct);
                 IsPopupOpen = false;
-                rooms.DeleteRoom(RoomId);
                 this.Frame.NavigationService.Navigate(new RoomsView());
                 await Task.Delay(1500, ct);
                 this.Frame.NavigationService.Navigate(new RoomRenovationView(rooms.GetOne("330"), DemoOn));

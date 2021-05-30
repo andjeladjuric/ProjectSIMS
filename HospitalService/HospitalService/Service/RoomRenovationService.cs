@@ -86,7 +86,8 @@ namespace HospitalService.Service
 
         public bool CheckAppointmentsForDate(DateTime startDate, DateTime endDate, string roomId)
         {
-            foreach (Appointment a in new AppointmentStorage().GetAll())
+            AppointmentsService appointments = new AppointmentsService();
+            foreach (Appointment a in appointments.GetAll())
             {
                 if (a.room.Id.Equals(roomId))
                 {
@@ -118,15 +119,9 @@ namespace HospitalService.Service
         private void ChangeRoomAvailability(Renovation renovation, bool IsAvailable)
         {
             RoomService roomService = new RoomService();
-            foreach (Room room in roomService.GetAll())
-            {
-                if (room.Id.Equals(renovation.RoomId))
-                {
-                    room.IsFree = IsAvailable;
-                    roomService.UpdateRoom(room);
-                    break;
-                }
-            }
+            Room room = roomService.GetOne(renovation.RoomId);
+            room.IsFree = IsAvailable;
+            roomService.UpdateRoom(room);
         }
 
         public bool IsRoomReservationPossible(DateTime appointmentStart, DateTime appointmentEnd)

@@ -138,6 +138,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             {
                 InventoryService service = new InventoryService();
                 RoomService rooms = new RoomService();
+                MessageViewModel.Message = "Završena četvrta funkcionalnost \n Sledi - izmena inventara";
                 ct.ThrowIfCancellationRequested();
 
                 await Task.Delay(1500, ct);
@@ -147,19 +148,19 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 await Task.Delay(2000, ct);
                 ItemName = "Izmenjen naziv";
                 await Task.Delay(2000, ct);
-                Supplier = "Izmenjen proizvođač";
-                await Task.Delay(2000, ct);
                 Quantity = "15";
+                await Task.Delay(2000, ct);
+                Supplier = "Izmenjen proizvođač";
                 await Task.Delay(2000, ct);
                 Type = Equipment.Static;
 
                 await Task.Delay(2000, ct);
                 this.Frame.NavigationService.Navigate(new InventoryView());
                 IsPopupOpen = true;
-                await Task.Delay(1500, ct);
+                await Task.Delay(3000, ct);
                 IsPopupOpen = false;
-                ManagerWindowViewModel.cts.Cancel();
                 DemoOn = false;
+                ManagerWindowViewModel.cts.Cancel();
             }
         }
         #endregion

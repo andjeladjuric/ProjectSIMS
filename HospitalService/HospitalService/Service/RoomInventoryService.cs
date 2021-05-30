@@ -21,58 +21,68 @@ namespace HospitalService.Service
             roomInventoryRepository = new RoomInventoryRepository();
         }
 
-        public void AnalyzeRequests(MovingRequests mr)
+        public void AnalyzeRequests(MovingRequests request)
         {
-            RoomFileStorage roomStorage = new RoomFileStorage();
-            InventoryFileStorage inventoryStorage = new InventoryFileStorage();
+            RoomService roomService = new RoomService();
+            InventoryService inventoryService = new InventoryService();
 
-            if (roomStorage.getOne(mr.moveFromThisRoom) != null && roomStorage.getOne(mr.sendToThisRoom) != null
-                && inventoryStorage.getOne(mr.inventoryId) != null)
+            if (roomService.GetOne(request.moveFromThisRoom) != null && roomService.GetOne(request.sendToThisRoom) != null
+                && inventoryService.GetOne(request.inventoryId) != null)
 
             {
-                RoomInventory moveFromHere = GetRoomInventoryByIds(mr.moveFromThisRoom, mr.inventoryId);
-                RoomInventory sendHere = GetRoomInventoryByIds(mr.sendToThisRoom, mr.inventoryId);
+                RoomInventory moveFromHere = GetRoomInventoryByIds(request.moveFromThisRoom, request.inventoryId);
+                RoomInventory sendHere = GetRoomInventoryByIds(request.sendToThisRoom, request.inventoryId);
 
-                if (moveFromHere.Quantity == mr.quantity)
+                if (moveFromHere.Quantity == request.quantity)
                 {
-                    RoomInventory r;
-                    for (int i = 0; i < roomInventoryRepository.GetAll().Count; i++)
-                    {
-                        r = roomInventoryRepository.GetAll()[i];
-                        if (r.Equals(moveFromHere))
-                        {
-                            roomInventoryRepository.GetAll().RemoveAt(i);
-                            break;
-                        }
-                    }
+                    RemoveItemFromRoom(moveFromHere);
                 }
                 else
                 {
-                    moveFromHere.Quantity -= mr.quantity;
+                    moveFromHere.Quantity -= request.quantity;
                 }
 
                 if (sendHere == null)
                 {
-                    roomInventoryRepository.GetAll().Add(new RoomInventory(mr.sendToThisRoom, mr.inventoryId, mr.quantity));
+                    roomInventoryRepository.GetAll().Add(new RoomInventory(request.sendToThisRoom, request.inventoryId, request.quantity));
                 }
                 else
                 {
-                    sendHere.Quantity += mr.quantity;
+                    sendHere.Quantity += request.quantity;
                 }
 
                 roomInventoryRepository.SerializeRoomInventory();
-                List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    if (requests[i].movingTime == mr.movingTime)
-                    {
-                        requests.RemoveAt(i);
-                    }
-                }
-
-                File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
+                RemoveRequests(request);
             }
+        }
+
+        private void RemoveItemFromRoom(RoomInventory moveFromHere)
+        {
+            RoomInventory item;
+            for (int i = 0; i < roomInventoryRepository.GetAll().Count; i++)
+            {
+                item = roomInventoryRepository.GetAll()[i];
+                if (item.Equals(moveFromHere))
+                {
+                    roomInventoryRepository.GetAll().RemoveAt(i);
+                    break;
+                }
+            }
+        }
+
+        private static void RemoveRequests(MovingRequests mr)
+        {
+            List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
+
+            for (int i = 0; i < requests.Count; i++)
+            {
+                if (requests[i].movingTime == mr.movingTime)
+                {
+                    requests.RemoveAt(i);
+                }
+            }
+
+            File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
         }
 
         public void CheckRequests()
@@ -80,17 +90,17 @@ namespace HospitalService.Service
             List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
             if (requests.Count != 0)
             {
-                MovingRequests mr;
+                MovingRequests request;
                 for (int i = 0; i < requests.Count; i++)
                 {
-                    mr = requests[i];
-                    if (DateTime.Compare(mr.movingTime, DateTime.Now) <= 0)
+                    request = requests[i];
+                    if (DateTime.Compare(request.movingTime, DateTime.Now) <= 0)
                     {
-                        AnalyzeRequests(mr);
+                        AnalyzeRequests(request);
                     }
                     else
                     {
-                        Task t = new Task(() => RunThread(mr));
+                        Task t = new Task(() => RunThread(request));
                         t.Start();
                     }
                 }
@@ -106,12 +116,12 @@ namespace HospitalService.Service
             AnalyzeRequests(mr);
         }
 
-        public void StartMoving(MovingRequests mr)
+        public void StartMoving(MovingRequests movingRequest)
         {
             List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-            requests.Add(mr);
+            requests.Add(movingRequest);
             File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
-            Task t = new Task(() => RunThread(mr));
+            Task t = new Task(() => RunThread(movingRequest));
             t.Start();
         }
 

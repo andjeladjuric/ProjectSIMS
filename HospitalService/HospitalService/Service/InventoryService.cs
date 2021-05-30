@@ -41,9 +41,16 @@ namespace HospitalService.Service
 
         public void Delete(int itemId)
         {
-            DeleteInventoryInRoom(itemId);
-            DeleteRequests(itemId);
-            inventory.Delete(itemId);
+            if (itemId != 321 && GetAllTakenBeds() > 0)
+            {
+                MessageBox.Show("Postoje zauzeti kreveti!");
+            }
+            else
+            {
+                DeleteInventoryInRoom(itemId);
+                DeleteRequests(itemId);
+                inventory.Delete(itemId);
+            }
         }
 
         private void DeleteInventoryInRoom(int itemId)
@@ -76,6 +83,18 @@ namespace HospitalService.Service
             }
         }
 
+        private int GetAllTakenBeds()
+        {
+            RoomService roomService = new RoomService();
+            int takenBeds = 0;
+            foreach (Room r in roomService.GetAll())
+            {
+                takenBeds += new MedicalRecordService().TakenBeds(r.Id);
+            }
+
+            return takenBeds;
+        }
+
         public void Edit(int id, String name, Equipment type, int quantity, string supplier)
         {
             Inventory item;
@@ -84,14 +103,13 @@ namespace HospitalService.Service
                 item = inventory.GetAll()[i];
                 if (item.Id.Equals(id))
                 {
-                    int temp = 0;
 
                     if (rooms.GetAll().Count == 0)
                     {
                         MessageBox.Show("Ne postoje sobe u kojima inventar može da se izmeni!");
                     }
 
-                    ChangeItemQuantity(item, quantity);
+                    EnlargeQuantity(item, quantity);
                     item.Name = name;
                     item.EquipmentType = type;
                     item.Supplier = supplier;
@@ -100,7 +118,7 @@ namespace HospitalService.Service
             }
         }
 
-        private void ChangeItemQuantity(Inventory item, int quantity)
+        private void EnlargeQuantity(Inventory item, int quantity)
         {
             int temp;
 
@@ -124,6 +142,36 @@ namespace HospitalService.Service
                     }
                 }
             }
+        }
+
+        public void ReduceQuantity(int enteredQuantity, Inventory SelectedItem, Room SelectedRoom)
+        {
+            Inventory item = GetOne(SelectedItem.Id);
+
+            if (item.Quantity == enteredQuantity)
+            {
+                GetAll().Remove(item);
+            }
+            else
+            {
+                item.Quantity -= enteredQuantity;
+            }
+
+            EditItem(item);
+
+            RoomInventoryService roomInventoryService = new RoomInventoryService();
+            RoomInventory inventoryInRoom = roomInventoryService.GetRoomInventoryByIds(SelectedRoom.Id, SelectedItem.Id);
+
+            if (inventoryInRoom.Quantity == enteredQuantity)
+            {
+                roomInventoryService.GetAll().Remove(inventoryInRoom);
+            }
+            else
+            {
+                inventoryInRoom.Quantity -= enteredQuantity;
+            }
+
+            roomInventoryService.EditItem(inventoryInRoom);
         }
 
         public List<Inventory> GetAll() => inventory.GetAll();

@@ -201,7 +201,7 @@
                    VerticalAlignment="Top" Height="57" Width="196" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
         <Popup x:Name="pp" Placement="Center" IsOpen="{Binding IsPopupOpen}" Width="400" Height="200" AllowsTransparency="True">
-            <local:Message />
+            <local:Message/>
         </Popup>
     </Grid>
 </Page>

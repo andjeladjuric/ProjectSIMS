@@ -282,6 +282,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             if (DemoOn)
             {
                 InventoryService service = new InventoryService();
+                MessageViewModel.Message = "Završena treća funkcionalnost \n Sledi - izmena inventara";
                 RoomService rooms = new RoomService();
                 ct.ThrowIfCancellationRequested();
 

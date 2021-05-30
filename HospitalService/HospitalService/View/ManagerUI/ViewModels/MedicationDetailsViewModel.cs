@@ -75,6 +75,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             set
             {
                 currentIngredients = value;
+                OnPropertyChanged();
             }
         }
 
@@ -99,7 +100,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void OnCancel()
         {
             SaveEditedIngredients();
-            this.Frame.Content = null;
+            this.Frame.NavigationService.Navigate(new MedicationsView());
         }
 
         private void OnResend()
@@ -133,7 +134,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             Ingredients = new ObservableCollection<string>();
 
-            foreach (var item in SelectedMedication.Ingredients)
+            foreach (var item in CurrentIngredients)
             {
                 Ingredients.Add(item.Key + " " + item.Value + " mg");
             }
@@ -141,7 +142,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void SaveEditedIngredients()
         {
             MedicationService service = new MedicationService();
-            service.Edit(SelectedMedication.Id, Format, Type, CurrentIngredients);
+            service.Edit(SelectedMedication.Id, Format, Type, SelectedMedication.Ingredients);
         }
 
         private void ChangeMedStatus()
@@ -165,12 +166,12 @@ namespace HospitalService.View.ManagerUI.ViewModels
             this.Frame = currentFrame;
             this.IngredientsFrame = ingredientsFrame;
             this.SelectedMedication = medication;
-            LoadIngredients();
             this.CurrentIngredients = SelectedMedication.Ingredients;
             this.Format = SelectedMedication.Format;
             this.Type = SelectedMedication.Type;
             this.Replacement = SelectedMedication.Replacement;
             this.Comment = SelectedMedication.DoctorsComment;
+            LoadIngredients();
             CancelCommand = new MyICommand(OnCancel, CanExecute);
             EditCommand = new MyICommand(OnEdit, CanExecute);
             ResendCommand = new MyICommand(OnResend, CanResend);

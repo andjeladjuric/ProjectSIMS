@@ -13,15 +13,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         public UserControl PopUp { get; set; }
 
         private string mes;
-        public string Message
-        {
-            get { return mes; }
-            set
-            {
-                mes = value;
-                OnPropertyChanged();
-            }
-        }
+        public static string Message { get; set; }
         #endregion
 
         #region Commands
@@ -44,14 +36,14 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         public void SetMessage(string text)
         {
-            this.Message = text;
+            Message = text;
         }
 
         #region Constructors
         public MessageViewModel()
         {
             this.DemoOn = false;
-            this.Message = "Završena prva funkcionalnost \n Sledi - renoviranje prostorije";
+            Message = "";
             OkayCommand = new MyICommand(OnOkay, CanNavigate);
         }
         #endregion

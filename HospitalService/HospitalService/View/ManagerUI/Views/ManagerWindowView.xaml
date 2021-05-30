@@ -80,7 +80,7 @@
         <Grid x:Name="GridMenu" Panel.ZIndex="1" Background="#cad9c4" HorizontalAlignment="Left"
               Width="55">
             <StackPanel>
-                <Grid Height="200">
+                <Grid Height="250">
                     <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
                         <Button x:Name="OpenMenuButton" Width="35" Height="35" Background="{x:Null}" Margin="0,12,0,0" BorderThickness="0" HorizontalAlignment="Center">
                             <materialDesign:PackIcon Kind="Menu" Foreground="Black" Width="35" Height="35"/>
@@ -138,12 +138,12 @@
                             <TextBlock Text="Zaposleni" VerticalAlignment="Center"  Margin="40 10"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="RequestsPage" Height="60">
+                    <!--<ListViewItem x:Name="RequestsPage" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Message" Height="35" Width="35" Margin="4"/>
                             <TextBlock Text="Zahtevi" VerticalAlignment="Center"  Margin="40 10"/>
                         </StackPanel>
-                    </ListViewItem>
+                    </ListViewItem>-->
                     <ListViewItem x:Name="MedicationsPage" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Pill" Height="35" Width="35" Margin="4"/>
