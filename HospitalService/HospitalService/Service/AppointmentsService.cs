@@ -153,7 +153,7 @@ namespace HospitalService.Service
         public int getNumberOfSameDateAppointments(Patient patient, DateTime startTime) {
             repository = new AppointmentsRepository();
             List<Appointment> la = repository.GetAll();
-            List<Appointment> sameDateAppointments = la.Where(ap => ap.patient.Jmbg.Equals(patient.Jmbg) && startTime.ToShortDateString().Equals(ap.StartTime.ToShortDateString())).ToList();
+            List<Appointment> sameDateAppointments = la.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && startTime.ToShortDateString().Equals(appointment.StartTime.ToShortDateString()) && appointment.Status!=Status.Canceled).ToList();
             return sameDateAppointments.Count;
         }
         public List<Appointment> GetAll() {
