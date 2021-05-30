@@ -22,8 +22,8 @@
     </Window.Resources>
     <Grid  Height="620" Width="450">
         <StackPanel>
-            <StackPanel Margin="0,10,0,0">
-                <Label Width="166">Bolničko liječenje</Label>
+            <StackPanel Margin="30,10,0,0">
+                <Label Width="166" FontSize="20">Bolničko liječenje</Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                 <Label Content="Pacijent:" Margin="50,0,50,0"/>
@@ -105,11 +105,11 @@
                 <Label Content="Razlog*:" Margin="50,0,50,0"/>
             </StackPanel>
             <StackPanel Margin="0,10,0,0">
-                <TextBox BorderThickness="1" Height="80" Width="350" Text="{Binding Reason, Mode=TwoWay}"/>
+                <TextBox Background="#fafafa" BorderThickness="1" Height="80" Width="350" Text="{Binding Reason, Mode=TwoWay}"/>
                 <TextBlock Text="{Binding ValidationErrors[TreatmentReason]}"
                                Foreground="Red"  FontSize="12" Margin="50,2,0,0"  />
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,30,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                 <Button Content="Odustani" Width="80" Margin="110,0,0,0" RenderTransformOrigin="0.5,0.5">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click" >

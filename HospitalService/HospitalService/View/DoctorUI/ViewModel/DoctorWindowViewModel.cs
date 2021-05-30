@@ -291,6 +291,11 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 MessageBox.Show("Morate izabrati termin");
                 return false;
             }
+            if (DateTime.Compare(SelectedAppointment.StartTime, DateTime.Now) < 0)
+            {
+                MessageBox.Show("Nije moguće mijenjati termin koji je prošao.");
+                return false;
+            }
             else
                 return true;
         }

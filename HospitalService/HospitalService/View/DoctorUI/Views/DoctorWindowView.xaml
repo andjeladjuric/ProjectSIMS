@@ -47,7 +47,7 @@
                     </MenuItem>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Opcije" Height="40" Width="70">
+                <MenuItem Header="Opcije" Height="40" Width="161" >
                     <MenuItem Header="Zahtjev za odmor">
                         <MenuItem.Icon>
                             <materialDesign:PackIcon Kind="PalmTree" Foreground="#3f51b5"/>

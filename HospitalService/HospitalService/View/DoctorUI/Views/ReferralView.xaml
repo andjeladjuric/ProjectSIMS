@@ -82,7 +82,7 @@
         <TextBlock Text="{Binding ValidationErrors[Doctor]}"
                                Foreground="Red" Margin="204,220,0,357"  FontSize="12" />
         <Label Content="Razlog:" HorizontalAlignment="Left" Margin="59,367,0,0" VerticalAlignment="Top"/>
-        <TextBox BorderThickness="1"  Text="{Binding Reason, Mode=TwoWay}" Background="WhiteSmoke" HorizontalAlignment="Left" Margin="59,404,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="335" Height="89"/>
+        <TextBox BorderThickness="1"  Text="{Binding Reason, Mode=TwoWay}" Background="#fafafa" HorizontalAlignment="Left" Margin="59,404,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="335" Height="89"/>
         <TextBlock Text="{Binding ValidationErrors[Reason]}"
                                Foreground="Red" Margin="59,495,0,90"  FontSize="12" />
     </Grid>

@@ -43,9 +43,6 @@
         <Label Content="Do:" HorizontalAlignment="Left" Margin="69,209,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
         <Label Content="Soba:" HorizontalAlignment="Left" Margin="69,281,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
         <Button Content="Potvrdi"  HorizontalAlignment="Left" Margin="280,388,0,0" VerticalAlignment="Top" Width="116" Height="34">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding EditCommand}"/>
@@ -59,9 +56,6 @@
             </i:Interaction.Behaviors>
         </Button>
         <Button Content="Odustani" HorizontalAlignment="Left" Margin="115,388,0,0" VerticalAlignment="Top" Width="114" Height="34">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
