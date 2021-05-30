@@ -2,6 +2,7 @@
 using HospitalService.Service;
 using HospitalService.Storage;
 using HospitalService.View.DoctorUI.Commands;
+using HospitalService.View.DoctorUI.Validation;
 using HospitalService.View.DoctorUI.Views;
 using Model;
 using Storage;
@@ -14,7 +15,7 @@ using System.Windows;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
-    public class HospitalTreatmentViewModel : ViewModelClass
+    public class HospitalTreatmentViewModel : ValidationBase
     {
         private DateTime startDate;
         private DateTime endDate;
@@ -43,7 +44,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 rooms = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Rooms");
             }
 
         }
@@ -54,7 +55,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 startDate = value;
-                OnPropertyChanged();
+                OnPropertyChanged("StartDate");
             }
 
         }
@@ -64,7 +65,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 endDate = value;
-                OnPropertyChanged();
+                OnPropertyChanged("EndDate");
             }
 
         }
@@ -74,7 +75,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 selectedDepartment = value;
-                OnPropertyChanged();
+                OnPropertyChanged("SelectedDepartment");
             }
 
         }
@@ -84,7 +85,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 selectedRoom = value;
-                OnPropertyChanged();
+                OnPropertyChanged("SelectedRoom");
             }
 
         }
@@ -94,7 +95,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 bedNum = value;
-                OnPropertyChanged();
+                OnPropertyChanged("BedNum");
             }
 
         }
@@ -104,7 +105,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 reason = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Reason");
             }
 
         }
@@ -114,7 +115,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 isEnabled = value;
-                OnPropertyChanged();
+                OnPropertyChanged("IsEnabled");
             }
 
         }
@@ -124,7 +125,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 enabled = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Enabled");
             }
 
         }
@@ -166,12 +167,17 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public bool CanExecute_ApplyCommand(object obj)
         {
-            if (SelectedRoom == null || BedNum == 0 || Reason == null)
+            this.Validate();
+            if (this.IsValid)
             {
-                MessageBox.Show("Obavezna polja nisu popunjena.");
-                return false;
+                if(DateTime.Compare(StartDate, EndDate) >= 0)
+                {
+                    MessageBox.Show("Pogrešan unos datuma.");
+                    return false;
+                }else
+                    return true;
             }
-            return true;
+            return false;
         }
 
         public void Executed_ApplyCommand(object obj)
@@ -226,6 +232,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
         }
         private void Executed_KeyDownCommandWithKey(object obj)
         {
+        }
+
+        protected override void ValidateSelf()
+        {
+            if (SelectedRoom == null)
+                this.ValidationErrors["SelectedRoom"] = "Obavezno polje";
+            if (BedNum == 0)
+                this.ValidationErrors["BedNum"] = "Obavezno polje";
+            if (string.IsNullOrWhiteSpace(this.reason))
+                this.ValidationErrors["TreatmentReason"] = "Obavezno polje";
         }
     }
 }

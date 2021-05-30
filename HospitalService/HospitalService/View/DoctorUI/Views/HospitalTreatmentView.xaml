@@ -6,12 +6,24 @@
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="HospitalTreatmentView" Height="600" Width="450" FontFamily="Open Sans" FontSize="18" UseLayoutRounding="True" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
-    <Grid  Height="600" Width="450">
+        Title="HospitalTreatmentView" Height="620" Width="450" FontFamily="Open Sans" FontSize="18" UseLayoutRounding="True" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid  Height="620" Width="450">
         <StackPanel>
-            <StackPanel Margin="0,10,0,0">
-                <Label Width="166">Bolničko liječenje</Label>
+            <StackPanel Margin="30,10,0,0">
+                <Label Width="166" FontSize="20">Bolničko liječenje</Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                 <Label Content="Pacijent:" Margin="50,0,50,0"/>
@@ -19,11 +31,11 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                 <Label Content="Od*:" Margin="50,0,80,0"/>
-                <DatePicker SelectedDate="{Binding StartDate, Mode=TwoWay}" />
+                <DatePicker SelectedDate="{Binding StartDate, Mode=TwoWay}"  DisplayDateStart="{x:Static sys:DateTime.Today}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                 <Label Content="Do*:" Margin="50,0,80,0"/>
-                <DatePicker SelectedDate="{Binding EndDate, Mode=TwoWay}"/>
+                <DatePicker SelectedDate="{Binding EndDate, Mode=TwoWay}"  DisplayDateStart="{x:Static sys:DateTime.Today}"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
@@ -67,10 +79,13 @@
                     </i:Interaction.Behaviors>
                 </ComboBox>
             </StackPanel>
+            <TextBlock Text="{Binding ValidationErrors[SelectedRoom]}"
+                               Foreground="Red"  FontSize="12" Margin="160,2,0,0"  />
             <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                 <Label Content="Krevet*:" Margin="50,0,50,0"/>
                 <TextBox Width="70" Text="{Binding BedNum}" IsEnabled="False"/>
-                <Button Content="+" Width="29" Height="24" Margin="10,0,0,0" IsEnabled="{Binding Enabled}">
+                <Button Background="{x:Null}" BorderThickness="0" Height="35" Width="35" Margin="5,0,0,0" IsEnabled="{Binding Enabled}">
+                    <materialDesign:PackIcon Kind="AddCircle" Height="30" Width="30" Foreground="#3f51b5"/>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click" >
                             <i:InvokeCommandAction Command="{Binding BedCommand}"/>
@@ -84,13 +99,17 @@
                     </i:Interaction.Behaviors>
                 </Button>
             </StackPanel>
+            <TextBlock Text="{Binding ValidationErrors[BedNum]}"
+                               Foreground="Red"  FontSize="12" Margin="160,2,0,0"  />
             <StackPanel  Margin="0,20,0,0">
                 <Label Content="Razlog*:" Margin="50,0,50,0"/>
             </StackPanel>
             <StackPanel Margin="0,10,0,0">
-                <TextBox Height="80" Width="350" Text="{Binding Reason, Mode=TwoWay}"/>
+                <TextBox Background="#fafafa" BorderThickness="1" Height="80" Width="350" Text="{Binding Reason, Mode=TwoWay}"/>
+                <TextBlock Text="{Binding ValidationErrors[TreatmentReason]}"
+                               Foreground="Red"  FontSize="12" Margin="50,2,0,0"  />
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                 <Button Content="Odustani" Width="80" Margin="110,0,0,0" RenderTransformOrigin="0.5,0.5">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click" >

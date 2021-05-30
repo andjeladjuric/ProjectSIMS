@@ -7,26 +7,39 @@
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="450" FontSize="18"  FontFamily="Open Sans"
+      d:DesignHeight="570" d:DesignWidth="450" FontSize="18"  FontFamily="Open Sans"
       Title="FindMedicationView">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid Background="White" Height="600" Width="450">
         <StackPanel>
             <StackPanel Margin="0,20,0,10" Width="119">
                 <Label Content="Baza lijekova"/>
             </StackPanel>
-            <StackPanel Height="450">
-                <ListView ItemsSource="{Binding Medications}" SelectedItem="{Binding SelectedMedication, Mode=TwoWay}" Height="450" Margin="10,0,10,0">
+            <StackPanel Height="430">
+                <Border BorderBrush="#6e7bb3" BorderThickness="2" Height="430" Margin="10,0,10,0">
+                    <ListView ItemsSource="{Binding Medications}" SelectedItem="{Binding SelectedMedication, Mode=TwoWay}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Path=MedicineName}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+               </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="100">
                 <StackPanel>
-                    <Button Content="Odustani" Width="82" Margin="100,40,0,0">
+                    <Button Content="Odustani" Width="82" Margin="110,40,0,0">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click" >
                                 <i:InvokeCommandAction Command="{Binding CancelCommand}"/>

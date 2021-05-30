@@ -97,6 +97,15 @@ namespace HospitalService.Service
             }
         }
 
+        public RoomType GetRoomType(AppointmentType appointmentType)
+        {
+            RoomType roomType;
+            if (appointmentType == AppointmentType.Pregled)
+                roomType = RoomType.ExaminationRoom;
+            else
+                roomType = RoomType.OperatingRoom;
+            return roomType;
+        }
         public List<Room> GetAll() => roomsRepository.GetAll();
         public Room GetOne(string Id) => roomsRepository.GetOne(Id);
         public List<Room> GetByType(RoomType Type) => roomsRepository.GetByType(Type);

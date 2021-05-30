@@ -15,7 +15,6 @@ namespace HospitalService.Service
         {
             repository = new AppointmentsRepository();
         }
-        // u repo
         public void SetIds()
         {
             List<Appointment> appointments = repository.GetAll();
@@ -131,19 +130,50 @@ namespace HospitalService.Service
             for (int i = 0; i < appointments.Count; i++)
             {
                 appointment = appointments[i];
-                if (DateTime.Compare(appointment.StartTime, start) == 0)
-                {
-                    return true;
-                }
-                else if (DateTime.Compare(appointment.StartTime, start) < 0)
-                {
-                    if (DateTime.Compare(appointment.EndTime, start) > 0)
-                        return true;
-                }
-                else if (DateTime.Compare(appointment.StartTime, start) > 0 && DateTime.Compare(end, appointment.StartTime) > 0)
+                if (new DateService().ExsitstsAtTime(appointment, start, end))
                     return true;
             }
             return false;
         }
+
+        public Boolean IsRoomTaken(DateTime start, DateTime end, Room room)
+        {
+            Appointment appointment;
+            List<Appointment> appointments = GetForRoom(room.Id);
+            for (int i = 0; i < appointments.Count; i++)
+            {
+                appointment = appointments[i];
+                if (new DateService().ExsitstsAtTime(appointment, start, end))
+                    return true;
+            }
+            return false;
+        }
+        public List<Appointment> GetForRoom(string roomId)
+        {
+            Appointment appointment;
+            List<Appointment> appointments = repository.GetAll();
+            List<Appointment> appointmentsForSelectedRoom = new List<Appointment>();
+            for (int i = 0; i < appointments.Count; i++)
+            {
+                appointment = appointments[i];
+                if (appointment.room.Id.Equals(roomId))
+                {
+                    appointmentsForSelectedRoom.Add(appointment);
+                }
+            }
+            return appointmentsForSelectedRoom;
+        }
+
+        public List<Room> GetAvailableRooms(DateTime start, DateTime end, RoomType roomType)
+        {
+            List<Room> allRooms = new RoomService().GetByType(roomType);
+            List<Room> availableRooms = new List<Room>();
+            foreach (Room room in allRooms)
+                if (!IsRoomTaken(start, end, room))
+                    availableRooms.Add(room);
+            return availableRooms;
+        }
+
+        public void Edit(String id, DateTime startTime, DateTime endTime, Room room) => repository.Edit(id, startTime, endTime, room);
     }
 }

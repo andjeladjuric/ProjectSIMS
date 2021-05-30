@@ -5,9 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
          Title="Novi termin" Height="450" Width="768" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" FontSize="16">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Label Content="ID:" HorizontalAlignment="Left" Margin="40,35,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <Label Content="Od:" HorizontalAlignment="Left" Margin="40,161,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
@@ -16,10 +28,14 @@
         <Label Content="Tip:" HorizontalAlignment="Left" Margin="400,39,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="400,165,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <TextBox IsEnabled="False" Text="{Binding Path=NextId}" ToolTipService.ToolTip="Appointment's id" Name="IdBox"  HorizontalAlignment="Left" Height="31" Margin="159,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
-        <TextBox Text="{Binding Path=StartTime, Mode=TwoWay, StringFormat=HH:mm}" ToolTipService.ToolTip="Correct Format: 12:00" Name="StartBox" HorizontalAlignment="Left" Height="31" Margin="159,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
-        <TextBox  Text="{Binding Path=EndTime, Mode=TwoWay, StringFormat=HH:mm}" ToolTipService.ToolTip="Correct Format: 12:00" Name="EndBox" HorizontalAlignment="Left" Height="31" Margin="159,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
+        <TextBox Text="{Binding Path=Appointment.StartTime, Mode=TwoWay, StringFormat=HH:mm}" ToolTipService.ToolTip="Correct Format: 12:00" Name="StartBox" HorizontalAlignment="Left" Height="31" Margin="159,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
+        <TextBlock Text="{Binding Appointment.ValidationErrors[StartTime]}"
+                               Foreground="Red" Margin="159,193,0,0"/>
+        <TextBox  Text="{Binding Path=Appointment.EndTime, Mode=TwoWay, StringFormat=HH:mm}" ToolTipService.ToolTip="Correct Format: 12:00" Name="EndBox" HorizontalAlignment="Left" Height="31" Margin="159,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
+        <TextBlock Text="{Binding Appointment.ValidationErrors[EndTime]}"
+                               Foreground="Red" Margin="159,265,0,0"/>
 
-        <ComboBox IsEnabled="{Binding Path=IsEnabled}" ItemsSource="{Binding Path=Rooms}" SelectedItem="{Binding Path=Room, Mode=TwoWay}"  Name="RoomBox"  HorizontalAlignment="Left" Margin="525,102,0,0" VerticalAlignment="Top" Width="163" Height="35">
+        <ComboBox ItemsSource="{Binding Path=Rooms}" SelectedItem="{Binding Path=Appointment.Room, Mode=TwoWay}"  Name="RoomBox"  HorizontalAlignment="Left" Margin="525,102,0,0" VerticalAlignment="Top" Width="163" Height="35">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -33,7 +49,9 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox ItemsSource="{Binding Path=AppointmentsType}" SelectedItem="{Binding Path=AppointmentType, Mode=TwoWay}"  Name="AppointmentTypeBox" HorizontalAlignment="Left" Margin="525,37,0,0" VerticalAlignment="Top" Width="163" Height="35">
+        <TextBlock Text="{Binding Appointment.ValidationErrors[Room]}"
+                               Foreground="Red" Margin="525,138,0,0" FontSize="12"/>
+        <ComboBox ItemsSource="{Binding Path=AppointmentsType}" SelectedIndex="0" SelectedItem="{Binding Path=AppointmentType, Mode=TwoWay}"  Name="AppointmentTypeBox" HorizontalAlignment="Left" Margin="525,37,0,0" VerticalAlignment="Top" Width="163" Height="35">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged" >
                     <i:InvokeCommandAction Command="{Binding GetRoomsCommand}"/>
@@ -41,11 +59,8 @@
             </i:Interaction.Triggers>
         </ComboBox>
         <Label Content="Do:" HorizontalAlignment="Left" Margin="40,234,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
-        <DatePicker SelectedDate="{Binding Path=Date, Mode=TwoWay}" Name="DateBox" HorizontalAlignment="Left" Margin="159,102,0,0" VerticalAlignment="Top" Width="129" Height="28"/>
+        <DatePicker SelectedDate="{Binding Path=Date, Mode=TwoWay}" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Left" Margin="159,102,0,0" VerticalAlignment="Top" Width="129" Height="28"/>
         <Button Content="Odustani" HorizontalAlignment="Left" Margin="224,347,0,0" VerticalAlignment="Top" Width="126" Height="36">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
@@ -59,9 +74,6 @@
             </i:Interaction.Behaviors>
         </Button>
         <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="430,347,0,0" VerticalAlignment="Top" Width="127" Height="36">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding AddCommand}"/>
@@ -74,9 +86,13 @@
                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
             </i:Interaction.Behaviors>
         </Button>
-        <TextBox IsEnabled="False" Text="{Binding Path=PatientsName}" HorizontalAlignment="Left" Height="33" Margin="525,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163">
+        <TextBox IsEnabled="False" Text="{Binding Path=Appointment.PatientsName}" HorizontalAlignment="Left" Height="33" Margin="525,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163">
         </TextBox>
-        <Button Content="+" HorizontalAlignment="Left" Margin="693,163,0,0" VerticalAlignment="Top" Width="29" Height="33">
+        <TextBlock Text="{Binding Appointment.ValidationErrors[Patient]}"
+                               Foreground="Red" Margin="525,200,0,0" FontSize="12"/>
+        <Button  HorizontalAlignment="Left" Margin="680,0,0,70" Background="{x:Null}" BorderThickness="0" Height="40" Width="65">
+            <materialDesign:PackIcon Kind="AddCircle" Height="30" Width="30" Foreground="#3f51b5"/>
+
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding FindCommand}"/>

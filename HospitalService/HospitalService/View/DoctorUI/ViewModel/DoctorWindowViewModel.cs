@@ -8,14 +8,17 @@ using Storage;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
     public class DoctorWindowViewModel : ViewModelClass
     {
+        #region Fields
         private Doctor doctor;
         private DateTime date;
         private ObservableCollection<Appointment> appointments;
@@ -27,6 +30,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private Medication selectedMedication;
         private Patient selectedPatient;
         private News selectedNews;
+        private string _filterString;
+        private ICollectionView _dataGridCollection;
         public RelayCommand AddAppointmentCommand { get; set; }
         public RelayCommand RemoveNewsCommand { get; set; }
         public RelayCommand ShowNewsCommand { get; set; }
@@ -37,10 +42,32 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public RelayCommand AboutMedicationCommand { get; set; }
         public RelayCommand ValidateCommand { get; set; }
         public RelayCommand LogOutCommand { get; set; }
+        public RelayCommand ProfileCommand { get; set; }
+        public RelayCommand VacationCommand { get; set; }
         public DoctorWindowView Window { get; set; }
-
-
         public RelayCommand KeyUpCommandWithKey { get; set; }
+        #endregion
+
+        #region Properties
+
+        public ICollectionView DataGridCollection
+        {
+            get { return _dataGridCollection; }
+            set { _dataGridCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string FilterString
+        {
+            get { return _filterString; }
+            set
+            {
+                _filterString = value;
+                OnPropertyChanged();
+                FilterCollection();
+            }
+        }
 
         public Doctor Doctor
         {
@@ -151,56 +178,28 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 OnPropertyChanged();
             }
         }
+        #endregion
 
         public DoctorWindowViewModel(Doctor loggedDoctor, DoctorWindowView doctorWindow)
         {
-            AddAppointmentCommand = new RelayCommand(Executed_AddAppointmentCommand,
-                CanExecute_AddAppointmentCommand);
-            OpenRecordCommand = new RelayCommand(Executed_OpenRecordCommand,
-               CanExecute_OpenRecordCommand);
-            AboutMedicationCommand = new RelayCommand(Executed_AboutMedicationCommand,
-               CanExecute_AboutMedicationCommand);
-            LogOutCommand = new RelayCommand(Executed_LogOutCommand,
-                CanExecute_AddAppointmentCommand);
-            RefreshAppointmentsCommand = new RelayCommand(Executed_RefreshAppointmentsCommand,
-              CanExecute_AddAppointmentCommand);
-            EditAppointmentCommand = new RelayCommand(Executed_EditAppointmentCommand,
-               CanExecute_EditAppointmentCommand);
-            DeleteAppointmentCommand = new RelayCommand(Executed_DeleteAppointmentCommand,
-                CanExecute_EditAppointmentCommand);
-            ValidateCommand = new RelayCommand(Executed_ValidateCommand,
-                CanExecute_ValidateCommand);
-            RemoveNewsCommand = new RelayCommand(Executed_RemoveNewsCommand,
-               CanExecute_RemoveNewsCommand);
-            ShowNewsCommand = new RelayCommand(Executed_ShowNewsCommand,
-               CanExecute_ShowNewsCommand);
-            KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
+            this.InitCommands();
             this.Window = doctorWindow;
             this.Doctor = loggedDoctor;
-            this.Appointments = new ObservableCollection<Appointment>();
-            this.Patients = new ObservableCollection<Patient>();
-            this.MedicationsForApproval = new ObservableCollection<Medication>();
-            this.ApprovedMedications = new ObservableCollection<Medication>();
-            this.News = new ObservableCollection<News>();
             Date = DateTime.Now;
-            List<Appointment> todaysAppointments = new AppointmentsService().GetByDoctor(loggedDoctor, Date);
-            List<Patient> allPatients = new PatientService().GetAll(); 
-            List<MedicineValidationRequest> validationRequests = new MedicineValidationService().GetForDoctor(Doctor.Jmbg); 
-            List<Medication> medications = new MedicationService().GetForApproval(validationRequests); 
-            List<Medication> allMedications = new MedicationService().GetAllApproved(); 
-            List<News> news = new NewsService().GetForRole(Role.doktori); 
-            news.ForEach(News.Add);
-            todaysAppointments.ForEach(Appointments.Add);
-            allPatients.ForEach(Patients.Add);
-            medications.ForEach(MedicationsForApproval.Add);
-            allMedications.ForEach(ApprovedMedications.Add);
+            this.GetData();
+            DataGridCollection = CollectionViewSource.GetDefaultView(Patients);
+            DataGridCollection.Filter = new Predicate<object>(Filter);
         }
 
-       
-
+        #region Commands
         public void Executed_AddAppointmentCommand(object obj)
         {
             new AddAppointmentToDoctorView(this).ShowDialog();
+        }
+
+        public void Executed_VacationCommand(object obj)
+        {
+            new VacationView().ShowDialog();
         }
 
         public void Executed_LogOutCommand(object obj)
@@ -257,6 +256,22 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 MessageBox.Show("Morate izabrati termin");
                 return false;
             }
+            if (DateTime.Compare(SelectedAppointment.StartTime, DateTime.Now) < 0)
+            {
+                MessageBox.Show("Nije moguće mijenjati termin koji je prošao.");
+                return false;
+            }
+            else
+                return true;
+        }
+
+        public bool CanExecute_DeleteAppointmentCommand(object obj)
+        {
+            if (SelectedAppointment == null)
+            {
+                MessageBox.Show("Morate izabrati termin");
+                return false;
+            }
             else
                 return true;
         }
@@ -267,18 +282,14 @@ namespace HospitalService.View.DoctorUI.ViewModel
             //    AddAppointmentCommand.Execute(obj);
         }
 
-        public void Refresh()
+        public bool CanExecute_ProfileCommand(object obj)
         {
-            List<Appointment> todaysAppointments = new AppointmentsService().GetByDoctor(Doctor, Date);
-            Appointments = new ObservableCollection<Appointment>();
-            this.MedicationsForApproval = new ObservableCollection<Medication>();
-            this.ApprovedMedications = new ObservableCollection<Medication>();
-            todaysAppointments.ForEach(Appointments.Add);
-            List<MedicineValidationRequest> validationRequests = new MedicineValidationService().GetForDoctor(Doctor.Jmbg);
-            List<Medication> medications = new MedicationService().GetForApproval(validationRequests);
-            List<Medication> allMedications = new MedicationService().GetAllApproved();
-            medications.ForEach(MedicationsForApproval.Add);
-            allMedications.ForEach(ApprovedMedications.Add);
+            return true;
+        }
+
+        public void Executed_ProfileCommand(object obj)
+        {
+            new ProfileView(this.Doctor).ShowDialog();
         }
 
         public bool CanExecute_ValidateCommand(object obj)
@@ -300,6 +311,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         {
             new AboutMedicationView(this, SelectedMedication).ShowDialog();
         }
+
         public bool CanExecute_OpenRecordCommand(object obj)
         {
             if(SelectedPatient == null)
@@ -314,6 +326,95 @@ namespace HospitalService.View.DoctorUI.ViewModel
         {
             new MedicalRecordView(SelectedPatient).ShowDialog();
         }
+        #endregion
+
+        #region Methods
+
+        public void GetData()
+        {
+            this.Appointments = new ObservableCollection<Appointment>();
+            this.Patients = new ObservableCollection<Patient>();
+            this.MedicationsForApproval = new ObservableCollection<Medication>();
+            this.ApprovedMedications = new ObservableCollection<Medication>();
+            this.News = new ObservableCollection<News>();
+            List<Appointment> todaysAppointments = new AppointmentsService().GetByDoctor(this.Doctor, Date);
+            List<Patient> allPatients = new PatientService().GetAll();
+            List<MedicineValidationRequest> validationRequests = new MedicineValidationService().GetForDoctor(Doctor.Jmbg);
+            List<Medication> medications = new MedicationService().GetForApproval(validationRequests);
+            List<Medication> allMedications = new MedicationService().GetAllApproved();
+            List<News> news = new NewsService().GetForRole(Role.doktori);
+            news.ForEach(News.Add);
+            todaysAppointments.ForEach(Appointments.Add);
+            allPatients.ForEach(Patients.Add);
+            medications.ForEach(MedicationsForApproval.Add);
+            allMedications.ForEach(ApprovedMedications.Add);
+        }
+        public void InitCommands()
+        {
+            AddAppointmentCommand = new RelayCommand(Executed_AddAppointmentCommand,
+                CanExecute_AddAppointmentCommand);
+            OpenRecordCommand = new RelayCommand(Executed_OpenRecordCommand,
+               CanExecute_OpenRecordCommand);
+            AboutMedicationCommand = new RelayCommand(Executed_AboutMedicationCommand,
+               CanExecute_AboutMedicationCommand);
+            LogOutCommand = new RelayCommand(Executed_LogOutCommand,
+                CanExecute_AddAppointmentCommand);
+            RefreshAppointmentsCommand = new RelayCommand(Executed_RefreshAppointmentsCommand,
+              CanExecute_AddAppointmentCommand);
+            EditAppointmentCommand = new RelayCommand(Executed_EditAppointmentCommand,
+               CanExecute_EditAppointmentCommand);
+            DeleteAppointmentCommand = new RelayCommand(Executed_DeleteAppointmentCommand,
+                CanExecute_DeleteAppointmentCommand);
+            ValidateCommand = new RelayCommand(Executed_ValidateCommand,
+                CanExecute_ValidateCommand);
+            RemoveNewsCommand = new RelayCommand(Executed_RemoveNewsCommand,
+               CanExecute_RemoveNewsCommand);
+            ShowNewsCommand = new RelayCommand(Executed_ShowNewsCommand,
+               CanExecute_ShowNewsCommand);
+            ProfileCommand = new RelayCommand(Executed_ProfileCommand,
+             CanExecute_ProfileCommand);
+            VacationCommand = new RelayCommand(Executed_VacationCommand,
+            CanExecute_ProfileCommand);
+            KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
+        }
+
+        public bool Filter(object obj)
+        {
+            var data = obj as Patient;
+            if (data != null)
+            {
+                if (!string.IsNullOrEmpty(_filterString))
+                {
+                    return data.Name.ToLower().Contains(_filterString.ToLower().Trim()) || data.Surname.ToLower().Contains(_filterString.ToLower().Trim()) || data.Jmbg.Contains(_filterString.Trim()) || data.medicalRecordId.Contains(_filterString.Trim());
+                }
+                return true;
+            }
+            return false;
+        }
+        private void FilterCollection()
+        {
+            if (_dataGridCollection != null)
+            {
+                _dataGridCollection.Refresh();
+            }
+        }
+        public void SetFilter(Predicate<object> filter)
+        {
+            if (DataGridCollection.CurrentItem != null && !filter(DataGridCollection.CurrentItem))
+            {
+                DataGridCollection = null;
+                OnPropertyChanged("DataGridCollection");
+            }
+            DataGridCollection.Filter = filter;
+            if (DataGridCollection.CurrentItem == null && !DataGridCollection.IsEmpty)
+                DataGridCollection.MoveCurrentToFirst();
+        }
+        public void Refresh()
+        {
+            this.GetData();
+        }
+        #endregion
     }
+
 
 }

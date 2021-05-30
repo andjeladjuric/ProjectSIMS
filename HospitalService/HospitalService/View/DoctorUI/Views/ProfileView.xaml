@@ -1,0 +1,85 @@
+﻿<Window x:Class="HospitalService.View.DoctorUI.Views.ProfileView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
+         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Profil" Height="470" Width="450"  UseLayoutRounding="True" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid  Height="470" Width="450">
+        <StackPanel Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal" Height="145">
+                <Border BorderThickness="2" BorderBrush="#3f51b5" Margin="20,10,10,10">
+                    <Image Source="/Images/doctor.jpg" Width="187" Height="123"/>
+                </Border>
+                <StackPanel Width="225">
+                    <TextBlock Text="{Binding Name}" Margin="30,40,0,0" FontSize="22" FontFamily="Baskerville" Foreground="#6e7bb3"/>
+                    <TextBlock Text="{Binding Type}" Margin="45,10,0,0" FontSize="16" FontWeight="Light"/>
+                </StackPanel>
+            </StackPanel>
+            <Border BorderThickness="2" BorderBrush="#3f51b5" Margin="20,10,20,0" Background="#fafafafa">
+                <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                <Label Content="Datum rođenja:" Margin="30,0,10,0"/>
+                <TextBox Width="200" Text="{Binding Doctor.DateOfBirth, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Content="JMBG:" Margin="30,0,70,0"/>
+                <TextBox Width="200" Text="{Binding Doctor.Jmbg}" IsReadOnly="True"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Content="Adresa:" Margin="30,0,60,0"/>
+                        <StackPanel>
+                            <TextBox Width="200" Text="{Binding Doctor.Address}" IsReadOnly="True"/>
+                            <TextBlock/>
+                        </StackPanel>
+                    </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Content="Telefon:" Margin="30,0,60,0" />
+                        <StackPanel>
+                            <TextBox Width="200" Text="{Binding Doctor.Phone}" IsReadOnly="True"/>
+                            <TextBlock/>
+                        </StackPanel>
+                    </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                <Label Content="E-mail:" Margin="30,0,65,0"/>
+                        <StackPanel>
+                            <TextBox Width="200" Text="{Binding Doctor.Email}" IsReadOnly="True"/>
+                            <TextBlock/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <Button Width="60" Content="Izmjeni" Margin="0,20,0,0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click" >
+                        <i:InvokeCommandAction Command="{Binding EditProfileCommand}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="KeyUp" >
+                        <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <i:Interaction.Behaviors>
+                    <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                </i:Interaction.Behaviors>
+            </Button>
+        </StackPanel>
+        <Frame x:Name="Frame" NavigationUIVisibility="Hidden" Height="470" Width="450"></Frame>
+
+    </Grid>
+</Window>
