@@ -1,4 +1,4 @@
-using HospitalService.Repositories
+using HospitalService.Repositories;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -72,6 +72,7 @@ namespace HospitalService.Service
                 return true;
 
             return false;
+        }
           
         public bool ExsitstsAtTime(Appointment appointment, DateTime start, DateTime end)
         {
@@ -86,6 +87,26 @@ namespace HospitalService.Service
                 return true;
             
              return false;
+        }
+
+        public bool IsTaken(DateTime startTime1, DateTime endTime1, DateTime startTime2, DateTime endTime2)
+        {
+
+            if (DateTime.Compare(startTime1, startTime2) == 0 && DateTime.Compare(endTime1, endTime2) == 0)
+            {
+                return true;
+            }
+            else if (startTime2 > startTime1 && startTime2 < endTime1)
+            {
+                return true;
+            }
+            else if (endTime2 > startTime1 && endTime2 < endTime1)
+            {
+                return true;
+            }
+
+            return false;
+
         }
     }
 }

@@ -124,18 +124,12 @@ namespace HospitalService.Service
         {
             AppointmentsService appointmentsService = new AppointmentsService();
             List<Appointment> appointments = appointmentsService.GetAll();
+            DateService dateService = new DateService();
             for (int j = 0; j < appointments.Count; j++)
             {
-                if ((DateTime.Compare(appointments[j].StartTime, startTime) == 0 || DateTime.Compare(appointments[j].EndTime, endTime) == 0) && appointments[j].room.Id.Equals(examinedRoom.Id) && appointments[j].Status != Status.Canceled)
+                if (dateService.IsTaken(appointments[j].StartTime, appointments[j].EndTime, startTime, endTime) && appointments[j].room.Id.Equals(examinedRoom.Id) && appointments[j].Status != Status.Canceled)
                 {
-                    return false;
-                }
-                else if (startTime >= appointments[j].StartTime && startTime < appointments[j].EndTime && appointments[j].room.Id.Equals(examinedRoom.Id) && appointments[j].Status != Status.Canceled)
-                {
-                    return false;
-                }
-                else if (endTime >= appointments[j].StartTime && endTime < appointments[j].EndTime && appointments[j].room.Id.Equals(examinedRoom.Id) && appointments[j].Status != Status.Canceled)
-                {
+
                     return false;
                 }
             }
