@@ -14,7 +14,16 @@ namespace HospitalService.View.ManagerUI.ViewModels
     {
         #region Fields
         public static CancellationTokenSource cts = new CancellationTokenSource();
-        public Manager Manager { get; set; }
+        private Manager manager;
+        public Manager Manager
+        {
+            get { return manager; }
+            set
+            {
+                manager = value;
+                OnPropertyChanged();
+            }
+        }
         public Grid grid { get; set; }
         public Window Window { get; set; }
         public Frame Frame { get; set; }
@@ -71,6 +80,11 @@ namespace HospitalService.View.ManagerUI.ViewModels
             this.Window.Close();
         }
 
+        private void OnProfile()
+        {
+            this.Frame.NavigationService.Navigate(new ProfileView(this.Manager));
+        }
+
         private void OnStop()
         {
             cts.Cancel();
@@ -98,7 +112,12 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 this.Frame.NavigationService.Navigate(new InventoryView());
                 CustomizeGridSize();
             }
-            else if(SelectedItem == 4)
+            else if (SelectedItem == 2)
+            {
+                this.Frame.NavigationService.Navigate(new DoctorsView());
+                CustomizeGridSize();
+            }
+            else if(SelectedItem == 3)
             {
                 this.Frame.NavigationService.Navigate(new MedicationsView());
                 CustomizeGridSize();
@@ -130,6 +149,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             RoomRenovationService service = new RoomRenovationService();
             service.CheckRenovationRequests();
             LogoutCommand = new MyICommand(OnLogout, CanExecute);
+            ProfileCommand = new MyICommand(OnProfile, CanExecute);
             ChangePage = new MyICommand(OnChange, CanExecute);
             DemoCommand = new MyICommand(OnDemo, CanExecute);
             StopDemo = new MyICommand(OnStop, CanExecute);

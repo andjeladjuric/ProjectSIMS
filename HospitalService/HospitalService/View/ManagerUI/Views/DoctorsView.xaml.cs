@@ -1,5 +1,4 @@
 ﻿using HospitalService.View.ManagerUI.ViewModels;
-using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,15 +15,15 @@ using System.Windows.Shapes;
 namespace HospitalService.View.ManagerUI.Views
 {
     /// <summary>
-    /// Interaction logic for ProfileView.xaml
+    /// Interaction logic for DoctorsView.xaml
     /// </summary>
-    public partial class ProfileView : Page
+    public partial class DoctorsView : Page
     {
-        ProfileViewModel currentViewModel;
-        public ProfileView(Manager currentManager)
+        DoctorsViewModel currentViewModel;
+        public DoctorsView()
         {
             InitializeComponent();
-            currentViewModel = new ProfileViewModel(newFrame, currentManager);
+            currentViewModel = new DoctorsViewModel(newFrame);
             this.DataContext = currentViewModel;
         }
     }

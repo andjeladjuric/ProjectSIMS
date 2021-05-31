@@ -60,7 +60,7 @@
                 </Button>
                 <Button x:Name="Profile" Margin="5" VerticalAlignment="Center" Width="35" 
                         Height="35" Background="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" 
-                        Command="{Binding StopDemo}">
+                        Command="{Binding ProfileCommand}">
                     <materialDesign:PackIcon Kind="UserOutline"  Width="30" Height="30" />
                 </Button>
                 <Button x:Name="Help" Margin="5" VerticalAlignment="Center" Width="35" Height="34" Background="{x:Null}" BorderThickness="0" >
