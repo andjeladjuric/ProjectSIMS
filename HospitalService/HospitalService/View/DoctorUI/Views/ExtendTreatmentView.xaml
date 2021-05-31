@@ -5,16 +5,31 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-      xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+      xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="100" d:DesignWidth="430"
       Title="ExtendTreatmentView" FontSize="16" FontFamily="Gill Sans MT">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid  Background="White" Height="100" Width="430">
-        <StackPanel Orientation="Horizontal">
-            <DatePicker Height="28" Margin="150,0,0,0" SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
-            <StackPanel Margin="50,0,0,0">
-                <Button Width="50" Height="20" Margin="0,20,0,20" Content="Potvrdi" FontSize="12">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+            <StackPanel Width="218">
+                    <DatePicker Height="28" Margin="150,40,0,0" SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
+                </StackPanel>
+            <StackPanel Margin="50,0,0,0" Orientation="Horizontal">
+                <Button    Background="{x:Null}" BorderThickness="0" Height="40" Width="65" Margin="0,30,0,0" >
+                    <materialDesign:PackIcon Kind="TickCircle" Height="30" Width="30" Foreground="#3f51b5"/>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click" >
                             <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>
@@ -27,7 +42,8 @@
                         <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
                     </i:Interaction.Behaviors>
                 </Button>
-                <Button Width="50" Height="20" Content="Odustani" FontSize="12">
+                    <Button Background="{x:Null}" BorderThickness="0" Height="40" Width="65"  Margin="0,30,0,0">
+                    <materialDesign:PackIcon Kind="CancelCircle" Height="30" Width="30" Foreground="#474746"/>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click" >
                             <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
@@ -42,6 +58,8 @@
                 </Button>
             </StackPanel>
         </StackPanel>
-
+            <TextBlock Text="{Binding ValidationErrors[Date]}"
+                               Foreground="Red" Margin="100,0,0,0"  FontSize="14" />
+        </StackPanel>
     </Grid>
 </Page>

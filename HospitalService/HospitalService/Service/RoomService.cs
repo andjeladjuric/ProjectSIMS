@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Windows;
 
 namespace HospitalService.Service
 {
@@ -30,10 +31,29 @@ namespace HospitalService.Service
 
         public void DeleteRoom(string roomId)
         {
-            DeleteMovingRequests(roomId);
-            DeleteRenovationRequests(roomId);
-            MoveItemsToStorage(roomId);
-            roomsRepository.Delete(roomId);
+            if (CheckTakenBeds(roomId))
+            {
+                DeleteMovingRequests(roomId);
+                DeleteRenovationRequests(roomId);
+                MoveItemsToStorage(roomId);
+                roomsRepository.Delete(roomId);
+            }
+            else
+            {
+                MessageBox.Show("Soba je zauzeta!");
+            }
+        }
+
+        private bool CheckTakenBeds(string roomId)
+        {
+            RoomInventoryService service = new RoomInventoryService();
+            int takenBeds = new MedicalRecordService().TakenBeds(roomId);
+            if (takenBeds > 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private void DeleteMovingRequests(string roomId)
@@ -97,12 +117,62 @@ namespace HospitalService.Service
             }
         }
 
+        public Room getFirstAvailableRoom(DateTime startTime, DateTime endTime)
+        {
+            roomsRepository = new RoomsRepository();
+            List<Room> rooms = roomsRepository.GetAll();
+            bool isFindAvailableRoom = false;
+            Room availableRoom = new Room();
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                if (isCurrentRoomAvailable(startTime, endTime, rooms[i]))
+                {
+
+                    availableRoom = rooms[i];
+                    isFindAvailableRoom = true;
+                    break;
+                }
+            }
+            if (isFindAvailableRoom == false)
+            {
+                return null;
+            }
+            return availableRoom;
+        }
+        public bool isCurrentRoomAvailable(DateTime startTime, DateTime endTime, Room examinedRoom)
+        {
+            AppointmentsService appointmentsService = new AppointmentsService();
+            List<Appointment> appointments = appointmentsService.GetAll();
+            DateService dateService = new DateService();
+            for (int j = 0; j < appointments.Count; j++)
+            {
+                if (dateService.IsTaken(appointments[j].StartTime, appointments[j].EndTime, startTime, endTime) && appointments[j].room.Id.Equals(examinedRoom.Id) && appointments[j].Status != Status.Canceled)
+                {
+
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        public RoomType GetRoomType(AppointmentType appointmentType)
+        {
+            RoomType roomType;
+            if (appointmentType == AppointmentType.Pregled)
+                roomType = RoomType.ExaminationRoom;
+            else
+                roomType = RoomType.OperatingRoom;
+            return roomType;
+        }
+
         public List<Room> GetAll() => roomsRepository.GetAll();
         public Room GetOne(string Id) => roomsRepository.GetOne(Id);
         public List<Room> GetByType(RoomType Type) => roomsRepository.GetByType(Type);
         public void AddRoom(Room newRoom) => roomsRepository.Save(newRoom);
-        public void Edit(String id, String name, RoomType type, Boolean free) => roomsRepository.Edit(id, name, type, free);
+        public void Edit(String id, String name, RoomType type) => roomsRepository.Edit(id, name, type);
         public void UpdateRoom(Room room) => roomsRepository.UpdateRoom(room);
+        public void SerializeRooms() => roomsRepository.SerializeRooms();
 
         #endregion
     }

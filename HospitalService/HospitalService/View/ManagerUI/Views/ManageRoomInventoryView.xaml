@@ -26,7 +26,7 @@
     <Grid Background="#f5f5f5">
         <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding Inventory}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
-                  Height="450" VerticalAlignment="Center" Width="635" FontFamily="Gill Sans MT" FontSize="14"
+                  Height="450" VerticalAlignment="Center" Width="635" FontFamily="Roboto" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Šifra" Width="*"  Binding="{Binding Id}">
@@ -40,6 +40,9 @@
                 <DataGridTextColumn Header="Naziv" Width="*"  Binding="{Binding Name}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -48,6 +51,9 @@
                 <DataGridTextColumn Header="Vrsta" Width="*"  Binding="{Binding EquipmentType, Converter={StaticResource typeConverter}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -56,6 +62,9 @@
                 <DataGridTextColumn Header="Količina" Width="*"  Binding="{Binding Quantity}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -64,6 +73,9 @@
                 <DataGridTextColumn Header="Proizvođač" Width="*"  Binding="{Binding Supplier}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                             <Setter Property="HorizontalAlignment" Value="Center" />
                             <Setter Property="Foreground" Value="#474746"/>
                         </Style>
@@ -72,13 +84,13 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label x:Name="Room" Content="Inventar sobe:" HorizontalAlignment="Left" Margin="344,36,0,0" VerticalAlignment="Top" 
-               Width="152" Height="31"/>
-        <TextBox x:Name="IDBox" IsReadOnly="True"  HorizontalAlignment="Left" Height="30" Margin="518,37,0,0" TextWrapping="Wrap" 
-                 TextAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top"
-                 Width="154" 
+        <TextBlock x:Name="Room" Text="Inventar sobe:" HorizontalAlignment="Left" Margin="175,87,0,0" VerticalAlignment="Top" 
+               Width="152" Height="31" FontSize="24" FontFamily="Roboto" FontStyle="Italic"/>
+        <TextBox x:Name="IDBox" IsReadOnly="True"  HorizontalAlignment="Left" Height="30" Margin="349,88,0,0" TextWrapping="Wrap" 
+                 TextAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Text="{Binding SelectedRoom.Id}"
+                 Width="135" 
                  Foreground="#474746"
-                 FontFamily="Gill Sans MT"
+                 FontFamily="Roboto"
                  FontSize="16"
                  HorizontalContentAlignment="Center"/>
         <Button x:Name="Premesti" Content="Premesti inventar" HorizontalAlignment="Left" Margin="167,606,0,86" 
@@ -87,41 +99,30 @@
         <Button x:Name="changeQuantity" Content="Izmena stanja" HorizontalAlignment="Left" Margin="309,606,0,0" 
                 VerticalAlignment="Top" Height="26" Width="115" Command="{Binding ChangeQuantityCommand}"/>
 
-        <ComboBox x:Name="InventoryType"
-                  HorizontalAlignment="Left" Margin="170,97,0,0" VerticalAlignment="Top" 
-                  Width="140"
-                  Foreground="#474746"
-                  FontFamily="Gill Sans MT"
-                  FontSize="16"
-                  HorizontalContentAlignment="Center">
-            <ComboBoxItem Content="Sva oprema"/>
-            <ComboBoxItem Content="Statička oprema"/>
-            <ComboBoxItem Content="Dinamička oprema"/>
-        </ComboBox>
-        <materialDesign:PopupBox x:Name="Popup" PlacementMode="RightAndAlignTopEdges" Width="32" Height="30" StaysOpen="True" Margin="768,94,0,594">
+        <materialDesign:PopupBox x:Name="Popup" PlacementMode="RightAndAlignTopEdges" Width="32" Height="30" StaysOpen="True" Margin="763,88,0,600">
             <materialDesign:PopupBox.ToggleContent>
-                <materialDesign:PackIcon Kind="Search" Height="30" Width="30" />
+                <materialDesign:PackIcon Kind="Search" Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </materialDesign:PopupBox.ToggleContent>
             <StackPanel Width="150" Height="160">
-                <TextBox x:Name="searchId"
+                <TextBox x:Name="searchId" Text="{Binding FilterId, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="šifra..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <TextBox x:Name="searchName"
+                <TextBox x:Name="searchName" Text="{Binding FilterName, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="naziv..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <TextBox x:Name="searchSupplier"
+                <TextBox x:Name="searchSupplier" Text="{Binding FilterSupplier, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="proizvođač..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Separator/>
-                <Button Content="Poništi pretragu" FontFamily="Gill Sans MT" Foreground="Black"
+                <Button Content="Poništi pretragu" FontFamily="Roboto" Foreground="Black" Command="{Binding CancelSearch}"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
             </StackPanel>
         </materialDesign:PopupBox>

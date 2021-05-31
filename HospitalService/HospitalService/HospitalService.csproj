@@ -10,6 +10,7 @@
     <None Remove="Images\acc.png" />
     <None Remove="Images\back.png" />
     <None Remove="Images\calendarIcon.png" />
+    <None Remove="Images\doctor.jpg" />
     <None Remove="Images\helpIcon.png" />
     <None Remove="Images\hospitalIcon.png" />
     <None Remove="Images\logo.png" />
@@ -40,6 +41,7 @@
     <Resource Include="Images\acc.png" />
     <Resource Include="Images\back.png" />
     <Resource Include="Images\calendarIcon.png" />
+    <Resource Include="Images\doctor.jpg" />
     <Resource Include="Images\helpIcon.png" />
     <Resource Include="Images\hospitalIcon.png" />
     <Resource Include="Images\logo.png" />

@@ -17,6 +17,7 @@
             </StackPanel>
         </GroupBox>
         <Button Content="Zakazi termin" HorizontalAlignment="Left" Margin="110,240,0,0" VerticalAlignment="Top" Height="45" Width="174" FontSize="24" FontStyle="Italic" Command="{Binding addAppointment}" Background="RoyalBlue" Foreground="White"/>
+        <Button Content="Upute" Width="130" Height="45" Margin="802,40,33,535" Background="RoyalBlue" Foreground="White" FontStyle="Italic" FontSize="24" Command="{Binding showReferrals}"/>
 
     </Grid>
 </Page>

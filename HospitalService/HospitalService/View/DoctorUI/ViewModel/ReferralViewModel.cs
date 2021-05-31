@@ -2,6 +2,7 @@
 using HospitalService.Service;
 using HospitalService.Storage;
 using HospitalService.View.DoctorUI.Commands;
+using HospitalService.View.DoctorUI.Validation;
 using HospitalService.View.DoctorUI.Views;
 using Model;
 using Storage;
@@ -14,7 +15,7 @@ using System.Windows;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
-    class ReferralViewModel : ViewModelClass
+    class ReferralViewModel : ValidationBase
     {
         public MedicalRecord MedicalRecord { get; set; }
         public string PatientsName { get; set; }
@@ -38,7 +39,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 doctors = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Doctors");
             }
         }
 
@@ -48,7 +49,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 selectedDoctor = value;
-                OnPropertyChanged();
+                OnPropertyChanged("SelectedDoctor");
             }
         }
 
@@ -58,7 +59,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 selectedDepartment = value;
-                OnPropertyChanged();
+                OnPropertyChanged("SelectedDepartment");
             }
         }
         public bool IsUrgent
@@ -67,7 +68,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 isUrgent = value;
-                OnPropertyChanged();
+                OnPropertyChanged("IsUrgent");
             }
         }
         public  bool IsEnabled
@@ -76,7 +77,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 isEnabled = value;
-                OnPropertyChanged();
+                OnPropertyChanged("IsEnabled");
             }
         }
         public string Reason
@@ -85,7 +86,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 reason = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Reason");
             }
         }
 
@@ -113,12 +114,12 @@ namespace HospitalService.View.DoctorUI.ViewModel
         }
         public bool CanExecute_ApplyCommand(object obj)
         {
-            if (Reason == null || SelectedDoctor == null)
+            this.Validate();
+            if (this.IsValid)
             {
-                MessageBox.Show("Sva polja moraju biti popunjena.");
-                return false;
-            }else
                 return true;
+            }else
+                return false;
         }
         public bool CanExecute_GetDoctorsCommand(object obj)
         {
@@ -156,6 +157,14 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         private void Executed_KeyDownCommandWithKey(object obj)
         {
+        }
+
+        protected override void ValidateSelf()
+        {
+            if (this.SelectedDoctor == null)
+                this.ValidationErrors["Doctor"] = "Obavezno polje";
+            if (string.IsNullOrWhiteSpace(this.Reason))
+                this.ValidationErrors["Reason"] = "Obavezno polje";
         }
     }
 }

@@ -115,7 +115,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 IngredientsForMed.Remove(SelectedIngredient.IngredientName);
                 AddIngredientToMedication();
             }
-            DeleteIngredientsFromMedication(SelectedIngredient.IngredientName);
             service.DeleteIngredient(SelectedIngredient.IngredientName);
             Ingredients.Remove(SelectedIngredient);
             allIngredientsView.Refresh();
@@ -124,11 +123,11 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         private void OnRemoveIngredientFromMed()
         {
+            MedicationService service = new MedicationService();
             string[] parts = SelectedIngAndQuantity.Split(" ");
             IngredientsForMed.Remove(parts[0]);
             CurrentIngredients.Remove(SelectedIngAndQuantity);
-            //AddIngredientToMedication();
-            DeleteIngredientsFromMedication(parts[0]);
+            service.DeleteIngredientsFromMedication(parts[0]);
             Quantity = "";
             currentView.Refresh();
         }
@@ -196,21 +195,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 CurrentIngredients.Add(ingredient.Key + " " + ingredient.Value + " mg");
             }
         }
-
-        private void DeleteIngredientsFromMedication(string ingName)
-        {
-            MedicationService service = new MedicationService();
-            Medication med;
-            for (int i = 0; i < service.GetAll().Count; i++)
-            {
-                med = service.GetAll()[i];
-                if (med.Ingredients.ContainsKey(ingName))
-                {
-                    med.Ingredients.Remove(ingName);
-                    service.SerializeMedication();
-                }
-            }
-        }
          private void LoadAllIngredients()
         {
             Ingredients = new ObservableCollection<MedicationIngredients>();
@@ -227,6 +211,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Constructors
         public IngredientsViewModel(Frame currentFrame, Frame quantityFrame, Dictionary<string, int> MedIngredients, ObservableCollection<string> view)
         {
+            /*view*/
             this.Frame = currentFrame;
             this.IngFrame = quantityFrame;
             this.IngredientsForMed = MedIngredients;
@@ -235,6 +220,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
             AddIngredientToMedication();
             this.currentView = (CollectionView)CollectionViewSource.GetDefaultView(CurrentIngredients);
             this.allIngredientsView = (CollectionView)CollectionViewSource.GetDefaultView(Ingredients);
+
+            /*commands*/
             AddIngredientToMedCommand = new MyICommand(OnAddToMed, CanAddOrCancel);
             AddNewIngredientCommand = new MyICommand(OnAddNewIngredient, CanAddOrCancel);
             DeleteIngredientCommand = new MyICommand(OnDeleteIngredient, CanExecute);

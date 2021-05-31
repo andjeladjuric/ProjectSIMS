@@ -9,6 +9,17 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
        Title="Dijagnoza" Height="520" Width="450" FontSize="18"  FontFamily="Open Sans" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Height="520" Width="450">
         <Label Content="Dijagnoza" FontSize="24" HorizontalAlignment="Left" Margin="168,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.349,0.494"/>
         <Label  Content="Pacijent:" HorizontalAlignment="Left" Margin="57,98,0,0" VerticalAlignment="Top"/>
@@ -18,11 +29,12 @@
         <Label  Content="Anamneza:" HorizontalAlignment="Left" Margin="57,308,0,0" VerticalAlignment="Top"/>
         <TextBox Text="{Binding PatientsName}" HorizontalAlignment="Left" Margin="197,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" IsEnabled="False"/>
         <TextBox Text="{Binding Diagnosis, Mode=TwoWay}" HorizontalAlignment="Left" Margin="197,158,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
+        <TextBlock Text="{Binding ValidationErrors[Diagnosis]}"
+                               Foreground="Red" Margin="197,190,0,0"  FontSize="12" />
         <TextBox Text="{Binding Symptoms, Mode=TwoWay}" HorizontalAlignment="Left" Margin="197,209,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
+        <TextBlock Text="{Binding ValidationErrors[Symptoms]}"
+                               Foreground="Red" Margin="197,242,0,0"  FontSize="12" />
         <Button  Content="Odustani" HorizontalAlignment="Left" Margin="109,450,0,0" VerticalAlignment="Top" Width="83">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
@@ -36,9 +48,6 @@
             </i:Interaction.Behaviors>
         </Button>
         <Button  Content="Potvrdi" HorizontalAlignment="Left" Margin="246,450,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.527,1.175" Width="87">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>
@@ -51,7 +60,10 @@
                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
             </i:Interaction.Behaviors>
         </Button>
-        <TextBox Background="WhiteSmoke" Text="{Binding Anamnesis}" HorizontalAlignment="Left" Margin="59,346,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="323" Height="74"/>
+        <TextBox BorderThickness="1" Background="#fafafa" Text="{Binding Anamnesis}" HorizontalAlignment="Left" Margin="59,346,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="323" Height="74"/>
+        <TextBlock Text="{Binding ValidationErrors[Anamnesis]}"
+                               Foreground="Red" Margin="59,422,0,75"  FontSize="12" />
+
         <DatePicker SelectedDate="{x:Static sys:DateTime.Now}" IsEnabled="False"  HorizontalAlignment="Left" Margin="197,260,0,0" VerticalAlignment="Top" Width="185"/>
     </Grid>
 </Window>

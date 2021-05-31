@@ -1,4 +1,5 @@
 ﻿using HospitalService.Service;
+using HospitalService.View.ManagerUI.Validations;
 using HospitalService.View.ManagerUI.Views;
 using Model;
 using Storage;
@@ -6,14 +7,36 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace HospitalService.View.ManagerUI.ViewModels
 {
-    public class RoomRenovationViewModel : ViewModel
+    public class RoomRenovationViewModel : ValidationBase
     {
         #region Fields
+        private bool demoOn;
+        public bool DemoOn
+        {
+            get { return demoOn; }
+            set
+            {
+                demoOn = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool isOpen;
+        public bool IsPopupOpen
+        {
+            get { return isOpen; }
+            set
+            {
+                isOpen = value;
+                OnPropertyChanged();
+            }
+        }
         private Room selected;
         public Room SelectedRoom
         {
@@ -47,6 +70,81 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
         }
 
+        private string newId;
+        public string NewID
+        {
+            get { return newId; }
+            set
+            {
+                newId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string newName;
+        public string NewName
+        {
+            get { return newName; }
+            set
+            {
+                newName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string newSize;
+        public string NewSize
+        {
+            get { return newSize; }
+            set
+            {
+                newSize = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool isChecked;
+        public bool IsChecked
+        {
+            get { return isChecked; }
+            set
+            {
+                isChecked = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string secondRoom;
+        public string SecondRoom
+        {
+            get { return secondRoom; }
+            set
+            {
+                secondRoom = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private RoomType newType;
+        public RoomType NewType
+        {
+            get { return newType; }
+            set
+            {
+                newType = value;
+                OnPropertyChanged();
+            }
+        }
+        private string validation;
+        public string ValidationMessage
+        {
+            get { return validation; }
+            set
+            {
+                validation = value;
+                OnPropertyChanged();
+            }
+        }
+        public List<string> Rooms { get; set; }
         public ObservableCollection<Appointment> Appointments { get; set; }
         public Frame Frame { get; set; }
         #endregion
@@ -60,17 +158,30 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void OnConfirm()
         {
             RoomRenovationService renovationService = new RoomRenovationService();
-            MessageBox.Show(Start.ToString());
-            MessageBox.Show(End.ToString());
+            DateService dateService = new DateService();
+            this.Validate();
 
-            if (CheckDateEntry(Start, End) && renovationService.CheckExistingRenovations(SelectedRoom.Id, Start, End))
+            if (IsValid)
             {
-                renovationService.Save(new Renovation(SelectedRoom.Id, Start, End));
-                renovationService.SerializeRenovations();
-            }
+                if (CheckDateEntry(Start, End) && dateService.CheckExistingRenovations(SelectedRoom.Id, Start, End) &&
+                    renovationService.CheckAppointmentsForDate(Start, End, SelectedRoom.Id))
+                {
+                    if (IsChecked)
+                    {
+                        string[] rooms = SecondRoom.ToString().Split("/");
+                        string selectedId = rooms[0];
+                        if (renovationService.CheckAppointmentsForDate(Start, End, selectedId) && CheckFloor(SelectedRoom.Id, selectedId))
+                            renovationService.Save(new Renovation(SelectedRoom.Id, Start, End, RenovationType.Merge, selectedId, NewID, NewType, NewName));
+                    }
+                    else
+                        renovationService.Save(new Renovation(SelectedRoom.Id, Start, End, RenovationType.Split, NewID, newType, NewName, Double.Parse(NewSize)));
 
-            renovationService.CheckRenovationRequests();
-            this.Frame.NavigationService.Navigate(new RoomsView());
+                    renovationService.SerializeRenovations();
+                }
+
+                renovationService.CheckRenovationRequests();
+                this.Frame.NavigationService.Navigate(new RoomsView());
+            }
         }
 
         private void OnCancel()
@@ -79,26 +190,28 @@ namespace HospitalService.View.ManagerUI.ViewModels
         }
 
         private bool CanExecute()
-        {
+        { 
             return true;
         }
         #endregion
 
         #region Other Functions
-        private bool CheckDateEntry(DateTime startDate, DateTime endDate) /*promijeni na servis*/
+        private bool CheckFloor(string firstRoom, string secondRoom)
         {
-            foreach (Appointment a in new AppointmentStorage().GetAll())
+            RoomService roomService = new RoomService();
+            Room first = roomService.GetOne(firstRoom);
+            Room second = roomService.GetOne(secondRoom);
+
+            if(first.Floor == second.Floor)
             {
-                if (a.room.Id.Equals(SelectedRoom.Id))
-                {
-                    if (DateTime.Compare(startDate.Date, a.StartTime.Date) <= 0 && DateTime.Compare(endDate.Date, a.StartTime.Date) >= 0)
-                    {
-                        MessageBox.Show("U datom periodu postoje zakazani termini!");
-                        return false;
-                    }
-                }
+                MessageBox.Show("Sobe moraju biti na istom spratu!");
+                return false;
             }
 
+            return true;
+        }
+        private bool CheckDateEntry(DateTime startDate, DateTime endDate)
+        {
             if (DateTime.Compare(startDate.Date, endDate.Date) > 0)
             {
                 MessageBox.Show("Neispravan unos datuma!");
@@ -106,6 +219,21 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
 
             return true;
+        }
+
+        private void LoadRooms()
+        {
+            String source = "";
+            RoomService roomService = new RoomService();
+            Rooms = new List<string>();
+            foreach (Room soba in roomService.GetAll())
+            {
+                if (soba.Id != SelectedRoom.Id)
+                {
+                    source = soba.Id + "/" + soba.Name;
+                    Rooms.Add(source);
+                }
+            }
         }
 
         private void LoadAppointments()
@@ -121,18 +249,89 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 }
             }
         }
+
+        protected override void ValidateSelf()
+        {
+            DateService dateService = new DateService();
+            RoomRenovationService renovationService = new RoomRenovationService();
+            if (!dateService.CheckExistingRenovations(this.SelectedRoom.Id, this.Start, this.End))
+            {
+                this.ValidationErrors["Existing"] = "Već postoji zakazano renoviranje \n u ovom periodu!";
+                ValidationMessage = this.ValidationErrors["Existing"];
+            }
+            if (!renovationService.CheckAppointmentsForDate(this.Start, this.End, this.SelectedRoom.Id))
+            {
+                this.ValidationErrors["Appointment"] = "Postoje zakazani termini \n u ovom periodu!";
+                ValidationMessage = this.ValidationErrors["Appointment"];
+            }
+
+        }
+
+        private async Task DemoIsOn(CancellationToken ct)
+        {
+            if (DemoOn)
+            {
+                RoomInventoryService service = new RoomInventoryService();
+                MessageViewModel.Message = "Završena druga funkcionalnost \n Sledi - manipulisanje inventarom";
+                RoomService rooms = new RoomService();
+                ct.ThrowIfCancellationRequested();
+
+                await Task.Delay(1500, ct);
+                SelectedRoom = rooms.GetOne("330");
+                await Task.Delay(2000, ct);
+                Start = DateTime.Today;
+                await Task.Delay(2000, ct);
+                End = Start.AddDays(2);
+                await Task.Delay(2000, ct);
+                NewID = "105a";
+                await Task.Delay(2000, ct);
+                NewName = "Nova prostorija";
+                await Task.Delay(2000, ct);
+                NewType = RoomType.PatientRoom;
+                await Task.Delay(2000, ct);
+                NewSize = "22.2";
+
+                await Task.Delay(2000, ct);
+                IsPopupOpen = true;
+                await Task.Delay(3000, ct);
+                IsPopupOpen = false;
+                await Task.Delay(1500, ct);
+                this.Frame.NavigationService.Navigate(new RoomsView());
+                await Task.Delay(2000, ct);
+                this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(rooms.GetOne("105")));
+                await Task.Delay(2000, ct);
+                this.Frame.NavigationService.Navigate(new MoveInventoryView(rooms.GetOne("105"),
+                    service.LoadRoomInventory(rooms.GetOne("105")), DemoOn));
+            }
+        }
         #endregion
 
         #region Constructors
-        public RoomRenovationViewModel(Frame currentFrame, Room room)
+        public RoomRenovationViewModel(Frame currentFrame, Room room, bool demo)
         {
+            /*view*/
             this.Frame = currentFrame;
             this.SelectedRoom = room;
             this.Start = DateTime.Now;
             this.End = DateTime.Now;
+            this.DemoOn = demo;
+            this.IsChecked = false;
             LoadAppointments();
+            LoadRooms();
+
+            /*commands*/
             ConfirmCommand = new MyICommand(OnConfirm, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanExecute);
+
+            CancellationTokenSource cts = ManagerWindowViewModel.cts;
+            try
+            {
+                DemoIsOn(cts.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                MessageBox.Show("Greška!");
+            }
 
         }
         #endregion

@@ -60,6 +60,23 @@ namespace HospitalService.Service
             return prescriptions;
 
         }
+        public List<Referral> GetReferrals(Patient patient) {
+
+            MedicalRecord record;
+            List<Referral> referrals = new List<Referral>();
+            List<MedicalRecord> records = GetAll();
+
+            for (int i = 0; i < records.Count; i++)
+            {
+                record = records[i];
+                if (record.Patient.Jmbg.Equals(patient.Jmbg))
+                {
+                    referrals = records[i].Referrals;
+                    break;
+                }
+            }
+            return referrals;
+        }
 
         public int TakenBeds(string roomId)
         {
@@ -75,6 +92,16 @@ namespace HospitalService.Service
                 }
             }
             return currentlyTakenBeds;
+        }
+
+        public List<Diagnosis> GetForTimePeriod(string id, DateTime startDate, DateTime endDate)
+        {
+            MedicalRecord record = GetOne(id);
+            List<Diagnosis> diagnoses = new List<Diagnosis>();
+            foreach (Diagnosis diagnosis in record.Diagnoses)
+                if (DateTime.Compare(diagnosis.Datum, startDate) >= 0 && DateTime.Compare(diagnosis.Datum, endDate) <= 0)
+                    diagnoses.Add(diagnosis);
+            return diagnoses;
         }
 
         public void AddNewRecord(MedicalRecord record) => repository.Save(record);

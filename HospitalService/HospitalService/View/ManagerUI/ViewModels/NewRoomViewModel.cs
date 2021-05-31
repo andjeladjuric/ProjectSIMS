@@ -4,6 +4,9 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -12,6 +15,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
     public class NewRoomViewModel : ViewModel
     {
         #region Fields
+        private CancellationTokenSource cts = new CancellationTokenSource();
         private string roomId;
         private string roomName;
         private string roomFloor;
@@ -21,6 +25,26 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Properties
+        private bool isOpen;
+        public bool IsPopupOpen
+        {
+            get { return isOpen; }
+            set
+            {
+                isOpen = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool demoOn;
+        public bool DemoOn
+        {
+            get { return demoOn; }
+            set 
+            { 
+                demoOn = value;
+                OnPropertyChanged();
+            }
+        }
         public string RoomId
         {
             get { return roomId; }
@@ -107,12 +131,54 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         #endregion
 
+        #region Other Functions
+        private async Task DemoIsOn(CancellationToken ct)
+        {
+            if (DemoOn)
+            {
+                RoomService rooms = new RoomService();
+                MessageViewModel.Message = "Završena prva funkcionalnost \n Sledi - renoviranje prostorije";
+                ct.ThrowIfCancellationRequested();
+
+                await Task.Delay(1500, ct);
+                RoomId = "403a";
+                await Task.Delay(2000, ct);
+                RoomName = "Operaciona sala";
+                await Task.Delay(2000, ct);
+                RoomFloor = "3";
+                await Task.Delay(2000, ct);
+                RoomSize = "35.4";
+                await Task.Delay(2000, ct);
+                RoomType = RoomType.OperatingRoom;
+                await Task.Delay(2000, ct);
+
+                await Task.Delay(2000, ct);
+                IsPopupOpen = true;
+                await Task.Delay(1500, ct);
+                IsPopupOpen = false;
+                this.Frame.NavigationService.Navigate(new RoomsView());
+                await Task.Delay(1500, ct);
+                this.Frame.NavigationService.Navigate(new RoomRenovationView(rooms.GetOne("330"), DemoOn));
+            }
+        }
+        #endregion
+
         #region Constructors
-        public NewRoomViewModel(Frame frame)
+        public NewRoomViewModel(Frame frame, bool demo)
         {
             AddCommand = new MyICommand(OnAdd, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanExecute);
             this.Frame = frame;
+            this.DemoOn = demo;
+            cts = ManagerWindowViewModel.cts;
+            try
+            {
+               DemoIsOn(cts.Token);
+            }
+            catch(OperationCanceledException)
+            {
+                MessageBox.Show("Greška!");
+            }
         }
         #endregion
     }

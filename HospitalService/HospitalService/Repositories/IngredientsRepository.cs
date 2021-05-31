@@ -48,6 +48,11 @@ namespace HospitalService.Repositories
                 }
             }
         }
+
+        public MedicationIngredients GetOne(string name)
+        {
+            return ingredients.Find(x => x.IngredientName == name);
+        }
     }
 }
 

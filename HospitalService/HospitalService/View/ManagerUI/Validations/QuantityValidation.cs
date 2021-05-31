@@ -31,7 +31,7 @@ namespace HospitalService.View.ManagerUI.Validations
     public class MoveQuantityValidation : ValidationRule
     {
         public int Min { get; set; }
-        public MaxInventoryWrapper Wrapper { get; set; }
+        public MaxWrapper Wrapper { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             try
@@ -57,10 +57,10 @@ namespace HospitalService.View.ManagerUI.Validations
         }
     }
 
-    public class MaxInventoryWrapper : DependencyObject
+    public class MaxWrapper : DependencyObject
     {
         public static readonly DependencyProperty MaxInventoryProperty = DependencyProperty.Register("Max", typeof(int),
-            typeof(MaxInventoryWrapper), new FrameworkPropertyMetadata(0));
+            typeof(MaxWrapper), new FrameworkPropertyMetadata(0));
 
         public int Max
         {

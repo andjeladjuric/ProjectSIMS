@@ -39,7 +39,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
             this.Frame = frame;
             this.MedicalRecord = medicalRecord;
             this.Ingredients = new ObservableCollection<MedicationIngredients>();
-            new IngredientsRepository().GetAll().ForEach(Ingredients.Add); // prebaciti na servis
+            List<MedicationIngredients> allergens = new IngredientsService().GetNewAllergens(medicalRecord.Allergies);
+            allergens.ForEach(Ingredients.Add); 
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             ApplyCommand = new RelayCommand(Executed_ApplyCommand,
               CanExecute_ApplyCommand);
@@ -61,11 +62,6 @@ namespace HospitalService.View.DoctorUI.ViewModel
             if (SelectedIngredient == null)
             {
                 MessageBox.Show("Morate izabrati sastojak.");
-                return false;
-            }
-            else if (MedicalRecord.AlreadyExists(SelectedIngredient))
-            {
-                MessageBox.Show("Alergija već postoji.");
                 return false;
             }
             return true;

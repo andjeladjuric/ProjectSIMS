@@ -26,10 +26,10 @@ namespace HospitalService.View.ManagerUI.Views
     {
         EditInventoryViewModel currentViewModel;
 
-        public EditInventoryView(Inventory selectedItem, ObservableCollection<Inventory> inventories)
+        public EditInventoryView(Inventory selectedItem, bool DemoOn)
         {
             InitializeComponent();
-            currentViewModel = new EditInventoryViewModel(newFrame, inventories, selectedItem);
+            currentViewModel = new EditInventoryViewModel(newFrame, selectedItem, DemoOn);
             this.DataContext = currentViewModel;
         }
     }

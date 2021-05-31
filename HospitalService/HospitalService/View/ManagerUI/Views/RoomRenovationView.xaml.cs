@@ -24,10 +24,10 @@ namespace HospitalService.View.ManagerUI.Views
     public partial class RoomRenovationView : Page
     {
         RoomRenovationViewModel currentViewModel;
-        public RoomRenovationView(Room room)
+        public RoomRenovationView(Room room, bool DemoOn)
         {
             InitializeComponent();
-            currentViewModel = new RoomRenovationViewModel(newFrame, room);
+            currentViewModel = new RoomRenovationViewModel(newFrame, room, DemoOn);
             this.DataContext = currentViewModel;
         }
         //Room SelectedRoom { get; set; }
