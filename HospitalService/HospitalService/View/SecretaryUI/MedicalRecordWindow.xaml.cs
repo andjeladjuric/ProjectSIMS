@@ -1,5 +1,5 @@
-﻿using Model;
-using Storage;
+﻿using HospitalService.Service;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,15 +20,15 @@ namespace HospitalService.View.SecretaryUI
     public partial class MedicalRecordWindow : Window
     {
         private Patient patient;
-        private MedicalRecordStorage store;
-        public PatientStorage stor { get; set; }
+        private MedicalRecordService store;
+        public PatientService stor { get; set; }
         public MedicalRecord karton { get; set; }
-        public MedicalRecordWindow(Patient p, PatientStorage s)
+        public MedicalRecordWindow(Patient p, PatientService s)
         {
             InitializeComponent();
             patient = p;
             stor = s;
-            store = new MedicalRecordStorage();
+            store = new MedicalRecordService();
 
             idkarton.IsEnabled = false;
             if (p.medicalRecordId != null)

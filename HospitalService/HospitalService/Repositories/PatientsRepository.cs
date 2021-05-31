@@ -72,5 +72,12 @@ namespace HospitalService.Repositories
             SerializePatients();
 
         }
+
+        public void addRecord(String jmbg, String id)
+        {
+            Patient patient = GetAll().Find(x => x.Jmbg == jmbg);
+            patient.medicalRecordId = id;
+            SerializePatients();
+        }
     }
 }

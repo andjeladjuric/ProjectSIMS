@@ -149,6 +149,7 @@ namespace HospitalService.Service
             return false;
         }
 
+
         public void Save(Appointment appointment) {
             repository = new AppointmentsRepository();
             repository.Save(appointment);
@@ -198,6 +199,133 @@ namespace HospitalService.Service
         }
 
         public void Edit(String id, DateTime startTime, DateTime endTime, Room room) => repository.Edit(id, startTime, endTime, room);
+        
+        public List<Appointment> getByPatient(Patient p)
+        {
+
+            Appointment a;
+            List<Appointment> retVal = new List<Appointment>();
+            List<Appointment> appointments = repository.GetAll();
+            for (int i = 0; i < appointments.Count; i++)
+            {
+                a = appointments[i];
+                if (a.patient.Jmbg.Equals(p.Jmbg))
+                {
+                    retVal.Add(a);
+                }
+            }
+            return retVal;
+        }
+
+        private bool checkPatient(Patient patient, Appointment arg)
+        {
+            List<Appointment> appoints = new AppointmentsService().getByPatient(patient);
+            foreach (Appointment appoint in appoints)
+            {
+                if (arg.intersect(appoint))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        private Room findFreeRoom(Appointment arg)
+        {
+            Room ret = null;
+            foreach (Room room in new RoomFileStorage().GetAll())
+            {
+                ret = room;
+                foreach (Appointment appoint in new AppointmentsRepository().GetAll())
+                {
+                    if (arg.intersect(appoint) && appoint.room.Id.Equals(room.Id))
+                    {
+                        ret = null;
+                        break;
+                    }
+                }
+                if (ret != null) break;
+            }
+
+            return ret;
+        }
+
+
+        private Doctor findFreeDoctor(Appointment appointment, DoctorType oblast)
+        {
+            List<Doctor> doktori = new DoctorService().GetByDepartment(oblast);
+            AppointmentsService storage = new AppointmentsService();
+            foreach (Doctor doc in doktori)
+            {
+                if (!storage.IsTaken(appointment.StartTime, appointment.EndTime, doc))
+                    return doc;
+            }
+            return null;
+        }
+
+
+        public Appointment createAppointment(Appointment appointment, Patient patient, DoctorType oblast)
+        {
+            if (appointment == null || patient == null) return null;
+            AppointmentsService storage = new AppointmentsService();
+            Room room = null;
+            Doctor doctor = null;
+            if (!checkPatient(patient, appointment)) return null;
+            doctor = findFreeDoctor(appointment, oblast);
+            room = findFreeRoom(appointment);
+            if (doctor == null || room == null) return null;
+
+            appointment.patient = patient;
+            appointment.doctor = doctor;
+            appointment.room = room;
+            appointment.isUrgent = true;
+
+            return new Appointment(appointment);
+        }
+
+        public Appointment createAppointment(Appointment app, DoctorType oblast)
+        {
+            if (app == null) return null;
+            if (app.patient == null) return null;
+            return createAppointment(app, app.patient, oblast);
+        }
+
+        public Appointment createAppointment(Appointment app)
+        {
+            if (app == null) return null;
+            if (app.doctor == null) return null;
+            return createAppointment(app, app.doctor.DoctorType);
+        }
+
+
+        public void storeAppointment(Appointment appointment)
+        {
+            if (appointment == null) return;
+            int length = (appointment.EndTime - appointment.StartTime).Hours;
+            Appointment[] appArray = new Appointment[length];
+            for (int i = 0; i < length; i++)
+            {
+                appArray[i] = new Appointment(appointment);
+                appArray[i].StartTime = appArray[i].StartTime.AddHours(i);
+                appArray[i].EndTime = appArray[i].StartTime.AddHours(1);
+                appArray[i].Id = GetNextId();
+                repository.Save(appArray[i]);
+            }
+        }
+
+
+        public Appointment findNextAvailable(Appointment arg)
+        {
+            Appointment temp = new Appointment(arg);
+            Appointment app = null;
+            while (app == null)
+            {
+                app = createAppointment(temp);
+                temp.setDates(temp.StartTime.AddHours(1), temp.EndTime.Hour - temp.StartTime.Hour);
+            }
+            return app;
+        }
 
     }
 }

@@ -1,5 +1,7 @@
-﻿using Model;
-using Storage;
+﻿using HospitalService.Repositories;
+using HospitalService.Service;
+using Model;
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,9 +22,9 @@ namespace HospitalService.View.SecretaryUI
     public partial class AddMedicalRecord : Window
     {
         public Patient patient { get; set; }
-        public MedicalRecordStorage store { get; set; }
-        public PatientStorage stor { get; set; }
-        public AddMedicalRecord(MedicalRecordStorage mrs, Patient p, PatientStorage ps)
+        public MedicalRecordService store { get; set; }
+        public PatientService stor { get; set; }
+        public AddMedicalRecord(MedicalRecordService mrs, Patient p, PatientService ps)
         {
             InitializeComponent();
             store = mrs;
@@ -34,8 +36,8 @@ namespace HospitalService.View.SecretaryUI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             String Id = id.Text;
-            store.Save(new MedicalRecord{ Id = Id, Patient = patient });
-            stor.addRecord(patient.Jmbg, Id);
+            new MedicalRecordsRepository().Save(new MedicalRecord{ Id = Id, Patient = patient });
+            new PatientsRepository().addRecord(patient.Jmbg, Id);
             this.Close();
         }
         private void Back_Click(object sender, RoutedEventArgs e)

@@ -1,7 +1,6 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,31 +10,33 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using HospitalService.Service;
 
 namespace HospitalService.View.SecretaryUI
 {
     /// <summary>
-    /// Interaction logic for Appointments.xaml
+    /// Interaction logic for FreeDaysView.xaml
     /// </summary>
-    public partial class Appointments : Window
+    public partial class FreeDaysView : Window
     {
-        public string Datum { get; set; }
-        public Appointments()
+        public Doctor doctor { get; set; }
+        public FreeDaysView(Doctor d)
         {
-
             InitializeComponent();
+            doctor = d;
+            lvDays.ItemsSource = doctor.Holidays;
+
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        public void refreshListViewData()
         {
-            try
-            {
-                new DayAppointments((DateTime)cldSample.SelectedDate).ShowDialog();
-            }
-            catch { MessageBox.Show("Izaberite datum."); }
+            lvDays.ItemsSource = null;
+            
         }
 
-
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

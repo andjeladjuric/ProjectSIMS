@@ -1,5 +1,5 @@
 ﻿using Model;
-using Storage;
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HospitalService.Service;
+using HospitalService.Repositories;
 
 namespace HospitalService.View.SecretaryUI
 {
@@ -19,7 +21,7 @@ namespace HospitalService.View.SecretaryUI
     /// </summary>
     public partial class NewsWindow : Window
     {
-        private NewsStorage storage = NewsStorage.getInstance();
+        private NewsRepository storage = NewsRepository.getInstance();
         private static NewsWindow instance = null;
 
         public static NewsWindow getInstance()
@@ -49,7 +51,7 @@ namespace HospitalService.View.SecretaryUI
         public void refreshListViewData()
         {
             lvNews.ItemsSource = null;
-            lvNews.ItemsSource = NewsStorage.getInstance().getAll();
+            lvNews.ItemsSource = NewsRepository.getInstance().GetAll();
         }
 
         private void new_Click(object sender, RoutedEventArgs e)

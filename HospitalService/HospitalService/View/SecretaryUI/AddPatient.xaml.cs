@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HospitalService.Service;
+using HospitalService.Repositories;
 
 namespace HospitalService.View.SecretaryUI
 {
@@ -18,9 +20,9 @@ namespace HospitalService.View.SecretaryUI
     /// </summary>
     public partial class AddPatient : Window
     {
-        public PatientStorage storage { get; set; }
+        public PatientService storage { get; set; }
         public DataGrid Table { get; set; }
-        public AddPatient(PatientStorage ps, DataGrid dg)
+        public AddPatient(PatientService ps, DataGrid dg)
         {
             InitializeComponent();
             rbNereg.IsChecked = true;
@@ -49,7 +51,7 @@ namespace HospitalService.View.SecretaryUI
                     Phone = phone.Text,
                     DateOfBirth = null
                 };
-                storage.Save(p2);
+                new PatientsRepository().Save(p2);
             }
             else
             {
@@ -67,7 +69,7 @@ namespace HospitalService.View.SecretaryUI
                     Phone = phone.Text,
                     DateOfBirth = (DateTime?)Convert.ToDateTime(dat)
                 };
-                storage.Save(p1);
+                new PatientsRepository().Save(p1);
             }
 
             Table.Items.Refresh();
