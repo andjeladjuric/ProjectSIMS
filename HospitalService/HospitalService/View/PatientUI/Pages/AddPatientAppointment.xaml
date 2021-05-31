@@ -5,40 +5,51 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.PatientUI.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="620" d:DesignWidth="985"
+      d:DesignHeight="410" d:DesignWidth="490"
       Title="AddPatientAppointment">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="45"/>
-            <RowDefinition Height="25"/>
             
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
+            
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="25"/>
-            <ColumnDefinition Width="240"/>
-            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="210"/>
+            <ColumnDefinition Width="40"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="2" Grid.Column="1" Content="ID:" FontStyle="Italic" FontSize="24"/>
-        <Label Grid.Row="2" Grid.Column="2" Content="{Binding Path=AppointmentId}" FontStyle="Italic" FontSize="24"/>
-        <Label Grid.Row="3" Grid.Column="1" Content="Datum:" FontStyle="Italic" FontSize="24"/>
-        <DatePicker Height="50" Width="230" Grid.Row="3" Grid.Column="2" FontStyle="Italic" FontSize="24" SelectedDate="{Binding Path=Date}"/>
-        <Label Grid.Row="4" Grid.Column="1" Content="Pocetak:" FontStyle="Italic" FontSize="24"/>
-        <TextBox Height="50" Width="230" Grid.Row="4" Grid.Column="2" Text="{Binding Path=StartTimeAppointment}" FontStyle="Italic" FontSize="24"/>
-        <Label Grid.Row="5" Grid.Column="1" Content="Kraj:" FontStyle="Italic" FontSize="24"/>
-        <TextBox Height="50" Width="230" Grid.Row="5" Grid.Column="2" Text="{Binding Path=EndTimeAppointment}" FontStyle="Italic" FontSize="24"/>
-        <Label Grid.Row="6" Grid.Column="1" Content="Doktor:" FontStyle="Italic" FontSize="24"/>
-        <ComboBox Height="50" Width="230" Grid.Row="6" Grid.Column="2" FontStyle="Italic" FontSize="24"  ItemsSource="{Binding Path=Doctors}" SelectedItem="{Binding Path=SelectedDoctor}">
+       
+        <Label Grid.Row="0" Grid.Column="1" Content="Datum:" FontStyle="Italic" FontSize="20"/>
+        <DatePicker Height="40"  Grid.Row="0" Grid.Column="2" FontStyle="Italic" FontSize="20" SelectedDate="{Binding Path=Date}"/>
+        <Label Grid.Row="1" Grid.Column="1" Content="Pocetak:" FontStyle="Italic" FontSize="20"/>
+        <ComboBox Grid.Row="1" Grid.Column="2" Height="40" SelectedItem="{Binding Path=SelectedTime}" FontStyle="Italic" FontSize="20">
+            <ComboBoxItem Content="8:00"/>
+            <ComboBoxItem Content="9:00"/>
+            <ComboBoxItem Content="10:00"/>
+            <ComboBoxItem Content="11:00"/>
+            <ComboBoxItem Content="12:00"/>
+            <ComboBoxItem Content="13:00"/>
+            <ComboBoxItem Content="14:00"/>
+            <ComboBoxItem Content="15:00"/>
+            <ComboBoxItem Content="16:00"/>
+            <ComboBoxItem Content="17:00"/>
+            <ComboBoxItem Content="18:00"/>
+            <ComboBoxItem Content="19:00"/>
+        </ComboBox>
+        
+        
+        <Label Grid.Row="2" Grid.Column="1" Content="Doktor:" FontStyle="Italic" FontSize="20"/>
+        <ComboBox Height="40" Grid.Row="2" Grid.Column="2" FontStyle="Italic" FontSize="20"  ItemsSource="{Binding Path=Doctors}" SelectedItem="{Binding Path=SelectedDoctor}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -52,9 +63,9 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <StackPanel Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Button  Height="45" Width="130" Background="RoyalBlue" Foreground="White" FontStyle="Italic" FontSize="24" Content="Potvrdi" Command="{Binding confirmAddAppointment}" Margin="90,0,0,0"/>
-            <Button  Height="45" Width="130" Background="RoyalBlue" Foreground="White" FontStyle="Italic" FontSize="24" Content="Odustani" Command="{Binding cancelAddAppointment}"  Margin="40,0,0,0"/>
+        <StackPanel Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button  Height="40" Width="110" Background="RoyalBlue" Foreground="White" FontStyle="Italic" FontSize="20" Content="Potvrdi" Command="{Binding confirmAddAppointment}" Margin="82.5,0,0,0"/>
+            <Button  Height="40" Width="110" Background="RoyalBlue" Foreground="White" FontStyle="Italic" FontSize="20" Content="Odustani" Command="{Binding cancelAddAppointment}"  Margin="25,0,0,0"/>
         </StackPanel>
     </Grid>
 </Page>

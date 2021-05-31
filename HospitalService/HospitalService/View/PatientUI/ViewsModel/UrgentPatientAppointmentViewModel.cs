@@ -23,20 +23,26 @@ namespace HospitalService.View.PatientUI.ViewsModel
                 OnPropertyChanged();
             }
         }
-        public String StartTimeAppointment { get; set; }
-        public String EndTimeAppointment { get; set; }
+        public String SelectedTime { get; set; }
         public RelayCommand confirmAddAppointment { get; set; }
         public RelayCommand cancelAddAppointment { get; set; }
         private Patient patient;
-        private UrgentPatientAppointment urgentPatientAppointment;
+        private PreferencesForAppointment preferencesForAppointment;
         private DoctorService doctorService;
         private RoomService roomService;
         private AppointmentsService appointmentsService;
 
+
         private void Execute_ConfirmAddAppointment(object obj) {
-         
-            DateTime startTime = Convert.ToDateTime(Date.ToShortDateString() + " " + StartTimeAppointment + ":00");
-            DateTime endTime = Convert.ToDateTime(Date.ToShortDateString() + " " + EndTimeAppointment + ":00");
+            String[] startTimeArray1 = SelectedTime.Split(" ");
+            String startTimeCb = startTimeArray1[1];
+            String[] startTimeArray2 = startTimeCb.Split(":");
+
+            int endTimeCb = int.Parse(startTimeArray2[0]) + 1;
+            String shortEndTime = Convert.ToString(endTimeCb);
+
+            DateTime startTime = Convert.ToDateTime(Date.ToShortDateString() + " " + startTimeCb);
+            DateTime endTime = Convert.ToDateTime(Date.ToShortDateString() + " " + shortEndTime + ":00");
             Doctor availableDoctor = doctorService.getFirstAvailableDoctor(startTime, endTime);
 
             if (availableDoctor == null)
@@ -57,7 +63,7 @@ namespace HospitalService.View.PatientUI.ViewsModel
             }
             Appointment newAppointment = new Appointment() { Id = appointmentsService.GetNextId(), StartTime = startTime, EndTime = endTime, Type = AppointmentType.Pregled, doctor = availableDoctor, room = availableRoom, patient = patient };
             appointmentsService.Save(newAppointment);
-            urgentPatientAppointment.NavigationService.Navigate(new ViewAppointment(patient));
+            preferencesForAppointment.NavigationService.Navigate(new ViewAppointment(patient));
                    
         }
         private bool moreThanTwoAppointmentsInOneDay(DateTime startTime)
@@ -72,16 +78,16 @@ namespace HospitalService.View.PatientUI.ViewsModel
        
         private void Execute_CancelAddAppointment(object obj)
         {
-            urgentPatientAppointment.NavigationService.Navigate(new ViewAppointment(patient));
+            preferencesForAppointment.NavigationService.Navigate(new PreferencesForAppointment(patient));
 
         }
         private bool CanExecute_Command(object obj) {
             return true;
         }
 
-        public UrgentPatientAppointmentViewModel(Patient patient, UrgentPatientAppointment urgentPatientAppointment) {
+        public UrgentPatientAppointmentViewModel(Patient patient, PreferencesForAppointment preferencesForAppointment) {
             this.patient = patient;
-            this.urgentPatientAppointment = urgentPatientAppointment;
+            this.preferencesForAppointment = preferencesForAppointment;
             Date = DateTime.Now;
             doctorService = new DoctorService();
             roomService = new RoomService();

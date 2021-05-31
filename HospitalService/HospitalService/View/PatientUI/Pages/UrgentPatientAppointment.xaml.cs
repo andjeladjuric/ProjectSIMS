@@ -21,11 +21,11 @@ namespace HospitalService.View.PatientUI.Pages
     public partial class UrgentPatientAppointment : Page
     {
         private UrgentPatientAppointmentViewModel viewModel;
-        public UrgentPatientAppointment(Patient patient)
+        public UrgentPatientAppointment(Patient patient, PreferencesForAppointment preferencesForAppointment)
         {
 
             InitializeComponent();
-            viewModel = new UrgentPatientAppointmentViewModel(patient,this);
+            viewModel = new UrgentPatientAppointmentViewModel(patient,preferencesForAppointment);
             this.DataContext = viewModel;
         }
     }

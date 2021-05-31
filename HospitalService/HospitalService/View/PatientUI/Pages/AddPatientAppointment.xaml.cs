@@ -21,11 +21,11 @@ namespace HospitalService.View.PatientUI.Pages
     public partial class AddPatientAppointment : Page
     {
         private AddPatientAppointmentViewModel viewModel;
-        public AddPatientAppointment(Patient patient)
+        public AddPatientAppointment(Patient patient,PreferencesForAppointment preferencesForAppointment)
         {
 
             InitializeComponent();
-            viewModel = new AddPatientAppointmentViewModel(patient,this);
+            viewModel = new AddPatientAppointmentViewModel(patient,preferencesForAppointment);
             this.DataContext = viewModel;
         }
     }
