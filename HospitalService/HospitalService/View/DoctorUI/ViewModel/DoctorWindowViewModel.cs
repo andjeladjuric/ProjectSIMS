@@ -278,8 +278,10 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         private void Executed_KeyDownCommandWithKey(object obj)
         {
-          //  if (obj.Equals(Key.A))
-            //    AddAppointmentCommand.Execute(obj);
+           /* if ((Key)obj == Key.Return)
+            {
+                AddAppointmentCommand.Execute(obj);
+            }    */       
         }
 
         public bool CanExecute_ProfileCommand(object obj)

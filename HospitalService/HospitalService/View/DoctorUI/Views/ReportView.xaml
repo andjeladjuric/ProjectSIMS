@@ -20,6 +20,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+P" Command="{Binding ApplyCommand}"/>
+        <KeyBinding Gesture="Esc"  Command="{Binding CancelCommand}"/>
+    </Window.InputBindings>
     <Grid Height="260" Width="350">
         <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="40,30,0,0">

@@ -20,13 +20,17 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+P" Command="{Binding ApplyCommand}"/>
+        <KeyBinding Gesture="Esc"  Command="{Binding CancelCommand}"/>
+    </Window.InputBindings>
     <Grid Height="600" Width="450">
         <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="59,73,0,0" VerticalAlignment="Top"/>
         <Label Content="Odjeljenje*:" HorizontalAlignment="Left" Margin="59,128,0,0" VerticalAlignment="Top"/>
         <Label Content="Doktor*:" HorizontalAlignment="Left" Margin="59,187,0,0" VerticalAlignment="Top"/>
         <Label Content="Hitno*:" HorizontalAlignment="Left" Margin="59,303,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.541,-0.72"/>
         <Label Content="Datum izdavanja:" HorizontalAlignment="Left" Margin="59,242,0,0" VerticalAlignment="Top"/>
-        <Label Content="Uputnica" FontSize="24" HorizontalAlignment="Left" Margin="165,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.541,-0.72"/>
+        <Label FontWeight="Medium" Content="Uputnica" FontSize="24" HorizontalAlignment="Left" Margin="165,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.541,-0.72"/>
         <TextBox Text="{Binding Path=PatientsName}" IsEnabled="False" HorizontalAlignment="Left" Margin="204,75,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="30"/>
         <DatePicker  HorizontalAlignment="Left" Margin="227,243,0,0" VerticalAlignment="Top" SelectedDate="{x:Static sys:DateTime.Now}" IsEnabled="False"/>
         <RadioButton IsChecked="{Binding Path=IsUrgent}" Content="DA" HorizontalAlignment="Center" Margin="0,309,0,0" VerticalAlignment="Top"/>

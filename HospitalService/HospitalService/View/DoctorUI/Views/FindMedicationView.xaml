@@ -20,7 +20,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-
+    <Page.InputBindings>
+        <KeyBinding Gesture="Ctrl+P" Command="{Binding ApplyCommand}"/>
+        <KeyBinding Gesture="Ctrl+B"  Command="{Binding CancelCommand}"/>
+    </Page.InputBindings>
     <Grid Background="White" Height="600" Width="450">
         <StackPanel>
             <StackPanel Margin="0,20,0,10" Width="119">
@@ -29,7 +32,10 @@
             <StackPanel Height="430">
                 <Border BorderBrush="#6e7bb3" BorderThickness="2" Height="430" Margin="10,0,10,0">
                     <ListView ItemsSource="{Binding Medications}" SelectedItem="{Binding SelectedMedication, Mode=TwoWay}">
-                    <ListView.ItemTemplate>
+                        <ListView.InputBindings>
+                            <KeyBinding Gesture="Enter" Command="{Binding ApplyCommand}"/>
+                        </ListView.InputBindings>
+                        <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Path=MedicineName}" />
                         </DataTemplate>

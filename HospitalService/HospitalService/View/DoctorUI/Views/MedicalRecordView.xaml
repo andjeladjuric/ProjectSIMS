@@ -7,7 +7,7 @@
          xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MedicalRecordView" Height="600" Width="800" FontSize="16" FontFamily="Baskerville" UseLayoutRounding="True" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+        Title="Medicinski karton" Height="600" Width="800" FontSize="16" FontFamily="Baskerville" UseLayoutRounding="True" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,6 +19,14 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+U" Command="{Binding ReferralCommand}"/>
+        <KeyBinding Gesture="Ctrl+B" Command="{Binding TreatmentCommand}"/>
+        <KeyBinding Gesture="Ctrl+D"  Command="{Binding DiagnosisCommand}"/>
+        <KeyBinding Gesture="Ctrl+R"  Command="{Binding PrescriptionCommand}"/>
+        <KeyBinding Gesture="Ctrl+I"  Command="{Binding ReportCommand}"/>
+        <KeyBinding Gesture="Esc"  Command="{Binding CloseCommand}"/>
+    </Window.InputBindings>
     <Grid Height="600" Width="800">
         <TabControl TabStripPlacement="Left">
             <TabControl.Resources>
@@ -84,7 +92,7 @@
                             </Frame>
                         </StackPanel>
                         <StackPanel Width="311">
-                            <StackPanel Width="130" Height="25" Margin="0,80,0,0">
+                            <StackPanel Width="130" Height="25" Margin="0,100,0,0">
                                 <Button Content="Izdaj uput">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="Click" >
@@ -114,9 +122,6 @@
                                     </i:Interaction.Behaviors>
                                 </Button>
                             </StackPanel>
-                            <StackPanel Width="130" Height="25" Margin="0,30,0,0">
-                                <Button Content="Hitna operacija"/>
-                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
@@ -130,6 +135,9 @@
                         <StackPanel Width="400">
                             <DataGrid BorderThickness="2" ItemsSource="{Binding Diagnoses}" SelectedItem="{Binding SelectedDiagnosis, Mode=TwoWay}" IsReadOnly="True" Height="417" Width="384"
                   SelectionMode="Single" AutoGenerateColumns="False" Margin="10,0,0,0">
+                                <DataGrid.InputBindings>
+                                    <KeyBinding Gesture="Enter" Command="{Binding Path = ShowAnamnesisCommand}"></KeyBinding>
+                                </DataGrid.InputBindings>
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Dijagnoza" Binding="{Binding Illness}" Width="*">
                                         <DataGridTextColumn.ElementStyle>
@@ -266,6 +274,10 @@
                         <StackPanel Width="400">
                             <DataGrid BorderThickness="2" ItemsSource="{Binding Treatments}" SelectedItem="{Binding SelectedTreatment, Mode=TwoWay}" IsReadOnly="True" Height="417" Width="384"
                   SelectionMode="Single" AutoGenerateColumns="False" Margin="10,0,0,0">
+                                <DataGrid.InputBindings>
+                                    <KeyBinding Gesture="Enter" Command="{Binding Path = ShowTreatmentCommand}"></KeyBinding>
+                                    <KeyBinding Gesture="Ctrl+I" Command="{Binding Path = EditTreatmentCommand}"></KeyBinding>
+                                </DataGrid.InputBindings>
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Početak" Binding="{Binding StartDate, StringFormat=\{0:MM/dd/yyyy\}}" Width="*">
                                         <DataGridTextColumn.ElementStyle>

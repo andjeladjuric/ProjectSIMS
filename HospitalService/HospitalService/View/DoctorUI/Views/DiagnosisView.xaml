@@ -20,8 +20,12 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+P" Command="{Binding ApplyCommand}"/>
+        <KeyBinding Gesture="Esc"  Command="{Binding CancelCommand}"/>
+    </Window.InputBindings>
     <Grid Height="520" Width="450">
-        <Label Content="Dijagnoza" FontSize="24" HorizontalAlignment="Left" Margin="168,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.349,0.494"/>
+        <Label FontWeight="Medium" Content="Dijagnoza" FontSize="24" HorizontalAlignment="Left" Margin="168,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.349,0.494"/>
         <Label  Content="Pacijent:" HorizontalAlignment="Left" Margin="57,98,0,0" VerticalAlignment="Top"/>
         <Label  Content="Dijagnoza*:" HorizontalAlignment="Left" Margin="54,154,0,0" VerticalAlignment="Top"/>
         <Label  Content="Simptomi*:" HorizontalAlignment="Left" Margin="56,205,0,0" VerticalAlignment="Top"/>

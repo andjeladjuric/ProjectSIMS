@@ -20,8 +20,13 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+P" Command="{Binding ApplyCommand}"/>
+        <KeyBinding Gesture="Ctrl+D" Command="{Binding AddMedicationCommand}"/>
+        <KeyBinding Gesture="Esc"  Command="{Binding CancelCommand}"/>
+    </Window.InputBindings>
     <Grid Height="590" Width="450" Margin="0,0,0,-6" RenderTransformOrigin="0.482,0.924">
-        <Label  Content="Recept" FontSize="24" HorizontalAlignment="Left" Margin="189,22,0,0" VerticalAlignment="Top"/>
+        <Label  Content="Recept" FontSize="24" FontWeight="Medium" HorizontalAlignment="Left" Margin="189,22,0,0" VerticalAlignment="Top"/>
         <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="57,98,0,0" VerticalAlignment="Top"/>
         <Label  Content="Lijek*:" HorizontalAlignment="Left" Margin="57,150,0,0" VerticalAlignment="Top"/>
         <Label  Content="Na koliko sati*:" HorizontalAlignment="Left" Margin="57,201,0,0" VerticalAlignment="Top"/>

@@ -135,6 +135,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             newAppointment.patient = Appointment.Patient;
             newAppointment.doctor = DoctorWindow.Doctor;
             new AppointmentsService().AddAppointment(newAppointment);
+            DoctorWindow.Date = Date;
             DoctorWindow.Refresh();
             thisWindow.Close();
         }

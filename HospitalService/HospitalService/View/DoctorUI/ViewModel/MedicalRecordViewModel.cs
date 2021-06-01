@@ -15,6 +15,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
 {
     public class MedicalRecordViewModel : ViewModelClass
     {
+        public MedicalRecordView Window { get; set; }
         public Patient Patient { get; set; }
         public Frame AllergiesFrame { get; set; }
         public string PatientName { get; set; }
@@ -37,6 +38,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public RelayCommand ShowTreatmentCommand { get; set; }
         public RelayCommand EditTreatmentCommand { get; set; }
         public RelayCommand ReportCommand { get; set; }
+        public RelayCommand CloseCommand { get; set; }
         public RelayCommand KeyUpCommandWithKey { get; set; }
 
         public ObservableCollection<Diagnosis> Diagnoses
@@ -148,8 +150,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
-        public MedicalRecordViewModel(Frame frame, Patient selected, Frame anamnesisFrame, Frame treatment, Frame editTreatment) 
+        public MedicalRecordViewModel(Frame frame, Patient selected, Frame anamnesisFrame, Frame treatment, Frame editTreatment, MedicalRecordView window) 
         {
+            this.Window = window;
             this.EditTreatmentFrame = editTreatment;
             this.TreatmentFrame = treatment;
             this.AllergiesFrame = frame;
@@ -188,6 +191,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
         CanExecute_EditTreatmentCommand);
             ReportCommand = new RelayCommand(Executed_ReportCommand,
        CanExecute_ReportCommand);
+            CloseCommand = new RelayCommand(Executed_CloseCommand,
+       CanExecute_TreatmentCommand);
         }
 
         public bool CanExecute_TreatmentCommand(object obj)
@@ -198,6 +203,10 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_TreatmentCommand(object obj)
         {
             new HospitalTreatmentView(this).ShowDialog();
+        }
+        public void Executed_CloseCommand(object obj)
+        {
+            this.Window.Close();
         }
 
         public bool CanExecute_PrescriptionCommand(object obj)
@@ -242,6 +251,11 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public bool CanExecute_EditTreatmentCommand(object obj)
         {
+
+            if (SelectedTreatment == null) {
+                MessageBox.Show("Izaberite boravak.");
+                return false;
+            }
             if (DateTime.Compare(SelectedTreatment.EndTime, DateTime.Now) < 0)
             {
                 MessageBox.Show("Moguće je produžiti samo aktuelni boravak.");

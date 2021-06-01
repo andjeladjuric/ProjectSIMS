@@ -20,10 +20,12 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-
     <Grid Background="White" Height="450" Width="768">
         <DataGrid BorderThickness="1" IsReadOnly="True"  ItemsSource="{Binding DataGridCollection}" SelectedItem="{Binding Path=Patient, Mode=TwoWay}"
                   SelectionMode="Single" AutoGenerateColumns="False" Height="250" Margin="0,65,0,85" HorizontalAlignment="Center" Width="715">
+            <DataGrid.InputBindings>
+                <KeyBinding Gesture="Enter" Command="{Binding SelectCommand}"/>
+            </DataGrid.InputBindings>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ime"  Binding="{Binding Name}" Width="*"/>
                 <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}" Width="*"/>
@@ -32,7 +34,20 @@
                 <DataGridTextColumn Header="Karton"  Binding="{Binding medicalRecordId}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Izaberi" HorizontalAlignment="Left" Margin="334,382,0,0" VerticalAlignment="Top" Width="65" RenderTransformOrigin="0.576,-0.15">
+        <Button Content="Odustani" Width="80" Margin="290,350,398,43">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click" >
+                    <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="KeyUp" >
+                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <i:Interaction.Behaviors>
+                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+            </i:Interaction.Behaviors>
+        </Button>
+        <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="421,366,0,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.576,-0.15">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding SelectCommand}"/>
@@ -47,7 +62,7 @@
         </Button>
         <Label Content="Baza pacijenata" HorizontalAlignment="Left" Margin="313,41,0,0" VerticalAlignment="Top"/>
         <Label Content="Pretraži: " HorizontalAlignment="Left" Margin="537,11,0,0" VerticalAlignment="Top"/>
-        <TextBox BorderBrush="#3f51b5" Background="#fafafa" BorderThickness="1" HorizontalAlignment="Left" Margin="610,10,0,0" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Top" Width="132"/>
+        <TextBox HorizontalAlignment="Left" Margin="610,10,0,0" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Top" Width="132"/>
 
     </Grid>
 </Page>
