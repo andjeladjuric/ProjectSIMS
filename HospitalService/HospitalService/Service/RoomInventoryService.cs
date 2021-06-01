@@ -15,10 +15,22 @@ namespace HospitalService.Service
     public class RoomInventoryService
     {
         RoomInventoryRepository roomInventoryRepository;
+        List<MovingRequests> movingRequests;
 
         public RoomInventoryService()
         {
             roomInventoryRepository = new RoomInventoryRepository();
+            movingRequests = new List<MovingRequests>();
+        }
+
+        private List<MovingRequests> LoadRequests()
+        {
+            return JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
+        }
+
+        private void SerializeRequests()
+        {
+            File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(movingRequests));
         }
 
         public void AnalyzeRequests(MovingRequests request)
@@ -70,59 +82,44 @@ namespace HospitalService.Service
             }
         }
 
-        private static void RemoveRequests(MovingRequests mr)
+        private void RemoveRequests(MovingRequests mr)
         {
-            List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
+            movingRequests = LoadRequests();
 
-            for (int i = 0; i < requests.Count; i++)
+            for (int i = 0; i < movingRequests.Count; i++)
             {
-                if (requests[i].movingTime == mr.movingTime)
+                if (movingRequests[i].movingTime == mr.movingTime)
                 {
-                    requests.RemoveAt(i);
+                    movingRequests.RemoveAt(i);
                 }
             }
 
-            File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
+            SerializeRequests();
         }
 
         public void CheckRequests()
         {
-            List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-            if (requests.Count != 0)
+            movingRequests = LoadRequests();
+            if (movingRequests.Count != 0)
             {
                 MovingRequests request;
-                for (int i = 0; i < requests.Count; i++)
+                for (int i = 0; i < movingRequests.Count; i++)
                 {
-                    request = requests[i];
+                    request = movingRequests[i];
                     if (DateTime.Compare(request.movingTime, DateTime.Now) <= 0)
                     {
                         AnalyzeRequests(request);
                     }
-                    else
-                    {
-                        Task t = new Task(() => RunThread(request));
-                        t.Start();
-                    }
                 }
             }
-        }
-        public void RunThread(MovingRequests mr)
-        {
-            TimeSpan time = mr.movingTime.Subtract(DateTime.Now);
-
-            if (time > new TimeSpan(0, 0, 0))
-                Thread.Sleep(time);
-
-            AnalyzeRequests(mr);
         }
 
         public void StartMoving(MovingRequests movingRequest)
         {
-            List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-            requests.Add(movingRequest);
-            File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
-            Task t = new Task(() => RunThread(movingRequest));
-            t.Start();
+            movingRequests = LoadRequests();
+            movingRequests.Add(movingRequest);
+            SerializeRequests();
+            CheckRequests();
         }
 
         public int GetNextAvailableBed(string roomId)

@@ -67,7 +67,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 FilterCollection();
             }
         }
-       
+
         private ICollectionView inventoryView;
         public ICollectionView InventoryView
         {
@@ -121,9 +121,14 @@ namespace HospitalService.View.ManagerUI.ViewModels
         public MyICommand DeleteCommand { get; set; }
         public MyICommand EditCommand { get; set; }
         public MyICommand CancelSearch { get; set; }
+        public MyICommand MoveCommand { get; set; }
         #endregion
 
         #region Actions
+        private void OnMove()
+        {
+            this.Frame.NavigationService.Navigate(new TransferItemView("", ""));
+        }
         private void OnAdd()
         {
             this.Frame.NavigationService.Navigate(new NewItemView());
@@ -199,6 +204,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             DeleteCommand = new MyICommand(OnDelete, CanEditOrDelete);
             EditCommand = new MyICommand(OnEdit, CanEditOrDelete);
             CancelSearch = new MyICommand(OnCancel, CanExecute);
+            MoveCommand = new MyICommand(OnMove, CanExecute);
         }
         #endregion
     }

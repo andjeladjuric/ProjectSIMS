@@ -139,6 +139,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Constructors
         public ManagerWindowViewModel(Window currentWindow, Frame currentFrame, Button close, Grid menu, Manager currentUser)
         {
+            /*view*/
             this.Manager = currentUser;
             this.Window = currentWindow;
             this.Frame = currentFrame;
@@ -146,13 +147,18 @@ namespace HospitalService.View.ManagerUI.ViewModels
             this.grid = menu;
             this.DemoOn = false;
 
-            RoomRenovationService service = new RoomRenovationService();
-            service.CheckRenovationRequests();
+            /*commands*/
             LogoutCommand = new MyICommand(OnLogout, CanExecute);
             ProfileCommand = new MyICommand(OnProfile, CanExecute);
             ChangePage = new MyICommand(OnChange, CanExecute);
             DemoCommand = new MyICommand(OnDemo, CanExecute);
             StopDemo = new MyICommand(OnStop, CanExecute);
+
+            /*check requests*/
+            RoomInventoryService service = new RoomInventoryService();
+            service.CheckRequests();
+            RoomRenovationService renovationService = new RoomRenovationService();
+            renovationService.CheckRenovationRequests();
         }
         #endregion
     }

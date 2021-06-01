@@ -93,10 +93,8 @@
                  FontFamily="Roboto"
                  FontSize="16"
                  HorizontalContentAlignment="Center"/>
-        <Button x:Name="Premesti" Content="Premesti inventar" HorizontalAlignment="Left" Margin="167,606,0,86" 
-                Command="{Binding MoveInventoryCommand}" Height="26" Width="125"/>
 
-        <Button x:Name="changeQuantity" Content="Izmena stanja" HorizontalAlignment="Left" Margin="309,606,0,0" 
+        <Button x:Name="changeQuantity" Content="Izmena stanja" HorizontalAlignment="Left" Margin="175,606,0,0" 
                 VerticalAlignment="Top" Height="26" Width="115" Command="{Binding ChangeQuantityCommand}"/>
 
         <materialDesign:PopupBox x:Name="Popup" PlacementMode="RightAndAlignTopEdges" Width="32" Height="30" StaysOpen="True" Margin="763,88,0,600">

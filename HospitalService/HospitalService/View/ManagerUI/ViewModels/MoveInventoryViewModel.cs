@@ -22,7 +22,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private string enteredTime;
         private DateTime date;
         private string quantity;
-        private string selectedRoom;
+        private Room selectedRoom;
         private Room room;
         private bool demoOn;
         private bool isOpen;
@@ -66,7 +66,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
             set
             {
                 selectedItem = value;
-                ConfirmCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -101,7 +100,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
         }
 
-        public string SelectedRoom
+        public Room SelectedRoom
         {
             get { return selectedRoom; }
             set
@@ -185,46 +184,44 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             RoomService roomService = new RoomService();
             RoomInventoryService roomInventoryService = new RoomInventoryService();
-            string[] rooms = SelectedRoom.ToString().Split("/");
-            string selectedId = rooms[0];
+            InventoryService inventoryService = new InventoryService();
 
             Room sendToThisRoom = null;
             foreach (Room r in roomService.GetAll())
             {
-                if (r.Id == selectedId)
+                if (r.Id == SelectedRoom.Id)
                 {
                     sendToThisRoom = r;
                     break;
                 }
             }
 
-            int itemId = SelectedItem.Id;
-            foreach (Inventory i in RoomInventory)
+            Inventory item = inventoryService.GetOne(SelectedItem.Id);
+            if (item.EquipmentType.Equals(Equipment.Dynamic))
             {
-                if (i.Id == itemId)
-                {
-                    if (i.EquipmentType.Equals(Equipment.Dynamic))
-                    {
-                        roomInventoryService.AnalyzeRequests(new MovingRequests(DateTime.Now, Int32.Parse(Quantity), Room.Id, sendToThisRoom.Id, itemId));
-                    }
-                    else
-                    {
-                        //MessageBox.Show(Date.ToString());
-                        TimeSpan selectedTime = TimeSpan.ParseExact(EnteredTime, "c", null);
-                        DateTime selectedDate = Convert.ToDateTime(selectedTime + " " + Date.ToString("d"));
-                        MovingRequests request = new MovingRequests(selectedDate, Int32.Parse(Quantity), room.Id, sendToThisRoom.Id, itemId);
-                        roomInventoryService.StartMoving(request);
-                                
-                    }
-                }
+                roomInventoryService.AnalyzeRequests(new MovingRequests(DateTime.Now, Int32.Parse(Quantity), Room.Id, SelectedRoom.Id, item.Id));
+            }
+            else
+            {
+                TimeSpan selectedTime = TimeSpan.ParseExact(EnteredTime, "c", null);
+                DateTime selectedDate = Convert.ToDateTime(selectedTime + " " + Date.ToString("d"));
+                MovingRequests request = new MovingRequests(selectedDate, Int32.Parse(Quantity), room.Id, SelectedRoom.Id, item.Id);
+                roomInventoryService.StartMoving(request);
+
             }
 
-            this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(Room));
+
+            string one = Room.Id + "/" + Room.Name;
+            string two = SelectedRoom.Id + "/" + SelectedRoom.Name;
+            this.Frame.NavigationService.Navigate(new TransferItemView(one, two));
         }
 
         private void OnCancel()
         {
-            this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(Room));
+            string one = Room.Id + "/" + Room.Name;
+            string two = SelectedRoom.Id + "/" + SelectedRoom.Name;
+            MessageBox.Show(one + " " + two);
+            this.Frame.NavigationService.Navigate(new TransferItemView(one, two));
         }
 
         private void OnCancelSearch()
@@ -292,8 +289,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 EnteredTime = "15:30";
                 await Task.Delay(2000, ct);
                 Date = DateTime.Today;
-                await Task.Delay(2000, ct);
-                SelectedRoom = "330/Ordinacija 2";
+                //await Task.Delay(2000, ct);
+                //SelectedRoom = "330/Ordinacija 2";
                 await Task.Delay(2000, ct);
                 Quantity = "5";
 
@@ -308,25 +305,18 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Constructors
-        public MoveInventoryViewModel(Frame currentFrame, Room room, ObservableCollection<Inventory> inv, bool demo)
+        public MoveInventoryViewModel(Frame currentFrame, Room moveFrom, Room sendHere, Inventory selectedItem, bool demo)
         {
             /*view*/
             this.Frame = currentFrame;
-            this.Room = room;
-            this.RoomInventory = inv;
+            this.Room = moveFrom;
+            this.SelectedRoom = sendHere;
+            this.SelectedItem = selectedItem;
             this.Date = DateTime.Today;
             this.DemoOn = demo;
-            LoadRooms();
-
-            /*search filter*/
-            this.FilterName = "";
-            this.FilterId = "";
-            this.FilterSupplier = "";
-            InventoryView = CollectionViewSource.GetDefaultView(RoomInventory);
-            InventoryView.Filter = new Predicate<object>(Filter);
 
             /*commands*/
-            ConfirmCommand = new MyICommand(OnConfirm, CanExecute);
+            ConfirmCommand = new MyICommand(OnConfirm, CanNavigate);
             CancelCommand = new MyICommand(OnCancel, CanNavigate);
             CancelSearch = new MyICommand(OnCancelSearch, CanNavigate);
             CancellationTokenSource cts = ManagerWindowViewModel.cts;

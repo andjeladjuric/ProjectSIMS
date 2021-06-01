@@ -82,16 +82,11 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Commands
-        public MyICommand MoveInventoryCommand { get; set; }
         public MyICommand ChangeQuantityCommand { get; set; }
         public MyICommand CancelSearch { get; set; }
         #endregion
 
-        #region Actions 
-        private void OnMoveInventory()
-        {
-            this.Frame.NavigationService.Navigate(new MoveInventoryView(SelectedRoom, Inventory, false));
-        }
+        #region Actions
 
         private void OnChangeQuantity()
         {
@@ -150,10 +145,10 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
             /*commands*/
             ChangeQuantityCommand = new MyICommand(OnChangeQuantity, CanExecute);
-            MoveInventoryCommand = new MyICommand(OnMoveInventory, CanExecute);
             CancelSearch = new MyICommand(OnCancel, CanExecute);
 
-
+            RoomInventoryService service = new RoomInventoryService();
+            service.CheckRequests();
         }
         #endregion
     }
