@@ -60,13 +60,13 @@ namespace HospitalService.View.PatientUI.ViewsModel
 
             if (string.IsNullOrWhiteSpace(this.PatientAddress))
             {
-                this.ValidationErrors["Address"] = "Adresa je obavezna.";
+                this.ValidationErrors["Address"] = "Unesite adresu stanovanja.";
             } else if (!checkAddress.IsMatch(this.PatientAddress)) {
                 this.ValidationErrors["Address"] = "Nije dobar format. Format je ULICA BROJ, GRAD";
 
             }
             if (string.IsNullOrWhiteSpace(this.PatientEmail)) {
-                this.ValidationErrors["Email"] = "E-mail je obavezan.";
+                this.ValidationErrors["Email"] = "Unesite e-mail adresu.";
             }
             else if (!checkEmail.IsMatch(this.PatientEmail))
             {
@@ -75,7 +75,7 @@ namespace HospitalService.View.PatientUI.ViewsModel
             }
             if (string.IsNullOrWhiteSpace(this.PatientPhone)) {
 
-                this.ValidationErrors["Phone"] = "Broj telefona je obavezan.";
+                this.ValidationErrors["Phone"] = "Unesite broj telefona.";
 
             } else if (!checkPhone.IsMatch(this.PatientPhone)) {
                 this.ValidationErrors["Phone"] = "Nije dobar format.";
