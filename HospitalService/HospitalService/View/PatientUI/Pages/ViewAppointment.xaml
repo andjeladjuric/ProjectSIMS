@@ -53,10 +53,7 @@
                 <ColumnDefinition Width="226.25"/>
                 <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
-            <Button Content="Otkazi" Grid.Column="1" Grid.Row="1" Width="150" Height="45" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue" Command="{Binding deleteAppointment}"/>
-            <Button Content="Pomjeri" Grid.Column="2" Grid.Row="1" Width="150" Height="45" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue" Command="{Binding moveAppointment}" />
-            <Button Content="Uredi" Grid.Column="3" Grid.Row="1" Width="150" Height="45" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue" Command="{Binding editAppointment}" />
-            <Button Content="Uplati" Grid.Column="4" Grid.Row="1" Width="150" Height="45" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue" />
+            <Button Content="Prikazi" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Width="140" Height="45" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue" Command="{Binding showAppointmentDetails}" />
         </Grid>
         <DataGrid x:Name="tableViewAppointment" IsReadOnly="True" SelectedItem="{Binding Path=SelectedAppointment}" ItemsSource="{Binding Path=Appointments}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 

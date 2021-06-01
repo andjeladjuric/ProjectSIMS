@@ -11,15 +11,16 @@ namespace HospitalService.View.PatientUI.ViewsModel
 {
    public class MoveAppointmentViewModel:ViewModelPatientClass
     {
-        public String StartTimeAppointment { get; set; }
-        public String EndTimeAppointment { get; set; }
+ 
+
+        public String SelectedTime { get; set; }
         private DateTime appointmentDate { get; set; }
         private Patient patient;
         private AppointmentsService appointmentsService;
         private Appointment appointment;
         private RoomService roomService;
         private DoctorService doctorService;
-        private MoveAppointment moveAppointment;
+        private AppointmentDetails appointmentDetails;
 
         public DateTime AppointmentDate
         {
@@ -33,9 +34,16 @@ namespace HospitalService.View.PatientUI.ViewsModel
         public RelayCommand confirmMoveAppointment { get; set; }
         public RelayCommand cancelMoveAppointment { get; set; }
         private void Execute_ConfirmMoveAppointment(object obj) {
-           
-            DateTime startTimeOfAppointment = Convert.ToDateTime(AppointmentDate.ToShortDateString() + " " + StartTimeAppointment + ":00");
-            DateTime endTimeOfAppointment = Convert.ToDateTime(AppointmentDate.ToShortDateString() + " " + EndTimeAppointment + ":00");
+
+            String[] startTimeArray1 = SelectedTime.Split(" ");
+            String startTimeCb = startTimeArray1[1];
+            String[] startTimeArray2 = startTimeCb.Split(":");
+
+            int endTimeCb = int.Parse(startTimeArray2[0]) + 1;
+            String shortEndTime = Convert.ToString(endTimeCb);
+
+            DateTime startTimeOfAppointment = Convert.ToDateTime(AppointmentDate.ToShortDateString() + " " + startTimeCb);
+            DateTime endTimeOfAppointment = Convert.ToDateTime(AppointmentDate.ToShortDateString() + " " + shortEndTime + ":00");
             if (isLessThanTwoDaysBetween(startTimeOfAppointment))
             {
                 if (!doctorService.isDoctorAvailable(startTimeOfAppointment, endTimeOfAppointment,appointment.doctor))
@@ -46,7 +54,7 @@ namespace HospitalService.View.PatientUI.ViewsModel
                 if (roomService.isCurrentRoomAvailable(startTimeOfAppointment, endTimeOfAppointment,appointment.room))
                 {                 
                     appointmentsService.Move(appointment.Id, startTimeOfAppointment, endTimeOfAppointment, appointment.room);
-                    moveAppointment.NavigationService.Navigate(new ViewAppointment(patient));
+                    appointmentDetails.NavigationService.Navigate(new ViewAppointment(patient));
                 }
                 else
                 {
@@ -57,7 +65,7 @@ namespace HospitalService.View.PatientUI.ViewsModel
                         return;
                     }
                     appointmentsService.Move(appointment.Id, startTimeOfAppointment, endTimeOfAppointment, availableRoom);
-                    moveAppointment.NavigationService.Navigate(new ViewAppointment(patient));    
+                    appointmentDetails.NavigationService.Navigate(new ViewAppointment(patient));    
                 }               
             }
             else
@@ -72,15 +80,15 @@ namespace HospitalService.View.PatientUI.ViewsModel
         }
         private void Execute_CancelMoveAppointment(object obj) {
 
-            moveAppointment.NavigationService.Navigate(new ViewAppointment(patient));
+            appointmentDetails.NavigationService.Navigate(new AppointmentDetails(patient,appointment));
         }
         private bool CanExecute_Command(object obj) {
             return true;
         }
-        public MoveAppointmentViewModel(Patient patient, Appointment appointment, MoveAppointment moveAppointment) {
+        public MoveAppointmentViewModel(Patient patient, Appointment appointment, AppointmentDetails appointmentDetails) {
             this.patient = patient;
             this.appointment = appointment;
-            this.moveAppointment = moveAppointment;
+            this.appointmentDetails = appointmentDetails;
             AppointmentDate = DateTime.Now;
             appointmentsService = new AppointmentsService();
             roomService = new RoomService();

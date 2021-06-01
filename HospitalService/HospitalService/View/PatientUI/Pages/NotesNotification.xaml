@@ -37,7 +37,7 @@
         <TextBox Text="{Binding Path=StartTimeReminder}" x:Name="tbStartTime" Grid.Row="4" Grid.Column="2" FontStyle="Italic" FontSize="20"  Height="40" Width="200"/>
         <Label Grid.Row="6" Grid.Column="1" Content="Datum kraja:" FontStyle="Italic" FontSize="20"/>
         <DatePicker SelectedDate="{Binding Path=EndDateReminder}" x:Name="dpEndDate" Grid.Row="6" Grid.Column="2" FontStyle="Italic" FontSize="20"  Height="40" Width="200"/>
-        <Label Grid.Row="7" Grid.Column="1" Content="Vrijeme kraja" FontStyle="Italic" FontSize="20"/>
+        <Label Grid.Row="7" Grid.Column="1" Content="Vrijeme kraja:" FontStyle="Italic" FontSize="20"/>
         <TextBox Text="{Binding Path=EndTimeReminder}" x:Name="tbEndTime" Grid.Row="7" Grid.Column="2" FontStyle="Italic" FontSize="20"  Height="40" Width="200"/>
         <Label Grid.Row="9" Grid.Column="1" Content="Podsjeti me svakih" FontStyle="Italic" FontSize="20"/>
         <ComboBox SelectedItem="{Binding Path=HowOftenReminder}" x:Name="cbHowOften" Grid.Row="9" Grid.Column="2" FontStyle="Italic" FontSize="20"  Height="40" Width="200">

@@ -12,27 +12,20 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HospitalService.View.PatientUI.ViewsModel;
 using Model;
-using Storage;
 
 namespace HospitalService.View.PatientUI.Pages
 {
     /// <summary>
-    /// Interaction logic for MoveAppointment.xaml
+    /// Interaction logic for AppointmentDetails.xaml
     /// </summary>
-    public partial class MoveAppointment : Page
+    public partial class AppointmentDetails : Page
     {
-
-        
-        private MoveAppointmentViewModel viewModel;
-        public MoveAppointment(Appointment appointment, Patient patient,AppointmentDetails appointmentDetails)
+        private AppointmentDetailsViewModel viewModel;
+        public AppointmentDetails(Patient patient,Appointment appointment)
         {
             InitializeComponent();
-            viewModel = new MoveAppointmentViewModel(patient,appointment,appointmentDetails);
+            viewModel = new AppointmentDetailsViewModel(patient,appointment,this,MoveFrame.NavigationService);
             this.DataContext = viewModel;
-            
-
         }
-
-       
     }
 }
