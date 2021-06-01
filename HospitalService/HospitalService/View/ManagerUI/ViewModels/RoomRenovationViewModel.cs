@@ -165,13 +165,14 @@ namespace HospitalService.View.ManagerUI.ViewModels
             if (IsValid)
             {
                 if (CheckDateEntry(Start, End) && dateService.CheckExistingRenovations(SelectedRoom.Id, Start, End) &&
-                    renovationService.CheckAppointmentsForDate(Start, End, SelectedRoom.Id))
+                    renovationService.CheckAppointmentsForDate(Start, End, SelectedRoom.Id) &&
+                    CheckForPatientsInRoom(SelectedRoom.Id, Start, End))
                 {
                     if (IsChecked)
                     {
-                        string[] rooms = SecondRoom.ToString().Split("/");
-                        string selectedId = rooms[0];
-                        if (renovationService.CheckAppointmentsForDate(Start, End, selectedId) && CheckFloor(SelectedRoom.Id, selectedId))
+                        string selectedId = GetSecondRoomId();
+                        if (renovationService.CheckAppointmentsForDate(Start, End, selectedId) && CheckFloor(SelectedRoom.Id, selectedId) &&
+                            CheckForPatientsInRoom(selectedId, Start, End))
                             renovationService.Save(new Renovation(SelectedRoom.Id, Start, End, RenovationType.Merge, selectedId, NewID, NewType, NewName));
                     }
                     else
@@ -197,15 +198,20 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Other Functions
+
+        private string GetSecondRoomId()
+        {
+            string[] rooms = SecondRoom.ToString().Split("/");
+            return rooms[0];
+        }
         private bool CheckFloor(string firstRoom, string secondRoom)
         {
             RoomService roomService = new RoomService();
             Room first = roomService.GetOne(firstRoom);
-            Room second = roomService.GetOne(secondRoom);
+            Room second = roomService.GetOne(GetSecondRoomId());
 
-            if(first.Floor == second.Floor)
+            if(first.Floor != second.Floor)
             {
-                MessageBox.Show("Sobe moraju biti na istom spratu!");
                 return false;
             }
 
@@ -284,9 +290,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
             DateService dateService = new DateService();
             RoomRenovationService renovationService = new RoomRenovationService();
 
-            string[] rooms = SecondRoom.ToString().Split("/");
-            string selectedId = rooms[0];
-
             if (!dateService.CheckExistingRenovations(this.SelectedRoom.Id, this.Start, this.End))
             {
                 this.ValidationErrors["Existing"] = "Već postoji zakazano renoviranje \n u ovom periodu!";
@@ -299,18 +302,26 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
             if(!CheckForPatientsInRoom(this.SelectedRoom.Id, this.Start, this.End))
             {
-                this.ValidationErrors["Treatment"] = "Postoje pacijenti na bolničkom \n lečenju u ovom periodu!";
+                this.ValidationErrors["Treatment"] = "Postoje pacijenti u sobi " + SelectedRoom.Id + "\n lečenju u ovom periodu!";
                 ValidationMessage = this.ValidationErrors["Treatment"];
             }
-            
-            if(IsChecked)
+
+            if (IsChecked)
             {
+                string selectedId = GetSecondRoomId();
+
                 if (!CheckFloor(this.SelectedRoom.Id, selectedId))
                 {
                     this.ValidationErrors["Floor"] = "Prosotrije moraju biti \n na istom spratu!";
                 }
-            }
 
+               if (!CheckForPatientsInRoom(selectedId, this.Start, this.End))
+                {
+                    this.ValidationErrors["Treatment"] = "Postoje pacijenti u sobi " + selectedId + "\n lečenju u ovom periodu!";
+                    ValidationMessage = this.ValidationErrors["Treatment"];
+                }
+            }
+            
         }
 
         private async Task DemoIsOn(CancellationToken ct)

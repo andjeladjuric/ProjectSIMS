@@ -97,13 +97,22 @@ namespace HospitalService.Service
         public HospitalTreatment GetTreatmentForPeriod(string roomId, DateTime Start, DateTime End)
         {
             List<MedicalRecord> records = GetAll();
-
             foreach (MedicalRecord record in records)
             {
-                foreach (HospitalTreatment treatment in record.HospitalTreatments)
+                foreach (HospitalTreatment t in record.HospitalTreatments)
                 {
-                    if (treatment.RoomId.Equals(roomId) && treatment.StartDate == Start && t.EndTime == End)
-                        return treatment;
+                    if (t.RoomId.Equals(roomId)) {
+                        if (DateTime.Compare(Start, t.StartDate) <= 0 && DateTime.Compare(End, t.EndTime) >= 0)
+                            return t;
+                        if (DateTime.Compare(Start, t.StartDate) <= 0 && DateTime.Compare(End, t.EndTime) <= 0
+                            && DateTime.Compare(Start, t.EndTime) >= 0)
+                            return t;
+                        if (DateTime.Compare(Start, t.StartDate) >= 0 && DateTime.Compare(End, t.EndTime) <= 0)
+                            return t;
+                        if (DateTime.Compare(Start, t.StartDate) >= 0 && DateTime.Compare(End, t.EndTime) >= 0
+                            && DateTime.Compare(Start, t.EndTime) <= 0)
+                            return t;
+                    }
                 }
             }
 

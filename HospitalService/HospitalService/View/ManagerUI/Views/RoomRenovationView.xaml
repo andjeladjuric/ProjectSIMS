@@ -282,7 +282,7 @@
                         </ComboBox.Style>
                     </ComboBox>
                     <TextBlock Text="{Binding ValidationErrors[Floor], Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                               Foreground="#FFE52020" TextWrapping="Wrap"/>
+                               Foreground="#FFE52020" TextWrapping="Wrap" Height="31"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
@@ -305,12 +305,14 @@
                         <DataTrigger Binding="{Binding ElementName=NewNameBox, Path=(Validation.HasError)}" Value="True">
                             <Setter Property="IsEnabled" Value="False"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=NewSizeBox, Path=Text}" Value="">
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=SecondRoomBox, Path=IsEnabled}" Value="True"/>
+                                <Condition Binding="{Binding ElementName=NewSizeBox, Path=(Validation.HasError)}" Value="True"/>
+                                <Condition Binding="{Binding ElementName=NewSizeBox, Path=Text}" Value=""/>
+                            </MultiDataTrigger.Conditions>
                             <Setter Property="IsEnabled" Value="False"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=NewSizeBox, Path=(Validation.HasError)}" Value="True">
-                            <Setter Property="IsEnabled" Value="False"/>
-                        </DataTrigger>
+                        </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding ElementName=SecondRoomBox, Path=IsEnabled}" Value="True"/>
