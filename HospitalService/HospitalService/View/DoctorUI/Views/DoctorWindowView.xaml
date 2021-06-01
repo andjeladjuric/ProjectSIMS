@@ -22,34 +22,27 @@
     </Window.Resources>
     <Grid>
         <DockPanel Height="600" Width="950">
-            <Menu DockPanel.Dock="Top" Height="40">
-                <MenuItem Width="48" Margin="800,0,0,0">
-
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="UserCircle" Foreground="#3f51b5" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </MenuItem.Icon>
+            <StackPanel Background="#fafafa" DockPanel.Dock="Top" Height="40" Orientation="Horizontal">
+                <Button Height="40" Width="40"  Margin="800,0,10,0" Background="{x:Null}" BorderThickness="0">
+                    <materialDesign:PackIcon Kind="User" Foreground="#3f51b5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="40" />
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click" >
                             <i:InvokeCommandAction Command="{Binding ProfileCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                </MenuItem>
-                <MenuItem Width="47">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="Help" Foreground="#3f51b5"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Width="49">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon Kind="Logout" Foreground="#3f51b5"/>
-                    </MenuItem.Icon>
+                </Button>
+                <Button Height="40" Width="40" Background="{x:Null}" BorderThickness="0" Margin="0,0,10,0">
+                    <materialDesign:PackIcon Foreground="#3f51b5" Kind="Help"  Width="40" Height="30"/>
+                </Button>
+                <Button Height="40" Width="40" Background="{x:Null}" BorderThickness="0">
+                    <materialDesign:PackIcon Foreground="#3f51b5" Kind="LogoutVariant" Width="40" Height="30"/>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click" >
                             <i:InvokeCommandAction Command="{Binding LogOutCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                </MenuItem>
-            </Menu>
+                </Button>
+            </StackPanel>
             <StackPanel></StackPanel>
         </DockPanel>
         <TabControl TabStripPlacement="Left" Margin="0,41,0,0" FontFamily="Open Sans" FontSize="16" >
