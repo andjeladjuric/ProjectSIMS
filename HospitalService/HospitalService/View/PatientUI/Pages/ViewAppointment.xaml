@@ -46,14 +46,16 @@
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40"/>
-                <ColumnDefinition Width="226.25"/>
-                <ColumnDefinition Width="226.25"/>
-                <ColumnDefinition Width="226.25"/>
-                <ColumnDefinition Width="226.25"/>
-                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="67.5"/>
+                <ColumnDefinition Width="212.5"/>
+                <ColumnDefinition Width="212.5"/>
+                <ColumnDefinition Width="212.5"/>
+                <ColumnDefinition Width="212.5"/>
+                <ColumnDefinition Width="67.5"/>
             </Grid.ColumnDefinitions>
-            <Button Content="Prikazi" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Width="140" Height="45" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue" Command="{Binding showAppointmentDetails}" />
+            <TextBlock Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Text="{Binding ValidationErrors[Start]}" HorizontalAlignment="Right"
+                               Foreground="Red" FontStyle="Italic" FontSize="14"/>
+                <Button Content="Prikazi" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Width="140" Height="45" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue" Command="{Binding showAppointmentDetails}" />
         </Grid>
         <DataGrid x:Name="tableViewAppointment" IsReadOnly="True" SelectedItem="{Binding Path=SelectedAppointment}" ItemsSource="{Binding Path=Appointments}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 

@@ -11,14 +11,14 @@
     <Grid>
         <Grid.RowDefinitions>
             
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
             <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
             
 
         </Grid.RowDefinitions>
@@ -30,39 +30,50 @@
         </Grid.ColumnDefinitions>
        
         <Label Grid.Row="0" Grid.Column="1" Content="Datum:" FontStyle="Italic" FontSize="20"/>
-        <DatePicker Height="40"  Grid.Row="0" Grid.Column="2" FontStyle="Italic" FontSize="20" SelectedDate="{Binding Path=Date}"/>
+        <StackPanel Grid.Row="0" Grid.Column="2">
+            <DatePicker Height="40"  Grid.Row="0" Grid.Column="2" FontStyle="Italic" FontSize="20" SelectedDate="{Binding Path=Date}"/>
+            <TextBlock TextAlignment="Center" Text="{Binding ValidationErrors[Date]}"
+                               Foreground="Red" FontStyle="Italic"/>
+        </StackPanel>
         <Label Grid.Row="1" Grid.Column="1" Content="Pocetak:" FontStyle="Italic" FontSize="20"/>
-        <ComboBox Grid.Row="1" Grid.Column="2" Height="40" SelectedItem="{Binding Path=SelectedTime}" FontStyle="Italic" FontSize="20">
-            <ComboBoxItem Content="8:00"/>
-            <ComboBoxItem Content="9:00"/>
-            <ComboBoxItem Content="10:00"/>
-            <ComboBoxItem Content="11:00"/>
-            <ComboBoxItem Content="12:00"/>
-            <ComboBoxItem Content="13:00"/>
-            <ComboBoxItem Content="14:00"/>
-            <ComboBoxItem Content="15:00"/>
-            <ComboBoxItem Content="16:00"/>
-            <ComboBoxItem Content="17:00"/>
-            <ComboBoxItem Content="18:00"/>
-            <ComboBoxItem Content="19:00"/>
-        </ComboBox>
-        
-        
+        <StackPanel Grid.Row="1" Grid.Column="2">
+            <ComboBox Grid.Row="1" Grid.Column="2" Height="40" SelectedItem="{Binding Path=SelectedTime}" FontStyle="Italic" FontSize="20">
+                <ComboBoxItem Content="8:00"/>
+                <ComboBoxItem Content="9:00"/>
+                <ComboBoxItem Content="10:00"/>
+                <ComboBoxItem Content="11:00"/>
+                <ComboBoxItem Content="12:00"/>
+                <ComboBoxItem Content="13:00"/>
+                <ComboBoxItem Content="14:00"/>
+                <ComboBoxItem Content="15:00"/>
+                <ComboBoxItem Content="16:00"/>
+                <ComboBoxItem Content="17:00"/>
+                <ComboBoxItem Content="18:00"/>
+                <ComboBoxItem Content="19:00"/>
+            </ComboBox>
+            <TextBlock TextAlignment="Center" Text="{Binding ValidationErrors[Start]}"
+                               Foreground="Red" FontStyle="Italic"/>
+        </StackPanel>
+
         <Label Grid.Row="2" Grid.Column="1" Content="Doktor:" FontStyle="Italic" FontSize="20"/>
-        <ComboBox Height="40" Grid.Row="2" Grid.Column="2" FontStyle="Italic" FontSize="20"  ItemsSource="{Binding Path=Doctors}" SelectedItem="{Binding Path=SelectedDoctor}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock>
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} {1}">
-                                <Binding Path="Name"/>
-                                <Binding Path="Surname"/>
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+        <StackPanel Grid.Row="2" Grid.Column="2" >
+            <ComboBox Height="40" Grid.Row="2" Grid.Column="2" FontStyle="Italic" FontSize="20"  ItemsSource="{Binding Path=Doctors}" SelectedItem="{Binding Path=SelectedDoctor}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="Name"/>
+                                    <Binding Path="Surname"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock TextAlignment="Center" Text="{Binding ValidationErrors[Doctor]}"
+                               Foreground="Red" FontStyle="Italic"/>
+        </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Button  Height="40" Width="110" Background="RoyalBlue" Foreground="White" FontStyle="Italic" FontSize="20" Content="Potvrdi" Command="{Binding confirmAddAppointment}" Margin="82.5,0,0,0"/>
             <Button  Height="40" Width="110" Background="RoyalBlue" Foreground="White" FontStyle="Italic" FontSize="20" Content="Odustani" Command="{Binding cancelAddAppointment}"  Margin="25,0,0,0"/>

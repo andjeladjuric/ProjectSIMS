@@ -10,7 +10,7 @@ using Model;
 
 namespace HospitalService.View.PatientUI.ViewsModel
 {
-    public class UrgentPatientAppointmentViewModel:ViewModelPatientClass
+    public class UrgentPatientAppointmentViewModel:ValidationBase
     {
 
         private DateTime date { get; set; }
@@ -34,36 +34,40 @@ namespace HospitalService.View.PatientUI.ViewsModel
 
 
         private void Execute_ConfirmAddAppointment(object obj) {
-            String[] startTimeArray1 = SelectedTime.Split(" ");
-            String startTimeCb = startTimeArray1[1];
-            String[] startTimeArray2 = startTimeCb.Split(":");
-
-            int endTimeCb = int.Parse(startTimeArray2[0]) + 1;
-            String shortEndTime = Convert.ToString(endTimeCb);
-
-            DateTime startTime = Convert.ToDateTime(Date.ToShortDateString() + " " + startTimeCb);
-            DateTime endTime = Convert.ToDateTime(Date.ToShortDateString() + " " + shortEndTime + ":00");
-            Doctor availableDoctor = doctorService.getFirstAvailableDoctor(startTime, endTime);
-
-            if (availableDoctor == null)
+            this.Validate();
+            if (IsValid)
             {
-                MessageBox.Show("Nema slobodnog doktora!");
-                return;
-            }           
-            Room availableRoom = roomService.getFirstAvailableRoom(startTime, endTime);
-            if (availableRoom == null)
-            {
-                MessageBox.Show("Nema slobodnih sala!");
-                return;
+                String[] startTimeArray1 = SelectedTime.Split(" ");
+                String startTimeCb = startTimeArray1[1];
+                String[] startTimeArray2 = startTimeCb.Split(":");
+
+                int endTimeCb = int.Parse(startTimeArray2[0]) + 1;
+                String shortEndTime = Convert.ToString(endTimeCb);
+
+                DateTime startTime = Convert.ToDateTime(Date.ToShortDateString() + " " + startTimeCb);
+                DateTime endTime = Convert.ToDateTime(Date.ToShortDateString() + " " + shortEndTime + ":00");
+                Doctor availableDoctor = doctorService.getFirstAvailableDoctor(startTime, endTime);
+
+                if (availableDoctor == null)
+                {
+                    MessageBox.Show("Nema slobodnog doktora!");
+                    return;
+                }
+                Room availableRoom = roomService.getFirstAvailableRoom(startTime, endTime);
+                if (availableRoom == null)
+                {
+                    MessageBox.Show("Nema slobodnih sala!");
+                    return;
+                }
+                if (moreThanTwoAppointmentsInOneDay(startTime))
+                {
+                    MessageBox.Show("Vise od dva termina u jednom danu!");
+                    return;
+                }
+                Appointment newAppointment = new Appointment() { Id = appointmentsService.GetNextId(), StartTime = startTime, EndTime = endTime, Type = AppointmentType.Pregled, doctor = availableDoctor, room = availableRoom, patient = patient };
+                appointmentsService.Save(newAppointment);
+                preferencesForAppointment.NavigationService.Navigate(new ViewAppointment(patient));
             }
-            if (moreThanTwoAppointmentsInOneDay(startTime))
-            {
-                MessageBox.Show("Vise od dva termina u jednom danu!");
-                return;
-            }
-            Appointment newAppointment = new Appointment() { Id = appointmentsService.GetNextId(), StartTime = startTime, EndTime = endTime, Type = AppointmentType.Pregled, doctor = availableDoctor, room = availableRoom, patient = patient };
-            appointmentsService.Save(newAppointment);
-            preferencesForAppointment.NavigationService.Navigate(new ViewAppointment(patient));
                    
         }
         private bool moreThanTwoAppointmentsInOneDay(DateTime startTime)
@@ -83,6 +87,29 @@ namespace HospitalService.View.PatientUI.ViewsModel
         }
         private bool CanExecute_Command(object obj) {
             return true;
+        }
+
+        protected override void ValidateSelf()
+        {
+            DateTime startTime = DateTime.Now;
+            if (!string.IsNullOrWhiteSpace(SelectedTime))
+            {
+                String[] startTimeArray1 = SelectedTime.Split(" ");
+                String startTimeCb = startTimeArray1[1];
+                startTime = Convert.ToDateTime(Date.ToShortDateString() + " " + startTimeCb);
+            }
+            if (Date.Date < DateTime.Now.Date)
+            {
+                this.ValidationErrors["Date"] = "Datum koji birate je prosao.";
+            }
+            if (string.IsNullOrWhiteSpace(SelectedTime))
+            {
+                this.ValidationErrors["Start"] = "Odaberite vrijeme termina.";
+            }
+            else if (startTime <= DateTime.Now)
+            {
+                this.ValidationErrors["Start"] = "Termin koji birate je prosao.";
+            }
         }
 
         public UrgentPatientAppointmentViewModel(Patient patient, PreferencesForAppointment preferencesForAppointment) {

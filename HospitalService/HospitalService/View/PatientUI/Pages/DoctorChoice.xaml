@@ -15,9 +15,9 @@
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="30"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="45"/>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="20"/>
@@ -30,20 +30,24 @@
                     
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="1" Content="Odaberite doktora" FontStyle="Italic" FontSize="24" HorizontalAlignment="Center"/>
-                <ComboBox Name="cbSurveyedDoctors" ItemsSource="{Binding Path=Doctors}" SelectedItem="{Binding Path=SelectedDoctor}" Grid.Row="4" Grid.Column="1" Height="45" Width="320">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock FontStyle="Italic" FontSize="20">
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0} {1}">
-                                        <Binding Path="Name"/>
-                                        <Binding Path="Surname"/>
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                <StackPanel Grid.Row="4" Grid.Column="1">
+                    <ComboBox Name="cbSurveyedDoctors" ItemsSource="{Binding Path=Doctors}" SelectedItem="{Binding Path=SelectedDoctor}" Grid.Row="4" Grid.Column="1" Height="40" Width="280">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock FontStyle="Italic" FontSize="20">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="Name"/>
+                                            <Binding Path="Surname"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Width="280" TextAlignment="Center" Text="{Binding ValidationErrors[Doctor]}"
+                               Foreground="Red" FontStyle="Italic"/>
+                </StackPanel>
                 <Button Grid.Row="6" Grid.Column="1" Height="45" Width="120" Content="Anketa" Background="RoyalBlue" Foreground="White" FontStyle="Italic" FontSize="22" Command="{Binding doDoctorSurvey}"/>
             </Grid>
 

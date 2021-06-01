@@ -11,7 +11,7 @@ using Model;
 
 namespace HospitalService.View.PatientUI.ViewsModel
 {
-    public class ViewAppointmentViewModel:ViewModelPatientClass
+    public class ViewAppointmentViewModel:ValidationBase
     {
         public RelayCommand showAppointments { get; set; }
        
@@ -60,13 +60,12 @@ namespace HospitalService.View.PatientUI.ViewsModel
 
 
         private void Execute_ShowAppointmentDetails(object obj) {
-
-            if (SelectedAppointment == null)
+            this.Validate();
+            if (IsValid)
             {
-                MessageBox.Show("Morate odabrati jedan termin!");
-            }
-            else {
-                viewAppointments.NavigationService.Navigate(new AppointmentDetails(patient,SelectedAppointment));
+                
+                viewAppointments.NavigationService.Navigate(new AppointmentDetails(patient, SelectedAppointment));
+                
             }
         }
         private void Execute_ShowAppointments(object obj)
@@ -86,6 +85,17 @@ namespace HospitalService.View.PatientUI.ViewsModel
         {
             return true;
         }
+
+        protected override void ValidateSelf()
+        {
+            if (SelectedAppointment==null) {
+                this.ValidationErrors["Start"] = "Odaberite jedan termin.";
+            }
+            else if (SelectedAppointment.StartTime <= DateTime.Now) {
+                this.ValidationErrors["Start"] = "Ne mozete otkazati ili pomjeriti termin koji je prosao.";
+            }
+        }
+
         public ViewAppointmentViewModel(Patient patient, ViewAppointment viewAppointments) {
 
             Date = DateTime.Now;
