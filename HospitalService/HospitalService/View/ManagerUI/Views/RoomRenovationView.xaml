@@ -281,6 +281,8 @@
                             </Style>
                         </ComboBox.Style>
                     </ComboBox>
+                    <TextBlock Text="{Binding ValidationErrors[Floor], Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                               Foreground="#FFE52020" TextWrapping="Wrap"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

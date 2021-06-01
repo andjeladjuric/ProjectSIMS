@@ -94,6 +94,22 @@ namespace HospitalService.Service
             return currentlyTakenBeds;
         }
 
+        public HospitalTreatment GetTreatmentForPeriod(string roomId, DateTime Start, DateTime End)
+        {
+            List<MedicalRecord> records = GetAll();
+
+            foreach (MedicalRecord record in records)
+            {
+                foreach (HospitalTreatment treatment in record.HospitalTreatments)
+                {
+                    if (treatment.RoomId.Equals(roomId) && treatment.StartDate == Start && t.EndTime == End)
+                        return treatment;
+                }
+            }
+
+            return null;
+        }
+
         public List<Diagnosis> GetForTimePeriod(string id, DateTime startDate, DateTime endDate)
         {
             MedicalRecord record = GetOne(id);

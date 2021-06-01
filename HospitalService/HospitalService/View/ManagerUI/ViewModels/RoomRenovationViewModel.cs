@@ -1,4 +1,5 @@
-﻿using HospitalService.Service;
+﻿using HospitalService.Model;
+using HospitalService.Service;
 using HospitalService.View.ManagerUI.Validations;
 using HospitalService.View.ManagerUI.Views;
 using Model;
@@ -221,6 +222,17 @@ namespace HospitalService.View.ManagerUI.ViewModels
             return true;
         }
 
+        private bool CheckForPatientsInRoom(string roomId, DateTime startDate, DateTime endDate)
+        {
+            MedicalRecordService recordService = new MedicalRecordService();
+            HospitalTreatment treatment = recordService.GetTreatmentForPeriod(roomId, startDate, endDate);
+
+            if (treatment != null)
+                return false;
+
+            return true;
+        }
+
         private void LoadRooms()
         {
             String source = "";
@@ -271,6 +283,10 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             DateService dateService = new DateService();
             RoomRenovationService renovationService = new RoomRenovationService();
+
+            string[] rooms = SecondRoom.ToString().Split("/");
+            string selectedId = rooms[0];
+
             if (!dateService.CheckExistingRenovations(this.SelectedRoom.Id, this.Start, this.End))
             {
                 this.ValidationErrors["Existing"] = "Već postoji zakazano renoviranje \n u ovom periodu!";
@@ -280,6 +296,19 @@ namespace HospitalService.View.ManagerUI.ViewModels
             {
                 this.ValidationErrors["Appointment"] = "Postoje zakazani termini \n u ovom periodu!";
                 ValidationMessage = this.ValidationErrors["Appointment"];
+            }
+            if(!CheckForPatientsInRoom(this.SelectedRoom.Id, this.Start, this.End))
+            {
+                this.ValidationErrors["Treatment"] = "Postoje pacijenti na bolničkom \n lečenju u ovom periodu!";
+                ValidationMessage = this.ValidationErrors["Treatment"];
+            }
+            
+            if(IsChecked)
+            {
+                if (!CheckFloor(this.SelectedRoom.Id, selectedId))
+                {
+                    this.ValidationErrors["Floor"] = "Prosotrije moraju biti \n na istom spratu!";
+                }
             }
 
         }
