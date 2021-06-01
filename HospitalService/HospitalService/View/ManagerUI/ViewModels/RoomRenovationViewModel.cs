@@ -302,7 +302,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
             if(!CheckForPatientsInRoom(this.SelectedRoom.Id, this.Start, this.End))
             {
-                this.ValidationErrors["Treatment"] = "Postoje pacijenti u sobi " + SelectedRoom.Id + "\n lečenju u ovom periodu!";
+                this.ValidationErrors["Treatment"] = "Postoje pacijenti na lečenju \n u sobi " + SelectedRoom.Id + " u ovom periodu!";
                 ValidationMessage = this.ValidationErrors["Treatment"];
             }
 

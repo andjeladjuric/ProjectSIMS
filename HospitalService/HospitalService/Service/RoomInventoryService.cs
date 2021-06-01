@@ -20,15 +20,15 @@ namespace HospitalService.Service
         public RoomInventoryService()
         {
             roomInventoryRepository = new RoomInventoryRepository();
-            movingRequests = new List<MovingRequests>();
+            movingRequests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
         }
 
-        private List<MovingRequests> LoadRequests()
+        public List<MovingRequests> LoadRequests()
         {
-            return JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
+            return movingRequests;
         }
 
-        private void SerializeRequests()
+        public void SerializeRequests()
         {
             File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(movingRequests));
         }

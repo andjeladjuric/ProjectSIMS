@@ -24,7 +24,26 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Properties
-        public List<String> Rooms { get; set; }
+        private List<String> rooms;
+        public List<String> Rooms
+        {
+            get { return rooms; }
+            set
+            {
+                rooms = value;
+                OnPropertyChanged();
+            }
+        }
+        private List<String> otherRooms;
+        public List<String> OtherRooms
+        {
+            get { return otherRooms; }
+            set
+            {
+                otherRooms = value;
+                OnPropertyChanged();
+            }
+        }
         private ObservableCollection<Inventory> inventory;
         public ObservableCollection<Inventory> RoomInventory
         {
@@ -63,6 +82,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             set
             {
                 selectedItem = value;
+                SendRequest.RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -119,6 +139,13 @@ namespace HospitalService.View.ManagerUI.ViewModels
         }
 
         private bool CanExecute()
+        {
+            if (SelectedItem != null)
+                return true;
+            return false;
+        }
+
+        private bool CanExecuteSelectionChanged()
         {
             return true;
         }
@@ -184,8 +211,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
             /*commands*/
             SendRequest = new MyICommand(OnSendRequest, CanExecute);
-            ChangeInventory = new MyICommand(OnChangeFirst, CanExecute);
-            ChangeSecondInventory = new MyICommand(OnChangeSecond, CanExecute);
+            ChangeInventory = new MyICommand(OnChangeFirst, CanExecuteSelectionChanged);
+            ChangeSecondInventory = new MyICommand(OnChangeSecond, CanExecuteSelectionChanged);
 
         }
         #endregion

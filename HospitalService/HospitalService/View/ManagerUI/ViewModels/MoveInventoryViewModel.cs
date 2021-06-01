@@ -15,7 +15,7 @@ using System.Windows.Data;
 
 namespace HospitalService.View.ManagerUI.ViewModels
 {
-    public class MoveInventoryViewModel : ViewModel
+    public class MoveInventoryViewModel : ValidationBase
     {
         #region Fields
         private Inventory selectedItem;
@@ -110,53 +110,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
         }
 
-        private string filterId;
-        public string FilterId
-        {
-            get { return filterId; }
-            set
-            {
-                filterId = value;
-                OnPropertyChanged();
-                FilterCollection();
-            }
-        }
-
-        private string filterName;
-        public string FilterName
-        {
-            get { return filterName; }
-            set
-            {
-                filterName = value;
-                OnPropertyChanged();
-                FilterCollection();
-            }
-        }
-
-        private string filterSupplier;
-        public string FilterSupplier
-        {
-            get { return filterSupplier; }
-            set
-            {
-                filterSupplier = value;
-                OnPropertyChanged();
-                FilterCollection();
-            }
-        }
-
-        private ICollectionView inventoryView;
-        public ICollectionView InventoryView
-        {
-            get { return inventoryView; }
-            set
-            {
-                inventoryView = value;
-                OnPropertyChanged();
-            }
-        }
-
         private int selectedType;
         public int SelectedType
         {
@@ -165,7 +118,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
             {
                 selectedType = value;
                 OnPropertyChanged();
-                FilterCollection();
             }
         }
 
@@ -185,6 +137,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             RoomService roomService = new RoomService();
             RoomInventoryService roomInventoryService = new RoomInventoryService();
             InventoryService inventoryService = new InventoryService();
+            this.Validate();
 
             Room sendToThisRoom = null;
             foreach (Room r in roomService.GetAll())
@@ -196,24 +149,26 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 }
             }
 
-            Inventory item = inventoryService.GetOne(SelectedItem.Id);
-            if (item.EquipmentType.Equals(Equipment.Dynamic))
+            if (IsValid)
             {
-                roomInventoryService.AnalyzeRequests(new MovingRequests(DateTime.Now, Int32.Parse(Quantity), Room.Id, SelectedRoom.Id, item.Id));
+                Inventory item = inventoryService.GetOne(SelectedItem.Id);
+                if (item.EquipmentType.Equals(Equipment.Dynamic))
+                {
+                    roomInventoryService.AnalyzeRequests(new MovingRequests(DateTime.Now, Int32.Parse(Quantity), Room.Id, SelectedRoom.Id, item.Id));
+                }
+                else
+                {
+                    TimeSpan selectedTime = TimeSpan.ParseExact(EnteredTime, "c", null);
+                    DateTime selectedDate = Convert.ToDateTime(selectedTime + " " + Date.ToString("d"));
+                    MovingRequests request = new MovingRequests(selectedDate, Int32.Parse(Quantity), room.Id, SelectedRoom.Id, item.Id);
+                    roomInventoryService.StartMoving(request);
+
+                }
+
+                string one = Room.Id + "/" + Room.Name;
+                string two = SelectedRoom.Id + "/" + SelectedRoom.Name;
+                this.Frame.NavigationService.Navigate(new TransferItemView(one, two));
             }
-            else
-            {
-                TimeSpan selectedTime = TimeSpan.ParseExact(EnteredTime, "c", null);
-                DateTime selectedDate = Convert.ToDateTime(selectedTime + " " + Date.ToString("d"));
-                MovingRequests request = new MovingRequests(selectedDate, Int32.Parse(Quantity), room.Id, SelectedRoom.Id, item.Id);
-                roomInventoryService.StartMoving(request);
-
-            }
-
-
-            string one = Room.Id + "/" + Room.Name;
-            string two = SelectedRoom.Id + "/" + SelectedRoom.Name;
-            this.Frame.NavigationService.Navigate(new TransferItemView(one, two));
         }
 
         private void OnCancel()
@@ -222,13 +177,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
             string two = SelectedRoom.Id + "/" + SelectedRoom.Name;
             MessageBox.Show(one + " " + two);
             this.Frame.NavigationService.Navigate(new TransferItemView(one, two));
-        }
-
-        private void OnCancelSearch()
-        {
-            FilterName = "";
-            FilterId = "";
-            FilterSupplier = "";
         }
 
         private bool CanExecute()
@@ -243,36 +191,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Other Functions
-        private void LoadRooms()
-        {
-            String source = "";
-            RoomService roomService = new RoomService();
-            Rooms = new List<string>();
-            foreach (Room soba in roomService.GetAll())
-            {
-                if (soba.Id != room.Id)
-                {
-                    source = soba.Id + "/" + soba.Name;
-                    Rooms.Add(source);
-                }
-            }
-        }
-
-        private void FilterCollection()
-        {
-            if (InventoryView != null)
-            {
-                InventoryView.Refresh();
-            }
-        }
-
-        public bool Filter(object obj)
-        {
-            RoomInventoryService service = new RoomInventoryService();
-            var data = obj as Inventory;
-
-            return service.Filter(obj, FilterId, FilterName, FilterSupplier, SelectedType);
-        }
 
         private async Task DemoIsOn(CancellationToken ct)
         {
@@ -302,6 +220,49 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 this.Frame.NavigationService.Navigate(new EditInventoryView(service.GetOne(321), DemoOn));
             }
         }
+
+        private bool CheckExistingMovingRequests(Room moveFrom, int quantity)
+        {
+            RoomInventoryService service = new RoomInventoryService();
+            foreach (MovingRequests mr in service.LoadRequests())
+            {
+                if (mr.moveFromThisRoom.Equals(moveFrom.Id) && mr.inventoryId == SelectedItem.Id)
+                {
+                    RoomInventory item = service.GetRoomInventoryByIds(moveFrom.Id, mr.inventoryId);
+                    int temp = item.Quantity - mr.quantity;
+                    if(quantity > temp)
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        private int GetAvailableNumber(Room moveFrom)
+        {
+            RoomInventoryService service = new RoomInventoryService();
+            int temp = 0;
+            foreach (MovingRequests mr in service.LoadRequests())
+            {
+                if (mr.moveFromThisRoom.Equals(moveFrom.Id) && mr.inventoryId == SelectedItem.Id)
+                {
+                    RoomInventory item = service.GetRoomInventoryByIds(moveFrom.Id, mr.inventoryId);
+                    temp = item.Quantity - mr.quantity;
+                    return temp;
+                }
+            }
+
+            return temp;
+        }
+
+        protected override void ValidateSelf()
+        {
+            if (!CheckExistingMovingRequests(Room, Int32.Parse(Quantity)))
+            {
+                this.ValidationErrors["Quantity"] = "Samo " + GetAvailableNumber(Room) + " stavki je dostupno za transfer!" +
+                    "\nUnesite manju količinu!";
+            }
+        }
         #endregion
 
         #region Constructors
@@ -318,7 +279,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
             /*commands*/
             ConfirmCommand = new MyICommand(OnConfirm, CanNavigate);
             CancelCommand = new MyICommand(OnCancel, CanNavigate);
-            CancelSearch = new MyICommand(OnCancelSearch, CanNavigate);
             CancellationTokenSource cts = ManagerWindowViewModel.cts;
             try
             {

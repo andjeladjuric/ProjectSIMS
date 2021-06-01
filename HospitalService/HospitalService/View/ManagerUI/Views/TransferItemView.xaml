@@ -120,7 +120,7 @@
             <Label x:Name="Soba1" Content="Premesti iz sobe:" HorizontalAlignment="Left" Margin="52,0,0,0" VerticalAlignment="Top" 
                    Width="137" Height="30"/>
             <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="162"
-                      ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedFirstRoom}"
+                      ItemsSource="{Binding Rooms, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedFirstRoom}"
                       Foreground="#474746"
                       FontFamily="Roboto"
                       FontWeight="Light"
@@ -135,7 +135,7 @@
             <Label x:Name="Soba2" Content="Premesti u sobu:" HorizontalAlignment="Left" Margin="170,0,0,0" VerticalAlignment="Top" 
                    Width="137" Height="30"/>
             <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="162"
-                      ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedSecondRoom}"
+                      ItemsSource="{Binding Rooms, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSecondRoom}"
                       Foreground="#474746"
                       FontFamily="Roboto"
                       FontWeight="Light"
