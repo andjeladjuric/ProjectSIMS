@@ -22,54 +22,32 @@
     </Window.Resources>
     <Grid>
         <DockPanel Height="600" Width="950">
-            <Menu DockPanel.Dock="Top" Height="40" FontSize="16" FontFamily="Baskerville">
-                <MenuItem Header="Profil" Width="120">
-                    <MenuItem Header="Posjeti profil">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="UserCircle" Foreground="#3f51b5"/>
-                        </MenuItem.Icon>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click" >
-                                <i:InvokeCommandAction Command="{Binding ProfileCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </MenuItem>
-                    <Separator/>
-                    <MenuItem Header="Log Out">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="Logout" Foreground="#3f51b5"/>
-                        </MenuItem.Icon>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click" >
-                                <i:InvokeCommandAction Command="{Binding LogOutCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </MenuItem>
+            <Menu DockPanel.Dock="Top" Height="40">
+                <MenuItem Width="48" Margin="800,0,0,0">
+
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="UserCircle" Foreground="#3f51b5" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </MenuItem.Icon>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:InvokeCommandAction Command="{Binding ProfileCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </MenuItem>
-                <Separator/>
-                <MenuItem Header="Opcije" Height="40" Width="161" >
-                    <MenuItem Header="Zahtjev za odmor">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="PalmTree" Foreground="#3f51b5"/>
-                        </MenuItem.Icon>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click" >
-                                <i:InvokeCommandAction Command="{Binding VacationCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </MenuItem>
-                    <Separator/>
-                    <MenuItem Header="Zahtjev za materijal">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="Injection" Foreground="#3f51b5"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator/>
-                    <MenuItem Header="Tutorial">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="Help" Foreground="#3f51b5"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
+                <MenuItem Width="47">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Help" Foreground="#3f51b5"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Width="49">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="Logout" Foreground="#3f51b5"/>
+                    </MenuItem.Icon>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:InvokeCommandAction Command="{Binding LogOutCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </MenuItem>
             </Menu>
             <StackPanel></StackPanel>
