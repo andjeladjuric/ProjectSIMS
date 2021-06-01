@@ -145,7 +145,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
         }
         public List<string> Rooms { get; set; }
-        public ObservableCollection<Appointment> Appointments { get; set; }
+        public ObservableCollection<RenovationDTO> Appointments { get; set; }
         public Frame Frame { get; set; }
         #endregion
 
@@ -238,14 +238,31 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         private void LoadAppointments()
         {
-            Appointments = new ObservableCollection<Appointment>();
-            AppointmentStorage storage = new AppointmentStorage();
+            Appointments = new ObservableCollection<RenovationDTO>();
+            AppointmentsService storage = new AppointmentsService();
+            RoomRenovationService renovationService = new RoomRenovationService();
 
             foreach (Appointment a in storage.GetAll())
             {
                 if (a.StartTime >= DateTime.Now && a.room.Id.Equals(SelectedRoom.Id))
                 {
-                    Appointments.Add(a);
+                    if (a.Type == AppointmentType.Operacija)
+                        Appointments.Add(new RenovationDTO(a.StartTime, "Operacija"));
+                    else
+                        Appointments.Add(new RenovationDTO(a.StartTime, "Pregled"));
+                }
+            }
+
+            LoadRenovations(renovationService, Appointments);
+        }
+
+        private void LoadRenovations(RoomRenovationService renovationService, ObservableCollection<RenovationDTO> Appointments)
+        {
+            foreach (Renovation r in renovationService.GetAll())
+            {
+                if (DateTime.Compare(r.Start.Date, DateTime.Today) >= 0 && r.RoomId.Equals(SelectedRoom.Id))
+                {
+                    Appointments.Add(new RenovationDTO(r.Start, "Renoviranje"));
                 }
             }
         }

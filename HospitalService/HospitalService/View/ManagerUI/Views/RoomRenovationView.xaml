@@ -40,7 +40,7 @@
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5"
                   Margin="42,90,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Datum" Binding="{Binding StartTime, StringFormat=dd.MM.yyyy.}" Width="*">
+                <DataGridTextColumn Header="Datum" Binding="{Binding Start, StringFormat=dd.MM.yyyy.}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="Height" Value="25"/>
@@ -51,7 +51,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Dan" Width="*"  Binding="{Binding StartTime.DayOfWeek, Converter={StaticResource enumConverter}}">
+                <DataGridTextColumn Header="Dan" Width="*"  Binding="{Binding Start.DayOfWeek, Converter={StaticResource enumConverter}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="Height" Value="25"/>
@@ -62,7 +62,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Vreme" Width="*"  Binding="{Binding StartTime, StringFormat=HH:mm}">
+                <DataGridTextColumn Header="Vrsta" Width="*"  Binding="{Binding Type}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="Height" Value="25"/>
@@ -80,7 +80,7 @@
         <Border Height="546" VerticalAlignment="Top" Margin="536,90,36,0"
                 CornerRadius="10" BorderThickness="0.5" BorderBrush="Black"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="42,28,0,0" 
-                   Text="Zakaži renoviranje" TextWrapping="Wrap" VerticalAlignment="Top"
+                   Text="Zakazani termini" TextWrapping="Wrap" VerticalAlignment="Top"
                    Height="57" Width="302" FontFamily="Roboto" FontSize="36" FontStyle="Italic" 
                    TextAlignment="Center" Foreground="#474746"/>
 
