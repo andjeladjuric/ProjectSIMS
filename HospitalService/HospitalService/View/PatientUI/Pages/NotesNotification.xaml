@@ -12,14 +12,15 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
@@ -46,7 +47,7 @@
             <ComboBoxItem Content="3 sata"/>
             <ComboBoxItem Content="4 sata"/>
         </ComboBox>
-        <StackPanel Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+        <StackPanel Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Button Content="Potvrdi" Height="40" Width="110" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White" Margin="127.5,0,0,0" Command="{Binding confirmSetReminder}"/>
             <Button  Content="Odustani" Height="40" Width="110" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White" Margin="25,0,0,0" Command="{Binding cancelSetReminder}"/>
         </StackPanel>

@@ -38,12 +38,26 @@
                 <Label Content="{Binding Path=PatientDateOfBirth}" x:Name="dobLabel" Grid.Row="4" Grid.Column="2" FontStyle="Italic" FontSize="24" HorizontalAlignment="Left"/>
                 <Label Content="JMBG:" Grid.Row="5" Grid.Column="1" FontStyle="Italic" FontSize="24"/>
                 <Label Content="{Binding Path=PatientJmbg}" x:Name="jmbgLabel" Grid.Row="5" Grid.Column="2" FontStyle="Italic" FontSize="24" HorizontalAlignment="Left"/>
-                <Label Content="Adresa stanovanja:" Grid.Row="6" Grid.Column="1" FontStyle="Italic" FontSize="24"/>
-                <TextBox Text="{Binding Path=PatientAddress, Mode=TwoWay}" x:Name="addressTb" Grid.Row="6" Grid.Column="2" Height="45" Width="280" FontStyle="Italic" FontSize="24" HorizontalAlignment="Left" />
+               
+                    <Label Content="Adresa stanovanja:" Grid.Row="6" Grid.Column="1" FontStyle="Italic" FontSize="24"/>
+
+                    <StackPanel Grid.Row="6" Grid.Column="2">
+                    <TextBox Text="{Binding Path=PatientAddress, Mode=TwoWay}" x:Name="addressTb" Grid.Row="6" Grid.Column="2" Height="40" Width="280" FontStyle="Italic" FontSize="24" HorizontalAlignment="Left" />
+                    <TextBlock Text="{Binding ValidationErrors[Address]}"
+                               Foreground="Red" FontStyle="Italic" Width="280" HorizontalAlignment="Left" />
+                </StackPanel>
                 <Label Content="E-mail adresa:" Grid.Row="7" Grid.Column="1" FontStyle="Italic" FontSize="24"/>
-                <TextBox Text="{Binding Path=PatientEmail, Mode=TwoWay}" x:Name="emailTb" Grid.Row="7" Grid.Column="2" Height="45" Width="280" FontStyle="Italic" FontSize="24" HorizontalAlignment="Left" />
+                <StackPanel Grid.Row="7" Grid.Column="2">
+                    <TextBox Text="{Binding Path=PatientEmail, Mode=TwoWay}" x:Name="emailTb" Grid.Row="7" Grid.Column="2" Height="40" Width="280" FontStyle="Italic" FontSize="24" HorizontalAlignment="Left" />
+                    <TextBlock Text="{Binding ValidationErrors[Email]}"
+                               Foreground="Red" FontStyle="Italic" Width="280" HorizontalAlignment="Left" />
+                </StackPanel>
                 <Label Content="Broj telefona:" Grid.Row="8" Grid.Column="1" FontStyle="Italic" FontSize="24"/>
-                <TextBox Text="{Binding Path=PatientPhone, Mode=TwoWay}" x:Name="phoneTb" Grid.Row="8" Grid.Column="2" Height="45" Width="280" FontStyle="Italic" FontSize="24" HorizontalAlignment="Left" />
+                <StackPanel Grid.Row="8" Grid.Column="2">
+                    <TextBox Text="{Binding Path=PatientPhone, Mode=TwoWay}" x:Name="phoneTb" Grid.Row="8" Grid.Column="2" Height="40" Width="280" FontStyle="Italic" FontSize="24" HorizontalAlignment="Left" />
+                    <TextBlock Text="{Binding ValidationErrors[Phone]}"
+                               Foreground="Red" FontStyle="Italic" Width="280" HorizontalAlignment="Left" />
+                </StackPanel>
                 <Button Grid.Row="1" Grid.Column="3" Grid.RowSpan="2" Height="50" Width="200" Content="Izmjena lozinke" FontStyle="Italic" FontSize="24" Background="RoyalBlue" Foreground="White" Command="{Binding editPassword}"/>
                 <StackPanel Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
                     <Button Height="45" Width="130" Margin="125,0,0,0" Background="RoyalBlue" Foreground="White" Content="Potvrdi" FontStyle="Italic" FontSize="24" Command="{Binding confirmEdit}"/>
