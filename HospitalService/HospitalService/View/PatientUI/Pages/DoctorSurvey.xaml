@@ -32,11 +32,15 @@
         </Grid.ColumnDefinitions>
         <Label  Grid.Row="1" Grid.Column="1"  Content="Anketa za doktora:" FontStyle="Italic" FontSize="24"/>
         <Label Content="{Binding Path=SurveyedDoctor}" x:Name="lbDoctor" Grid.Row="1" Grid.Column="2" FontStyle="Italic" FontSize="24"/>
-        <Label Grid.Row="3" Grid.Column="1" Content="Nacin komunikacije sa pacijentom" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
-        <StackPanel x:Name="st" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
-            <RadioButton IsChecked="{Binding Path=NCommunicationCheched}" x:Name="NCommunication" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
-            <RadioButton IsChecked="{Binding Path=DZCommunicationCheched}" x:Name="DZCommunication" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
-            <RadioButton IsChecked="{Binding Path=ZCommunicationCheched}" x:Name="ZCommunication" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+        <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Content="Nacin komunikacije sa pacijentom" FontStyle="Italic" FontSize="20"/>
+        <StackPanel  Grid.Row="3" Grid.Column="2">
+            <StackPanel x:Name="st" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                <RadioButton IsChecked="{Binding Path=NCommunicationCheched}" x:Name="NCommunication" Content="Nezadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+                <RadioButton IsChecked="{Binding Path=DZCommunicationCheched}" x:Name="DZCommunication" Content="Djelimicno zadovoljan/na"  Margin="10,10,20,10" FontSize="14"/>
+                <RadioButton IsChecked="{Binding Path=ZCommunicationCheched}" x:Name="ZCommunication" Content="Zadovoljan/na" Margin="10,10,20,10" FontSize="14"/>
+            </StackPanel>
+            <TextBlock TextAlignment="Center" Text="{Binding ValidationErrors[Communication]}"
+                               Foreground="Red" FontStyle="Italic"/>
         </StackPanel>
         <Label Grid.Row="4" Grid.Column="1" Content="Ljubaznost doktora" FontStyle="Italic" FontSize="20" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">

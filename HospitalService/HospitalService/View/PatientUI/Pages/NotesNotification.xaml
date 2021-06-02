@@ -10,19 +10,19 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="50"/>
+           
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="55"/>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="5"/>
+            <RowDefinition Height="40"/>
+            
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="45"/>
@@ -30,24 +30,44 @@
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="45"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Podesavanje podsjetnika za biljeske" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontStyle="Italic" FontSize="22"/>
+        <Label Content="Podesavanje podsjetnika za biljeske" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" FontStyle="Italic" FontSize="22"/>
         
-        <Label Grid.Row="3" Grid.Column="1" Content="Datum pocetka:" FontStyle="Italic" FontSize="20"/>
-        <DatePicker SelectedDate="{Binding Path=StartDateReminder}" x:Name="dpStartDate" Grid.Row="3" Grid.Column="2" FontStyle="Italic" FontSize="20" Height="40" Width="200"/>
-        <Label Grid.Row="4" Grid.Column="1" Content="Vrijeme pocetka:" FontStyle="Italic" FontSize="20"/>
-        <TextBox Text="{Binding Path=StartTimeReminder}" x:Name="tbStartTime" Grid.Row="4" Grid.Column="2" FontStyle="Italic" FontSize="20"  Height="40" Width="200"/>
-        <Label Grid.Row="6" Grid.Column="1" Content="Datum kraja:" FontStyle="Italic" FontSize="20"/>
-        <DatePicker SelectedDate="{Binding Path=EndDateReminder}" x:Name="dpEndDate" Grid.Row="6" Grid.Column="2" FontStyle="Italic" FontSize="20"  Height="40" Width="200"/>
-        <Label Grid.Row="7" Grid.Column="1" Content="Vrijeme kraja:" FontStyle="Italic" FontSize="20"/>
-        <TextBox Text="{Binding Path=EndTimeReminder}" x:Name="tbEndTime" Grid.Row="7" Grid.Column="2" FontStyle="Italic" FontSize="20"  Height="40" Width="200"/>
-        <Label Grid.Row="9" Grid.Column="1" Content="Podsjeti me svakih" FontStyle="Italic" FontSize="20"/>
-        <ComboBox SelectedItem="{Binding Path=HowOftenReminder}" x:Name="cbHowOften" Grid.Row="9" Grid.Column="2" FontStyle="Italic" FontSize="20"  Height="40" Width="200">
-            <ComboBoxItem Content="1 sat"/>
-            <ComboBoxItem Content="2 sata"/>
-            <ComboBoxItem Content="3 sata"/>
-            <ComboBoxItem Content="4 sata"/>
-        </ComboBox>
-        <StackPanel Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+        <Label Grid.Row="2" Grid.Column="1" Content="Datum pocetka:" FontStyle="Italic" FontSize="20"/>
+        <StackPanel Grid.Row="2" Grid.Column="2">
+            <DatePicker SelectedDate="{Binding Path=StartDateReminder}" x:Name="dpStartDate" Grid.Row="2" Grid.Column="2" FontStyle="Italic" FontSize="20" Height="40" Width="200"/>
+            <TextBlock TextAlignment="Center" Text="{Binding ValidationErrors[StartDate]}"
+                               Foreground="Red" FontStyle="Italic" FontSize="11" Width="200"/>
+        </StackPanel>
+        <Label Grid.Row="3" Grid.Column="1" Content="Vrijeme pocetka:" FontStyle="Italic" FontSize="20"/>
+        <StackPanel Grid.Row="3" Grid.Column="2">
+            <TextBox Text="{Binding Path=StartTimeReminder}" x:Name="tbStartTime" Grid.Row="3" Grid.Column="2" FontStyle="Italic" FontSize="20"  Height="40" Width="200"/>
+            <TextBlock TextAlignment="Center" Text="{Binding ValidationErrors[StartTime]}"
+                               Foreground="Red" FontStyle="Italic" FontSize="11" Width="200"/>
+        </StackPanel>
+        <Label Grid.Row="5" Grid.Column="1" Content="Datum kraja:" FontStyle="Italic" FontSize="20"/>
+        <StackPanel Grid.Row="5" Grid.Column="2">
+            <DatePicker SelectedDate="{Binding Path=EndDateReminder}" x:Name="dpEndDate" Grid.Row="5" Grid.Column="2" FontStyle="Italic" FontSize="20"  Height="40" Width="200"/>
+            <TextBlock TextAlignment="Center" Text="{Binding ValidationErrors[EndDate]}"
+                               Foreground="Red" FontStyle="Italic" FontSize="11" Width="200"/>
+        </StackPanel>
+        <Label Grid.Row="6" Grid.Column="1" Content="Vrijeme kraja:" FontStyle="Italic" FontSize="20"/>
+        <StackPanel Grid.Row="6" Grid.Column="2">
+            <TextBox Text="{Binding Path=EndTimeReminder}" x:Name="tbEndTime" Grid.Row="6" Grid.Column="2" FontStyle="Italic" FontSize="20"  Height="40" Width="200"/>
+            <TextBlock TextAlignment="Center" Text="{Binding ValidationErrors[EndTime]}"
+                               Foreground="Red" FontStyle="Italic" FontSize="11" Width="200"/>
+        </StackPanel>
+        <Label Grid.Row="8" Grid.Column="1" Content="Podsjeti me svakih" FontStyle="Italic" FontSize="20"/>
+        <StackPanel Grid.Row="8" Grid.Column="2">
+            <ComboBox SelectedItem="{Binding Path=HowOftenReminder}" x:Name="cbHowOften" Grid.Row="8" Grid.Column="2" FontStyle="Italic" FontSize="20"  Height="40" Width="200">
+                <ComboBoxItem Content="1 sat"/>
+                <ComboBoxItem Content="2 sata"/>
+                <ComboBoxItem Content="3 sata"/>
+                <ComboBoxItem Content="4 sata"/>
+            </ComboBox>
+            <TextBlock TextAlignment="Center" Text="{Binding ValidationErrors[HowOften]}"
+                               Foreground="Red" FontStyle="Italic" FontSize="11" Width="200"/>
+        </StackPanel>
+        <StackPanel Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center">
             <Button Content="Potvrdi" Height="40" Width="110" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White" Margin="127.5,0,0,0" Command="{Binding confirmSetReminder}"/>
             <Button  Content="Odustani" Height="40" Width="110" FontStyle="Italic" FontSize="20" Background="RoyalBlue" Foreground="White" Margin="25,0,0,0" Command="{Binding cancelSetReminder}"/>
         </StackPanel>

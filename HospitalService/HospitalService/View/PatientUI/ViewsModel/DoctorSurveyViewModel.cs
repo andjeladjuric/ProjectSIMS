@@ -8,7 +8,7 @@ using Model;
 
 namespace HospitalService.View.PatientUI.ViewsModel
 {
-  public  class DoctorSurveyViewModel:ViewModelPatientClass
+  public  class DoctorSurveyViewModel:ValidationBase
     {
 
         public bool NCommunicationCheched { get; set; }
@@ -39,93 +39,97 @@ namespace HospitalService.View.PatientUI.ViewsModel
 
         private void Execute_ConfirmDoctorSurvey(object obj) {
 
-            String ratingForCommunication;
-            if(NCommunicationCheched == true)
+            this.Validate();
+            if (IsValid)
             {
-                ratingForCommunication = "Nezadovoljan/na";
-            }
-            else if (DZCommunicationCheched == true)
-            {
-                ratingForCommunication = "Djelimicno zadovoljan/na";
-            }
-            else 
-            {
-                ratingForCommunication = "Zadovoljan/na";
-            }
+                String ratingForCommunication;
+                if (NCommunicationCheched == true)
+                {
+                    ratingForCommunication = "Nezadovoljan/na";
+                }
+                else if (DZCommunicationCheched == true)
+                {
+                    ratingForCommunication = "Djelimicno zadovoljan/na";
+                }
+                else
+                {
+                    ratingForCommunication = "Zadovoljan/na";
+                }
 
-            String ratingForCourtesy;
-            if (NCourtesyCheched == true)
-            {
-                ratingForCourtesy = "Nezadovoljan/na";
-            }
-            else if (DZCourtesyCheched == true)
-            {
-                ratingForCourtesy = "Djelimicno zadovoljan/na";
-            }
-            else
-            {
-                ratingForCourtesy = "Zadovoljan/na";
-            }
+                String ratingForCourtesy;
+                if (NCourtesyCheched == true)
+                {
+                    ratingForCourtesy = "Nezadovoljan/na";
+                }
+                else if (DZCourtesyCheched == true)
+                {
+                    ratingForCourtesy = "Djelimicno zadovoljan/na";
+                }
+                else
+                {
+                    ratingForCourtesy = "Zadovoljan/na";
+                }
 
-            String ratingForProfessionalism;
-            if (NProfessionalismChecked == true)
-            {
-                ratingForProfessionalism = "Nezadovoljan/na";
-            }
-            else if (DZProfessionalismChecked == true)
-            {
-                ratingForProfessionalism = "Djelimicno zadovoljan/na";
-            }
-            else
-            {
-                ratingForProfessionalism = "Zadovoljan/na";
-            }
+                String ratingForProfessionalism;
+                if (NProfessionalismChecked == true)
+                {
+                    ratingForProfessionalism = "Nezadovoljan/na";
+                }
+                else if (DZProfessionalismChecked == true)
+                {
+                    ratingForProfessionalism = "Djelimicno zadovoljan/na";
+                }
+                else
+                {
+                    ratingForProfessionalism = "Zadovoljan/na";
+                }
 
-            String ratingForDoctorCare;
-            if (NDoctorCareChecked == true)
-            {
-                ratingForDoctorCare = "Nezadovoljan/na";
-            }
-            else if (DZDoctorCareChecked == true)
-            {
-                ratingForDoctorCare = "Djelimicno zadovoljan/na";
-            }
-            else
-            {
-                ratingForDoctorCare = "Zadovoljan/na";
-            }
+                String ratingForDoctorCare;
+                if (NDoctorCareChecked == true)
+                {
+                    ratingForDoctorCare = "Nezadovoljan/na";
+                }
+                else if (DZDoctorCareChecked == true)
+                {
+                    ratingForDoctorCare = "Djelimicno zadovoljan/na";
+                }
+                else
+                {
+                    ratingForDoctorCare = "Zadovoljan/na";
+                }
 
-            String ratingForProvidingInformation;
-            if (NProvidingInformationChecked == true)
-            {
-                ratingForProvidingInformation = "Nezadovoljan/na";
-            }
-            else if (DZProvidingInformationChecked == true)
-            {
-                ratingForProvidingInformation = "Djelimicno zadovoljan/na";
-            }
-            else
-            {
-                ratingForProvidingInformation = "Zadovoljan/na";
-            }
+                String ratingForProvidingInformation;
+                if (NProvidingInformationChecked == true)
+                {
+                    ratingForProvidingInformation = "Nezadovoljan/na";
+                }
+                else if (DZProvidingInformationChecked == true)
+                {
+                    ratingForProvidingInformation = "Djelimicno zadovoljan/na";
+                }
+                else
+                {
+                    ratingForProvidingInformation = "Zadovoljan/na";
+                }
 
-            String ratingForDevotedTime;
-            if (NDevotedTimeChecked == true)
-            {
-                ratingForDevotedTime = "Nezadovoljan/na";
-            }
-            else if (DZDevotedTimeChecked == true)
-            {
-                ratingForDevotedTime = "Djelimicno zadovoljan/na";
-            }
-            else
-            {
-                ratingForDevotedTime = "Zadovoljan/na";
-            }
+                String ratingForDevotedTime;
+                if (NDevotedTimeChecked == true)
+                {
+                    ratingForDevotedTime = "Nezadovoljan/na";
+                }
+                else if (DZDevotedTimeChecked == true)
+                {
+                    ratingForDevotedTime = "Djelimicno zadovoljan/na";
+                }
+                else
+                {
+                    ratingForDevotedTime = "Zadovoljan/na";
+                }
 
-            SurveyDoctorPatient newSurvey = new SurveyDoctorPatient { Communication = ratingForCommunication, Courtesy = ratingForCourtesy, Professionalism = ratingForProfessionalism, CareForPatient = ratingForDoctorCare, ProvidingInformation = ratingForProvidingInformation, DevotedTime = ratingForDevotedTime, doctor = doctor, patient = patient, ExecutionTime = DateTime.Now };
-            doctorSurveyService.saveDoctorSurvey(newSurvey);
-            doctorSurvey.NavigationService.Navigate(new Surveys(patient));
+                SurveyDoctorPatient newSurvey = new SurveyDoctorPatient { Communication = ratingForCommunication, Courtesy = ratingForCourtesy, Professionalism = ratingForProfessionalism, CareForPatient = ratingForDoctorCare, ProvidingInformation = ratingForProvidingInformation, DevotedTime = ratingForDevotedTime, doctor = doctor, patient = patient, ExecutionTime = DateTime.Now };
+                doctorSurveyService.saveDoctorSurvey(newSurvey);
+                doctorSurvey.NavigationService.Navigate(new Surveys(patient));
+            }
         }
         private void Execute_CancelDoctorSurvey(object obj) {
 
@@ -135,6 +139,16 @@ namespace HospitalService.View.PatientUI.ViewsModel
         private bool CanExecute_Command(object obj) {
             return true;
         }
+
+        protected override void ValidateSelf()
+        {
+            if (NCommunicationCheched == false && DZCommunicationCheched == false && ZCommunicationCheched == false) {
+
+                this.ValidationErrors["Communication"] = "Ocijenite nacin komunikacije sa pacijentom.";
+
+            }
+        }
+
         public DoctorSurveyViewModel(Patient patient,Doctor doctor, DoctorSurvey doctorSurvey) {
             this.patient = patient;
             this.doctor = doctor;
