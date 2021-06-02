@@ -147,6 +147,37 @@ namespace HospitalService.View.PatientUI.ViewsModel
                 this.ValidationErrors["Communication"] = "Ocijenite nacin komunikacije sa pacijentom.";
 
             }
+            if (NCourtesyCheched == false && DZCourtesyCheched == false && ZCourtesyCheched == false)
+            {
+
+                this.ValidationErrors["Courtesy"] = "Ocijenite ljubaznost doktora.";
+
+            }
+            if (NProfessionalismChecked == false && DZProfessionalismChecked == false && ZProfessionalismChecked == false)
+            {
+
+                this.ValidationErrors["Professionalism"] = "Ocijenite strucnost doktora.";
+
+            }
+            if (NDoctorCareChecked == false && DZDoctorCareChecked == false && ZDoctorCareChecked == false)
+            {
+
+                this.ValidationErrors["DoctorCare"] = "Ocijenite doktorovu brigu o pacijentu.";
+
+            }
+            if (NProvidingInformationChecked == false && DZProvidingInformationChecked == false && ZProvidingInformationChecked == false)
+            {
+
+                this.ValidationErrors["ProvidingInformation"] = "Ocijenite pruzanje informacija pacijentu.";
+
+            }
+            if (NDevotedTimeChecked == false && DZDevotedTimeChecked == false && ZDevotedTimeChecked == false)
+            {
+
+                this.ValidationErrors["DevotedTime"] = "Ocijenite vrijeme posveceno pacijentu.";
+
+            }
+
         }
 
         public DoctorSurveyViewModel(Patient patient,Doctor doctor, DoctorSurvey doctorSurvey) {
