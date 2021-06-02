@@ -1,4 +1,5 @@
 ﻿using HospitalService.Service;
+using HospitalService.View.ManagerUI.Views;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,15 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Actions
+        private void OnGenerate()
+        {
+            this.Frame.NavigationService.Navigate(new DoctorsReport(SelectedDoctor));
+        }
+
+        private bool CanExecute()
+        {
+            return SelectedDoctor != null;
+        }
         #endregion
 
         #region Other Functions
@@ -61,6 +71,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             this.Frame = currentFrame;
             LoadDoctors();
+            GenerateCommand = new MyICommand(OnGenerate, CanExecute);
         }
         #endregion
     }
