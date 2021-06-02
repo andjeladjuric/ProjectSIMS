@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="570" d:DesignWidth="450" FontSize="18"  FontFamily="Open Sans"
       Title="FindMedicationView">
@@ -26,12 +27,16 @@
     </Page.InputBindings>
     <Grid Background="White" Height="600" Width="450">
         <StackPanel>
-            <StackPanel Margin="0,20,0,10" Width="119">
-                <Label Content="Baza lijekova"/>
+            <StackPanel Margin="10,20,0,10"  Orientation="Horizontal">
+                <Label Content="Baza lijekova:"/>
+                <TextBox Width="132" Margin="200,0,0,0" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}"  
+                  materialDesign:HintAssist.Hint="Pretraži"
+                 materialDesign:HintAssist.HintOpacity=".26"/>
+
             </StackPanel>
             <StackPanel Height="430">
                 <Border BorderBrush="#6e7bb3" BorderThickness="2" Height="430" Margin="10,0,10,0">
-                    <ListView ItemsSource="{Binding Medications}" SelectedItem="{Binding SelectedMedication, Mode=TwoWay}">
+                    <ListView ItemsSource="{Binding DataGridCollection}" SelectedItem="{Binding SelectedMedication, Mode=TwoWay}">
                         <ListView.InputBindings>
                             <KeyBinding Gesture="Enter" Command="{Binding ApplyCommand}"/>
                         </ListView.InputBindings>
