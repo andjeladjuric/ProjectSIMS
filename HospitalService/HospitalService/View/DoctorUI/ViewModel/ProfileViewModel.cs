@@ -10,12 +10,14 @@ namespace HospitalService.View.DoctorUI.ViewModel
 {
     public class ProfileViewModel : ViewModelClass
     {
+        public ProfileView Window { get; set; }
         private Doctor doctor;
         private string name;
         private string type;
         private Frame frame;
         public RelayCommand KeyUpCommandWithKey { get; set; }
         public RelayCommand EditProfileCommand { get; set; }
+        public RelayCommand CloseCommand { get; set; }
 
         public Doctor Doctor
         {
@@ -56,20 +58,28 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
-        public ProfileViewModel(Doctor doctor, Frame frame)
+        public ProfileViewModel(Doctor doctor, Frame frame, ProfileView window)
         {
+            this.Window = window;
             this.Frame = frame;
             this.Doctor = doctor;
             this.Name = "dr " + doctor.Name + " " + doctor.Surname;
             this.Type = doctor.DoctorType.ToString();
             EditProfileCommand = new RelayCommand(Executed_EditProfileCommand,
               CanExecute_EditProfileCommand);
+            CloseCommand = new RelayCommand(Executed_CloseCommand,
+             CanExecute_EditProfileCommand);
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
         }
 
         public void Executed_EditProfileCommand(object obj)
         {
             this.Frame.NavigationService.Navigate(new EditProfileView(Doctor, Frame));
+        }
+
+        public void Executed_CloseCommand(object obj)
+        {
+            this.Window.Close();
         }
 
         public bool CanExecute_EditProfileCommand(object obj)
