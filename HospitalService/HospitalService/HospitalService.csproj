@@ -11,6 +11,7 @@
     <None Remove="Images\back.png" />
     <None Remove="Images\calendarIcon.png" />
     <None Remove="Images\doctor.jpg" />
+    <None Remove="Images\Final.mp4" />
     <None Remove="Images\helpIcon.png" />
     <None Remove="Images\hospitalIcon.png" />
     <None Remove="Images\logo.png" />
@@ -31,9 +32,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Images\Final.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.2" />
     <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Syncfusion.Pdf.Wpf" Version="19.1.0.66" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
 

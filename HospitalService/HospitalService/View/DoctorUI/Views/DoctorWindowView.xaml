@@ -37,7 +37,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Height="40" Width="40" Background="{x:Null}" BorderThickness="0" Margin="0,0,10,0">
+                <Button Height="40" Width="40" Background="{x:Null}" BorderThickness="0" Margin="0,0,10,0" Click="Button_Click">
                     <materialDesign:PackIcon Foreground="#3f51b5" Kind="HelpCircle"  Width="40" Height="30"/>
                 </Button>
                 <Button Height="40" Width="40" Background="{x:Null}" BorderThickness="0">
