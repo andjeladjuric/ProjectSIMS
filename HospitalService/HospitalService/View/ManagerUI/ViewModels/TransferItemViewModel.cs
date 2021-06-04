@@ -21,11 +21,21 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private string selectedFirstRoom;
         private string selectedSecondRoom;
         private Room room;
+        private int index;
         #endregion
 
         #region Properties
-        private List<String> rooms;
-        public List<String> Rooms
+        public int SelectedIndex
+        {
+            get { return index; }
+            set
+            {
+                index = value;
+                OnPropertyChanged();
+            }
+        }
+        private ObservableCollection<string> rooms;
+        public ObservableCollection<string> Rooms
         {
             get { return rooms; }
             set
@@ -34,8 +44,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 OnPropertyChanged();
             }
         }
-        private List<String> otherRooms;
-        public List<String> OtherRooms
+        private ObservableCollection<string> otherRooms;
+        public ObservableCollection<string> OtherRooms
         {
             get { return otherRooms; }
             set
@@ -130,6 +140,17 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
         private void OnChangeFirst()
         {
+            String source = "";
+            RoomService roomService = new RoomService();
+            OtherRooms = new ObservableCollection<string>();
+            foreach (Room soba in roomService.GetAll())
+            {
+                source = soba.Id + "/" + soba.Name;
+                if (!SelectedFirstRoom.Equals(source))
+                    OtherRooms.Add(source);
+            }
+
+            SelectedIndex = -1;
             LoadInventory();
         }
 
@@ -156,7 +177,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             String source = "";
             RoomService roomService = new RoomService();
-            Rooms = new List<string>();
+            Rooms = new ObservableCollection<string>();
             foreach (Room soba in roomService.GetAll())
             {
                 source = soba.Id + "/" + soba.Name;
@@ -181,11 +202,14 @@ namespace HospitalService.View.ManagerUI.ViewModels
             RoomService roomService = new RoomService();
             SecondRoomInventory = new ObservableCollection<Inventory>();
 
-            string[] rooms = SelectedSecondRoom.ToString().Split("/");
-            string selectedId = rooms[0];
-            Room room = roomService.GetOne(selectedId);
+            if (SelectedIndex != -1)
+            {
+                string[] rooms = SelectedSecondRoom.ToString().Split("/");
+                string selectedId = rooms[0];
+                Room room = roomService.GetOne(selectedId);
 
-            SecondRoomInventory = roomInventoryService.LoadRoomInventory(room);
+                SecondRoomInventory = roomInventoryService.LoadRoomInventory(room);
+            }
         }
 
         #endregion

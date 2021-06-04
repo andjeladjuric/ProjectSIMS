@@ -97,11 +97,26 @@ namespace HospitalService.View.ManagerUI.ViewModels
         }
         #endregion
 
+        private int GenerateId()
+        {
+            Random rand = new Random();
+            InventoryService service = new InventoryService();
+            List<Int32> ids = service.GetAllIds();
+
+            Int32 curValue = rand.Next(1, 100000);
+            while (ids.Exists(value => value == curValue))
+            {
+                curValue = rand.Next(1, 100000);
+            }
+
+            return curValue;
+        }
+
         #region Constructors
         public NewItemViewModel(Frame frame)
         {
             this.Frame = frame;
-            this.ItemId = Guid.NewGuid().GetHashCode();
+            this.ItemId = GenerateId();
             ConfirmCommand = new MyICommand(OnConfirm, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanExecute);
         }

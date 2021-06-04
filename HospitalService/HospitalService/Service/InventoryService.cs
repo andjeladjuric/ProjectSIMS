@@ -174,6 +174,17 @@ namespace HospitalService.Service
             roomInventoryService.EditItem(inventoryInRoom);
         }
 
+        public List<Int32> GetAllIds()
+        {
+            List<Int32> ids = new List<Int32>();
+            foreach (Inventory i in GetAll())
+            {
+                ids.Add(i.Id);
+            }
+
+            return ids;
+        }
+
         public List<Inventory> GetAll() => inventory.GetAll();
         public Inventory GetOne(int id) => inventory.GetOne(id);
         public void EditItem(Inventory i) => inventory.EditItem(i);

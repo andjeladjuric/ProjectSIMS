@@ -120,7 +120,8 @@
             <Label x:Name="Soba1" Content="Premesti iz sobe:" HorizontalAlignment="Left" Margin="52,0,0,0" VerticalAlignment="Top" 
                    Width="137" Height="30"/>
             <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="162"
-                      ItemsSource="{Binding Rooms, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedFirstRoom}"
+                      ItemsSource="{Binding Rooms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedItem="{Binding SelectedFirstRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Foreground="#474746"
                       FontFamily="Roboto"
                       FontWeight="Light"
@@ -135,12 +136,24 @@
             <Label x:Name="Soba2" Content="Premesti u sobu:" HorizontalAlignment="Left" Margin="170,0,0,0" VerticalAlignment="Top" 
                    Width="137" Height="30"/>
             <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="162"
-                      ItemsSource="{Binding Rooms, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSecondRoom}"
+                      ItemsSource="{Binding OtherRooms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedItem="{Binding SelectedSecondRoom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedIndex="{Binding SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Foreground="#474746"
                       FontFamily="Roboto"
                       FontWeight="Light"
                       FontSize="14"
                       HorizontalContentAlignment="Center">
+                <ComboBox.Style>
+                    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=comboBox, Path=SelectedIndex}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.Style>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged" >
                         <i:InvokeCommandAction Command="{Binding ChangeSecondInventory}"/>

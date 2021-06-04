@@ -7,7 +7,7 @@
       xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations"
       xmlns:conv="clr-namespace:HospitalService.View.ManagerUI.Converters"
       xmlns:System="clr-namespace:System;assembly=mscorlib"
-      xmlns:model="clr-namespace:Model"
+      xmlns:model="clr-namespace:Model" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
      d:DesignHeight="718" d:DesignWidth="969"
       Title="NewRoom">
@@ -41,6 +41,8 @@
         <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="336,452,0,0" VerticalAlignment="Top" 
                Width="125"/>
         <TextBox x:Name="IDBox" HorizontalAlignment="Left" Height="36" Margin="468,222,0,0"
+                 materialDesign:HintAssist.Hint="101a, 204b, 303, 467..."
+                 materialDesign:HintAssist.HintOpacity=".26"
                  VerticalAlignment="Top" Width="172" 
                  Foreground="#474746"
                  FontFamily="Roboto"
@@ -68,6 +70,8 @@
         <Label x:Name="floor" Content="Sprat" HorizontalAlignment="Left" Margin="336,339,0,0" VerticalAlignment="Top" 
                Width="125"/>
         <TextBox x:Name="FloorBox" HorizontalAlignment="Left" Height="36" Margin="468,333,0,0"
+                 materialDesign:HintAssist.Hint="1, 2, 3, ili 4"
+                 materialDesign:HintAssist.HintOpacity=".26"
                  VerticalAlignment="Top" Width="172" 
                  Foreground="#474746"
                  FontFamily="Roboto"
@@ -94,6 +98,8 @@
         <Label x:Name="size" Content="Kvadratura" HorizontalAlignment="Left" Margin="336,395,0,0" VerticalAlignment="Top" 
                Width="125"/>
         <TextBox x:Name="SizeBox" HorizontalAlignment="Left" Height="36" Margin="468,388,0,0"
+                 materialDesign:HintAssist.Hint="55.6"
+                 materialDesign:HintAssist.HintOpacity=".26"
                  VerticalAlignment="Top" Width="172" 
                  Foreground="#474746"
                  FontFamily="Roboto"
@@ -119,6 +125,8 @@
         </TextBox>
 
         <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="35" Margin="468,277,0,0" VerticalAlignment="Top" Width="172"
+                 materialDesign:HintAssist.Hint="šok soba 2"
+                 materialDesign:HintAssist.HintOpacity=".26"
                  Foreground="#474746"
                  FontFamily="Roboto"
                  FontWeight="Light"

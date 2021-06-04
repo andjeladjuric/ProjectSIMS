@@ -17,6 +17,12 @@ namespace HospitalService.Repositories
             managers = new List<Manager>();
             managers = JsonConvert.DeserializeObject<List<Manager>>(File.ReadAllText(FileLocation));
         }
+
+        public void SerializeManagers()
+        {
+            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(managers));
+        }
+
         public List<Manager> GetAll()
         {
             return managers;
@@ -25,6 +31,21 @@ namespace HospitalService.Repositories
         public Manager GetOne(String username)
         {
             return managers.Find(x => x.Username == username);
+        }
+
+        public void EditManager(Manager editedManager)
+        {
+            Manager manager;
+            for (int i = 0; i < managers.Count; i++)
+            {
+               manager = managers[i];
+                if (manager.Jmbg.Equals(editedManager.Jmbg))
+                {
+                    managers[i] = editedManager;
+                    SerializeManagers();
+                    break;
+                }
+            }
         }
     }
 }

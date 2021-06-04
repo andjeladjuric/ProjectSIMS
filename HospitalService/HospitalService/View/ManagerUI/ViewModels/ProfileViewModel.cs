@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalService.View.ManagerUI.Views;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,57 +22,14 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 OnPropertyChanged();
             }
         }
-        private string jmbg;
-        public string Jmbg
+        
+        private string name;
+        public string Name
         {
-            get { return jmbg; }
+            get { return name; }
             set
             {
-                jmbg = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private DateTime? birthday;
-        public DateTime? Birthday
-        {
-            get { return birthday; }
-            set
-            {
-                birthday = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string address;
-        public string Address
-        {
-            get { return address; }
-            set
-            {
-                address = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string phone;
-        public string Phone
-        {
-            get { return phone; }
-            set
-            {
-                phone = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string mail;
-        public string Mail
-        {
-            get { return mail; }
-            set
-            {
-                mail = value;
+                name = value;
                 OnPropertyChanged();
             }
         }
@@ -82,6 +40,10 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Actions
+        private void OnEdit()
+        {
+            this.Frame.NavigationService.Navigate(new EditProfileView(manager));
+        }
         #endregion
 
         #region Constructors
@@ -89,12 +51,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             this.Manager = currentManager;
             this.Frame = currentFrame;
-            this.Jmbg = Manager.Jmbg;
-            this.Birthday = Manager.DateOfBirth;
-            this.Address = Manager.Address;
-            this.Phone = Manager.Phone;
-            this.Mail = Manager.Email;
-
+            this.Name = Manager.Name + " " + Manager.Surname;
+            EditProfile = new MyICommand(OnEdit);
         }
         #endregion
     }
