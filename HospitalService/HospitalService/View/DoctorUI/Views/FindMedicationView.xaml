@@ -65,7 +65,7 @@
                     </Button>
                 </StackPanel>
                 <StackPanel>
-                    <Button Content="Potvrdi" Width="82" Margin="70,40,0,0">
+                    <Button ToolTip="Enter" Content="Potvrdi" Width="82" Margin="70,40,0,0">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click" >
                                 <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>

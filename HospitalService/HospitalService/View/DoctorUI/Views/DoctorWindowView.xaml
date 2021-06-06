@@ -22,14 +22,16 @@
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Gesture="Ctrl+Z" Command="{Binding AddAppointmentCommand}"/>
+        <KeyBinding Gesture="Ctrl+T" Command="{Binding TutorialCommand}"/>
         <KeyBinding Gesture="Ctrl+P" Command="{Binding ProfileCommand}"/>
         <KeyBinding Gesture="Esc"  Command="{Binding LogOutCommand}"/>
         <KeyBinding Gesture="Ctrl+K"  Command="{Binding OpenRecordCommand}"/>
+        <KeyBinding Gesture="Ctrl+O" Command="{Binding RemoveNewsCommand}"/>
     </Window.InputBindings>
     <Grid>
         <DockPanel Height="600" Width="950">
             <StackPanel Background="#fafafa" DockPanel.Dock="Top" Height="40" Orientation="Horizontal">
-                <Button Height="40" Width="40"  Margin="800,0,10,0" Background="{x:Null}" BorderThickness="0">
+                <Button ToolTip="Profil Ctrl+P" Height="40" Width="40"  Margin="800,0,10,0" Background="{x:Null}" BorderThickness="0">
                     <materialDesign:PackIcon Kind="User" Foreground="#3f51b5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="40" />
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click" >
@@ -37,10 +39,10 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Height="40" Width="40" Background="{x:Null}" BorderThickness="0" Margin="0,0,10,0" Click="Button_Click">
+                <Button ToolTip="Tutorijal Ctrl+T" Height="40" Width="40" Background="{x:Null}" BorderThickness="0" Margin="0,0,10,0" Click="Button_Click">
                     <materialDesign:PackIcon Foreground="#3f51b5" Kind="HelpCircle"  Width="40" Height="30"/>
                 </Button>
-                <Button Height="40" Width="40" Background="{x:Null}" BorderThickness="0">
+                <Button ToolTip="Logout Esc" Height="40" Width="40" Background="{x:Null}" BorderThickness="0">
                     <materialDesign:PackIcon Foreground="#3f51b5" Kind="LogoutVariant" Width="40" Height="30"/>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click" >
@@ -71,7 +73,7 @@
             <TabItem Header="Termini" Margin="-2,-2,0,-8" >
                 <DockPanel Margin="0,0,0,80">
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="31" Margin="0,10,0,10">
-                        <DatePicker SelectedDate="{Binding Path=Date, Mode=TwoWay}" Name="datePicker"  Width="124"  Margin="725,0,0,0">
+                        <DatePicker ToolTip="Izaberite datum" SelectedDate="{Binding Path=Date, Mode=TwoWay}" Name="datePicker"  Width="124"  Margin="725,0,0,0">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectedDateChanged" >
                                     <i:InvokeCommandAction Command="{Binding RefreshAppointmentsCommand}"/>
@@ -80,7 +82,7 @@
                         </DatePicker>
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                        <Button Margin="300,0,0,0" Width="52">Obriši
+                        <Button ToolTip="Del" Margin="300,0,0,0" Width="52">Obriši
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click" >
                                     <i:InvokeCommandAction Command="{Binding DeleteAppointmentCommand}"/>
@@ -93,7 +95,7 @@
                                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
                             </i:Interaction.Behaviors>
                         </Button>
-                        <Button Margin="30,0,0,0" Width="58">Izmjeni
+                        <Button ToolTip="Enter" Margin="30,0,0,0" Width="58">Izmjeni
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click" >
                                     <i:InvokeCommandAction Command="{Binding EditAppointmentCommand}"/>
@@ -106,7 +108,7 @@
                                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
                             </i:Interaction.Behaviors>
                         </Button>
-                        <Button  Margin="30,0,0,0" Width="69" Content="Zakaži">
+                        <Button ToolTip="Ctrl+Z" Margin="30,0,0,0" Width="69" Content="Zakaži">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click" >
                                     <i:InvokeCommandAction Command="{Binding AddAppointmentCommand}"/>
@@ -179,7 +181,7 @@
                         <Label Content="Pretraži:" Margin="650,0,0,0"/>
                         <TextBox  Width="150" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
-                    <Button  DockPanel.Dock="Bottom" Margin="0,0,0,0" Width="147" Height="24"  Content="Prikaži karton">
+                    <Button ToolTip="Enter" DockPanel.Dock="Bottom" Margin="0,0,0,0" Width="147" Height="24"  Content="Prikaži karton">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click" >
                                 <i:InvokeCommandAction Command="{Binding OpenRecordCommand}"/>
@@ -339,7 +341,7 @@
                         </Border>
                     </StackPanel>
                     <StackPanel Width="100" Margin="0,40,0,0">
-                        <Button Content="Isprazni">
+                        <Button Content="Isprazni" ToolTip="Ctrl+O">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click" >
                                     <i:InvokeCommandAction Command="{Binding RemoveNewsCommand}"/>

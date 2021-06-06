@@ -31,7 +31,7 @@ namespace HospitalService.View.DoctorUI.Views
         public ReportWindowView(MedicalRecord record, DateTime start, DateTime end)
         {
             InitializeComponent();
-            this.DataContext = new ReportWindowViewModel(record, start, end);
+            this.DataContext = new ReportWindowViewModel(record, start, end, this);
         }
 
        

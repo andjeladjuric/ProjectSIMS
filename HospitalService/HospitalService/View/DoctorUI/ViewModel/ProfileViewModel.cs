@@ -74,7 +74,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         public void Executed_EditProfileCommand(object obj)
         {
-            this.Frame.NavigationService.Navigate(new EditProfileView(Doctor, Frame));
+            this.Frame.NavigationService.Navigate(new EditProfileView(Doctor, Frame, this));
         }
 
         public void Executed_CloseCommand(object obj)

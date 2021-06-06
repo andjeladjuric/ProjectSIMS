@@ -68,7 +68,7 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-            <Button Width="60" Content="Izmjeni" Margin="0,20,0,0">
+            <Button ToolTip="Ctrl+I" Width="60" Content="Izmjeni" Margin="0,20,0,0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click" >
                         <i:InvokeCommandAction Command="{Binding EditProfileCommand}"/>

@@ -35,7 +35,7 @@
         <DatePicker  HorizontalAlignment="Left" Margin="227,243,0,0" VerticalAlignment="Top" SelectedDate="{x:Static sys:DateTime.Now}" IsEnabled="False"/>
         <RadioButton IsChecked="{Binding Path=IsUrgent}" Content="DA" HorizontalAlignment="Center" Margin="0,309,0,0" VerticalAlignment="Top"/>
         <RadioButton Content="NE" HorizontalAlignment="Left" Margin="294,308,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <Button Content="Odustani" Margin="118,524,245,48" Width="87" Height="27">
+        <Button ToolTip="Esc" Content="Odustani" Margin="118,524,245,48" Width="87" Height="27">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
@@ -48,7 +48,7 @@
                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
             </i:Interaction.Behaviors>
         </Button>
-        <Button Content="Potvrdi" Width="87" Height="27" Margin="249,524,114,48">
+        <Button ToolTip="Ctrl+P" Content="Potvrdi" Width="87" Height="27" Margin="249,524,114,48">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>

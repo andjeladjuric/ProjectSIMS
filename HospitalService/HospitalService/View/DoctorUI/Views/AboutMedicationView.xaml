@@ -35,7 +35,7 @@
         <TextBox Text="{Binding Path=Medication.MedicineName}" IsEnabled="False"  HorizontalAlignment="Left" Margin="158,70,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
         <TextBox Text="{Binding Path=Medication.Type}" IsEnabled="False"  HorizontalAlignment="Left" Margin="158,129,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
         <TextBox Text="{Binding Path=Medication.Format}" IsEnabled="False"  HorizontalAlignment="Left" Margin="158,190,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
-        <Button Content="Odustani" HorizontalAlignment="Left" Margin="226,510,0,0" VerticalAlignment="Top" Width="82">
+        <Button ToolTip="Esc" Content="Odustani" HorizontalAlignment="Left" Margin="226,510,0,0" VerticalAlignment="Top" Width="82">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
@@ -48,7 +48,7 @@
                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
             </i:Interaction.Behaviors>
         </Button>
-        <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="380,510,0,0" VerticalAlignment="Top" Width="83">
+        <Button ToolTip="Ctrl+P" Content="Potvrdi" HorizontalAlignment="Left" Margin="380,510,0,0" VerticalAlignment="Top" Width="83">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>
@@ -62,7 +62,7 @@
             </i:Interaction.Behaviors>
         </Button>
         <Label Content="Zamjena:" HorizontalAlignment="Left" Margin="37,247,0,0" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding Path=Replacements}" SelectedItem="{Binding Path=Replacement, Mode=TwoWay}" HorizontalAlignment="Left" Margin="158,249,0,0" VerticalAlignment="Top" Width="165">
+        <ComboBox IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Path=Replacements}" SelectedItem="{Binding Path=Replacement, Mode=TwoWay}" HorizontalAlignment="Left" Margin="158,249,0,0" VerticalAlignment="Top" Width="165">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>

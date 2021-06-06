@@ -42,7 +42,7 @@
                                Foreground="Red" Margin="37,460,350,78"  FontSize="12" />
         <RadioButton  IsChecked="{Binding Path=IsApproved}" Content="DA" Margin="158,267,489,0" Height="27" VerticalAlignment="Top"/>
         <RadioButton IsChecked="True" Content="NE" Margin="240,267,406,0" Height="27" VerticalAlignment="Top"/>
-        <Button Content="Odustani" HorizontalAlignment="Left" Margin="226,510,0,0" VerticalAlignment="Top" Width="82">
+        <Button ToolTip="Esc" Content="Odustani" HorizontalAlignment="Left" Margin="226,510,0,0" VerticalAlignment="Top" Width="82">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
@@ -55,7 +55,7 @@
                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
             </i:Interaction.Behaviors>
         </Button>
-        <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="380,510,0,0" VerticalAlignment="Top" Width="83">
+        <Button ToolTip="Ctrl+P" Content="Potvrdi" HorizontalAlignment="Left" Margin="380,510,0,0" VerticalAlignment="Top" Width="83">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>
