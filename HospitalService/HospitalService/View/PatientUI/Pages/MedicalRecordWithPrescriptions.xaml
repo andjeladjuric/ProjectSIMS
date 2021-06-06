@@ -33,14 +33,19 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40"/>
-                <ColumnDefinition Width="226.25"/>
-                <ColumnDefinition Width="226.25"/>
-                <ColumnDefinition Width="226.25"/>
-                <ColumnDefinition Width="226.25"/>
+                <ColumnDefinition Width="166.25"/>
+                <ColumnDefinition Width="286.25"/>
+                <ColumnDefinition Width="286.25"/>
+                <ColumnDefinition Width="166.25"/>
                 <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Height="45" Width="300" Content="Podesavanje podsjetnika" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue" Command="{Binding setReminder}"/>
-
+            <StackPanel  Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <Button Height="45" Width="300" Content="Podesavanje podsjetnika" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue" Command="{Binding setReminder}" Margin="66.25,0,0,0"/>
+                <Button  Grid.ColumnSpan="2" Height="45" Width="110" Content="Izvjestaj" FontStyle="Italic" FontSize="24" Foreground="White" Background="RoyalBlue" Command="{Binding saveReport}" Margin="30,0,0,0"/>
+            </StackPanel>
+            <TextBlock Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" TextAlignment="Center" Text="{Binding ValidationErrors[Start]}"
+                               Foreground="Red" FontStyle="Italic"/>
+            
         </Grid>
         <DataGrid ItemsSource="{Binding Path=Prescriptions}" SelectedItem="{Binding Path=SelectedPrescription}" x:Name="tablePrescriptions" IsReadOnly="True" 
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
@@ -51,7 +56,7 @@
                 <DataGridTextColumn Header="Trajanje" Binding="{Binding HowLong}" Width="*"/>
                 <DataGridTextColumn Header="Pocetak" Binding="{Binding Start}" Width="*"/>
                 <DataGridTextColumn Header="Dodatni opis" Binding="{Binding AdditionalInfos}" Width="*"/>
-                
+
             </DataGrid.Columns>
         </DataGrid>
 

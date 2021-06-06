@@ -116,7 +116,7 @@ namespace HospitalService.View.PatientUI.ViewsModel
             openSurvey = new RelayCommand(Execute_NavigateToSurvey,CanExecute_NavigateCommand);
             openMainWindow = new RelayCommand(Execute_NavigateToMainWindow,CanExecute_NavigateCommand);
             openPatientNews = new RelayCommand(Execute_OpenPatientNews,CanExecute_NavigateCommand);
-
+            
 
 
         }
