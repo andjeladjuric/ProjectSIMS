@@ -1,9 +1,18 @@
 ﻿using HospitalService.Service;
 using HospitalService.View.ManagerUI.Views;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Model;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+using Syncfusion.Pdf.Grid;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows.Controls;
 
@@ -95,7 +104,96 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             this.Frame.NavigationService.Navigate(new DoctorsView());
         }
-        
+
+        private void OnConfirm()
+        {
+            PdfPTable table = new PdfPTable(6);
+            table.WidthPercentage = 100;
+            table.HorizontalAlignment = Element.ALIGN_JUSTIFIED;
+
+            Document doc = new Document(iTextSharp.text.PageSize.LETTER, 30, 30, 50, 35);
+            //doc.SetMargins(30,30,50,50);
+
+            var outputFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                @"D:\FAKS\SIMS\ProjectSIMS\HospitalService\HospitalService\View\ManagerUI", "Report.pdf");
+
+            PdfWriter writer = PdfWriter.GetInstance(doc, new System.IO.FileStream(outputFile,
+                System.IO.FileMode.Create));
+            doc.Open();
+
+            string text = "Izveštaj o planu rada lekara: " + SelectedDoctor.Name + " " + SelectedDoctor.Surname;
+            Paragraph paragraph = new Paragraph();
+            paragraph.SpacingBefore = 10;
+            paragraph.SpacingAfter = 20;
+            paragraph.Alignment = Element.ALIGN_CENTER;
+            paragraph.Font = FontFactory.GetFont(FontFactory.HELVETICA, 22f, BaseColor.BLACK);
+            paragraph.Add(text);
+            doc.Add(paragraph);
+
+            string period = "Izabrani period: " + StartDate.ToShortDateString() + " - " + EndDate.ToShortDateString();
+            Paragraph secondLine = new Paragraph();
+            secondLine.SpacingBefore = 20;
+            secondLine.SpacingAfter = 5;
+            secondLine.Alignment = Element.ALIGN_JUSTIFIED;
+            secondLine.Font = FontFactory.GetFont(FontFactory.HELVETICA, 14f, Font.ITALIC, BaseColor.DARK_GRAY);
+            secondLine.Add(period);
+            doc.Add(secondLine);
+
+            string exp = "U tabeli su prikazani svi termini za zadati vremenski period.";
+            Paragraph thirdLine = new Paragraph();
+            thirdLine.SpacingBefore = 5;
+            thirdLine.SpacingAfter = 10;
+            thirdLine.Alignment = Element.ALIGN_JUSTIFIED;
+            thirdLine.Font = FontFactory.GetFont(FontFactory.HELVETICA, 14f, Font.ITALIC, BaseColor.DARK_GRAY);
+            thirdLine.Add(exp);
+            doc.Add(thirdLine);
+
+            table.AddCell("DATUM");
+            table.AddCell("POCETAK TERMINA");
+            table.AddCell("KRAJ TERMINA");
+            table.AddCell("PACIJENT");
+            table.AddCell("PROSTORIJA");
+            table.AddCell("VRSTA TERMINA");
+
+            string prostorija;
+
+            if (Appointments != null)
+            {
+                foreach (var a in Appointments)
+                {
+                    a.patient.FullName = a.patient.Name + " " + a.patient.Surname;
+                    prostorija = a.room.Id + " " + a.room.Name;
+                    table.AddCell(a.StartTime.ToShortDateString());
+                    table.AddCell(a.StartTime.ToShortTimeString());
+                    table.AddCell(a.EndTime.ToShortTimeString());
+                    table.AddCell(a.patient.FullName);
+                    table.AddCell(prostorija);
+                    table.AddCell(a.Type.ToString());
+                }
+
+                doc.Add(table);
+            }
+
+            string potpis = "  Izveštaj izdaje: " ;
+            Paragraph p = new Paragraph();
+            p.SpacingBefore = 40;
+            p.SpacingAfter = 2;
+            p.Alignment = Element.ALIGN_RIGHT;
+            p.Font = FontFactory.GetFont(FontFactory.HELVETICA, 14f, BaseColor.DARK_GRAY);
+            p.Add(potpis);
+            doc.Add(p);
+
+            string ime = "Andjela Djuric";
+            Paragraph imep = new Paragraph();
+            imep.SpacingBefore = 2;
+            imep.SpacingAfter = 10;
+            imep.Alignment = Element.ALIGN_RIGHT;
+            imep.Font = FontFactory.GetFont(FontFactory.TIMES_BOLDITALIC, 11f, Font.ITALIC, BaseColor.DARK_GRAY);
+            imep.Add(ime);
+            doc.Add(imep);
+            doc.Close();
+        }
+
         private bool CanExecute()
         {
             return true;
@@ -112,6 +210,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
             this.EndDate = DateTime.Today;
 
             SelectionChanged = new MyICommand(OnDateChanged, CanExecute);
+            CancelCommand = new MyICommand(OnCancel, CanExecute);
+            GenerateReport = new MyICommand(OnConfirm, CanExecute);
         }
         #endregion
     }

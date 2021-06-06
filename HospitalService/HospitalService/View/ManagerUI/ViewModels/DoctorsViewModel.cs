@@ -30,6 +30,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             set
             {
                 selectedDoctor = value;
+                GenerateCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
