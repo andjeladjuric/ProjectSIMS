@@ -1,6 +1,10 @@
-﻿using HospitalService.View.PatientUI.ViewsModel;
+﻿using HospitalService.Service;
+using HospitalService.View.PatientUI.ViewsModel;
 using Model;
+using System;
+using System.Timers;
 using System.Windows;
+using System.Collections.Generic;
 
 
 namespace HospitalService.View.PatientUI
@@ -19,11 +23,13 @@ namespace HospitalService.View.PatientUI
           
             this.viewModel = new PatientWindowViewModel(this.Main.NavigationService,patient,this);
             this.DataContext = this.viewModel;
-            
+
             
 
         }
 
         
+
+
     }
 }

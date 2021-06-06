@@ -43,26 +43,9 @@ namespace HospitalService.View.PatientUI.ViewsModel
             Patient = patient.Name + " " + patient.Surname;
             
            
-            Timer aTimer = new Timer() { Interval = 5000, AutoReset = false };
-            aTimer.Elapsed += (sender, e) => showNotification(sender, e , patient);
-            aTimer.Start();
             
         }
 
-        static void showNotification(object sender, ElapsedEventArgs e,Patient p)
-        {
-            AppointmentsService appointmentService = new AppointmentsService();
-            String s = "";
-            List<Appointment> patientAppointmentsForReminder = appointmentService.getNotFinishedAppointments(p);
-            for (int i = 0; i < patientAppointmentsForReminder.Count; i++)
-            {
-                if ((DateTime.Now - patientAppointmentsForReminder[i].StartTime).TotalDays < 1)
-                {
-                    s = "Uskoro imate pregled!" + "\n" + "Datum: " + patientAppointmentsForReminder[i].StartTime.ToShortDateString() + "\n" + "Vrijeme: " + patientAppointmentsForReminder[i].StartTime.ToShortTimeString() + "\n" + "Doktor: " + patientAppointmentsForReminder[i].doctor.Name + " " + patientAppointmentsForReminder[i].doctor.Surname;
-                    MessageBox.Show(s);
-                }
-            }
-
-        }
+        
     }
 }
