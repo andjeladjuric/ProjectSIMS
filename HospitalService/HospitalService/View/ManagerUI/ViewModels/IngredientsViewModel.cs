@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,6 +17,37 @@ namespace HospitalService.View.ManagerUI.ViewModels
     public class IngredientsViewModel : ViewModel
     {
         #region Fields
+        private bool warning;
+        public bool Warning
+        {
+            get { return warning; }
+            set
+            {
+                warning = value;
+                OnPropertyChanged();
+            }
+        }
+        private CancellationTokenSource cts = new CancellationTokenSource();
+        private bool demoOn;
+        public bool DemoOn
+        {
+            get { return demoOn; }
+            set
+            {
+                demoOn = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool isOpen;
+        public bool IsPopupOpen
+        {
+            get { return isOpen; }
+            set
+            {
+                isOpen = value;
+                OnPropertyChanged();
+            }
+        }
         private ObservableCollection<string> previousCollection; 
         public ObservableCollection<string> PreviouseCollection
         { get { return previousCollection; } set { previousCollection = value; OnPropertyChanged(); } }
@@ -90,9 +123,17 @@ namespace HospitalService.View.ManagerUI.ViewModels
         public MyICommand DeleteIngredientCommand { get; set; }
         public MyICommand SelectionChangedCommand { get; set; }
         public MyICommand IngredientChangedCommand { get; set; }
+        public MyICommand StopDemo { get; set; }
         #endregion
 
         #region Actions
+        private void OnStop()
+        {
+            cts.Cancel();
+            Warning = true;
+            DemoOn = false;
+            this.Frame.NavigationService.Navigate(new RoomsView());
+        }
         private void OnAddToMed()
         {
             int enteredQuantity = Int32.Parse(Quantity);
@@ -204,12 +245,38 @@ namespace HospitalService.View.ManagerUI.ViewModels
             {
                 Ingredients.Add(m);
             }
+         }
+
+        private async Task DemoIsOn(CancellationToken ct)
+        {
+            if (DemoOn)
+            {
+                MedicationService service = new MedicationService();
+                IngredientsService ingredients = new IngredientsService();
+                DoctorService doctors = new DoctorService();
+                MessageViewModel.Message = "Kraj DEMO prikaza!";
+                ct.ThrowIfCancellationRequested();
+
+                await Task.Delay(1500, ct);
+                SelectedIngredient = ingredients.GetOne("retinoid");
+                await Task.Delay(2000, ct);
+                Quantity = "60";
+                await Task.Delay(2000, ct);
+                OnAddToMed();
+                await Task.Delay(2000, ct);
+                OnCancel();
+                await Task.Delay(2000, ct);
+                this.Frame.NavigationService.Navigate(new MedicationsView());
+                IsPopupOpen = true;
+                await Task.Delay(2000, ct);
+                IsPopupOpen = false;
+                OnStop();
+            }
         }
-        
         #endregion
 
         #region Constructors
-        public IngredientsViewModel(Frame currentFrame, Frame quantityFrame, Dictionary<string, int> MedIngredients, ObservableCollection<string> view)
+        public IngredientsViewModel(Frame currentFrame, Frame quantityFrame, Dictionary<string, int> MedIngredients, ObservableCollection<string> view, bool demo)
         {
             /*view*/
             this.Frame = currentFrame;
@@ -230,6 +297,18 @@ namespace HospitalService.View.ManagerUI.ViewModels
             CancelCommand = new MyICommand(OnCancel, CanAddOrCancel);
             SelectionChangedCommand = new MyICommand(OnSelectionChanged, CanAddOrCancel);
             IngredientChangedCommand = new MyICommand(OnIngredientChanged, CanAddOrCancel);
+            StopDemo = new MyICommand(OnStop, CanExecute);
+
+            this.DemoOn = demo;
+            try
+            {
+                DemoIsOn(cts.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                MessageBox.Show("Greška!");
+            }
+
         }
         #endregion
     }

@@ -34,6 +34,21 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
+        <Button x:Name="Stop" Margin="785,30,52,0" VerticalAlignment="Top" Height="34" Background="{x:Null}" 
+                        BorderThickness="1" Command="{Binding StopDemo}">
+            <Label Content="Zaustavi DEMO" VerticalAlignment="Center" FontWeight="DemiBold"
+                       FontStyle="Italic"/>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DemoOn}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding Appointments}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
                   Height="546" VerticalAlignment="Top" Width="476" FontFamily="Roboto" FontSize="14"
@@ -330,6 +345,9 @@
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
         <Popup x:Name="pp" Placement="Center" IsOpen="{Binding IsPopupOpen}" Width="400" Height="200" AllowsTransparency="True">
             <local:Message />
+        </Popup>
+        <Popup x:Name="stop" Placement="Center" IsOpen="{Binding Warning}" Width="400" Height="200" AllowsTransparency="True">
+            <local:StartDemo/>
         </Popup>
     </Grid>
 </Page>

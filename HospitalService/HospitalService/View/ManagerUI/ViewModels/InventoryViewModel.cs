@@ -127,7 +127,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Actions
         private void OnMove()
         {
-            this.Frame.NavigationService.Navigate(new TransferItemView("", ""));
+            this.Frame.NavigationService.Navigate(new TransferItemView("", "", false));
         }
         private void OnAdd()
         {

@@ -27,12 +27,12 @@
 
     <Grid Background="#f5f5f5">
 
-        <Grid x:Name="grid" Margin="296,103,295,103">
-            <Border HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="350" Margin="12,33,0,0"
+        <Grid x:Name="grid" Margin="190,103,223,103">
+            <Border HorizontalAlignment="Center" Height="389" VerticalAlignment="Top" Width="512" Margin="0,94,0,0"
                     CornerRadius="10" BorderThickness="0.5" BorderBrush="Black"/>
-            <Label x:Name="quantity" Content="Količina" HorizontalAlignment="Left" Margin="47,325,0,0" VerticalAlignment="Top" 
+            <Label x:Name="quantity" Content="Količina" HorizontalAlignment="Left" Margin="131,344,0,0" VerticalAlignment="Top" 
                    Width="112" Height="30"/>
-            <TextBox x:Name="quantityBox" HorizontalAlignment="Left" Height="32" Margin="180,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
+            <TextBox x:Name="quantityBox" HorizontalAlignment="Left" Height="32" Margin="264,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
                      Width="154" Foreground="#474746"
                      FontFamily="Roboto"
                      FontWeight="Light"
@@ -63,9 +63,9 @@
                 </Validation.ErrorTemplate>
             </TextBox>
             <TextBlock Text="{Binding ValidationErrors[Quantity], Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                               Foreground="#FFE52020" TextWrapping="Wrap" FontSize="14" Margin="32,106,34,371" TextAlignment="Center"/>
+                               Foreground="#FFE52020" TextWrapping="Wrap" FontSize="14" Margin="131,132,138,346" TextAlignment="Center"/>
 
-            <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="89,399,0,0" VerticalAlignment="Top" Height="30" Width="81"
+            <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="173,418,0,0" VerticalAlignment="Top" Height="30" Width="81"
                     Command="{Binding ConfirmCommand}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
@@ -104,13 +104,13 @@
             </Button>
 
 
-            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="213,399,0,0" VerticalAlignment="Top" Height="30" 
+            <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="297,418,0,0" VerticalAlignment="Top" Height="30" 
                     Width="80" Command="{Binding CancelCommand}"/>
-            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="36,49,0,0" Text="Premesti stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
-            <Label x:Name="Stavka" Content="Izabrana stavka" HorizontalAlignment="Left" Margin="47,152,0,0" VerticalAlignment="Top" 
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="12,37,0,0" Text="Premesti stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="281" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
+            <Label x:Name="Stavka" Content="Izabrana stavka" HorizontalAlignment="Left" Margin="131,170,0,0" VerticalAlignment="Top" 
                    Width="121" Height="30"/>
             <TextBox x:Name="IDBox" Text="{Binding SelectedItem.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" 
-                     HorizontalAlignment="Left" Height="32" Margin="180,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" 
+                     HorizontalAlignment="Left" Height="32" Margin="264,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" 
                      Foreground="#474746"
                      FontWeight="Light"
                      FontFamily="Roboto"
@@ -118,7 +118,7 @@
                      HorizontalContentAlignment="Center"/>
 
             <DatePicker x:Name="datePicker" SelectedDate="{Binding Date}" DisplayDateStart="{x:Static sys:DateTime.Today}" HorizontalAlignment="Left"
-                        Margin="180,208,0,0" VerticalAlignment="Top" Width="154" Height="30"
+                        Margin="264,226,0,0" VerticalAlignment="Top" Width="154" Height="30"
                         Foreground="#474746"
                         FontFamily="Roboto"
                         FontWeight="Light"
@@ -136,11 +136,11 @@
                 </DatePicker.Style>
             </DatePicker>
 
-            <Label x:Name="time" Content="Vreme" HorizontalAlignment="Left" Margin="47,267,0,0" VerticalAlignment="Top" 
+            <Label x:Name="time" Content="Vreme" HorizontalAlignment="Left" Margin="131,286,0,0" VerticalAlignment="Top" 
                    Width="112" Height="30"/>
-            <Label x:Name="date" Content="Datum" HorizontalAlignment="Left" Margin="47,208,0,0" VerticalAlignment="Top" 
+            <Label x:Name="date" Content="Datum" HorizontalAlignment="Left" Margin="131,226,0,0" VerticalAlignment="Top" 
                    Width="112" Height="30"/>
-            <TextBox x:Name="TimeBox" HorizontalAlignment="Left" Height="32" Margin="180,262,0,0" TextWrapping="Wrap" 
+            <TextBox x:Name="TimeBox" HorizontalAlignment="Left" Height="32" Margin="264,280,0,0" TextWrapping="Wrap" 
                      VerticalAlignment="Top" Width="154"
                      Foreground="#474746"
                      FontFamily="Roboto"
@@ -182,10 +182,28 @@
             </TextBox>
         </Grid>
 
+        <Button x:Name="Stop" Margin="585,143,252,0" VerticalAlignment="Top" Height="34" Background="{x:Null}" 
+                        BorderThickness="1" Command="{Binding StopDemo}">
+            <Label Content="Zaustavi DEMO" VerticalAlignment="Top" FontWeight="DemiBold"
+                       FontStyle="Italic"/>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DemoOn}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
 
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
         <Popup x:Name="pp" Placement="Center" IsOpen="{Binding IsPopupOpen}" Width="400" Height="200" AllowsTransparency="True">
             <local:Message />
+        </Popup>
+        <Popup x:Name="stop" Placement="Center" IsOpen="{Binding Warning}" Width="400" Height="200" AllowsTransparency="True">
+            <local:StartDemo/>
         </Popup>
     </Grid>
 </Page>

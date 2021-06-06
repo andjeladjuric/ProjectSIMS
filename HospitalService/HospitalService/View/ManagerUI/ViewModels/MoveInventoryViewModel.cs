@@ -18,6 +18,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
     public class MoveInventoryViewModel : ValidationBase
     {
         #region Fields
+        private CancellationTokenSource cts = new CancellationTokenSource();
         private Inventory selectedItem;
         private string enteredTime;
         private DateTime date;
@@ -29,6 +30,16 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Properties
+        private bool warning;
+        public bool Warning
+        {
+            get { return warning; }
+            set
+            {
+                warning = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<Inventory> RoomInventory { get; set; }
         public bool IsPopupOpen
         {
@@ -128,10 +139,17 @@ namespace HospitalService.View.ManagerUI.ViewModels
         public MyICommand ConfirmCommand { get; set; }
         public MyICommand CancelCommand { get; set; }
         public MyICommand CancelSearch { get; set; }
+        public MyICommand StopDemo { get; set; }
         #endregion
 
         #region Actions
-
+        private void OnStop()
+        {
+            cts.Cancel();
+            Warning = true;
+            DemoOn = false;
+            this.Frame.NavigationService.Navigate(new RoomsView());
+        }
         private void OnConfirm()
         {
             RoomService roomService = new RoomService();
@@ -167,7 +185,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
                 string one = Room.Id + "/" + Room.Name;
                 string two = SelectedRoom.Id + "/" + SelectedRoom.Name;
-                this.Frame.NavigationService.Navigate(new TransferItemView(one, two));
+                this.Frame.NavigationService.Navigate(new TransferItemView(one, two, false));
             }
         }
 
@@ -176,7 +194,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             string one = Room.Id + "/" + Room.Name;
             string two = SelectedRoom.Id + "/" + SelectedRoom.Name;
             MessageBox.Show(one + " " + two);
-            this.Frame.NavigationService.Navigate(new TransferItemView(one, two));
+            this.Frame.NavigationService.Navigate(new TransferItemView(one, two, false));
         }
 
         private bool CanExecute()
@@ -201,19 +219,15 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 RoomService rooms = new RoomService();
                 ct.ThrowIfCancellationRequested();
 
-                await Task.Delay(1500, ct);
-                SelectedItem = service.GetOne(321);
                 await Task.Delay(2000, ct);
                 EnteredTime = "15:30";
                 await Task.Delay(2000, ct);
                 Date = DateTime.Today;
-                //await Task.Delay(2000, ct);
-                //SelectedRoom = "330/Ordinacija 2";
                 await Task.Delay(2000, ct);
                 Quantity = "5";
 
                 await Task.Delay(2000, ct);
-                this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(rooms.GetOne("105")));
+                this.Frame.NavigationService.Navigate(new InventoryView());
                 IsPopupOpen = true;
                 await Task.Delay(1500, ct);
                 IsPopupOpen = false;
@@ -279,7 +293,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             /*commands*/
             ConfirmCommand = new MyICommand(OnConfirm, CanNavigate);
             CancelCommand = new MyICommand(OnCancel, CanNavigate);
-            CancellationTokenSource cts = ManagerWindowViewModel.cts;
+            StopDemo = new MyICommand(OnStop, CanExecute);
             try
             {
                 DemoIsOn(cts.Token);

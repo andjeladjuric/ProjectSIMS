@@ -13,7 +13,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
     public class ManagerWindowViewModel : ViewModel
     {
         #region Fields
-        public static CancellationTokenSource cts = new CancellationTokenSource();
         private Manager manager;
         public Manager Manager
         {
@@ -48,17 +47,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        private bool isOpen;
-        public bool IsPopupOpen
-        {
-            get { return isOpen; }
-            set
-            {
-                isOpen = value;
-                OnPropertyChanged();
-            }
-        }
         #endregion
 
         #region Commands
@@ -85,18 +73,9 @@ namespace HospitalService.View.ManagerUI.ViewModels
             this.Frame.NavigationService.Navigate(new ProfileView(this.Manager));
         }
 
-        private void OnStop()
-        {
-            cts.Cancel();
-            MessageBox.Show("Demo zavrsen");
-            DemoOn = false;
-            this.Frame.NavigationService.Navigate(new RoomsView());
-        }
-
         private void OnDemo()
         {
             DemoOn = true;
-            IsPopupOpen = true;
             this.Frame.NavigationService.Navigate(new NewRoomView(DemoOn));
         }
 
@@ -152,7 +131,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
             ProfileCommand = new MyICommand(OnProfile, CanExecute);
             ChangePage = new MyICommand(OnChange, CanExecute);
             DemoCommand = new MyICommand(OnDemo, CanExecute);
-            StopDemo = new MyICommand(OnStop, CanExecute);
 
             /*check requests*/
             RoomInventoryService service = new RoomInventoryService();

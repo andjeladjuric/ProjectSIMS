@@ -48,7 +48,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Actions
         private void OnAdd()
         {
-            this.Frame.NavigationService.Navigate(new AddMedicationView());
+            this.Frame.NavigationService.Navigate(new AddMedicationView(false));
         }
 
         private void OnDelete()

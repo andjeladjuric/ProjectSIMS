@@ -18,6 +18,17 @@ namespace HospitalService.View.ManagerUI.ViewModels
     public class RoomRenovationViewModel : ValidationBase
     {
         #region Fields
+        private bool warning;
+        public bool Warning
+        {
+            get { return warning; }
+            set
+            {
+                warning = value;
+                OnPropertyChanged();
+            }
+        }
+        private CancellationTokenSource cts = new CancellationTokenSource();
         private bool demoOn;
         public bool DemoOn
         {
@@ -153,9 +164,17 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Commands
         public MyICommand ConfirmCommand { get; set; }
         public MyICommand CancelCommand { get; set; }
+        public MyICommand StopDemo { get; set; }
         #endregion
 
         #region Action
+        private void OnStop()
+        {
+            cts.Cancel();
+            Warning = true;
+            DemoOn = false;
+            this.Frame.NavigationService.Navigate(new RoomsView());
+        }
         private void OnConfirm()
         {
             RoomRenovationService renovationService = new RoomRenovationService();
@@ -355,10 +374,9 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 await Task.Delay(1500, ct);
                 this.Frame.NavigationService.Navigate(new RoomsView());
                 await Task.Delay(2000, ct);
-                this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(rooms.GetOne("105")));
+                this.Frame.NavigationService.Navigate(new InventoryView());
                 await Task.Delay(2000, ct);
-                //this.Frame.NavigationService.Navigate(new MoveInventoryView(rooms.GetOne("105"),
-                //    service.LoadRoomInventory(rooms.GetOne("105")), DemoOn));
+                this.Frame.NavigationService.Navigate(new TransferItemView("", "", DemoOn));
             }
         }
         #endregion
@@ -379,8 +397,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
             /*commands*/
             ConfirmCommand = new MyICommand(OnConfirm, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanExecute);
+            StopDemo = new MyICommand(OnStop, CanExecute);
 
-            CancellationTokenSource cts = ManagerWindowViewModel.cts;
             try
             {
                 DemoIsOn(cts.Token);

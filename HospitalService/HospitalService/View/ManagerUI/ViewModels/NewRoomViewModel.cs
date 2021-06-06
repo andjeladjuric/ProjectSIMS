@@ -35,6 +35,18 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private bool warning;
+        public bool Warning
+        {
+            get { return warning; }
+            set
+            {
+                warning = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool demoOn;
         public bool DemoOn
         {
@@ -108,6 +120,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Commands
         public MyICommand AddCommand { get; set; }
         public MyICommand CancelCommand { get; set; }
+        public MyICommand StopDemo { get; set; }
 
         #endregion
 
@@ -124,6 +137,14 @@ namespace HospitalService.View.ManagerUI.ViewModels
             this.Frame.NavigationService.Navigate(new RoomsView());
         }
 
+        private void OnStop()
+        {
+            cts.Cancel();
+            Warning = true;
+            DemoOn = false;
+            this.Frame.NavigationService.Navigate(new RoomsView());
+        }
+
         private bool CanExecute()
         {
             return true;
@@ -137,10 +158,12 @@ namespace HospitalService.View.ManagerUI.ViewModels
             if (DemoOn)
             {
                 RoomService rooms = new RoomService();
-                MessageViewModel.Message = "Završena prva funkcionalnost \n Sledi - renoviranje prostorije";
                 ct.ThrowIfCancellationRequested();
 
-                await Task.Delay(1500, ct);
+                IsPopupOpen = true;
+                await Task.Delay(2000, ct);
+                IsPopupOpen = false;
+                MessageViewModel.Message = "Završena prva funkcionalnost \n Sledi - renoviranje prostorije";
                 RoomId = "403a";
                 await Task.Delay(2000, ct);
                 RoomName = "Operaciona sala";
@@ -150,8 +173,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 RoomSize = "35.4";
                 await Task.Delay(2000, ct);
                 RoomType = RoomType.OperatingRoom;
-                await Task.Delay(2000, ct);
-
                 await Task.Delay(2000, ct);
                 IsPopupOpen = true;
                 await Task.Delay(1500, ct);
@@ -168,9 +189,9 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             AddCommand = new MyICommand(OnAdd, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanExecute);
+            StopDemo = new MyICommand(OnStop, CanExecute);
             this.Frame = frame;
             this.DemoOn = demo;
-            cts = ManagerWindowViewModel.cts;
             try
             {
                DemoIsOn(cts.Token);

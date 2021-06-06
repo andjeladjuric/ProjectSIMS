@@ -20,10 +20,10 @@ namespace HospitalService.View.ManagerUI.Views
     public partial class TransferItemView : Page
     {
         TransferItemViewModel currentViewModel;
-        public TransferItemView(string SelectedFirst, string SelectedSecond)
+        public TransferItemView(string SelectedFirst, string SelectedSecond, bool DemoOn)
         {
             InitializeComponent();
-            currentViewModel = new TransferItemViewModel(newFrame, SelectedFirst, SelectedSecond);
+            currentViewModel = new TransferItemViewModel(newFrame, SelectedFirst, SelectedSecond, DemoOn);
             this.DataContext = currentViewModel;
         }
     }
