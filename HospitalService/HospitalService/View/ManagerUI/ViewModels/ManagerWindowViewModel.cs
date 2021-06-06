@@ -61,6 +61,10 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Actions
+        private void OnHelp()
+        {
+            this.Frame.NavigationService.Navigate(new HelpView());
+        }
         private void OnLogout()
         {
             MainWindow mainWindow = new MainWindow();
@@ -131,6 +135,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             ProfileCommand = new MyICommand(OnProfile, CanExecute);
             ChangePage = new MyICommand(OnChange, CanExecute);
             DemoCommand = new MyICommand(OnDemo, CanExecute);
+            HelpCommand = new MyICommand(OnHelp, CanExecute);
 
             /*check requests*/
             RoomInventoryService service = new RoomInventoryService();

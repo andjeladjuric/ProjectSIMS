@@ -42,13 +42,14 @@
             VerticalAlignment="Top"
             Background="#cad9c4">
 
-            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Left" Margin="858,0,0,0" Width="166">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Left" Margin="876,0,0,0" Width="148">
                 <Button x:Name="Profile" Margin="5" VerticalAlignment="Center" Width="35" 
                         Height="35" Background="{x:Null}" BorderThickness="0" HorizontalAlignment="Left" 
                         Command="{Binding ProfileCommand}">
                     <materialDesign:PackIcon Kind="UserOutline"  Width="30" Height="30" />
                 </Button>
-                <Button x:Name="Help" Margin="5" VerticalAlignment="Center" Width="35" Height="34" Background="{x:Null}" BorderThickness="0" >
+                <Button x:Name="Help" Margin="5" VerticalAlignment="Center" Width="35" Height="34" Background="{x:Null}" 
+                        BorderThickness="0" Command="{Binding HelpCommand}" >
                     <materialDesign:PackIcon Kind="HelpCircleOutline"  Width="30" Height="30" />
                 </Button>
 

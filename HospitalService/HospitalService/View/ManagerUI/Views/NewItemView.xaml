@@ -184,7 +184,7 @@
             </Validation.ErrorTemplate>
         </TextBox>
 
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="332,92,0,0" Text="Dodaj stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="292,100,0,0" Text="Dodaj stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="256" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Left"/>
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>

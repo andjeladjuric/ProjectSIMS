@@ -1,0 +1,40 @@
+﻿<Page x:Class="HospitalService.View.ManagerUI.Views.Help.InventoryHelp"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views.Help"
+      mc:Ignorable="d" 
+      d:DesignHeight="546" d:DesignWidth="690"
+      Title="InventoryHelp">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Height="546" Width="690" Background="#f5f5f5">
+        <TextBlock FontStyle="Italic" Margin="86,215,460,304">Slika 1. Izmena prostorije</TextBlock>
+        <TextBlock  Foreground="#474746" TextWrapping="Wrap"
+                    FontFamily="Roboto"
+                    FontWeight="Light"
+                    FontSize="16" Margin="345,122,25,122">
+            Navigacijom pomoću sidebar menija korisnik može da izabere prikaz cijele baze inventara. Ovdje mu se nudi funkcija
+            premještanja opreme iz jedne prostorije u drugu, dodavanja nove kao i brisanja i izmene postojeće. Funkcionalnost mijenjanja inventara
+            i premještanja detaljnije su prikazane u DEMO režimu rada aplikacije. Na Slici 1 prikazana je forma za dodavanje nove stavke. ID novog
+            inventara se generiše automatski te korisnik ne mora lično da ga unosi.
+            Premještanje inventara podrazumijeva premještanje i dinamičkog i statičkog inventara. Premještanje statičkog inventara se zakazuje, dok
+            za dinamički nije potrebno zakazivanje.
+
+        </TextBlock>
+        <Image Source="/Images/dodajStavku.png" Margin="19,117,359,134"/>
+
+        <TextBlock FontStyle="Italic" Margin="90,417,456,102">Slika 1. Dodavanje inventara</TextBlock>
+    </Grid>
+</Page>
