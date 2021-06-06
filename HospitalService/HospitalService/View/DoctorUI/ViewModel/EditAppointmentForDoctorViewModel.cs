@@ -1,5 +1,6 @@
 ﻿using HospitalService.Service;
 using HospitalService.View.DoctorUI.Commands;
+using HospitalService.View.DoctorUI.Validation;
 using HospitalService.View.DoctorUI.Views;
 using Model;
 using Storage;
@@ -7,17 +8,18 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
-    class EditAppointmentForDoctorViewModel:ViewModelClass
+    class EditAppointmentForDoctorViewModel:ValidationBase
     {
         public Appointment AppointmentForEditing { get; set; }
         public DoctorWindowViewModel ParentWindow { get; set; }
         private DateTime date;
-        private DateTime startTime;
-        private DateTime endTime;
+        private String startTime;
+        private String endTime;
         private Room room;
         private ObservableCollection<Room> rooms;
         public RelayCommand CancelCommand { get; set; }
@@ -31,16 +33,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 date = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Date");
             }
         }
-        public DateTime EndTime
+        public String EndTime
         {
             get { return endTime; }
             set
             {
                 endTime = value;
-                OnPropertyChanged();
+                OnPropertyChanged("EndTime");
             }
         }
 
@@ -50,18 +52,18 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 rooms = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Rooms");
             }
         }
 
        
-        public DateTime StartTime
+        public String StartTime
         {
             get { return startTime; }
             set
             {
                 startTime = value;
-                OnPropertyChanged();
+                OnPropertyChanged("StartTime");
             }
         }
 
@@ -71,7 +73,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             set
             {
                 room = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Room");
             }
         }
 
@@ -85,8 +87,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             AppointmentForEditing = selectedAppointment;
             Date = selectedAppointment.StartTime.Date;
-            StartTime = selectedAppointment.StartTime;
-            EndTime = selectedAppointment.EndTime;
+            StartTime = selectedAppointment.StartTime.ToString("HH:mm");
+            EndTime = selectedAppointment.EndTime.ToString("HH:mm");
             RoomType roomType = new RoomService().GetRoomType(AppointmentForEditing.Type);
             Rooms = new ObservableCollection<Room>();
             new RoomService().GetByType(roomType).ForEach(Rooms.Add);
@@ -97,8 +99,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_EditCommand(object obj)
         {
             DateService dateService = new DateService();
-            DateTime Start = dateService.CreateDate(Date, StartTime);
-            DateTime End = dateService.CreateDate(Date,EndTime);
+            DateTime Start = dateService.CreateDateString(Date, StartTime);
+            DateTime End = dateService.CreateDateString(Date,EndTime);
             AppointmentForEditing.room = Room;
             new AppointmentsService().Edit(AppointmentForEditing.Id, Start, End, Room); 
             ParentWindow.Refresh();
@@ -108,34 +110,39 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public bool CanExecute_EditCommand(object obj)
         {
             DateService dateService = new DateService();
-            DateTime Start = dateService.CreateDate(Date, StartTime);
-            DateTime End = dateService.CreateDate(Date, EndTime);
-            if (new AppointmentsService().IsTaken(Start, End, AppointmentForEditing.doctor))
+            this.Validate();
+            if (this.IsValid)
             {
-                MessageBox.Show("Postoji termin u izabranom periodu.");
-                return false;
-            }
-            if (new AppointmentsService().IsRoomTaken(Start, End, Room))
-            {
-                RoomType roomType = new RoomService().GetRoomType(AppointmentForEditing.Type);
-                List<Room> available = new AppointmentsService().GetAvailableRooms(AppointmentForEditing.StartTime, AppointmentForEditing.EndTime, roomType);
-                try
+                DateTime Start = dateService.CreateDateString(Date, StartTime);
+                DateTime End = dateService.CreateDateString(Date, EndTime);
+                if (new AppointmentsService().IsTaken(Start, End, AppointmentForEditing.doctor))
                 {
-                    if (available[0] != null)
+                    MessageBox.Show("Postoji termin u izabranom periodu.");
+                    return false;
+                }
+                if (new AppointmentsService().IsRoomTaken(Start, End, Room))
+                {
+                    RoomType roomType = new RoomService().GetRoomType(AppointmentForEditing.Type);
+                    List<Room> available = new AppointmentsService().GetAvailableRooms(AppointmentForEditing.StartTime, AppointmentForEditing.EndTime, roomType);
+                    try
                     {
-                        MessageBox.Show("Odabrana soba je zauzeta. Slobodna je soba: " + available[0].Id);
+                        if (available[0] != null)
+                        {
+                            MessageBox.Show("Odabrana soba je zauzeta. Slobodna je soba: " + available[0].Id);
+                            return false;
+                        }
+                    }
+                    catch
+                    {
+
+                        MessageBox.Show("Nema slobodnih soba za odabrano vrijeme.");
                         return false;
+
                     }
                 }
-                catch
-                {
-
-                    MessageBox.Show("Nema slobodnih soba za odabrano vrijeme.");
-                    return false;
-
-                }
+                return true;
             }
-            return true;
+            return false;
         }
 
         public void Executed_CancelCommand(object obj)
@@ -152,5 +159,26 @@ namespace HospitalService.View.DoctorUI.ViewModel
         {
         }
 
+        protected override void ValidateSelf()
+        {
+            Regex regexTime = new Regex(@"^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
+            if (string.IsNullOrWhiteSpace(StartTime))
+            {
+                this.ValidationErrors["StartT"] = "Obavezan format: 23:59";
+            }
+            else if (!regexTime.IsMatch(StartTime))
+            {
+                this.ValidationErrors["StartT"] = "Obavezan format: 23:59";
+            }
+
+            if (string.IsNullOrWhiteSpace(EndTime))
+            {
+                this.ValidationErrors["EndT"] = "Obavezan format: 23:59";
+            }
+            else if (!regexTime.IsMatch(EndTime))
+            {
+                this.ValidationErrors["EndT"] = "Obavezan format: 23:59";
+            }
+        }
     }
 }

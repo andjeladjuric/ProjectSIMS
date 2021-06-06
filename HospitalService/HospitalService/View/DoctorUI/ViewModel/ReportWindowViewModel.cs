@@ -73,8 +73,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
             //Draw the text
             PdfGraphics graphics = page.Graphics;
-
-            graphics.DrawString("Izvjestaj o pregledu stanja", font, PdfBrushes.DarkBlue, new PointF(140, 10)); ;
+            String text = "Pregled stanja";
+            graphics.DrawString(text, font, PdfBrushes.DarkBlue, new PointF(180, 10)); ;
             graphics.DrawString("Pacijent: " + PatientsName, font2, PdfBrushes.DarkGray, new PointF(20, 50));
             graphics.DrawString("Vremenski period: " + TimePeriod, font2, PdfBrushes.DarkGray, new PointF(20, 75));
             graphics.DrawString("U tabeli su prikazane sve uspostavljene dijagnoze za zadati vremenski period.", font3, PdfBrushes.DarkGray, new PointF(20, 110));

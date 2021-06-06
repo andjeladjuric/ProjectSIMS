@@ -39,7 +39,7 @@
                 <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                 <Label Content="Datum rođenja:" Margin="30,0,10,0"/>
-                <TextBox Width="200" Text="{Binding Doctor.DateOfBirth, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
+                <TextBox Width="195" Text="{Binding Doctor.DateOfBirth, StringFormat=dd/MM/yyyy}" IsReadOnly="True"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                 <Label Content="JMBG:" Margin="30,0,70,0"/>

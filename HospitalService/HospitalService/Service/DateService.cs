@@ -17,6 +17,13 @@ namespace HospitalService.Service
             return Convert.ToDateTime(createdDate);
         }
 
+        public DateTime CreateDateString(DateTime date, String time)
+        {
+            String createdDate = date.ToString("MM/dd/yyyy") + " " + time;
+           
+                return Convert.ToDateTime(createdDate);
+        }
+
         public bool CheckExistingRenovations(string roomId, DateTime startReno, DateTime endReno)
         {
             RenovationsRepository renovations = new RenovationsRepository();

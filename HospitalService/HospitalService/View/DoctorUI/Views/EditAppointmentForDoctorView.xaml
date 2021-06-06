@@ -8,7 +8,7 @@
         xmlns:commands="clr-namespace:HospitalService.View.DoctorUI.Commands"
                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-         Title="Izmjena termina" Height="490" Width="514" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" FontSize="16">
+         Title="Izmjena termina" Height="490" Width="514" WindowStartupLocation="CenterScreen" FontFamily="Open Sans" FontSize="16" SizeToContent="WidthAndHeight">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -24,10 +24,18 @@
         <KeyBinding Gesture="Ctrl+P" Command="{Binding EditCommand}"/>
         <KeyBinding Gesture="Esc"  Command="{Binding CancelCommand}"/>
     </Window.InputBindings>
-    <Grid x:Name="editGrid" Margin="0,0,4,-6" >
-        <TextBox  Text="{Binding Path=StartTime, Mode=TwoWay, StringFormat=HH:mm}" HorizontalAlignment="Left" Height="37" Margin="254,148,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168" RenderTransformOrigin="1.684,0.193"/>
-        <TextBox Text="{Binding Path=EndTime, Mode=TwoWay, StringFormat=HH:mm}"  HorizontalAlignment="Left" Height="36" Margin="254,211,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="168"/>
-        <ComboBox ItemsSource="{Binding Rooms}" SelectedItem="{Binding Room, Mode=TwoWay}" IsSynchronizedWithCurrentItem="True" HorizontalAlignment="Left" Margin="252,282,0,0" VerticalAlignment="Top" Width="168" Height="34" RenderTransformOrigin="0.538,-0.42">
+    <Grid x:Name="editGrid" Margin="0,0,4,-6" Height="490" Width="514">
+        <StackPanel Width="200" Height="60" Margin="200,-125,0,0">
+            <TextBox  Text="{Binding Path=StartTime, Mode=TwoWay}" HorizontalAlignment="Left" Height="37" TextWrapping="Wrap"   Width="168" />
+            <TextBlock Text="{Binding ValidationErrors[StartT]}"
+                               Foreground="Red"  Width="200" Height="20" FontSize="12"/>
+        </StackPanel>
+        <StackPanel Height="60" Width="200" Margin="200,10,0,0">
+            <TextBox Text="{Binding Path=EndTime, Mode=TwoWay}"  HorizontalAlignment="Left" Height="36" TextWrapping="Wrap"  Width="168"/>
+            <TextBlock Text="{Binding ValidationErrors[EndT]}"
+                               Foreground="Red"  Width="200" Height="20"  FontSize="12" />
+        </StackPanel>
+        <ComboBox ItemsSource="{Binding Rooms}" SelectedItem="{Binding Room, Mode=TwoWay}" IsSynchronizedWithCurrentItem="True" HorizontalAlignment="Left" Margin="255,282,0,0" VerticalAlignment="Top" Width="168" Height="34" RenderTransformOrigin="0.538,-0.42">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -42,10 +50,10 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <Label Content="Izmjena" FontSize="24" FontWeight="Medium" HorizontalAlignment="Left" Margin="204,20,0,0" VerticalAlignment="Top" Width="306" Height="40"/>
-        <Label Content="Od:" HorizontalAlignment="Left" Margin="69,148,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
-        <Label Content="Do:" HorizontalAlignment="Left" Margin="69,209,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
-        <Label Content="Soba:" HorizontalAlignment="Left" Margin="69,281,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
-        <Button ToolTip="Ctrl+P" Content="Potvrdi"  HorizontalAlignment="Left" Margin="280,388,0,0" VerticalAlignment="Top" Width="116" Height="34">
+        <Label Content="Od:" HorizontalAlignment="Left" Margin="69,160,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
+        <Label Content="Do:" HorizontalAlignment="Left" Margin="69,229,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
+        <Label Content="Soba:" HorizontalAlignment="Left" Margin="69,290,0,0" VerticalAlignment="Top" Width="143" Height="35" FontSize="14"/>
+        <Button ToolTip="Ctrl+P" Content="Potvrdi"  HorizontalAlignment="Left" Margin="290,388,0,0" VerticalAlignment="Top" Width="116" Height="34">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding EditCommand}"/>
@@ -58,7 +66,7 @@
                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
             </i:Interaction.Behaviors>
         </Button>
-        <Button ToolTip="Esc" Content="Odustani" HorizontalAlignment="Left" Margin="115,388,0,0" VerticalAlignment="Top" Width="114" Height="34">
+        <Button ToolTip="Esc" Content="Odustani" HorizontalAlignment="Left" Margin="125,388,0,0" VerticalAlignment="Top" Width="114" Height="34">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding CancelCommand}"/>

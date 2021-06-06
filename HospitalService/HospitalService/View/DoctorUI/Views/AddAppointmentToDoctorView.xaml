@@ -32,9 +32,16 @@
         <Label Content="Datum:" HorizontalAlignment="Left" Margin="40,90,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <Label Content="Tip:" HorizontalAlignment="Left" Margin="400,90,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
         <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="400,210,0,0" VerticalAlignment="Top" Width="97" Height="35" RenderTransformOrigin="0.493,-2.289"/>
-        <TextBox Text="{Binding Path=Appointment.StartTime, Mode=TwoWay, StringFormat=HH:mm}" ToolTipService.ToolTip="Obavezan format: 12:00" Name="StartBox" HorizontalAlignment="Left" Height="31" Margin="159,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
+        <TextBox Text="{Binding Path=Appointment.StartTime, Mode=TwoWay}" ToolTipService.ToolTip="Obavezan format: 12:00" Name="StartBox" HorizontalAlignment="Left" Height="31" Margin="159,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
+        <TextBlock Text="{Binding Appointment.ValidationErrors[StartTime]}"
+                               Foreground="Red" Margin="159,186,418,240" FontSize="12"/>
 
-        <TextBox  Text="{Binding Path=Appointment.EndTime, Mode=TwoWay, StringFormat=HH:mm}" ToolTipService.ToolTip="Obavezan format: 12:00" Name="EndBox" HorizontalAlignment="Left" Height="31" Margin="159,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
+        <TextBox  Text="{Binding Path=Appointment.EndTime, Mode=TwoWay}" ToolTipService.ToolTip="Obavezan format: 12:00" Name="EndBox" HorizontalAlignment="Left" Height="31" Margin="159,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="129"/>
+        <TextBlock Text="{Binding Appointment.ValidationErrors[EndTime]}"
+                               Foreground="Red" Margin="160,242,400,180" FontSize="12">
+            
+        </TextBlock>
+
 
 
         <ComboBox ItemsSource="{Binding Path=Rooms}" SelectedItem="{Binding Path=Appointment.Room, Mode=TwoWay}"  Name="RoomBox"  HorizontalAlignment="Left" Margin="525,150,0,0" VerticalAlignment="Top" Width="163" Height="35">
