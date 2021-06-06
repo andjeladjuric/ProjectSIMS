@@ -1,4 +1,5 @@
 ﻿using HospitalService.View.DoctorUI.Commands;
+using HospitalService.View.DoctorUI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,20 +20,12 @@ namespace HospitalService.View.DoctorUI.Views
     /// </summary>
     public partial class TutorialView : Window
     {
-		public RelayCommand PlayCommand { get; set; }
-		public RelayCommand PauseCommand { get; set; }
-		public RelayCommand CloseCommand { get; set; }
 
 		public TutorialView()
 		{
 			InitializeComponent();
 
-			PlayCommand = new RelayCommand(Executed_PlayCommand,
-			 CanExecute_PlayCommand);
-			PauseCommand = new RelayCommand(Executed_PauseCommand,
-			 CanExecute_PlayCommand);
-			CloseCommand = new RelayCommand(Executed_CloseCommand,
-			 CanExecute_PlayCommand);
+			this.DataContext = new TutorialViewModel(mePlayer, this);
 
 			DispatcherTimer timer = new DispatcherTimer();
 			timer.Interval = TimeSpan.FromSeconds(1);
@@ -51,40 +44,6 @@ namespace HospitalService.View.DoctorUI.Views
 				lblStatus.Content = "No file selected...";
 		}
 
-		private void btnPlay_Click(object sender, RoutedEventArgs e)
-		{
-			mePlayer.Play();
-		}
-
-		private void btnPause_Click(object sender, RoutedEventArgs e)
-		{
-			mePlayer.Pause();
-		}
-
-		private void btnStop_Click(object sender, RoutedEventArgs e)
-		{
-			mePlayer.Stop();
-		}
-
-		public bool CanExecute_PlayCommand(object obj)
-		{
-			return true;
-		}
-
-		public void Executed_PlayCommand(object obj)
-		{
-			mePlayer.Play();
-
-		}
-
-		public void Executed_PauseCommand(object obj)
-		{
-			mePlayer.Pause();
-		}
-
-		public void Executed_CloseCommand(object obj)
-		{
-			this.Close();
-		}
+		
 	}
 }
