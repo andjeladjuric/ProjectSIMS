@@ -151,14 +151,18 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void OnDeleteIngredient()
         {
             MedicationService service = new MedicationService();
-            if (IngredientsForMed.ContainsKey(SelectedIngredient.IngredientName))
+            if (MessageBox.Show("Da li želite da uklonite sastojak?",
+                "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                IngredientsForMed.Remove(SelectedIngredient.IngredientName);
-                AddIngredientToMedication();
+                if (IngredientsForMed.ContainsKey(SelectedIngredient.IngredientName))
+                {
+                    IngredientsForMed.Remove(SelectedIngredient.IngredientName);
+                    AddIngredientToMedication();
+                }
+                service.DeleteIngredient(SelectedIngredient.IngredientName);
+                Ingredients.Remove(SelectedIngredient);
+                allIngredientsView.Refresh();
             }
-            service.DeleteIngredient(SelectedIngredient.IngredientName);
-            Ingredients.Remove(SelectedIngredient);
-            allIngredientsView.Refresh();
 
         }
 

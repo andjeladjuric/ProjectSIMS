@@ -137,8 +137,12 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void OnDelete()
         {
             InventoryService inventoryService = new InventoryService();
-            inventoryService.Delete(SelectedItem.Id);
-            Inventory.Remove(SelectedItem);
+            if (MessageBox.Show("Da li želite da uklonite stavku?",
+                "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                inventoryService.Delete(SelectedItem.Id);
+                Inventory.Remove(SelectedItem);
+            }
         }
 
         private void OnEdit()

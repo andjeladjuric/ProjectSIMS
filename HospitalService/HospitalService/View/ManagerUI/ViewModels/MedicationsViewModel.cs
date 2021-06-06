@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace HospitalService.View.ManagerUI.ViewModels
@@ -54,8 +55,12 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void OnDelete()
         {
             MedicationService medicationService = new MedicationService();
-            medicationService.DeleteMedication(Medication.Id);
-            Medications.Remove(Medication);
+            if (MessageBox.Show("Da li želite da uklonite lek?",
+                "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                medicationService.DeleteMedication(Medication.Id);
+                Medications.Remove(Medication);
+            }
         }
 
         private void OnDetails()
