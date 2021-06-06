@@ -26,10 +26,5 @@ namespace HospitalService.View.DoctorUI.Views
             context = new DoctorWindowViewModel(loggedDoctor, this);
             this.DataContext = context;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            new TutorialView().Show();
-        }
     }
 }

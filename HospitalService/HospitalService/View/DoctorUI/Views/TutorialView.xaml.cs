@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HospitalService.View.DoctorUI.Commands;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -18,9 +19,20 @@ namespace HospitalService.View.DoctorUI.Views
     /// </summary>
     public partial class TutorialView : Window
     {
+		public RelayCommand PlayCommand { get; set; }
+		public RelayCommand PauseCommand { get; set; }
+		public RelayCommand CloseCommand { get; set; }
+
 		public TutorialView()
 		{
 			InitializeComponent();
+
+			PlayCommand = new RelayCommand(Executed_PlayCommand,
+			 CanExecute_PlayCommand);
+			PauseCommand = new RelayCommand(Executed_PauseCommand,
+			 CanExecute_PlayCommand);
+			CloseCommand = new RelayCommand(Executed_CloseCommand,
+			 CanExecute_PlayCommand);
 
 			DispatcherTimer timer = new DispatcherTimer();
 			timer.Interval = TimeSpan.FromSeconds(1);
@@ -52,6 +64,27 @@ namespace HospitalService.View.DoctorUI.Views
 		private void btnStop_Click(object sender, RoutedEventArgs e)
 		{
 			mePlayer.Stop();
+		}
+
+		public bool CanExecute_PlayCommand(object obj)
+		{
+			return true;
+		}
+
+		public void Executed_PlayCommand(object obj)
+		{
+			mePlayer.Play();
+
+		}
+
+		public void Executed_PauseCommand(object obj)
+		{
+			mePlayer.Pause();
+		}
+
+		public void Executed_CloseCommand(object obj)
+		{
+			this.Close();
 		}
 	}
 }

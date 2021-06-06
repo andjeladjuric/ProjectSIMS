@@ -39,8 +39,19 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button ToolTip="Tutorijal Ctrl+T" Height="40" Width="40" Background="{x:Null}" BorderThickness="0" Margin="0,0,10,0" Click="Button_Click">
+                <Button ToolTip="Tutorijal Ctrl+T" Height="40" Width="40" Background="{x:Null}" BorderThickness="0" Margin="0,0,10,0">
                     <materialDesign:PackIcon Foreground="#3f51b5" Kind="HelpCircle"  Width="40" Height="30"/>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:InvokeCommandAction Command="{Binding TutorialCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="KeyUp" >
+                            <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <i:Interaction.Behaviors>
+                        <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                    </i:Interaction.Behaviors>
                 </Button>
                 <Button ToolTip="Logout Esc" Height="40" Width="40" Background="{x:Null}" BorderThickness="0">
                     <materialDesign:PackIcon Foreground="#3f51b5" Kind="LogoutVariant" Width="40" Height="30"/>

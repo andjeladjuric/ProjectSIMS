@@ -4,20 +4,39 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="TutorialView" Height="450" Width="800">
+        Title="Tutorijal" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Gesture="Enter" Command="{Binding PlayCommand}"/>
+        <KeyBinding Gesture="Space" Command="{Binding PauseCommand}"/>
+        <KeyBinding Gesture="Esc"  Command="{Binding CloseCommand}"/>
+    </Window.InputBindings>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <MediaElement Source="pack://application:,,,/HospitalService;component/Images/Final.mp4" LoadedBehavior="Manual" Name="mePlayer" />
+        <Border BorderThickness="2" BorderBrush="#3f51b5">
+            <MediaElement Source="C:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\Images/Final.mp4" LoadedBehavior="Manual"  Name="mePlayer" />
+        </Border>
         <StackPanel Grid.Row="1">
-            <Label Name="lblStatus" Content="Not playing..." HorizontalContentAlignment="Center" Margin="5" />
+            <Label Name="lblStatus" Content="Pokrenite video" HorizontalContentAlignment="Center" Margin="5" />
             <WrapPanel HorizontalAlignment="Center">
-                <Button Name="btnPlay" Click="btnPlay_Click">Play</Button>
-                <Button Name="btnPause" Margin="5,0" Click="btnPause_Click">Pause</Button>
-                <Button Name="btnStop" Click="btnStop_Click">Stop</Button>
+                <Button Name="btnPlay" Click="btnPlay_Click" Width="43">Play</Button>
+                <Button Name="btnPause" Click="btnPause_Click" Width="48">Pause</Button>
+                <Button Name="btnStop" Click="btnStop_Click" Width="41">Stop</Button>
             </WrapPanel>
         </StackPanel>
     </Grid>
