@@ -36,6 +36,7 @@ namespace HospitalService.Service
             Room room = rooms.FindRoomByPriority();
             RoomInventory ri = new RoomInventory(room.Id, newItem.Id, newItem.Quantity);
             roomInventory.GetAll().Add(ri);
+            roomInventory.SerializeRoomInventory();
             inventory.Save(newItem);
         }
 

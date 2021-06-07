@@ -124,7 +124,7 @@
 
         <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
                   HorizontalAlignment="Left" Height="34" Margin="304,370,0,0" VerticalAlignment="Top" Width="172"
-                  Foreground="#474746"
+                  Foreground="#474746" SelectedItem="{Binding Type}"
                   FontFamily="Roboto"
                   FontWeight="Light"
                   FontSize="14"
