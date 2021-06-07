@@ -189,6 +189,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
             imep.Add(ime);
             doc.Add(imep);
             doc.Close();
+
+            this.Frame.NavigationService.Navigate(new DoctorsView());
         }
 
         private bool CanExecute()
