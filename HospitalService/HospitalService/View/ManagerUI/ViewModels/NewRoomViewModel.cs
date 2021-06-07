@@ -174,9 +174,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 await Task.Delay(2000, ct);
                 RoomType = RoomType.OperatingRoom;
                 await Task.Delay(2000, ct);
-                IsPopupOpen = true;
-                await Task.Delay(1500, ct);
-                IsPopupOpen = false;
                 this.Frame.NavigationService.Navigate(new RoomsView());
                 await Task.Delay(1500, ct);
                 this.Frame.NavigationService.Navigate(new RoomRenovationView(rooms.GetOne("330"), DemoOn));

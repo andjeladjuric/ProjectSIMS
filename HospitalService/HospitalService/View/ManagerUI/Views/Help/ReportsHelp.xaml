@@ -30,6 +30,6 @@
             
         </TextBlock>
         <Image Source="/Images/izvestaj.png" Margin="21,120,366,176"/>
-        <TextBlock FontStyle="Italic" Margin="102,380,442,139">Slika 1. Primjer izveštaja</TextBlock>
+        <TextBlock FontStyle="Italic" Margin="102,380,442,139">Slika 1. Primer izveštaja</TextBlock>
     </Grid>
 </Page>

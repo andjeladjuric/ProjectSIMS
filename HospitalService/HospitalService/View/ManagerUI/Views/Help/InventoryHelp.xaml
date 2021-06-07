@@ -35,6 +35,6 @@
         </TextBlock>
         <Image Source="/Images/dodajStavku.png" Margin="19,117,359,134"/>
 
-        <TextBlock FontStyle="Italic" Margin="90,417,456,102">Slika 1. Dodavanje inventara</TextBlock>
+        <TextBlock FontStyle="Italic" Margin="90,417,446,102">Slika 1. Dodavanje inventara</TextBlock>
     </Grid>
 </Page>
