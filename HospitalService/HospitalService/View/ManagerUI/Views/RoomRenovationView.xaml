@@ -172,6 +172,8 @@
                 <StackPanel Orientation="Vertical" Margin="5,0,0,0">
                     <TextBox x:Name="NewIDBox" HorizontalAlignment="Left"
                              Height="30" Width="180" VerticalAlignment="Top"
+                             materialDesign:HintAssist.Hint="101a, 202, 400b..."
+                             materialDesign:HintAssist.HintOpacity=".26"
                              Foreground="#474746"
                              FontFamily="Roboto"
                              FontWeight="Light"
@@ -197,6 +199,8 @@
                     <Separator Opacity="0" Height="15"/>
                     <TextBox x:Name="NewNameBox" HorizontalAlignment="Left"
                              Height="30" Width="180" VerticalAlignment="Top"
+                             materialDesign:HintAssist.Hint="mpr. šok soba..."
+                             materialDesign:HintAssist.HintOpacity=".26"
                              Foreground="#474746"
                              FontFamily="Roboto"
                              FontWeight="Light"
@@ -237,6 +241,8 @@
                     <Separator Opacity="0" Height="20"/>
                     <TextBox x:Name="NewSizeBox" HorizontalAlignment="Left"
                              Height="30" Width="180" VerticalAlignment="Top"
+                             materialDesign:HintAssist.Hint="35.5..."
+                             materialDesign:HintAssist.HintOpacity=".26"
                              Foreground="#474746"
                              FontFamily="Roboto"
                              FontWeight="Light"

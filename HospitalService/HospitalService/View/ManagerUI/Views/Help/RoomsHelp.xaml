@@ -25,11 +25,12 @@
         <TextBlock  Foreground="#474746" TextWrapping="Wrap"
                     FontFamily="Roboto"
                     FontWeight="Light"
-                    FontSize="16" Margin="345,116,25,116">
+                    FontSize="16" Margin="345,47,25,111">
             Odmah pri otvaranju aplikacije korisnik može da vidi prikaz svih prostorija. Upravniku se nudi mogućnost dodavanja nove,
             izmjene već postojeće prostorija, zakazivanje renoviranja kao i pregled inventara u izabranoj sobi.
             Korisnik navedene funkcionalnosti pokreće pomoću dugmadi koji se nalaze na u levom uglu ispod tabele. Detaljan način zakazivanja
             renoviranja prostorije kao i dodavanje nove možete videti ukoliko pokrenete DEMO režim aplikacije.
+            Prilikom dodavanja sobe korisnik ručno unosi i broj koji mora počinjati vrijednostima od 1 do 4 jer se prva cifra odnosi na sprat bolnice.
             Na Slici 1 imate uvid u izgled prozora za izmenu koji se otvara selektovanjem prostorije i klikom na dugme "Izmeni".
             Slika 2 daje primjer prikaza inventara u jednoj prostoriji. Klikom na dugme "Izmena stanja" možemo označiti potrošeni
             dinamički materijal.

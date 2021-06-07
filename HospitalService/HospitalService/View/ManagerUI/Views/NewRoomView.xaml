@@ -97,7 +97,7 @@
             <TextBox.Text>
                 <Binding Path="RoomFloor" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
-                        <validation:FloorValidation ValidationStep="ConvertedProposedValue" Min="1"/>
+                        <validation:FloorValidation ValidationStep="ConvertedProposedValue" Min="1" Max="4"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>

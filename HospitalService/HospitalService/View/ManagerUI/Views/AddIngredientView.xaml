@@ -24,7 +24,7 @@
     <Grid Background="#f5f5f5">
         <Label x:Name="Ingredient" Content="Sastojak" HorizontalAlignment="Left" VerticalAlignment="Top" Width="78" Margin="32,153,0,0"/>
         <TextBox x:Name="ingredientBox" Height="30" Margin="115,150,38,209"
-                 materialDesign:HintAssist.Hint="celi brojevi..."
+                 materialDesign:HintAssist.Hint="naziv sastojka..."
                  materialDesign:HintAssist.HintOpacity=".26"
                  Foreground="#474746"
                  FontFamily="Roboto"
