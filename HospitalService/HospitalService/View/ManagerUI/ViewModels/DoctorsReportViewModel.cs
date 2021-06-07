@@ -155,19 +155,16 @@ namespace HospitalService.View.ManagerUI.ViewModels
             table.AddCell("PROSTORIJA");
             table.AddCell("VRSTA TERMINA");
 
-            string prostorija;
-
             if (Appointments != null)
             {
                 foreach (var a in Appointments)
                 {
                     a.patient.FullName = a.patient.Name + " " + a.patient.Surname;
-                    prostorija = a.room.Id + " " + a.room.Name;
                     table.AddCell(a.StartTime.ToShortDateString());
                     table.AddCell(a.StartTime.ToShortTimeString());
                     table.AddCell(a.EndTime.ToShortTimeString());
                     table.AddCell(a.patient.FullName);
-                    table.AddCell(prostorija);
+                    table.AddCell(a.room.Id);
                     table.AddCell(a.Type.ToString());
                 }
 

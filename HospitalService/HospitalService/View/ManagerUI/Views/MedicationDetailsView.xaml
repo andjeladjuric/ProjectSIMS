@@ -84,9 +84,8 @@
                  FontSize="14"
                  HorizontalContentAlignment="Center"/>
 
-            <Button Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="668,8,38,571" 
-                ToolTip="Završi pregled/izmene" Command="{Binding CancelCommand}">
-                <materialDesign:PackIcon Kind="Close" Foreground="#474746" Height="35" Width="35"/>
+            <Button Height="26" Width="102" Margin="274,504,395,84" 
+                ToolTip="Završi pregled/izmene" Command="{Binding CancelCommand}" Content="Potvrdi">
             </Button>
 
             <Button x:Name="Edit" Background="{x:Null}" BorderThickness="0" Height="35" Width="65" Margin="531,150,175,429" Command="{Binding EditCommand}">
@@ -103,7 +102,7 @@
                 </Button.Style>
             </Button>
 
-            <Button x:Name="resend" Content="Pošalji" HorizontalAlignment="Center" Margin="0,504,0,0" 
+            <Button x:Name="resend" Content="Pošalji zahtev" HorizontalAlignment="Left" Margin="404,504,0,0" 
                 VerticalAlignment="Top" Height="26" Width="102" IsEnabled="False" Command="{Binding ResendCommand}"/>
 
             <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" HorizontalContentAlignment="Center" 
