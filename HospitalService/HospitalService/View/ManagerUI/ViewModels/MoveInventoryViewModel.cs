@@ -193,7 +193,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             string one = Room.Id + "/" + Room.Name;
             string two = SelectedRoom.Id + "/" + SelectedRoom.Name;
-            MessageBox.Show(one + " " + two);
             this.Frame.NavigationService.Navigate(new TransferItemView(one, two, false));
         }
 

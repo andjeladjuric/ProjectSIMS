@@ -990,9 +990,9 @@
   },
   {
     "isUrgent": false,
-    "StartTime": "2021-05-10T08:00:00",
-    "EndTime": "2021-05-10T09:00:00",
-    "Type": 0,
+    "StartTime": "2021-06-21T08:00:00",
+    "EndTime": "2021-06-21T09:00:00",
+    "Type": 1,
     "Id": "24",
     "Status": 4,
     "room": {
@@ -1033,9 +1033,9 @@
   },
   {
     "isUrgent": false,
-    "StartTime": "2021-05-11T10:00:00",
-    "EndTime": "2021-05-11T11:00:00",
-    "Type": 0,
+    "StartTime": "2021-06-20T10:00:00",
+    "EndTime": "2021-06-20T11:00:00",
+    "Type": 1,
     "Id": "25",
     "Status": 0,
     "room": {
@@ -1076,18 +1076,18 @@
   },
   {
     "isUrgent": true,
-    "StartTime": "2021-05-11T08:00:00",
-    "EndTime": "2021-05-11T09:00:00",
-    "Type": 1,
+    "StartTime": "2021-06-15T08:00:00",
+    "EndTime": "2021-06-15T09:00:00",
+    "Type": 0,
     "Id": "26",
     "Status": 4,
     "room": {
-      "Type": 0,
-      "Id": "102",
-      "Name": "Bolnička soba 1",
-      "Size": 0.0,
-      "Floor": 0,
-      "IsFree": false
+      "Type": 2,
+      "Id": "150b",
+      "Name": "Dermatološka ordinacija",
+      "Size": 14.0,
+      "Floor": 1,
+      "IsFree": true
     },
     "doctor": {
       "DoctorType": 1,
@@ -1119,8 +1119,8 @@
   },
   {
     "isUrgent": false,
-    "StartTime": "2021-05-30T12:00:00",
-    "EndTime": "2021-05-30T13:00:00",
+    "StartTime": "2021-06-11T12:00:00",
+    "EndTime": "2021-06-11T13:00:00",
     "Type": 0,
     "Id": "27",
     "Status": 0,
@@ -1162,17 +1162,17 @@
   },
   {
     "isUrgent": false,
-    "StartTime": "2021-05-30T15:00:00",
-    "EndTime": "2021-05-30T16:00:00",
-    "Type": 1,
+    "StartTime": "2021-06-09T15:00:00",
+    "EndTime": "2021-06-09T16:00:00",
+    "Type": 0,
     "Id": "28",
     "Status": 0,
     "room": {
-      "Type": 1,
-      "Id": "122",
-      "Name": "sobica",
-      "Size": 32.0,
-      "Floor": 3,
+      "Type": 2,
+      "Id": "150b",
+      "Name": "Dermatološka ordinacija",
+      "Size": 14.0,
+      "Floor": 1,
       "IsFree": true
     },
     "doctor": {

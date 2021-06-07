@@ -63,7 +63,7 @@
                 </Validation.ErrorTemplate>
             </TextBox>
             <TextBlock Text="{Binding ValidationErrors[Quantity], Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                               Foreground="#FFE52020" TextWrapping="Wrap" FontSize="14" Margin="131,132,138,346" TextAlignment="Center"/>
+                               Foreground="#FFE52020" TextWrapping="Wrap" FontSize="14" Margin="131,108,138,362" TextAlignment="Center"/>
 
             <Button x:Name="save" Content="Potvrdi" HorizontalAlignment="Left" Margin="173,418,0,0" VerticalAlignment="Top" Height="30" Width="81"
                     Command="{Binding ConfirmCommand}">
