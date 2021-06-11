@@ -25,15 +25,6 @@ namespace HospitalService.View.PatientUI.ViewsModel
         }
         private Doctor selectedDoctor;
         private ObservableCollection<Doctor> doctors;
-        public ObservableCollection<Doctor> Doctors
-        {
-            get { return doctors; }
-            set
-            {
-                doctors = value;
-                OnPropertyChanged();
-            }
-        }
         public Doctor SelectedDoctor
         {
             get { return selectedDoctor; }
@@ -43,70 +34,48 @@ namespace HospitalService.View.PatientUI.ViewsModel
                 OnPropertyChanged();
             }
         }
-            
+        public ObservableCollection<Doctor> Doctors
+        {
+            get { return doctors; }
+            set
+            {
+                doctors = value;
+                OnPropertyChanged();
+            }
+        }
+                   
         public String SelectedTime { get; set; }
-
         public RelayCommand confirmAddAppointment { get; set; }
         public RelayCommand cancelAddAppointment { get; set; }
         private DoctorService doctorService;        
-        private AppointmentsService appointmentsService;
-        private RoomService roomService;
         private Patient patient;
+        private AddAppointmentContext addAppointmentContext;
         private PreferencesForAppointment preferencesForAppointment;
         private void Execute_ConfirmAddAppointment(object obj) {
 
             this.Validate();
             if (IsValid)
             {
-                String[] startTimeArray1 = SelectedTime.Split(" ");
-                String startTimeCb = startTimeArray1[1];
-                String[] startTimeArray2 = startTimeCb.Split(":");
-
-                int endTimeCb = int.Parse(startTimeArray2[0]) + 1;
-                String shortEndTime = Convert.ToString(endTimeCb);
-
+                String startTimeCb = SelectedTime.Split(" ")[1];
+                int endTimeCb = int.Parse(startTimeCb.Split(":")[0]) + 1;
 
                 DateTime startTime = Convert.ToDateTime(Date.ToShortDateString() + " " + startTimeCb);
-                DateTime endTime = Convert.ToDateTime(Date.ToShortDateString() + " " + shortEndTime + ":00");
+                DateTime endTime = Convert.ToDateTime(Date.ToShortDateString() + " " + Convert.ToString(endTimeCb) + ":00");
 
-                if (!doctorService.isDoctorAvailable(startTime, endTime, SelectedDoctor))
+                addAppointmentContext.setStrategy(new DoctorPriority());
+                if (addAppointmentContext.addAppointment(startTime, endTime, SelectedDoctor, patient))
                 {
-                    MessageBox.Show("Doktor je zauzet!");
-                    return;
+                    preferencesForAppointment.NavigationService.Navigate(new ViewAppointment(patient));
                 }
-                Room availableRoom = roomService.getFirstAvailableRoom(startTime, endTime);
-                if (availableRoom == null)
-                {
-                    MessageBox.Show("Nema slobodnih sala!");
-                    return;
-                }
-                if (moreThanTwoAppointmentsInOneDay(startTime))
-                {
-                    MessageBox.Show("Vise od dva termina u jednom danu!");
-                    return;
-                }
-                Appointment newAppointment = new Appointment() { Id = appointmentsService.GetNextId(), StartTime = startTime, EndTime = endTime, Type = AppointmentType.Pregled, doctor = SelectedDoctor, room = availableRoom, patient = patient };
-                appointmentsService.Save(newAppointment);
-                preferencesForAppointment.NavigationService.Navigate(new ViewAppointment(patient));
             }
         }
 
-        private bool moreThanTwoAppointmentsInOneDay(DateTime startTime)
-        {
-            int sameDateAppointments = appointmentsService.getNumberOfSameDateAppointments(patient,startTime);
-            if (sameDateAppointments > 1)
-            {
-                return true;
-            }
-            return false;
-        }
+        
       
         private void Execute_CancelAddAppointment(object obj) {
 
             preferencesForAppointment.NavigationService.Navigate(new PreferencesForAppointment(patient));
-
-           
-               
+                        
         }
 
        
@@ -140,11 +109,8 @@ namespace HospitalService.View.PatientUI.ViewsModel
             this.patient = patient;
             this.preferencesForAppointment = preferencesForAppointment;
             Date = DateTime.Now;
-            appointmentsService = new AppointmentsService();
-            roomService = new RoomService();
             doctorService = new DoctorService();
-          
-
+            addAppointmentContext = new AddAppointmentContext();
             List<Doctor> docttorsForAppointment = doctorService.GetAll();
             Doctors = new ObservableCollection<Doctor>();
             docttorsForAppointment.ForEach(this.Doctors.Add);

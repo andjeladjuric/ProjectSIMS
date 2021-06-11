@@ -55,7 +55,7 @@ namespace HospitalService.Service
 
             repository = new AppointmentsRepository();
             List<Appointment> appointments = repository.GetAll();
-            List<Appointment> notFinishedAppointment = appointments.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.StartTime >= DateTime.Now).ToList();
+            List<Appointment> notFinishedAppointment = appointments.Where(appointment => appointment.patient.Jmbg.Equals(patient.Jmbg) && appointment.StartTime >= DateTime.Now && appointment.Status!=Status.Canceled).ToList();
             return notFinishedAppointment;
 
         }
@@ -325,6 +325,17 @@ namespace HospitalService.Service
                 temp.setDates(temp.StartTime.AddHours(1), temp.EndTime.Hour - temp.StartTime.Hour);
             }
             return app;
+        }
+
+        public bool moreThanTwoAppointmentsInOneDay(DateTime startTime, Patient patient)
+        {
+            
+            int sameDateAppointments = getNumberOfSameDateAppointments(patient, startTime);
+            if (sameDateAppointments > 1)
+            {
+                return true;
+            }
+            return false;
         }
 
     }

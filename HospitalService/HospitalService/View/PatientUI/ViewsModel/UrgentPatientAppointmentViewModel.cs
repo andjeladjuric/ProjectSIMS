@@ -28,58 +28,28 @@ namespace HospitalService.View.PatientUI.ViewsModel
         public RelayCommand cancelAddAppointment { get; set; }
         private Patient patient;
         private PreferencesForAppointment preferencesForAppointment;
-        private DoctorService doctorService;
-        private RoomService roomService;
-        private AppointmentsService appointmentsService;
+        private AddAppointmentContext addAppointmentContext;
 
 
         private void Execute_ConfirmAddAppointment(object obj) {
             this.Validate();
             if (IsValid)
             {
-                String[] startTimeArray1 = SelectedTime.Split(" ");
-                String startTimeCb = startTimeArray1[1];
-                String[] startTimeArray2 = startTimeCb.Split(":");
-
-                int endTimeCb = int.Parse(startTimeArray2[0]) + 1;
-                String shortEndTime = Convert.ToString(endTimeCb);
+                String startTimeCb = SelectedTime.Split(" ")[1];
+                int endTimeCb = int.Parse(startTimeCb.Split(":")[0]) + 1;
 
                 DateTime startTime = Convert.ToDateTime(Date.ToShortDateString() + " " + startTimeCb);
-                DateTime endTime = Convert.ToDateTime(Date.ToShortDateString() + " " + shortEndTime + ":00");
-                Doctor availableDoctor = doctorService.getFirstAvailableDoctor(startTime, endTime);
-
-                if (availableDoctor == null)
+                DateTime endTime = Convert.ToDateTime(Date.ToShortDateString() + " " + Convert.ToString(endTimeCb) + ":00");
+         
+                addAppointmentContext.setStrategy(new DatePriority());
+                if (addAppointmentContext.addAppointment(startTime, endTime, null, patient))
                 {
-                    MessageBox.Show("Nema slobodnog doktora!");
-                    return;
+                    preferencesForAppointment.NavigationService.Navigate(new ViewAppointment(patient));
                 }
-                Room availableRoom = roomService.getFirstAvailableRoom(startTime, endTime);
-                if (availableRoom == null)
-                {
-                    MessageBox.Show("Nema slobodnih sala!");
-                    return;
-                }
-                if (moreThanTwoAppointmentsInOneDay(startTime))
-                {
-                    MessageBox.Show("Vise od dva termina u jednom danu!");
-                    return;
-                }
-                Appointment newAppointment = new Appointment() { Id = appointmentsService.GetNextId(), StartTime = startTime, EndTime = endTime, Type = AppointmentType.Pregled, doctor = availableDoctor, room = availableRoom, patient = patient };
-                appointmentsService.Save(newAppointment);
-                preferencesForAppointment.NavigationService.Navigate(new ViewAppointment(patient));
             }
                    
         }
-        private bool moreThanTwoAppointmentsInOneDay(DateTime startTime)
-        {
-            int sameDateAppointments = appointmentsService.getNumberOfSameDateAppointments(patient, startTime);
-            if (sameDateAppointments > 1)
-            {
-                return true;
-            }
-            return false;
-        }
-       
+
         private void Execute_CancelAddAppointment(object obj)
         {
             preferencesForAppointment.NavigationService.Navigate(new PreferencesForAppointment(patient));
@@ -116,9 +86,7 @@ namespace HospitalService.View.PatientUI.ViewsModel
             this.patient = patient;
             this.preferencesForAppointment = preferencesForAppointment;
             Date = DateTime.Now;
-            doctorService = new DoctorService();
-            roomService = new RoomService();
-            appointmentsService = new AppointmentsService();           
+            addAppointmentContext = new AddAppointmentContext();          
             confirmAddAppointment = new RelayCommand(Execute_ConfirmAddAppointment, CanExecute_Command);
             cancelAddAppointment = new RelayCommand(Execute_CancelAddAppointment,CanExecute_Command);
         
