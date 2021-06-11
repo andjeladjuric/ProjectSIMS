@@ -99,6 +99,7 @@ namespace HospitalService.Service
         public void Edit(int id, String name, Equipment type, int quantity, string supplier)
         {
             Inventory item;
+            InventoryQuantityService quantityService = new InventoryQuantityService();
             for (int i = 0; i < inventory.GetAll().Count; i++)
             {
                 item = inventory.GetAll()[i];
@@ -110,7 +111,7 @@ namespace HospitalService.Service
                         MessageBox.Show("Ne postoje sobe u kojima inventar može da se izmeni!");
                     }
 
-                    EnlargeQuantity(item, quantity);
+                    quantityService.EnlargeQuantityInStorage(item, quantity);
                     item.Name = name;
                     item.EquipmentType = type;
                     item.Supplier = supplier;
@@ -119,74 +120,8 @@ namespace HospitalService.Service
             }
         }
 
-        private void EnlargeQuantity(Inventory item, int quantity)
-        {
-            int temp;
-
-            if (rooms.GetByType(RoomType.StorageRoom).Count == 0)
-            {
-                MessageBox.Show("Količina opreme se može mijenjati samo unutar skladišta!");
-            }
-            else
-            {
-                if (item.Quantity < quantity)
-                {
-                    temp = quantity - item.Quantity;
-
-                    foreach (Room room in rooms.GetByType(RoomType.StorageRoom))
-                    {
-                        RoomInventory r = roomInventory.GetRoomInventoryByIds(room.Id, item.Id);
-                        r.Quantity += temp;
-                        item.Quantity = quantity;
-                        roomInventory.SerializeRoomInventory();
-                        return;
-                    }
-                }
-            }
-        }
-
-        public void ReduceQuantity(int enteredQuantity, Inventory SelectedItem, Room SelectedRoom)
-        {
-            Inventory item = GetOne(SelectedItem.Id);
-
-            if (item.Quantity == enteredQuantity)
-            {
-                GetAll().Remove(item);
-            }
-            else
-            {
-                item.Quantity -= enteredQuantity;
-            }
-
-            EditItem(item);
-
-            RoomInventoryService roomInventoryService = new RoomInventoryService();
-            RoomInventory inventoryInRoom = roomInventoryService.GetRoomInventoryByIds(SelectedRoom.Id, SelectedItem.Id);
-
-            if (inventoryInRoom.Quantity == enteredQuantity)
-            {
-                roomInventoryService.GetAll().Remove(inventoryInRoom);
-            }
-            else
-            {
-                inventoryInRoom.Quantity -= enteredQuantity;
-            }
-
-            roomInventoryService.EditItem(inventoryInRoom);
-        }
-
-        public List<Int32> GetAllIds()
-        {
-            List<Int32> ids = new List<Int32>();
-            foreach (Inventory i in GetAll())
-            {
-                ids.Add(i.Id);
-            }
-
-            return ids;
-        }
-
         public List<Inventory> GetAll() => inventory.GetAll();
+        public List<Int32> GetAllIds() => inventory.GetAllIds();
         public Inventory GetOne(int id) => inventory.GetOne(id);
         public void EditItem(Inventory i) => inventory.EditItem(i);
 

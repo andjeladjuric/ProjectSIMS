@@ -138,7 +138,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             HelpCommand = new MyICommand(OnHelp, CanExecute);
 
             /*check requests*/
-            RoomInventoryService service = new RoomInventoryService();
+            TransferRequestsService service = new TransferRequestsService();
             service.CheckRequests();
             RoomRenovationService renovationService = new RoomRenovationService();
             renovationService.CheckRenovationRequests();

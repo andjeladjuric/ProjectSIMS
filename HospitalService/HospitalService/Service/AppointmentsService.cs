@@ -11,11 +11,9 @@ namespace HospitalService.Service
     class AppointmentsService
     {
         private AppointmentsRepository repository;
-        private ScheduleService ScheduleService;
         public AppointmentsService()
         {
             repository = new AppointmentsRepository();
-            ScheduleService = new ScheduleService();
         }
         public void SetIds()
         {
@@ -170,7 +168,7 @@ namespace HospitalService.Service
             List<Room> allRooms = new RoomService().GetByType(roomType);
             List<Room> availableRooms = new List<Room>();
             foreach (Room room in allRooms)
-                if (!ScheduleService.IsRoomTaken(start, end, room))
+                if (!new ScheduleService().IsRoomTaken(start, end, room))
                     availableRooms.Add(room);
             return availableRooms;
         }
@@ -222,7 +220,7 @@ namespace HospitalService.Service
             AppointmentsService storage = new AppointmentsService();
             foreach (Doctor doc in doktori)
             {
-                if (!ScheduleService.IsDoctorTaken(appointment.StartTime, appointment.EndTime, doc))
+                if (!new ScheduleService().IsDoctorTaken(appointment.StartTime, appointment.EndTime, doc))
                     return doc;
             }
             return null;
@@ -235,7 +233,7 @@ namespace HospitalService.Service
             AppointmentsService storage = new AppointmentsService();
             Room room = null;
             Doctor doctor = null;
-            if (!ScheduleService.IsPatientTaken(patient, appointment)) return null;
+            if (!new ScheduleService().IsPatientTaken(patient, appointment)) return null;
             doctor = findFreeDoctor(appointment, oblast);
             room = findFreeRoom(appointment);
             if (doctor == null || room == null) return null;

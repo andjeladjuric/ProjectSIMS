@@ -68,5 +68,16 @@ namespace HospitalService.Repositories
             }
             SerializeInventory();
         }
+
+        public List<Int32> GetAllIds()
+        {
+            List<Int32> ids = new List<Int32>();
+            foreach (Inventory i in GetAll())
+            {
+                ids.Add(i.Id);
+            }
+
+            return ids;
+        }
     }
 }
