@@ -25,10 +25,10 @@ namespace HospitalService.View.ManagerUI.Views
     {
         IngredientsViewModel currentViewModel;
 
-        public IngredientsView(Dictionary<string, int> CurrentIngredients, Frame currentFrame, ObservableCollection<string> ingredientsView)
+        public IngredientsView(Dictionary<string, int> CurrentIngredients, Frame currentFrame, ObservableCollection<string> ingredientsView, bool DemoOn)
         {
             InitializeComponent();
-            currentViewModel = new IngredientsViewModel(currentFrame, quantityFrame, CurrentIngredients, ingredientsView);
+            currentViewModel = new IngredientsViewModel(currentFrame, quantityFrame, CurrentIngredients, ingredientsView, DemoOn);
             this.KeepAlive = true;
             this.DataContext = currentViewModel;
         }

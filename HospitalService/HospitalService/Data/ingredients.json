@@ -1,5 +1,4 @@
 [
-  
   { "IngredientName": "sastojak" },
   { "IngredientName": "bromazepam" },
   { "IngredientName": "kofein" },
@@ -8,6 +7,8 @@
   { "IngredientName": "ibuprofen" },
   { "IngredientName": "amoksicilin" },
   { "IngredientName": "paracetamol" },
-  { "IngredientName": "new" },
-  { "IngredientName": "sastojak1" }
+  { "IngredientName": "retinoid" },
+  { "IngredientName": "paracetamol" },
+  { "IngredientName": "penicilin" },
+  { "IngredientName": "cefalexin" }
 ]

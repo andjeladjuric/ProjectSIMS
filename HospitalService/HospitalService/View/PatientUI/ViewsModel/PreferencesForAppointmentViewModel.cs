@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using System.Windows.Navigation;
 using HospitalService.View.PatientUI.Pages;
 using Model;
 
@@ -9,49 +10,56 @@ namespace HospitalService.View.PatientUI.ViewsModel
 {
   public  class PreferencesForAppointmentViewModel: ViewModelPatientClass
     {
-        public bool CheckedYes { get; set; }
-        public bool CheckedNo { get; set; }
+        public bool CheckedDate { get; set; }
+        public bool CheckedDoctor { get; set; }
+
+        public bool CheckedReferral { get; set; }
         private Patient patient { get; set; }
         private PreferencesForAppointment preferencesForAppointment;
+        private NavigationService navigationService;
 
         public RelayCommand addAppointment { get; set; }
-        public RelayCommand showReferrals { get; set; }
+        //public RelayCommand showReferrals { get; set; }
 
         private void Execute_AddAppointment(object obj) {
 
-            if (CheckedNo == true)
+            if (CheckedDoctor == true)
             {
-                preferencesForAppointment.NavigationService.Navigate(new AddPatientAppointment(patient));
-               
-            }
-            else if (CheckedYes == true)
-            {
-                preferencesForAppointment.NavigationService.Navigate(new UrgentPatientAppointment(patient));
-                
+                navigationService.Navigate(new AddPatientAppointment(patient, preferencesForAppointment));
 
+            }
+            else if (CheckedDate == true)
+            {
+                navigationService.Navigate(new UrgentPatientAppointment(patient,preferencesForAppointment));
+
+
+            } else if (CheckedReferral==true) {
+
+                preferencesForAppointment.NavigationService.Navigate(new ReferralAppointment(patient));
             }
             else {
                 MessageBox.Show("Odaberite jedan od nacina zakazivanja!");
-            
+
             }
 
             
 
         }
-        private void Execute_ShowReferrals(object obj) {
+        /*private void Execute_ShowReferrals(object obj) {
 
             preferencesForAppointment.NavigationService.Navigate(new ReferralAppointment(patient));
-        }
+        }*/
 
         private bool CanExecute_Command(object obj) {
             return true;
         }
 
-        public PreferencesForAppointmentViewModel(Patient patient, PreferencesForAppointment preferencesForAppointment) {
+        public PreferencesForAppointmentViewModel(Patient patient, PreferencesForAppointment preferencesForAppointment, NavigationService navigationService) {
             this.patient = patient;
             this.preferencesForAppointment = preferencesForAppointment;
+            this.navigationService = navigationService;
             addAppointment = new RelayCommand(Execute_AddAppointment,CanExecute_Command);
-            showReferrals = new RelayCommand(Execute_ShowReferrals,CanExecute_Command);
+            //showReferrals = new RelayCommand(Execute_ShowReferrals,CanExecute_Command);
         
         }
     }

@@ -33,7 +33,7 @@
                            VerticalAlignment="Center"
                            TextWrapping="Wrap" 
                            TextAlignment="Center">
-                    Pokrenut DEMO režim!
+                    Završen DEMO!
             </TextBlock>
 
             <Button x:Name="Ok" BorderThickness="0.5" Content="Zatvori" Height ="30" Width="80" Margin="292,145,28,25"

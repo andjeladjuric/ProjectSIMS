@@ -13,8 +13,16 @@ namespace HospitalService.View.ManagerUI.ViewModels
     public class ManagerWindowViewModel : ViewModel
     {
         #region Fields
-        public static CancellationTokenSource cts = new CancellationTokenSource();
-        public Manager Manager { get; set; }
+        private Manager manager;
+        public Manager Manager
+        {
+            get { return manager; }
+            set
+            {
+                manager = value;
+                OnPropertyChanged();
+            }
+        }
         public Grid grid { get; set; }
         public Window Window { get; set; }
         public Frame Frame { get; set; }
@@ -39,17 +47,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        private bool isOpen;
-        public bool IsPopupOpen
-        {
-            get { return isOpen; }
-            set
-            {
-                isOpen = value;
-                OnPropertyChanged();
-            }
-        }
         #endregion
 
         #region Commands
@@ -64,6 +61,10 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Actions
+        private void OnHelp()
+        {
+            this.Frame.NavigationService.Navigate(new HelpView());
+        }
         private void OnLogout()
         {
             MainWindow mainWindow = new MainWindow();
@@ -71,18 +72,14 @@ namespace HospitalService.View.ManagerUI.ViewModels
             this.Window.Close();
         }
 
-        private void OnStop()
+        private void OnProfile()
         {
-            cts.Cancel();
-            MessageBox.Show("Demo zavrsen");
-            DemoOn = false;
-            this.Frame.NavigationService.Navigate(new RoomsView());
+            this.Frame.NavigationService.Navigate(new ProfileView(this.Manager));
         }
 
         private void OnDemo()
         {
             DemoOn = true;
-            IsPopupOpen = true;
             this.Frame.NavigationService.Navigate(new NewRoomView(DemoOn));
         }
 
@@ -98,7 +95,12 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 this.Frame.NavigationService.Navigate(new InventoryView());
                 CustomizeGridSize();
             }
-            else if(SelectedItem == 4)
+            else if (SelectedItem == 2)
+            {
+                this.Frame.NavigationService.Navigate(new DoctorsView());
+                CustomizeGridSize();
+            }
+            else if(SelectedItem == 3)
             {
                 this.Frame.NavigationService.Navigate(new MedicationsView());
                 CustomizeGridSize();
@@ -120,6 +122,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Constructors
         public ManagerWindowViewModel(Window currentWindow, Frame currentFrame, Button close, Grid menu, Manager currentUser)
         {
+            /*view*/
             this.Manager = currentUser;
             this.Window = currentWindow;
             this.Frame = currentFrame;
@@ -127,12 +130,18 @@ namespace HospitalService.View.ManagerUI.ViewModels
             this.grid = menu;
             this.DemoOn = false;
 
-            RoomRenovationService service = new RoomRenovationService();
-            service.CheckRenovationRequests();
+            /*commands*/
             LogoutCommand = new MyICommand(OnLogout, CanExecute);
+            ProfileCommand = new MyICommand(OnProfile, CanExecute);
             ChangePage = new MyICommand(OnChange, CanExecute);
             DemoCommand = new MyICommand(OnDemo, CanExecute);
-            StopDemo = new MyICommand(OnStop, CanExecute);
+            HelpCommand = new MyICommand(OnHelp, CanExecute);
+
+            /*check requests*/
+            RoomInventoryService service = new RoomInventoryService();
+            service.CheckRequests();
+            RoomRenovationService renovationService = new RoomRenovationService();
+            renovationService.CheckRenovationRequests();
         }
         #endregion
     }

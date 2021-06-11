@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Timers;
 using System.Windows;
 using System.Windows.Navigation;
 using HospitalService.Service;
@@ -116,8 +117,26 @@ namespace HospitalService.View.PatientUI.ViewsModel
             openSurvey = new RelayCommand(Execute_NavigateToSurvey,CanExecute_NavigateCommand);
             openMainWindow = new RelayCommand(Execute_NavigateToMainWindow,CanExecute_NavigateCommand);
             openPatientNews = new RelayCommand(Execute_OpenPatientNews,CanExecute_NavigateCommand);
+            Timer aTimer = new Timer() { Interval = 5000, AutoReset = false };
+            aTimer.Elapsed += (sender, e) => showNotification(sender, e, patient);
+            aTimer.Start();
 
 
+        }
+
+        static void showNotification(object sender, ElapsedEventArgs e, Patient p)
+        {
+            AppointmentsService appointmentService = new AppointmentsService();
+            String s = "";
+            List<Appointment> patientAppointmentsForReminder = appointmentService.getNotFinishedAppointments(p);
+            for (int i = 0; i < patientAppointmentsForReminder.Count; i++)
+            {
+                if ((DateTime.Now - patientAppointmentsForReminder[i].StartTime).TotalDays < 1)
+                {
+                    s = "Uskoro imate pregled!" + "\n" + "Datum: " + patientAppointmentsForReminder[i].StartTime.ToShortDateString() + "\n" + "Vrijeme: " + patientAppointmentsForReminder[i].StartTime.ToShortTimeString() + "\n" + "Doktor: " + patientAppointmentsForReminder[i].doctor.Name + " " + patientAppointmentsForReminder[i].doctor.Surname;
+                    MessageBox.Show(s);
+                }
+            }
 
         }
     }

@@ -1,1 +1,73 @@
-[{"Id":"324","MedicineName":"Brufen","IsApproved":0,"Type":3,"Ingredients":{"ibuprofen":20},"Format":"Tableta","DoctorsComment":"","Replacement":"894"},{"Id":"894","MedicineName":"Amoksicilin","IsApproved":0,"Type":0,"Ingredients":{"amoksicilin":10},"Format":"Kapsula","DoctorsComment":"Sve je u redu.","Replacement":"768"},{"Id":"768","MedicineName":"Bromazepam","IsApproved":0,"Type":2,"Ingredients":{"bromazepam":200},"Format":"Tableta","DoctorsComment":null,"Replacement":null},{"Id":"761","MedicineName":"Caffetin","IsApproved":0,"Type":3,"Ingredients":{"paracetamol":250},"Format":"Tableta","DoctorsComment":"","Replacement":"324"}]
+
+[
+  {
+    "Id": "324",
+    "MedicineName": "Brufen",
+    "IsApproved": 0,
+    "Type": 3,
+    "Ingredients": {},
+    "Format": "Tableta",
+    "DoctorsComment": "",
+    "Replacement": null
+  },
+  {
+    "Id": "894",
+    "MedicineName": "Amoksicilin",
+    "IsApproved": 2,
+    "Type": 0,
+    "Ingredients": {},
+    "Format": "Kapsula",
+    "DoctorsComment": "",
+    "Replacement": null
+  },
+  {
+    "Id": "768",
+    "MedicineName": "Bromazepam",
+    "IsApproved": 2,
+    "Type": 2,
+    "Ingredients": { "paracetamol": 200 },
+    "Format": "Tableta",
+    "DoctorsComment": "",
+    "Replacement": null
+  },
+  {
+    "Id": "761",
+    "MedicineName": "Caffetin",
+    "IsApproved": 0,
+    "Type": 3,
+    "Ingredients": { "paracetamol": 250 },
+    "Format": "Tableta",
+    "DoctorsComment": "",
+    "Replacement": "324"
+  },
+  {
+    "Id": "4b6ca9a9",
+    "MedicineName": "Paracetamol",
+    "IsApproved": 0,
+    "Type": 3,
+    "Ingredients": { "paracetamol": 100 },
+    "Format": "Tableta",
+    "DoctorsComment": null,
+    "Replacement": null
+  },
+  {
+    "Id": "a30b8189",
+    "MedicineName": "Cefalexin",
+    "IsApproved": 2,
+    "Type": 0,
+    "Ingredients": { "cefalexin": 5 },
+    "Format": "Pilula",
+    "DoctorsComment": null,
+    "Replacement": null
+  },
+  {
+    "Id": "b2b762d3",
+    "MedicineName": "Pfizer",
+    "IsApproved": 0,
+    "Type": 0,
+    "Ingredients": {},
+    "Format": "Vakcina",
+    "DoctorsComment": null,
+    "Replacement": null
+  }
+]

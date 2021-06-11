@@ -7,7 +7,7 @@
       xmlns:conv="clr-namespace:HospitalService.View.ManagerUI.Converters"
       xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations"
       xmlns:System="clr-namespace:System;assembly=mscorlib"
-      xmlns:model="clr-namespace:Model"
+      xmlns:model="clr-namespace:Model" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="718" d:DesignWidth="969"
       Title="NewItem">
@@ -53,7 +53,9 @@
                  FontSize="14"
                  HorizontalContentAlignment="Center"/>
 
-        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="34" Margin="467,278,0,0" TextWrapping="Wrap" 
+        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="34" Margin="467,278,0,0" TextWrapping="Wrap"
+                 materialDesign:HintAssist.Hint="stolica, krevet, stetoskop..."
+                 materialDesign:HintAssist.HintOpacity=".26"
                  VerticalAlignment="Top" Width="179"
                  Foreground="#474746"
                  FontFamily="Roboto"
@@ -131,6 +133,8 @@
         <Button x:Name="cancel" Content="Otkaži" HorizontalAlignment="Left" Margin="502,548,0,0" VerticalAlignment="Top" 
                 Height="34" Width="92" Command="{Binding CancelCommand}"/>
         <TextBox x:Name="QuantityBox" HorizontalAlignment="Left" Height="34" Margin="467,339,0,0" TextWrapping="Wrap" 
+                 materialDesign:HintAssist.Hint="celi brojevi..."
+                 materialDesign:HintAssist.HintOpacity=".26"
                  VerticalAlignment="Top" Width="179"
                  Foreground="#474746"
                  FontFamily="Roboto"
@@ -155,6 +159,8 @@
         </TextBox>
 
         <TextBox x:Name="suppBox" HorizontalAlignment="Left" Height="34" Margin="467,454,0,0" TextWrapping="Wrap" 
+                 materialDesign:HintAssist.Hint="galenika, ikea..."
+                 materialDesign:HintAssist.HintOpacity=".26"
                  VerticalAlignment="Top" Width="179"
                  Foreground="#474746"
                  FontFamily="Roboto"
@@ -178,7 +184,7 @@
             </Validation.ErrorTemplate>
         </TextBox>
 
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="332,92,0,0" Text="Dodaj stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="292,100,0,0" Text="Dodaj stavku" TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="256" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Left"/>
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>

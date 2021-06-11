@@ -5,5 +5,6 @@ namespace Model
     {
         public PatientType PatientType { get; set; }
         public string medicalRecordId { get; set; }
+        public string FullName { get; set; }
     }
 }

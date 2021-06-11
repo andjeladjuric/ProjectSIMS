@@ -36,6 +36,7 @@ namespace HospitalService.Service
             Room room = rooms.FindRoomByPriority();
             RoomInventory ri = new RoomInventory(room.Id, newItem.Id, newItem.Quantity);
             roomInventory.GetAll().Add(ri);
+            roomInventory.SerializeRoomInventory();
             inventory.Save(newItem);
         }
 
@@ -172,6 +173,17 @@ namespace HospitalService.Service
             }
 
             roomInventoryService.EditItem(inventoryInRoom);
+        }
+
+        public List<Int32> GetAllIds()
+        {
+            List<Int32> ids = new List<Int32>();
+            foreach (Inventory i in GetAll())
+            {
+                ids.Add(i.Id);
+            }
+
+            return ids;
         }
 
         public List<Inventory> GetAll() => inventory.GetAll();

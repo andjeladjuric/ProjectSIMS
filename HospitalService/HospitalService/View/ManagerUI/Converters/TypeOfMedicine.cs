@@ -23,6 +23,8 @@ namespace HospitalService.View.ManagerUI.Converters
                     return "Protiv bolova";
                 case "supplement":
                     return "Suplement";
+                case "other":
+                    return "Ostalo";
             }
 
             return null;
@@ -42,6 +44,8 @@ namespace HospitalService.View.ManagerUI.Converters
                     return MedicationType.Painkiller;
                 else if (value.Equals("Suplement"))
                     return MedicationType.Supplement;
+                else if (value.Equals("Ostalo"))
+                    return MedicationType.Other;
             }
 
             return null;

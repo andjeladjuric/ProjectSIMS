@@ -1,14 +1,1 @@
-﻿[
-  {
-    "Username": "andjela",
-    "Password": "123",
-    "Name": "Andjela",
-    "Surname": "Djuric",
-    "DateOfBirth": "1999-01-01T00:00:00",
-    "Jmbg": "0101000234567",
-    "Phone": "0614563456",
-    "Address": "Balzakova 23",
-    "Email": "sladjanac@gmail.com",
-    "Gender": 0
-  }
-]
+[{"Username":"andjela","Password":"123","Name":"Anđela","Surname":"Đurić","DateOfBirth":"1999-01-01T00:00:00","Jmbg":"0101000234567","Phone":"064/904-3138","Address":"Balzakova 23, Novi Sad","Email":"andjela@gmail.com","Gender":0}]

@@ -11,13 +11,10 @@ using Model;
 
 namespace HospitalService.View.PatientUI.ViewsModel
 {
-    public class ViewAppointmentViewModel:ViewModelPatientClass
+    public class ViewAppointmentViewModel:ValidationBase
     {
         public RelayCommand showAppointments { get; set; }
-        public RelayCommand deleteAppointment { get; set; }
-
-        public RelayCommand moveAppointment { get; set; }
-        public RelayCommand editAppointment { get; set; }
+       
 
         private ViewAppointment viewAppointments;
 
@@ -55,12 +52,22 @@ namespace HospitalService.View.PatientUI.ViewsModel
             }
         }
 
-
+        public RelayCommand showAppointmentDetails { get; set; }
 
 
         private AppointmentsService appointmentService;
         private Patient patient;
 
+
+        private void Execute_ShowAppointmentDetails(object obj) {
+            this.Validate();
+            if (IsValid)
+            {
+                
+                viewAppointments.NavigationService.Navigate(new AppointmentDetails(patient, SelectedAppointment));
+                
+            }
+        }
         private void Execute_ShowAppointments(object obj)
         {
             DateTime selectedDate = Date;
@@ -73,63 +80,22 @@ namespace HospitalService.View.PatientUI.ViewsModel
 
         }
 
-        private void Execute_DeleteAppointment(object obj) {
-
-            
-            if (SelectedAppointment == null)
-            {
-                MessageBox.Show("Morate odabrati jedan termin!");
-            }
-            else
-            {
-                if (appointmentService.getNumberOfCanceledAppointments(patient) >= 2)
-                {
-                    MessageBox.Show("Prekoracili ste broj termina za otkazivanje!");
-                }
-                else
-                {
-                    appointmentService.DeletePatientAppointment(SelectedAppointment.Id);
-                    appointmentService = new AppointmentsService();
-                    List<Appointment> todaysAppointments = appointmentService.getAppointmentsByDate(patient, Date);
-                    this.Appointments = new ObservableCollection<Appointment>();
-                    todaysAppointments.ForEach(Appointments.Add);
-
-                }
-
-            }
-
-        }
-
-        private void Execute_MoveAppointment(object obj) {
-
-
-            
-            if (SelectedAppointment == null)
-            {
-                MessageBox.Show("Morate odabrati jedan termin!");
-            }
-            else
-            {
-                int movedAppointments = appointmentService.getNumberOfMovedAppointments(patient);
-                if (SelectedAppointment.Status == Status.Moved || movedAppointments >= 3)
-                {
-                    String messageForMoving = "Termin je vec pomjeran, ne mozete ga pomjeriti ponovo" + "\n" + "(Moguce i da ste prekoracili dozvoljen broj pomjerenih termina!)";
-                    MessageBox.Show(messageForMoving);
-                }
-                else
-                {
-                    viewAppointments.NavigationService.Navigate(new MoveAppointment(SelectedAppointment, patient));
-                }
-            }
-
-        }
-
-
 
         private bool CanExecute_Command(object obj)
         {
             return true;
         }
+
+        protected override void ValidateSelf()
+        {
+            if (SelectedAppointment==null) {
+                this.ValidationErrors["Start"] = "Odaberite jedan termin.";
+            }
+            else if (SelectedAppointment.StartTime <= DateTime.Now) {
+                this.ValidationErrors["Start"] = "Ne mozete otkazati ili pomjeriti termin koji je prosao.";
+            }
+        }
+
         public ViewAppointmentViewModel(Patient patient, ViewAppointment viewAppointments) {
 
             Date = DateTime.Now;
@@ -143,9 +109,8 @@ namespace HospitalService.View.PatientUI.ViewsModel
             List<Appointment> todaysAppointments = appointmentService.getAppointmentsByDate(patient,Date);
             todaysAppointments.ForEach(Appointments.Add);
             showAppointments = new RelayCommand(Execute_ShowAppointments,CanExecute_Command);
-            deleteAppointment = new RelayCommand(Execute_DeleteAppointment,CanExecute_Command);
-            moveAppointment = new RelayCommand(Execute_MoveAppointment,CanExecute_Command);
-            
+           
+            showAppointmentDetails = new RelayCommand(Execute_ShowAppointmentDetails,CanExecute_Command);
 
             
 

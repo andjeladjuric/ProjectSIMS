@@ -1,1 +1,116 @@
-[{"Id":"123","Patient":{"PatientType":0,"medicalRecordId":"123","Username":null,"Password":null,"Name":"Marko","Surname":"Jankovic","DateOfBirth":null,"Jmbg":"0534023456712","Phone":null,"Address":null,"Email":null,"Gender":1},"Diagnoses":[],"Prescriptions":[],"Referrals":[],"Allergies":[],"HospitalTreatments":[]},{"Id":"1234","Patient":{"PatientType":1,"medicalRecordId":"1234","Username":"sladjana","Password":"123","Name":"Sladjana","Surname":"Colakovic","DateOfBirth":"1999-01-01T00:00:00","Jmbg":"0101000244312","Phone":"0614563456","Address":"Balzakova 23","Email":"sladjanac@gmail.com","Gender":0},"Diagnoses":[{"Illness":"Upala krajnika","Symptoms":"temperatura","Datum":"2021-04-17T00:00:00","Anamnesis":"Dosla sa upaljenim grlom"},{"Illness":"Konjuktivitis","Symptoms":"crveno oko","Datum":"2021-05-20T00:00:00+02:00","Anamnesis":"Dosla sa crvenim okom. Zali se na svrab."},{"Illness":"Upala grla","Symptoms":"bol u grlu","Datum":"2021-06-02T00:00:00+02:00","Anamnesis":"jsdijkle"}],"Prescriptions":[{"Medication":"Panklav","HowOften":6,"HowLong":7,"AdditionalInfos":"Bez alkohola","Start":"2021-04-17T23:10:38.1876627+02:00"}],"Referrals":[{"DateOfIssue":"2021-05-02T00:00:00","Specialization":1,"Doctor":{"DoctorType":1,"Holidays":null,"FreeDaysNum":0,"Username":"drpetra","Password":"123","Name":"Petra","Surname":"Jovic","DateOfBirth":"1999-01-01T00:00:00","Jmbg":"0101000234567","Phone":"0614563456","Address":"Balzakova 23","Email":"sladjanac@gmail.com","Gender":0},"IsUrgent":false,"Reason":""},{"DateOfIssue":"2021-05-04T00:00:00","Specialization":1,"Doctor":{"DoctorType":1,"Holidays":null,"FreeDaysNum":0,"Username":"drpetra","Password":"123","Name":"Petra","Surname":"Jovic","DateOfBirth":"1999-01-01T00:00:00","Jmbg":"0101000234567","Phone":"0614563456","Address":"Balzakova 23","Email":"sladjanac@gmail.com","Gender":0},"IsUrgent":false,"Reason":"jljl"}],"Allergies":[{"IngredientName":"kofein"},{"IngredientName":"bromazepam"},{"IngredientName":"cink"},{"IngredientName":"ibuprofen"}],"HospitalTreatments":[{"StartDate":"2021-05-25T12:38:41.4629203+02:00","EndTime":"2021-06-02T00:00:00","Department":5,"RoomId":"102","BedNumber":1,"Reason":"Operacija koljena."},{"StartDate":"2021-06-02T21:15:48.4738381+02:00","EndTime":"2021-06-19T00:00:00","Department":1,"RoomId":"102","BedNumber":1,"Reason":"wioadoia"}]}]
+
+[
+    {
+        "Id": "123",
+        "Patient": {
+            "PatientType": 0,
+            "medicalRecordId": "123",
+            "Username": null,
+            "Password": null,
+            "Name": "Marko",
+            "Surname": "Jankovic",
+            "DateOfBirth": null,
+            "Jmbg": "0534023456712",
+            "Phone": null,
+            "Address": null,
+            "Email": null,
+            "Gender": 1
+        },
+        "Diagnoses": [],
+        "Prescriptions": [],
+        "Referrals": [],
+        "Allergies": [],
+        "HospitalTreatments": []
+    },
+    {
+        "Id": "1234",
+        "Patient": {
+            "PatientType": 1,
+            "medicalRecordId": "1234",
+            "Username": "sladjana",
+            "Password": "123",
+            "Name": "Sladjana",
+            "Surname": "Colakovic",
+            "DateOfBirth": "1999-01-01T00:00:00",
+            "Jmbg": "0101000244312",
+            "Phone": "0614563456",
+            "Address": "Balzakova 23",
+            "Email": "sladjanac@gmail.com",
+            "Gender": 0
+        },
+        "Diagnoses": [
+            {
+                "Illness": "Upala krajnika",
+                "Symptoms": "temperatura",
+                "Datum": "2021-04-17T00:00:00",
+                "Anamnesis": "Dosla sa upaljenim grlom"
+            },
+            {
+                "Illness": "Konjuktivitis",
+                "Symptoms": "crveno oko",
+                "Datum": "2021-05-20T00:00:00+02:00",
+                "Anamnesis": "Dosla sa crvenim okom. Zali se na svrab."
+            }
+        ],
+        "Prescriptions": [
+            {
+                "Medication": "Panklav",
+                "HowOften": 8,
+                "HowLong": 7,
+                "AdditionalInfos": "Bez alkohola",
+                "Start": "2021-06-05T23:10:38.1876627+02:00"
+            }
+        ],
+        "Referrals": [
+            {
+                "DateOfIssue": "2021-05-02T00:00:00",
+                "Specialization": 1,
+                "Doctor": {
+                    "DoctorType": 1,
+                    "Username": "drpetra",
+                    "Password": "123",
+                    "Name": "Petra",
+                    "Surname": "Jovic",
+                    "DateOfBirth": "1999-01-01T00:00:00",
+                    "Jmbg": "0101000234567",
+                    "Phone": "0614563456",
+                    "Address": "Balzakova 23",
+                    "Email": "sladjanac@gmail.com",
+                    "Gender": 0
+                },
+                "IsUrgent": false,
+                "Reason": ""
+            },
+            {
+                "DateOfIssue": "2021-05-04T00:00:00",
+                "Specialization": 1,
+                "Doctor": {
+                    "DoctorType": 1,
+                    "Username": "drpetra",
+                    "Password": "123",
+                    "Name": "Petra",
+                    "Surname": "Jovic",
+                    "DateOfBirth": "1999-01-01T00:00:00",
+                    "Jmbg": "0101000234567",
+                    "Phone": "0614563456",
+                    "Address": "Balzakova 23",
+                    "Email": "sladjanac@gmail.com",
+                    "Gender": 0
+                },
+                "IsUrgent": false,
+                "Reason": "jljl"
+            }
+        ],
+        "Allergies": [ { "IngredientName": "kofein" } ],
+        "HospitalTreatments": [
+            {
+                "StartDate": "2021-05-25T12:38:41.4629203+02:00",
+                "EndTime": "2021-06-02T00:00:00",
+                "Department": 5,
+                "RoomId": "102",
+                "BedNumber": 1,
+                "Reason": "Operacija koljena."
+            }
+        ]
+    }
+]

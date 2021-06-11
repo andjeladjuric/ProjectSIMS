@@ -32,6 +32,21 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
+        <Button x:Name="Stop" Margin="708,142,129,0" VerticalAlignment="Top" Height="34" Background="{x:Null}" 
+                        BorderThickness="1" Command="{Binding StopDemo}">
+            <Label Content="Zaustavi DEMO" VerticalAlignment="Center" FontWeight="DemiBold"
+                       FontStyle="Italic"/>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DemoOn}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         <Grid x:Name="EditGrid" Margin="91,101,91,105">
             <Border HorizontalAlignment="Center" Height="356" VerticalAlignment="Top" Width="733"
                 CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="0,94,0,0"/>
@@ -183,5 +198,11 @@
                        VerticalAlignment="Top" Height="57" Width="227" FontFamily="Roboto" FontSize="36" FontStyle="Italic" TextAlignment="Center"/>
         </Grid>
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
+        <Popup x:Name="pp" Placement="Center" IsOpen="{Binding IsPopupOpen}" Width="400" Height="200" AllowsTransparency="True">
+            <local:Message/>
+        </Popup>
+        <Popup x:Name="stop" Placement="Center" IsOpen="{Binding Warning}" Width="400" Height="200" AllowsTransparency="True">
+            <local:StartDemo/>
+        </Popup>
     </Grid>
 </Page>

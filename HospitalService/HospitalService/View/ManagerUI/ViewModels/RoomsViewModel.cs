@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Navigation;
@@ -92,8 +93,13 @@ namespace HospitalService.View.ManagerUI.ViewModels
         public void OnDelete()
         {
             RoomService roomService = new RoomService();
-            roomService.DeleteRoom(selectedRoom.Id);
-            Rooms.Remove(SelectedRoom);
+
+            if (MessageBox.Show("Da li želite da uklonite prostoriju?", 
+                "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                roomService.DeleteRoom(selectedRoom.Id);
+                Rooms.Remove(SelectedRoom);
+            }
         }
 
         public void OnEdit()
