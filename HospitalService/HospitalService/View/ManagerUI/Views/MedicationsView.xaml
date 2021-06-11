@@ -24,8 +24,8 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="202,56,0,0" Text="Lekovi" 
-                   TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="302" FontFamily="Roboto" 
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0,51,0,0" Text="Lekovi" 
+                   TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="140" FontFamily="Roboto" 
                    FontSize="46" FontStyle="Italic" TextAlignment="Left"/>
 
         <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding Medications}" SelectedItem="{Binding Medication, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -72,7 +72,7 @@
 
         <Button x:Name="create" Content="Dodaj" HorizontalAlignment="Left" Margin="170,612,0,0" VerticalAlignment="Top" 
                 Height="26" Width="74" Command="{Binding AddCommand}"/>
-        <Button x:Name="details" Content="Detalji" HorizontalAlignment="Left" Margin="268,612,0,0" VerticalAlignment="Top" 
+        <Button x:Name="details" Content="Izmena" HorizontalAlignment="Left" Margin="268,612,0,0" VerticalAlignment="Top" 
                 Height="26" Width="74" Command="{Binding DetailsCommand}"/>
         <Button x:Name="delete" Content="Ukloni" HorizontalAlignment="Left" Margin="362,612,0,0" VerticalAlignment="Top" 
                 Height="26" Width="74" Command="{Binding DeleteCommand}"/>

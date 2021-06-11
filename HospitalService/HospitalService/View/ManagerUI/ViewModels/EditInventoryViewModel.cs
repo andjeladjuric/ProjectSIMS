@@ -21,12 +21,22 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private string quantity;
         private Equipment type;
         private Inventory item;
-        private Frame frame;
         private bool demoOn;
         private bool isOpen;
+        private CancellationTokenSource cts = new CancellationTokenSource();
         #endregion
 
         #region Properties
+        private bool warning;
+        public bool Warning
+        {
+            get { return warning; }
+            set
+            {
+                warning = value;
+                OnPropertyChanged();
+            }
+        }
         public bool IsPopupOpen
         {
             get { return isOpen; }
@@ -110,9 +120,17 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Commands
         public MyICommand ConfirmCommand { get; set; }
         public MyICommand CancelCommand { get; set; }
+        public MyICommand StopDemo { get; set; }
         #endregion
 
         #region Actions
+        private void OnStop()
+        {
+            cts.Cancel();
+            Warning = true;
+            DemoOn = false;
+            this.Frame.NavigationService.Navigate(new RoomsView());
+        }
         private void OnConfirm()
         {
             InventoryService inventoryService = new InventoryService();
@@ -138,7 +156,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             {
                 InventoryService service = new InventoryService();
                 RoomService rooms = new RoomService();
-                MessageViewModel.Message = "Završena četvrta funkcionalnost \n Sledi - izmena inventara";
+                MessageViewModel.Message = "Završena četvrta funkcionalnost \n Sledi - dodavanje lekova";
                 ct.ThrowIfCancellationRequested();
 
                 await Task.Delay(1500, ct);
@@ -157,10 +175,11 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 await Task.Delay(2000, ct);
                 this.Frame.NavigationService.Navigate(new InventoryView());
                 IsPopupOpen = true;
-                await Task.Delay(3000, ct);
+                await Task.Delay(2000, ct);
                 IsPopupOpen = false;
-                DemoOn = false;
-                ManagerWindowViewModel.cts.Cancel();
+                this.Frame.NavigationService.Navigate(new MedicationsView());
+                await Task.Delay(3000, ct);
+                this.Frame.NavigationService.Navigate(new AddMedicationView(DemoOn));
             }
         }
         #endregion
@@ -179,8 +198,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
 
             ConfirmCommand = new MyICommand(OnConfirm, CanExecute);
             CancelCommand = new MyICommand(OnCancel, CanExecute);
+            StopDemo = new MyICommand(OnStop, CanExecute);
 
-            CancellationTokenSource cts = ManagerWindowViewModel.cts;
             try
             {
                 DemoIsOn(cts.Token);

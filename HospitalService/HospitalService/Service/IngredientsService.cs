@@ -24,6 +24,7 @@ namespace HospitalService.Service
         }
 
         public List<MedicationIngredients> GetAll() => repository.GetAll();
+        public MedicationIngredients GetOne(string name) => repository.GetOne(name);
         public void Save(MedicationIngredients newIngredient) => repository.Save(newIngredient);
         public void Delete(string name) => repository.Delete(name);
 

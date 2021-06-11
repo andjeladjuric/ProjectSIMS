@@ -26,10 +26,10 @@ namespace HospitalService.View.ManagerUI.Views
     {
         AddMedicationViewModel currentViewModel;
 
-        public AddMedicationView()
+        public AddMedicationView(bool DemoOn)
         {
             InitializeComponent();
-            currentViewModel = new AddMedicationViewModel(newFrame);
+            currentViewModel = new AddMedicationViewModel(newFrame, DemoOn);
             this.DataContext = currentViewModel;
         }
         //private MedicationStorage medStorage = new MedicationStorage();

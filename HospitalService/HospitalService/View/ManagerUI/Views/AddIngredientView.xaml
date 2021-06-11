@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views"
-      xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations"
+      xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="389" d:DesignWidth="376"
       Title="AddIngredient">
@@ -24,6 +24,8 @@
     <Grid Background="#f5f5f5">
         <Label x:Name="Ingredient" Content="Sastojak" HorizontalAlignment="Left" VerticalAlignment="Top" Width="78" Margin="32,153,0,0"/>
         <TextBox x:Name="ingredientBox" Height="30" Margin="115,150,38,209"
+                 materialDesign:HintAssist.Hint="naziv sastojka..."
+                 materialDesign:HintAssist.HintOpacity=".26"
                  Foreground="#474746"
                  FontFamily="Roboto"
                  FontSize="14"

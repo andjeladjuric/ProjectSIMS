@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HospitalService.View.ManagerUI.ViewModels;
+using Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -18,9 +20,12 @@ namespace HospitalService.View.ManagerUI.Views
     /// </summary>
     public partial class ProfileView : Page
     {
-        public ProfileView()
+        ProfileViewModel currentViewModel;
+        public ProfileView(Manager currentManager)
         {
             InitializeComponent();
+            currentViewModel = new ProfileViewModel(newFrame, currentManager);
+            this.DataContext = currentViewModel;
         }
     }
 }

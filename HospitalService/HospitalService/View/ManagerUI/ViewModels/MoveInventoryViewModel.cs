@@ -15,20 +15,31 @@ using System.Windows.Data;
 
 namespace HospitalService.View.ManagerUI.ViewModels
 {
-    public class MoveInventoryViewModel : ViewModel
+    public class MoveInventoryViewModel : ValidationBase
     {
         #region Fields
+        private CancellationTokenSource cts = new CancellationTokenSource();
         private Inventory selectedItem;
         private string enteredTime;
         private DateTime date;
         private string quantity;
-        private string selectedRoom;
+        private Room selectedRoom;
         private Room room;
         private bool demoOn;
         private bool isOpen;
         #endregion
 
         #region Properties
+        private bool warning;
+        public bool Warning
+        {
+            get { return warning; }
+            set
+            {
+                warning = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<Inventory> RoomInventory { get; set; }
         public bool IsPopupOpen
         {
@@ -66,7 +77,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
             set
             {
                 selectedItem = value;
-                ConfirmCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
         }
@@ -101,59 +111,12 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
         }
 
-        public string SelectedRoom
+        public Room SelectedRoom
         {
             get { return selectedRoom; }
             set
             {
                 selectedRoom = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string filterId;
-        public string FilterId
-        {
-            get { return filterId; }
-            set
-            {
-                filterId = value;
-                OnPropertyChanged();
-                FilterCollection();
-            }
-        }
-
-        private string filterName;
-        public string FilterName
-        {
-            get { return filterName; }
-            set
-            {
-                filterName = value;
-                OnPropertyChanged();
-                FilterCollection();
-            }
-        }
-
-        private string filterSupplier;
-        public string FilterSupplier
-        {
-            get { return filterSupplier; }
-            set
-            {
-                filterSupplier = value;
-                OnPropertyChanged();
-                FilterCollection();
-            }
-        }
-
-        private ICollectionView inventoryView;
-        public ICollectionView InventoryView
-        {
-            get { return inventoryView; }
-            set
-            {
-                inventoryView = value;
                 OnPropertyChanged();
             }
         }
@@ -166,7 +129,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
             {
                 selectedType = value;
                 OnPropertyChanged();
-                FilterCollection();
             }
         }
 
@@ -177,61 +139,61 @@ namespace HospitalService.View.ManagerUI.ViewModels
         public MyICommand ConfirmCommand { get; set; }
         public MyICommand CancelCommand { get; set; }
         public MyICommand CancelSearch { get; set; }
+        public MyICommand StopDemo { get; set; }
         #endregion
 
         #region Actions
-
+        private void OnStop()
+        {
+            cts.Cancel();
+            Warning = true;
+            DemoOn = false;
+            this.Frame.NavigationService.Navigate(new RoomsView());
+        }
         private void OnConfirm()
         {
             RoomService roomService = new RoomService();
             RoomInventoryService roomInventoryService = new RoomInventoryService();
-            string[] rooms = SelectedRoom.ToString().Split("/");
-            string selectedId = rooms[0];
+            InventoryService inventoryService = new InventoryService();
+            this.Validate();
 
             Room sendToThisRoom = null;
             foreach (Room r in roomService.GetAll())
             {
-                if (r.Id == selectedId)
+                if (r.Id == SelectedRoom.Id)
                 {
                     sendToThisRoom = r;
                     break;
                 }
             }
 
-            int itemId = SelectedItem.Id;
-            foreach (Inventory i in RoomInventory)
+            if (IsValid)
             {
-                if (i.Id == itemId)
+                Inventory item = inventoryService.GetOne(SelectedItem.Id);
+                if (item.EquipmentType.Equals(Equipment.Dynamic))
                 {
-                    if (i.EquipmentType.Equals(Equipment.Dynamic))
-                    {
-                        roomInventoryService.AnalyzeRequests(new MovingRequests(DateTime.Now, Int32.Parse(Quantity), Room.Id, sendToThisRoom.Id, itemId));
-                    }
-                    else
-                    {
-                        //MessageBox.Show(Date.ToString());
-                        TimeSpan selectedTime = TimeSpan.ParseExact(EnteredTime, "c", null);
-                        DateTime selectedDate = Convert.ToDateTime(selectedTime + " " + Date.ToString("d"));
-                        MovingRequests request = new MovingRequests(selectedDate, Int32.Parse(Quantity), room.Id, sendToThisRoom.Id, itemId);
-                        roomInventoryService.StartMoving(request);
-                                
-                    }
+                    roomInventoryService.AnalyzeRequests(new MovingRequests(DateTime.Now, Int32.Parse(Quantity), Room.Id, SelectedRoom.Id, item.Id));
                 }
-            }
+                else
+                {
+                    TimeSpan selectedTime = TimeSpan.ParseExact(EnteredTime, "c", null);
+                    DateTime selectedDate = Convert.ToDateTime(selectedTime + " " + Date.ToString("d"));
+                    MovingRequests request = new MovingRequests(selectedDate, Int32.Parse(Quantity), room.Id, SelectedRoom.Id, item.Id);
+                    roomInventoryService.StartMoving(request);
 
-            this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(Room));
+                }
+
+                string one = Room.Id + "/" + Room.Name;
+                string two = SelectedRoom.Id + "/" + SelectedRoom.Name;
+                this.Frame.NavigationService.Navigate(new TransferItemView(one, two, false));
+            }
         }
 
         private void OnCancel()
         {
-            this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(Room));
-        }
-
-        private void OnCancelSearch()
-        {
-            FilterName = "";
-            FilterId = "";
-            FilterSupplier = "";
+            string one = Room.Id + "/" + Room.Name;
+            string two = SelectedRoom.Id + "/" + SelectedRoom.Name;
+            this.Frame.NavigationService.Navigate(new TransferItemView(one, two, false));
         }
 
         private bool CanExecute()
@@ -246,36 +208,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #endregion
 
         #region Other Functions
-        private void LoadRooms()
-        {
-            String source = "";
-            RoomService roomService = new RoomService();
-            Rooms = new List<string>();
-            foreach (Room soba in roomService.GetAll())
-            {
-                if (soba.Id != room.Id)
-                {
-                    source = soba.Id + "/" + soba.Name;
-                    Rooms.Add(source);
-                }
-            }
-        }
-
-        private void FilterCollection()
-        {
-            if (InventoryView != null)
-            {
-                InventoryView.Refresh();
-            }
-        }
-
-        public bool Filter(object obj)
-        {
-            RoomInventoryService service = new RoomInventoryService();
-            var data = obj as Inventory;
-
-            return service.Filter(obj, FilterId, FilterName, FilterSupplier, SelectedType);
-        }
 
         private async Task DemoIsOn(CancellationToken ct)
         {
@@ -286,50 +218,81 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 RoomService rooms = new RoomService();
                 ct.ThrowIfCancellationRequested();
 
-                await Task.Delay(1500, ct);
-                SelectedItem = service.GetOne(321);
                 await Task.Delay(2000, ct);
                 EnteredTime = "15:30";
                 await Task.Delay(2000, ct);
                 Date = DateTime.Today;
                 await Task.Delay(2000, ct);
-                SelectedRoom = "330/Ordinacija 2";
-                await Task.Delay(2000, ct);
                 Quantity = "5";
 
                 await Task.Delay(2000, ct);
-                this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(rooms.GetOne("105")));
+                this.Frame.NavigationService.Navigate(new InventoryView());
                 IsPopupOpen = true;
                 await Task.Delay(1500, ct);
                 IsPopupOpen = false;
                 this.Frame.NavigationService.Navigate(new EditInventoryView(service.GetOne(321), DemoOn));
             }
         }
+
+        private bool CheckExistingMovingRequests(Room moveFrom, int quantity)
+        {
+            RoomInventoryService service = new RoomInventoryService();
+            foreach (MovingRequests mr in service.LoadRequests())
+            {
+                if (mr.moveFromThisRoom.Equals(moveFrom.Id) && mr.inventoryId == SelectedItem.Id)
+                {
+                    RoomInventory item = service.GetRoomInventoryByIds(moveFrom.Id, mr.inventoryId);
+                    int temp = item.Quantity - mr.quantity;
+                    if(quantity > temp)
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        private int GetAvailableNumber(Room moveFrom)
+        {
+            RoomInventoryService service = new RoomInventoryService();
+            int temp = 0;
+            foreach (MovingRequests mr in service.LoadRequests())
+            {
+                if (mr.moveFromThisRoom.Equals(moveFrom.Id) && mr.inventoryId == SelectedItem.Id)
+                {
+                    RoomInventory item = service.GetRoomInventoryByIds(moveFrom.Id, mr.inventoryId);
+                    temp = item.Quantity - mr.quantity;
+                    return temp;
+                }
+            }
+
+            return temp;
+        }
+
+        protected override void ValidateSelf()
+        {
+            if (!CheckExistingMovingRequests(Room, Int32.Parse(Quantity)))
+            {
+                this.ValidationErrors["Quantity"] = "Samo " + GetAvailableNumber(Room) + " stavki je dostupno za transfer!" +
+                    "\nUnesite manju količinu!";
+            }
+        }
         #endregion
 
         #region Constructors
-        public MoveInventoryViewModel(Frame currentFrame, Room room, ObservableCollection<Inventory> inv, bool demo)
+        public MoveInventoryViewModel(Frame currentFrame, Room moveFrom, Room sendHere, Inventory selectedItem, bool demo)
         {
             /*view*/
             this.Frame = currentFrame;
-            this.Room = room;
-            this.RoomInventory = inv;
+            this.Room = moveFrom;
+            this.SelectedRoom = sendHere;
+            this.SelectedItem = selectedItem;
             this.Date = DateTime.Today;
             this.DemoOn = demo;
-            LoadRooms();
-
-            /*search filter*/
-            this.FilterName = "";
-            this.FilterId = "";
-            this.FilterSupplier = "";
-            InventoryView = CollectionViewSource.GetDefaultView(RoomInventory);
-            InventoryView.Filter = new Predicate<object>(Filter);
 
             /*commands*/
-            ConfirmCommand = new MyICommand(OnConfirm, CanExecute);
+            ConfirmCommand = new MyICommand(OnConfirm, CanNavigate);
             CancelCommand = new MyICommand(OnCancel, CanNavigate);
-            CancelSearch = new MyICommand(OnCancelSearch, CanNavigate);
-            CancellationTokenSource cts = ManagerWindowViewModel.cts;
+            StopDemo = new MyICommand(OnStop, CanExecute);
             try
             {
                 DemoIsOn(cts.Token);

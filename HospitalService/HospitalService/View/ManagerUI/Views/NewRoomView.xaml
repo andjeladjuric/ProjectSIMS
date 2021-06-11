@@ -7,7 +7,7 @@
       xmlns:validation="clr-namespace:HospitalService.View.ManagerUI.Validations"
       xmlns:conv="clr-namespace:HospitalService.View.ManagerUI.Converters"
       xmlns:System="clr-namespace:System;assembly=mscorlib"
-      xmlns:model="clr-namespace:Model"
+      xmlns:model="clr-namespace:Model" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
      d:DesignHeight="718" d:DesignWidth="969"
       Title="NewRoom">
@@ -32,6 +32,21 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
+        <Button x:Name="Stop" Margin="531,114,306,0" VerticalAlignment="Top" Height="34" Background="{x:Null}" 
+                        BorderThickness="1" Command="{Binding StopDemo}">
+            <Label Content="Zaustavi DEMO" VerticalAlignment="Center" FontWeight="DemiBold"
+                       FontStyle="Italic"/>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DemoOn}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         <Border HorizontalAlignment="Center" Height="442" VerticalAlignment="Top" Width="398"
                 CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="0,166,0,0"/>
         <Label x:Name="id" Content="Broj sobe" HorizontalAlignment="Left" Margin="336,231,0,0" VerticalAlignment="Top" 
@@ -41,6 +56,8 @@
         <Label x:Name="type" Content="Vrsta" HorizontalAlignment="Left" Margin="336,452,0,0" VerticalAlignment="Top" 
                Width="125"/>
         <TextBox x:Name="IDBox" HorizontalAlignment="Left" Height="36" Margin="468,222,0,0"
+                 materialDesign:HintAssist.Hint="101a, 204b, 303, 467..."
+                 materialDesign:HintAssist.HintOpacity=".26"
                  VerticalAlignment="Top" Width="172" 
                  Foreground="#474746"
                  FontFamily="Roboto"
@@ -68,6 +85,8 @@
         <Label x:Name="floor" Content="Sprat" HorizontalAlignment="Left" Margin="336,339,0,0" VerticalAlignment="Top" 
                Width="125"/>
         <TextBox x:Name="FloorBox" HorizontalAlignment="Left" Height="36" Margin="468,333,0,0"
+                 materialDesign:HintAssist.Hint="1, 2, 3, ili 4"
+                 materialDesign:HintAssist.HintOpacity=".26"
                  VerticalAlignment="Top" Width="172" 
                  Foreground="#474746"
                  FontFamily="Roboto"
@@ -78,7 +97,7 @@
             <TextBox.Text>
                 <Binding Path="RoomFloor" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
-                        <validation:FloorValidation ValidationStep="ConvertedProposedValue" Min="1"/>
+                        <validation:FloorValidation ValidationStep="ConvertedProposedValue" Min="1" Max="4"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
@@ -94,6 +113,8 @@
         <Label x:Name="size" Content="Kvadratura" HorizontalAlignment="Left" Margin="336,395,0,0" VerticalAlignment="Top" 
                Width="125"/>
         <TextBox x:Name="SizeBox" HorizontalAlignment="Left" Height="36" Margin="468,388,0,0"
+                 materialDesign:HintAssist.Hint="55.6"
+                 materialDesign:HintAssist.HintOpacity=".26"
                  VerticalAlignment="Top" Width="172" 
                  Foreground="#474746"
                  FontFamily="Roboto"
@@ -119,6 +140,8 @@
         </TextBox>
 
         <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="35" Margin="468,277,0,0" VerticalAlignment="Top" Width="172"
+                 materialDesign:HintAssist.Hint="šok soba 2"
+                 materialDesign:HintAssist.HintOpacity=".26"
                  Foreground="#474746"
                  FontFamily="Roboto"
                  FontWeight="Light"
@@ -202,6 +225,9 @@
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
         <Popup x:Name="pp" Placement="Center" IsOpen="{Binding IsPopupOpen}" Width="400" Height="200" AllowsTransparency="True">
             <local:Message/>
+        </Popup>
+        <Popup x:Name="stop" Placement="Center" IsOpen="{Binding Warning}" Width="400" Height="200" AllowsTransparency="True">
+            <local:StartDemo/>
         </Popup>
     </Grid>
 </Page>

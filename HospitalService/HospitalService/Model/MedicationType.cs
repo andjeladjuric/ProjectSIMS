@@ -6,7 +6,8 @@
         Antiseptic,
         Antidepressant,
         Painkiller,
-        Supplement
+        Supplement,
+        Other
         
     }
 }

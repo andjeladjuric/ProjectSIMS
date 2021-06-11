@@ -43,7 +43,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         public MessageViewModel()
         {
             this.DemoOn = false;
-            Message = "";
+            Message = "Pokrenuli ste DEMO režim rada!";
             OkayCommand = new MyICommand(OnOkay, CanNavigate);
         }
         #endregion

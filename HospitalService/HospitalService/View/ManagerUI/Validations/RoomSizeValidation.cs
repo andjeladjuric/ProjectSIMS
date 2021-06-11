@@ -31,6 +31,7 @@ namespace HospitalService.View.ManagerUI.Validations
     public class FloorValidation : ValidationRule
     {
         public int Min { get; set; }
+        public int Max { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             try
@@ -39,6 +40,8 @@ namespace HospitalService.View.ManagerUI.Validations
                     return new ValidationResult(false, "Polje ne sme biti prazno!");
                 else if (int.Parse(value.ToString()) < Min)
                     return new ValidationResult(false, "Ne možete uneti 0!");
+                else if (int.Parse(value.ToString()) > Max)
+                    return new ValidationResult(false, "Zgrada ima samo 4 sprata!");
                 else
                     return new ValidationResult(true, null);
             }

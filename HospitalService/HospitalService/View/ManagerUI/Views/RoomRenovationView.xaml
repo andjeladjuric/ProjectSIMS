@@ -34,13 +34,28 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
+        <Button x:Name="Stop" Margin="785,30,52,0" VerticalAlignment="Top" Height="34" Background="{x:Null}" 
+                        BorderThickness="1" Command="{Binding StopDemo}">
+            <Label Content="Zaustavi DEMO" VerticalAlignment="Center" FontWeight="DemiBold"
+                       FontStyle="Italic"/>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DemoOn}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         <DataGrid x:Name="tableBinding" IsReadOnly="True" ItemsSource="{Binding Appointments}"
                   SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
                   Height="546" VerticalAlignment="Top" Width="476" FontFamily="Roboto" FontSize="14"
                   SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5"
                   Margin="42,90,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Datum" Binding="{Binding StartTime, StringFormat=dd.MM.yyyy.}" Width="*">
+                <DataGridTextColumn Header="Datum" Binding="{Binding Start, StringFormat=dd.MM.yyyy.}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="Height" Value="25"/>
@@ -51,7 +66,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Dan" Width="*"  Binding="{Binding StartTime.DayOfWeek, Converter={StaticResource enumConverter}}">
+                <DataGridTextColumn Header="Dan" Width="*"  Binding="{Binding Start.DayOfWeek, Converter={StaticResource enumConverter}}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="Height" Value="25"/>
@@ -62,7 +77,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Vreme" Width="*"  Binding="{Binding StartTime, StringFormat=HH:mm}">
+                <DataGridTextColumn Header="Vrsta" Width="*"  Binding="{Binding Type}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="Height" Value="25"/>
@@ -80,7 +95,7 @@
         <Border Height="546" VerticalAlignment="Top" Margin="536,90,36,0"
                 CornerRadius="10" BorderThickness="0.5" BorderBrush="Black"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="42,28,0,0" 
-                   Text="Zakaži renoviranje" TextWrapping="Wrap" VerticalAlignment="Top"
+                   Text="Zakazani termini" TextWrapping="Wrap" VerticalAlignment="Top"
                    Height="57" Width="302" FontFamily="Roboto" FontSize="36" FontStyle="Italic" 
                    TextAlignment="Center" Foreground="#474746"/>
 
@@ -157,6 +172,8 @@
                 <StackPanel Orientation="Vertical" Margin="5,0,0,0">
                     <TextBox x:Name="NewIDBox" HorizontalAlignment="Left"
                              Height="30" Width="180" VerticalAlignment="Top"
+                             materialDesign:HintAssist.Hint="101a, 202, 400b..."
+                             materialDesign:HintAssist.HintOpacity=".26"
                              Foreground="#474746"
                              FontFamily="Roboto"
                              FontWeight="Light"
@@ -182,6 +199,8 @@
                     <Separator Opacity="0" Height="15"/>
                     <TextBox x:Name="NewNameBox" HorizontalAlignment="Left"
                              Height="30" Width="180" VerticalAlignment="Top"
+                             materialDesign:HintAssist.Hint="mpr. šok soba..."
+                             materialDesign:HintAssist.HintOpacity=".26"
                              Foreground="#474746"
                              FontFamily="Roboto"
                              FontWeight="Light"
@@ -222,6 +241,8 @@
                     <Separator Opacity="0" Height="20"/>
                     <TextBox x:Name="NewSizeBox" HorizontalAlignment="Left"
                              Height="30" Width="180" VerticalAlignment="Top"
+                             materialDesign:HintAssist.Hint="35.5..."
+                             materialDesign:HintAssist.HintOpacity=".26"
                              Foreground="#474746"
                              FontFamily="Roboto"
                              FontWeight="Light"
@@ -281,6 +302,8 @@
                             </Style>
                         </ComboBox.Style>
                     </ComboBox>
+                    <TextBlock Text="{Binding ValidationErrors[Floor], Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                               Foreground="#FFE52020" TextWrapping="Wrap" Height="31"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
@@ -303,12 +326,14 @@
                         <DataTrigger Binding="{Binding ElementName=NewNameBox, Path=(Validation.HasError)}" Value="True">
                             <Setter Property="IsEnabled" Value="False"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=NewSizeBox, Path=Text}" Value="">
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=SecondRoomBox, Path=IsEnabled}" Value="True"/>
+                                <Condition Binding="{Binding ElementName=NewSizeBox, Path=(Validation.HasError)}" Value="True"/>
+                                <Condition Binding="{Binding ElementName=NewSizeBox, Path=Text}" Value=""/>
+                            </MultiDataTrigger.Conditions>
                             <Setter Property="IsEnabled" Value="False"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=NewSizeBox, Path=(Validation.HasError)}" Value="True">
-                            <Setter Property="IsEnabled" Value="False"/>
-                        </DataTrigger>
+                        </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding ElementName=SecondRoomBox, Path=IsEnabled}" Value="True"/>
@@ -326,6 +351,9 @@
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
         <Popup x:Name="pp" Placement="Center" IsOpen="{Binding IsPopupOpen}" Width="400" Height="200" AllowsTransparency="True">
             <local:Message />
+        </Popup>
+        <Popup x:Name="stop" Placement="Center" IsOpen="{Binding Warning}" Width="400" Height="200" AllowsTransparency="True">
+            <local:StartDemo/>
         </Popup>
     </Grid>
 </Page>

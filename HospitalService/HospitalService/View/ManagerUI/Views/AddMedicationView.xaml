@@ -33,6 +33,21 @@
     </Page.Resources>
 
     <Grid Background="#f5f5f5">
+        <Button x:Name="Stop" Margin="710,132,127,0" VerticalAlignment="Top" Height="34" Background="{x:Null}" 
+                        BorderThickness="1" Command="{Binding StopDemo}">
+            <Label Content="Zaustavi DEMO" VerticalAlignment="Center" FontWeight="DemiBold"
+                       FontStyle="Italic"/>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DemoOn}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
 
         <Border HorizontalAlignment="Center" Height="391" CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" VerticalAlignment="Top" 
                 Width="716" Margin="0,191,0,0"/>
@@ -44,6 +59,8 @@
                Height="34"/>
 
         <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="34" Margin="304,256,0,0" TextWrapping="Wrap" 
+                 materialDesign:HintAssist.Hint="bromazepam..."
+                 materialDesign:HintAssist.HintOpacity=".26"
                  VerticalAlignment="Top" Width="172" Foreground="#474746"
                  FontFamily="Roboto"
                  FontWeight="Light"
@@ -107,7 +124,7 @@
 
         <ComboBox x:Name="comboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" 
                   HorizontalAlignment="Left" Height="34" Margin="304,370,0,0" VerticalAlignment="Top" Width="172"
-                  Foreground="#474746"
+                  Foreground="#474746" SelectedItem="{Binding Type}"
                   FontFamily="Roboto"
                   FontWeight="Light"
                   FontSize="14"
@@ -148,6 +165,8 @@
                Width="125" Height="36"/>
         <TextBox x:Name="formatBox" HorizontalAlignment="Left" Height="36" Margin="304,311,0,0" TextWrapping="Wrap" 
                  VerticalAlignment="Top" Width="172" Foreground="#474746"
+                 materialDesign:HintAssist.Hint="tableta, sirup, injekcija..."
+                 materialDesign:HintAssist.HintOpacity=".26"
                  FontFamily="Roboto"
                  FontWeight="Light"
                  FontSize="14"
@@ -168,5 +187,11 @@
         </TextBox>
 
         <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
+        <Popup x:Name="pp" Placement="Center" IsOpen="{Binding IsPopupOpen}" Width="400" Height="200" AllowsTransparency="True">
+            <local:Message/>
+        </Popup>
+        <Popup x:Name="stop" Placement="Center" IsOpen="{Binding Warning}" Width="400" Height="200" AllowsTransparency="True">
+            <local:StartDemo/>
+        </Popup>
     </Grid>
 </Page>

@@ -3,12 +3,104 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views"
+      xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="718" d:DesignWidth="969"
       Title="ProfileView">
 
-    <Grid>
-        
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="#f5f5f5">
+        <materialDesign:PackIcon Kind="UserCircle" Height="118" Width="118" Foreground="#CEDDCA" Margin="580,119,0,0"/>
+        <Border Width="50" Height="60" CornerRadius="10" BorderBrush="#CEDDCA" Background="#CEDDCA" Margin="647,235,272,422"/>
+        <Button Height="35" Width="35" Background="{x:Null}" BorderThickness="0" Margin="654,245,279,438"
+                Command="{Binding EditProfile}">
+            <materialDesign:PackIcon Kind="Edit" Height="36" Width="34" Foreground="White"/>
+        </Button>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0,171,0,0" Text="{Binding Name}" TextWrapping="Wrap" 
+                   VerticalAlignment="Top" Height="56" Width="322" FontFamily="Roboto" FontSize="40" FontStyle="Italic" 
+                   TextAlignment="Center"/>
+        <Border HorizontalAlignment="Center" Height="362" VerticalAlignment="Top" Width="426"
+                CornerRadius="10" BorderThickness="0.5" BorderBrush="Black" Margin="0,234,0,0"/>
+
+        <StackPanel Orientation="Horizontal" Margin="291,310,291,130">
+            <StackPanel Orientation="Vertical">
+                <Separator Opacity="0" Height="10"/>
+                <Label x:Name="jmbg" Content="JMBG" HorizontalAlignment="Left" VerticalAlignment="Top" 
+               Width="140" Height="36"/>
+                <Separator Opacity="0" Height="10"/>
+                <Label x:Name="birthday" Content="Datum rođenja" HorizontalAlignment="Left" VerticalAlignment="Top" 
+               Width="140" Height="36"/>
+                <Separator Opacity="0" Height="10"/>
+                <Label x:Name="address" Content="Adresa stanovanja" HorizontalAlignment="Left" VerticalAlignment="Top" 
+               Width="140" Height="36"/>
+                <Separator Opacity="0" Height="10"/>
+                <Label x:Name="phone" Content="Broj telefona" HorizontalAlignment="Left" VerticalAlignment="Top" 
+               Width="140" Height="36"/>
+                <Separator Opacity="0" Height="10"/>
+                <Label x:Name="mail" Content="E-mail" HorizontalAlignment="Left" VerticalAlignment="Top" 
+               Width="140" Height="36"/>
+                <Separator Opacity="0" Height="10"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="25,0,0,0">
+                <TextBox x:Name="jmbgBox" HorizontalAlignment="Left" Height="36"
+                 VerticalAlignment="Top" Width="200" IsReadOnly="True"
+                 Foreground="#474746"
+                 FontFamily="Roboto"
+                 FontWeight="Light"
+                 FontSize="14"
+                 TextWrapping="Wrap" Text="{Binding Manager.Jmbg}"
+                 HorizontalContentAlignment="Center"/>
+                <Separator Opacity="0" Height="10"/>
+                <TextBox x:Name="birthdayBox" HorizontalAlignment="Left" Height="36"
+                 VerticalAlignment="Top" Width="200" IsReadOnly="True"
+                 Foreground="#474746"
+                 FontFamily="Roboto"
+                 FontWeight="Light"
+                 FontSize="14"
+                 TextWrapping="Wrap" Text="{Binding Manager.DateOfBirth, StringFormat=dd.MM.yyy}"
+                 HorizontalContentAlignment="Center"/>
+                <Separator Opacity="0" Height="10"/>
+                <TextBox x:Name="addressBox" HorizontalAlignment="Left" Height="36"
+                 VerticalAlignment="Top" Width="200" IsReadOnly="True"
+                 Foreground="#474746"
+                 FontFamily="Roboto"
+                 FontWeight="Light"
+                 FontSize="14"
+                 TextWrapping="Wrap" Text="{Binding Manager.Address}"
+                 HorizontalContentAlignment="Center"/>
+                <Separator Opacity="0" Height="10"/>
+                <TextBox x:Name="phoneBox" HorizontalAlignment="Left" Height="36"
+                 VerticalAlignment="Top" Width="200" IsReadOnly="True"
+                 Foreground="#474746"
+                 FontFamily="Roboto"
+                 FontWeight="Light"
+                 FontSize="14"
+                 TextWrapping="Wrap" Text="{Binding Manager.Phone}"
+                 HorizontalContentAlignment="Center"/>
+                <Separator Opacity="0" Height="10"/>
+                <TextBox x:Name="mailBox" HorizontalAlignment="Left" Height="36"
+                 VerticalAlignment="Top" Width="200" IsReadOnly="True"
+                 Foreground="#474746"
+                 FontFamily="Roboto"
+                 FontWeight="Light"
+                 FontSize="14"
+                 TextWrapping="Wrap" Text="{Binding Manager.Email}"
+                 HorizontalContentAlignment="Center"/>
+                <Separator Opacity="0" Height="5"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>

@@ -1,0 +1,75 @@
+﻿<Page x:Class="HospitalService.View.ManagerUI.Views.DoctorsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HospitalService.View.ManagerUI.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="718" d:DesignWidth="969"
+      Title="DoctorsView">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="#f5f5f5">
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0,48,0,0" Text="Doktori" 
+                   TextWrapping="Wrap" VerticalAlignment="Top" Height="57" Width="178" FontFamily="Roboto" FontSize="46" FontStyle="Italic" TextAlignment="Left"/>
+
+        <DataGrid x:Name="tableBinding" IsReadOnly="True" 
+                  ItemsSource="{Binding Doctors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedDoctor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
+                  Height="450" VerticalAlignment="Center" Width="635" FontFamily="Roboto" FontSize="14"
+                  SelectionUnit="FullRow" BorderThickness="2" BorderBrush="Gray" Background="#f5f5f5">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Ime" Binding="{Binding Name}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#474746"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Prezime" Width="*"  Binding="{Binding Surname}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#474746"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Specijalizacija" Width="*" Binding="{Binding DoctorType}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Height" Value="25"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="Foreground" Value="#474746"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button x:Name="create" HorizontalAlignment="Left" Content="Generši izveštaj" Margin="170,612,0,0" VerticalAlignment="Top"
+                Height="26" Width="129" Command="{Binding GenerateCommand}"/>
+
+        <Frame x:Name="newFrame" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Page>

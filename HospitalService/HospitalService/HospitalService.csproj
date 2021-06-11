@@ -10,14 +10,20 @@
     <None Remove="Images\acc.png" />
     <None Remove="Images\back.png" />
     <None Remove="Images\calendarIcon.png" />
+    <None Remove="Images\detaljiLekova.png" />
     <None Remove="Images\doctor.jpg" />
+    <None Remove="Images\dodajStavku.png" />
     <None Remove="Images\helpIcon.png" />
     <None Remove="Images\hospitalIcon.png" />
+    <None Remove="Images\inventarSobe.png" />
+    <None Remove="Images\izmenaProstorije.png" />
+    <None Remove="Images\izvestaj.png" />
     <None Remove="Images\logo.png" />
     <None Remove="Images\logOutIcon.png" />
     <None Remove="Images\menu.png" />
     <None Remove="Images\newsIcon.png" />
     <None Remove="Images\patientIcon.png" />
+    <None Remove="Images\sastojci.png" />
     <None Remove="View\PatientUI\Images\ankete.png" />
     <None Remove="View\PatientUI\Images\book.png" />
     <None Remove="View\PatientUI\Images\calendar.png" />
@@ -35,6 +41,7 @@
     <PackageReference Include="iTextSharp" Version="5.5.13.2" />
     <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Syncfusion.Pdf.Wpf" Version="19.1.0.66" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
 
@@ -42,14 +49,20 @@
     <Resource Include="Images\acc.png" />
     <Resource Include="Images\back.png" />
     <Resource Include="Images\calendarIcon.png" />
+    <Resource Include="Images\detaljiLekova.png" />
     <Resource Include="Images\doctor.jpg" />
+    <Resource Include="Images\dodajStavku.png" />
     <Resource Include="Images\helpIcon.png" />
     <Resource Include="Images\hospitalIcon.png" />
+    <Resource Include="Images\inventarSobe.png" />
+    <Resource Include="Images\izmenaProstorije.png" />
+    <Resource Include="Images\izvestaj.png" />
     <Resource Include="Images\logo.png" />
     <Resource Include="Images\logOutIcon.png" />
     <Resource Include="Images\menu.png" />
     <Resource Include="Images\newsIcon.png" />
     <Resource Include="Images\patientIcon.png" />
+    <Resource Include="Images\sastojci.png" />
     <Resource Include="View\PatientUI\Images\ankete.png" />
     <Resource Include="View\PatientUI\Images\book.png" />
     <Resource Include="View\PatientUI\Images\calendar.png" />
