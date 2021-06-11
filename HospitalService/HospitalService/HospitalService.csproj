@@ -12,6 +12,7 @@
     <None Remove="Images\calendarIcon.png" />
     <None Remove="Images\detaljiLekova.png" />
     <None Remove="Images\doctor.jpg" />
+    <None Remove="Images\Final.mp4" />
     <None Remove="Images\dodajStavku.png" />
     <None Remove="Images\helpIcon.png" />
     <None Remove="Images\hospitalIcon.png" />
@@ -34,6 +35,12 @@
     <None Remove="View\PatientUI\Images\programmer.jpg" />
     <None Remove="View\PatientUI\Images\survival.png" />
     <None Remove="View\PatientUI\Images\user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Final.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

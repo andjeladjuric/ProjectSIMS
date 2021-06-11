@@ -20,7 +20,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-
+    <Page.InputBindings>
+        <KeyBinding Gesture="Ctrl+A" Command="{Binding AddCommand}"/>
+    </Page.InputBindings>
     <Grid Background="White" Height="270" Width="400">
         <DataGrid BorderThickness="2" Margin="50,20,50,45" ItemsSource="{Binding Path=Allergies}" IsReadOnly="True"  SelectionMode="Single" AutoGenerateColumns="False" Width="300" SelectionUnit="FullRow">
             <DataGrid.Columns>

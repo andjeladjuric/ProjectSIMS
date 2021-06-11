@@ -20,58 +20,48 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+Z" Command="{Binding AddAppointmentCommand}"/>
+        <KeyBinding Gesture="Ctrl+T" Command="{Binding TutorialCommand}"/>
+        <KeyBinding Gesture="Ctrl+P" Command="{Binding ProfileCommand}"/>
+        <KeyBinding Gesture="Esc"  Command="{Binding LogOutCommand}"/>
+        <KeyBinding Gesture="Ctrl+K"  Command="{Binding OpenRecordCommand}"/>
+        <KeyBinding Gesture="Ctrl+O" Command="{Binding RemoveNewsCommand}"/>
+    </Window.InputBindings>
     <Grid>
         <DockPanel Height="600" Width="950">
-            <Menu DockPanel.Dock="Top" Height="40" FontSize="16" FontFamily="Baskerville">
-                <MenuItem Header="Profil" Width="120">
-                    <MenuItem Header="Posjeti profil">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="UserCircle" Foreground="#3f51b5"/>
-                        </MenuItem.Icon>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click" >
-                                <i:InvokeCommandAction Command="{Binding ProfileCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </MenuItem>
-                    <Separator/>
-                    <MenuItem Header="Log Out">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="Logout" Foreground="#3f51b5"/>
-                        </MenuItem.Icon>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click" >
-                                <i:InvokeCommandAction Command="{Binding LogOutCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </MenuItem>
-                </MenuItem>
-                <Separator/>
-                <MenuItem Header="Opcije" Height="40" Width="161" >
-                    <MenuItem Header="Zahtjev za odmor">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="PalmTree" Foreground="#3f51b5"/>
-                        </MenuItem.Icon>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click" >
-                                <i:InvokeCommandAction Command="{Binding VacationCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </MenuItem>
-                    <Separator/>
-                    <MenuItem Header="Zahtjev za materijal">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="Injection" Foreground="#3f51b5"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator/>
-                    <MenuItem Header="Tutorial">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="Help" Foreground="#3f51b5"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-            </Menu>
+            <StackPanel Background="#fafafa" DockPanel.Dock="Top" Height="40" Orientation="Horizontal">
+                <Button ToolTip="Profil Ctrl+P" Height="40" Width="40"  Margin="800,0,10,0" Background="{x:Null}" BorderThickness="0">
+                    <materialDesign:PackIcon Kind="User" Foreground="#3f51b5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="40" />
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:InvokeCommandAction Command="{Binding ProfileCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button ToolTip="Tutorijal Ctrl+T" Height="40" Width="40" Background="{x:Null}" BorderThickness="0" Margin="0,0,10,0">
+                    <materialDesign:PackIcon Foreground="#3f51b5" Kind="HelpCircle"  Width="40" Height="30"/>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:InvokeCommandAction Command="{Binding TutorialCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="KeyUp" >
+                            <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <i:Interaction.Behaviors>
+                        <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
+                    </i:Interaction.Behaviors>
+                </Button>
+                <Button ToolTip="Logout Esc" Height="40" Width="40" Background="{x:Null}" BorderThickness="0">
+                    <materialDesign:PackIcon Foreground="#3f51b5" Kind="LogoutVariant" Width="40" Height="30"/>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:InvokeCommandAction Command="{Binding LogOutCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </StackPanel>
             <StackPanel></StackPanel>
         </DockPanel>
         <TabControl TabStripPlacement="Left" Margin="0,41,0,0" FontFamily="Open Sans" FontSize="16" >
@@ -94,7 +84,7 @@
             <TabItem Header="Termini" Margin="-2,-2,0,-8" >
                 <DockPanel Margin="0,0,0,80">
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="31" Margin="0,10,0,10">
-                        <DatePicker SelectedDate="{Binding Path=Date, Mode=TwoWay}" Name="datePicker"  Width="124"  Margin="725,0,0,0">
+                        <DatePicker ToolTip="Izaberite datum" SelectedDate="{Binding Path=Date, Mode=TwoWay}" Name="datePicker"  Width="124"  Margin="725,0,0,0">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectedDateChanged" >
                                     <i:InvokeCommandAction Command="{Binding RefreshAppointmentsCommand}"/>
@@ -103,7 +93,7 @@
                         </DatePicker>
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                        <Button Margin="300,0,0,0" Width="52">Obriši
+                        <Button ToolTip="Del" Margin="300,0,0,0" Width="52">Obriši
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click" >
                                     <i:InvokeCommandAction Command="{Binding DeleteAppointmentCommand}"/>
@@ -116,7 +106,7 @@
                                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
                             </i:Interaction.Behaviors>
                         </Button>
-                        <Button Margin="30,0,0,0" Width="58">Izmjeni
+                        <Button ToolTip="Enter" Margin="30,0,0,0" Width="58">Izmjeni
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click" >
                                     <i:InvokeCommandAction Command="{Binding EditAppointmentCommand}"/>
@@ -129,22 +119,20 @@
                                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
                             </i:Interaction.Behaviors>
                         </Button>
-                        <Button  Margin="30,0,0,0" Width="69" RenderTransformOrigin="0.49,0.111" Content="Zakaži">
+                        <Button ToolTip="Ctrl+Z" Margin="30,0,0,0" Width="69" Content="Zakaži">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click" >
                                     <i:InvokeCommandAction Command="{Binding AddAppointmentCommand}"/>
                                 </i:EventTrigger>
-                                <i:EventTrigger EventName="KeyUp" >
-                                    <i:InvokeCommandAction Command="{Binding KeyUpCommandWithKey}" />
-                                </i:EventTrigger>
                             </i:Interaction.Triggers>
-                            <i:Interaction.Behaviors>
-                                <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
-                            </i:Interaction.Behaviors>
                         </Button>
                     </StackPanel>
                     <DataGrid BorderThickness="2" SelectedItem="{Binding Path=SelectedAppointment}" x:Name="AppointmentsTable" IsReadOnly="True"  ItemsSource="{Binding Path=Appointments}"
                   SelectionMode="Single" AutoGenerateColumns="False" Height="300" Width="760" Margin="0,0,0,20" SelectionUnit="FullRow">
+                        <DataGrid.InputBindings>
+                            <KeyBinding Gesture="Enter" Command="{Binding Path = EditAppointmentCommand}"></KeyBinding>
+                            <KeyBinding Gesture="Delete" Command="{Binding Path = DeleteAppointmentCommand}"></KeyBinding>
+                        </DataGrid.InputBindings>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Ime"  Binding="{Binding patient.Name}" Width="*">
                                 <DataGridTextColumn.ElementStyle>
@@ -202,9 +190,9 @@
                 <DockPanel Margin="0,0,0,80">
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="31" Margin="0,10,0,10">
                         <Label Content="Pretraži:" Margin="650,0,0,0"/>
-                        <TextBox Background="#fafafa" BorderBrush="#3f51b5" Width="150" BorderThickness="1" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox  Width="150" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
-                    <Button  DockPanel.Dock="Bottom" Margin="0,0,0,0" Width="147" Height="24"  Content="Prikaži karton">
+                    <Button ToolTip="Enter" DockPanel.Dock="Bottom" Margin="0,0,0,0" Width="147" Height="24"  Content="Prikaži karton">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click" >
                                 <i:InvokeCommandAction Command="{Binding OpenRecordCommand}"/>
@@ -219,6 +207,9 @@
                     </Button>
                     <DataGrid BorderThickness="2" IsReadOnly="True"  ItemsSource="{Binding DataGridCollection}"
                   SelectionMode="Single" SelectedItem="{Binding Path=SelectedPatient, Mode=TwoWay}" AutoGenerateColumns="False" Height="300" Width="760" Margin="0,0,0,20">
+                        <DataGrid.InputBindings>
+                            <KeyBinding Gesture="Enter" Command="{Binding Path = OpenRecordCommand}"></KeyBinding>
+                        </DataGrid.InputBindings>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Ime"  Binding="{Binding Name}" Width="*">
                                 <DataGridTextColumn.ElementStyle>
@@ -267,9 +258,12 @@
             <TabItem Header="Lijekovi" Margin="-6,17,0,-26" RenderTransformOrigin="0.516,0.695" >
                 <UniformGrid Columns="2">
                     <StackPanel>
-                        <Label  Width="147" Height="45"  Margin="10, 20, 20, 450" FontSize="20" FontWeight="Normal" >Za odobravanje</Label>
+                        <Label  Width="156" Height="45"  Margin="10, 20, 20, 450" FontSize="20" FontWeight="Normal" >Za odobravanje</Label>
                         <Border Width="300" Height="400" Margin="0, -450, 0, 0" BorderThickness="2" BorderBrush="#3f51b5">
                             <ListView SelectedItem="{Binding Path=SelectedMedication, Mode=TwoWay}" Name="ForApprovalListView" ItemsSource="{Binding Path=MedicationsForApproval}">
+                                <ListView.InputBindings>
+                                    <KeyBinding Gesture="Enter" Command="{Binding Path = ValidateCommand}"></KeyBinding>
+                                </ListView.InputBindings>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding MedicineName}" FontSize="16" FontFamily="Baskerville" />
@@ -293,9 +287,12 @@
                     </StackPanel>
 
                     <StackPanel>
-                        <Label  Width="180" Height="45"  Margin="50, 20, 20, 450" FontSize="20" FontWeight="Normal" >Odobreni lijekovi</Label>
+                        <Label  Width="191" Height="45"  Margin="50, 20, 20, 450" FontSize="20" FontWeight="Normal" >Odobreni lijekovi</Label>
                         <Border Width="300" Height="400" Margin="0, -450, 0, 0" BorderThickness="2" BorderBrush="#3f51b5">
                             <ListView SelectedItem="{Binding Path=SelectedMedication, Mode=TwoWay}" Name="ApprovedMedsListView"  ItemsSource="{Binding Path=ApprovedMedications}">
+                                <ListView.InputBindings>
+                                    <KeyBinding Gesture="Enter" Command="{Binding Path = AboutMedicationCommand}"></KeyBinding>
+                                </ListView.InputBindings>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding MedicineName}" FontSize="16" FontFamily="Baskerville" />
@@ -321,11 +318,14 @@
             <TabItem Header="Novosti" Margin="-2,24,0,-33" RenderTransformOrigin="0.473,0.895">
                 <StackPanel>
                     <StackPanel Width="184" Margin="0,20,0,0">
-                        <Label Content="Novosti" FontSize="30"/>
+                        <Label Content="Novosti" FontSize="30" Width="123"/>
                     </StackPanel>
                     <StackPanel Height="350" Margin="0,20,0,0">
                         <Border BorderThickness="2" BorderBrush="#3f51b5" Height="350" Margin="40,0,40,0">
                             <ListView SelectedItem="{Binding SelectedNews, Mode=TwoWay}" ItemsSource="{Binding News}">
+                                <ListView.InputBindings>
+                                    <KeyBinding Gesture="Enter" Command="{Binding Path = ShowNewsCommand}"></KeyBinding>
+                                </ListView.InputBindings>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <WrapPanel>
@@ -352,7 +352,7 @@
                         </Border>
                     </StackPanel>
                     <StackPanel Width="100" Margin="0,40,0,0">
-                        <Button Content="Ukloni sve">
+                        <Button Content="Isprazni" ToolTip="Ctrl+O">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click" >
                                     <i:InvokeCommandAction Command="{Binding RemoveNewsCommand}"/>

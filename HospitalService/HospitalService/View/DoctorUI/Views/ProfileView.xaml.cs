@@ -22,7 +22,7 @@ namespace HospitalService.View.DoctorUI.Views
         public ProfileView(Doctor doctor)
         {
             InitializeComponent();
-            this.DataContext = new ProfileViewModel(doctor, Frame);
+            this.DataContext = new ProfileViewModel(doctor, Frame, this);
         }
     }
 }

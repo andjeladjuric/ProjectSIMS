@@ -20,8 +20,13 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+P" Command="{Binding ApplyCommand}"/>
+        <KeyBinding Gesture="Ctrl+D" Command="{Binding AddMedicationCommand}"/>
+        <KeyBinding Gesture="Esc"  Command="{Binding CancelCommand}"/>
+    </Window.InputBindings>
     <Grid Height="590" Width="450" Margin="0,0,0,-6" RenderTransformOrigin="0.482,0.924">
-        <Label  Content="Recept" FontSize="24" HorizontalAlignment="Left" Margin="189,22,0,0" VerticalAlignment="Top"/>
+        <Label  Content="Recept" FontSize="24" FontWeight="Medium" HorizontalAlignment="Left" Margin="189,22,0,0" VerticalAlignment="Top"/>
         <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="57,98,0,0" VerticalAlignment="Top"/>
         <Label  Content="Lijek*:" HorizontalAlignment="Left" Margin="57,150,0,0" VerticalAlignment="Top"/>
         <Label  Content="Na koliko sati*:" HorizontalAlignment="Left" Margin="57,201,0,0" VerticalAlignment="Top"/>
@@ -36,7 +41,7 @@
         <TextBox Text="{Binding Hours, Mode=TwoWay}" HorizontalAlignment="Left" Margin="210,207,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="70" />
         <TextBlock Text="{Binding ValidationErrors[Hours]}"
                                Foreground="Red" Margin="210,240,0,337"  FontSize="12" />
-        <Button  Content="Odustani" HorizontalAlignment="Left" Margin="120,532,0,0" VerticalAlignment="Top" Width="83" >
+        <Button ToolTip="Esc" Content="Odustani" HorizontalAlignment="Left" Margin="120,532,0,0" VerticalAlignment="Top" Width="83" >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
@@ -49,7 +54,7 @@
                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
             </i:Interaction.Behaviors>
         </Button>
-        <Button Content="Potvrdi" HorizontalAlignment="Left" Margin="246,532,0,0" VerticalAlignment="Top" Width="87" RenderTransformOrigin="0.528,0.804">
+        <Button ToolTip="Ctrl+P" Content="Potvrdi" HorizontalAlignment="Left" Margin="246,532,0,0" VerticalAlignment="Top" Width="87" RenderTransformOrigin="0.528,0.804">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>
@@ -66,7 +71,7 @@
         <Label   Content="Datum  početka*:" HorizontalAlignment="Left" Margin="57,313,0,0" VerticalAlignment="Top"/>
         <DatePicker  DisplayDateStart="{x:Static sys:DateTime.Today}" SelectedDate="{Binding SelectedDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="210,315,0,0" VerticalAlignment="Top" Width="123"/>
         <TextBox   Text="{Binding SelectedMedication.MedicineName, Mode=TwoWay}" HorizontalAlignment="Left" Margin="210,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" IsEnabled="False" RenderTransformOrigin="0.484,0.713"/>
-        <Button HorizontalAlignment="Left" Margin="350,150,0,0" VerticalAlignment="Top"  Background="{x:Null}" BorderThickness="0" Height="40" Width="65">
+        <Button ToolTip="Ctrl+D" HorizontalAlignment="Left" Margin="350,150,0,0" VerticalAlignment="Top"  Background="{x:Null}" BorderThickness="0" Height="40" Width="65">
             <materialDesign:PackIcon Kind="AddCircle" Height="30" Width="30" Foreground="#3f51b5"/>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >

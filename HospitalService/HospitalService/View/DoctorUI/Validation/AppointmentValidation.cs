@@ -2,14 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace HospitalService.View.DoctorUI.Validation
 {
     public class AppointmentValidation : ValidationBase
     {
         private string patientsName;
-        private DateTime startTime;
-        private DateTime endTime;
+        private String startTime;
+        private String endTime;
         private Room room;
         private Patient patient;
 
@@ -23,7 +24,7 @@ namespace HospitalService.View.DoctorUI.Validation
             }
         }
 
-        public DateTime StartTime
+        public String StartTime
         {
             get { return startTime; }
             set
@@ -33,7 +34,7 @@ namespace HospitalService.View.DoctorUI.Validation
             }
         }
 
-        public DateTime EndTime
+        public String EndTime
         {
             get { return endTime; }
             set
@@ -68,6 +69,7 @@ namespace HospitalService.View.DoctorUI.Validation
 
         protected override void ValidateSelf()
         {
+            Regex regexTime = new Regex(@"^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
             if (string.IsNullOrWhiteSpace(this.patientsName))
             {
                 this.ValidationErrors["Patient"] = "Izaberite pacijenta.";
@@ -75,6 +77,22 @@ namespace HospitalService.View.DoctorUI.Validation
             if (this.room == null)
             {
                 this.ValidationErrors["Room"] = "Izaberite sobu.";
+            }
+            if (string.IsNullOrWhiteSpace(StartTime))
+            {
+                this.ValidationErrors["StartTime"] = "Obavezan format: 23:59";
+            }
+            else if(!regexTime.IsMatch(StartTime)) {
+                this.ValidationErrors["StartTime"] = "Obavezan format: 23:59";
+            }
+
+            if (string.IsNullOrWhiteSpace(EndTime))
+            {
+                this.ValidationErrors["EndTime"] = "Obavezan format: 23:59";
+            }
+            else if (!regexTime.IsMatch(EndTime))
+            {
+                this.ValidationErrors["EndTime"] = "Obavezan format: 23:59";
             }
         }
     }

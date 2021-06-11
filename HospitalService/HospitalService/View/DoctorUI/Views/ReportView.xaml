@@ -20,6 +20,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+P" Command="{Binding ApplyCommand}"/>
+        <KeyBinding Gesture="Esc"  Command="{Binding CancelCommand}"/>
+    </Window.InputBindings>
     <Grid Height="260" Width="350">
         <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="40,30,0,0">
@@ -35,7 +39,7 @@
                 <DatePicker Width="150" Margin="35,0,0,0" SelectedDate="{Binding EndDate}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="20,40,0,0">
-                <Button Content="Odustani" Margin="60,0,0,0" Width="70">
+                <Button ToolTip="Esc" Content="Odustani" Margin="60,0,0,0" Width="70">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click" >
                             <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
@@ -48,7 +52,7 @@
                         <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
                     </i:Interaction.Behaviors>
                 </Button>
-                <Button Content="Generiši" Margin="40,0,0,0" Width="70">
+                <Button ToolTip="Ctrl+P" Content="Generiši" Margin="40,0,0,0" Width="70">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click" >
                             <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>

@@ -5,12 +5,14 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
     public class EditProfileViewModel : ValidationBase
     {
+        public ProfileViewModel ProfileWindow { get; set; }
         private Frame frame;
         private Doctor doctor;
         private string name;
@@ -91,8 +93,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
             }
         }
 
-        public EditProfileViewModel(Doctor doctor, Frame frame)
+        public EditProfileViewModel(Doctor doctor, Frame frame, ProfileViewModel profileView)
         {
+            this.ProfileWindow = profileView;
             this.Frame = frame;
             this.Doctor = doctor;
             this.Name = "dr " + doctor.Name + " " + doctor.Surname;
@@ -123,6 +126,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             this.Doctor.Phone = Phone;
             this.Doctor.Email = Email;
             new DoctorService().Edit(Doctor);
+            this.ProfileWindow.Doctor = Doctor;
             this.Frame.Content = null;
         }
 
@@ -141,12 +145,14 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         protected override void ValidateSelf()
         {
+            Regex regexNum = new Regex(@"0[0-9]{2}\/[0-9]{3}-[0-9]{4}$");
+            Regex regexMail = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
             if (string.IsNullOrWhiteSpace(Address))
-                this.ValidationErrors["DoctorsAddress"] = "Popunite";
-            if (string.IsNullOrWhiteSpace(Phone))
-                this.ValidationErrors["DoctorsPhone"] = "Popunite";
-            if (string.IsNullOrWhiteSpace(Email))
-                this.ValidationErrors["DoctorsEmail"] = "Popunite";
+                this.ValidationErrors["DoctorsAddress"] = "Obavezno polje";
+            if (!regexNum.IsMatch(Phone))
+                this.ValidationErrors["DoctorsPhone"] = "Obavezan format: 012/345-6789";
+            if (!regexMail.IsMatch(Email))
+                this.ValidationErrors["DoctorsEmail"] = "Obavezan format: example@mail.com";
 
         }
     }

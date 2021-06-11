@@ -20,10 +20,10 @@ namespace HospitalService.View.DoctorUI.Views
     /// </summary>
     public partial class EditProfileView : Page
     {
-        public EditProfileView(Doctor doctor, Frame frame)
+        public EditProfileView(Doctor doctor, Frame frame, ProfileViewModel viewModel)
         {
             InitializeComponent();
-            this.DataContext = new EditProfileViewModel(doctor, frame);
+            this.DataContext = new EditProfileViewModel(doctor, frame, viewModel);
         }
     }
 }

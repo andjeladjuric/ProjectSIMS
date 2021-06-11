@@ -26,6 +26,5 @@ namespace HospitalService.View.DoctorUI.Views
             context = new DoctorWindowViewModel(loggedDoctor, this);
             this.DataContext = context;
         }
-      
     }
 }

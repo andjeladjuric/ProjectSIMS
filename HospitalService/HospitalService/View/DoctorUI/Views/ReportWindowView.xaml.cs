@@ -11,6 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+using System.ComponentModel;
+using System.Drawing;
+using Syncfusion.Pdf.Tables;
+using System.Data;
+using Syncfusion.Pdf.Grid;
+using System.Collections.ObjectModel;
+using HospitalService.Model;
 
 namespace HospitalService.View.DoctorUI.Views
 {
@@ -22,7 +31,9 @@ namespace HospitalService.View.DoctorUI.Views
         public ReportWindowView(MedicalRecord record, DateTime start, DateTime end)
         {
             InitializeComponent();
-            this.DataContext = new ReportWindowViewModel(record, start, end);
+            this.DataContext = new ReportWindowViewModel(record, start, end, this);
         }
+
+       
     }
 }

@@ -1,0 +1,67 @@
+﻿<Window x:Class="HospitalService.View.DoctorUI.Views.TutorialView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalService.View.DoctorUI.Views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Tutorijal" Height="600" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Gesture="Enter" Command="{Binding PlayCommand}"/>
+        <KeyBinding Gesture="Space" Command="{Binding PauseCommand}"/>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding StopCommand}"/>
+        <KeyBinding Gesture="Esc"  Command="{Binding CloseCommand}"/>
+    </Window.InputBindings>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Border BorderThickness="2" BorderBrush="#3f51b5">
+            <MediaElement Source="C:\Users\jovic\Desktop\ProjectSIMS\HospitalService\HospitalService\Images/Final.mp4" LoadedBehavior="Manual"  Name="mePlayer" />
+        </Border>
+        <StackPanel Grid.Row="1">
+            <Label Name="lblStatus" Content="Pokrenite video" HorizontalContentAlignment="Center" Margin="5" />
+            <WrapPanel HorizontalAlignment="Center">
+                <Button Margin="0,0,10,0" ToolTip="Enter" Name="btnPlay" Width="43" Background="White">
+                    <materialDesign:PackIcon Kind="Play" Foreground="#3f51b5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="40" />
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:InvokeCommandAction Command="{Binding PlayCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Margin="0,0,10,0" ToolTip="Space" Name="btnPause" Width="48" Background="White">
+                    <materialDesign:PackIcon Kind="Pause" Foreground="#3f51b5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="40" />
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:InvokeCommandAction Command="{Binding PauseCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button ToolTip="Ctrl+S" Name="btnStop" Width="41" Background="White">
+                    <materialDesign:PackIcon Kind="Stop" Foreground="#3f51b5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" Height="40" />
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:InvokeCommandAction Command="{Binding StopCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</Window>

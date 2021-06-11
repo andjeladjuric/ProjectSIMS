@@ -107,8 +107,6 @@ namespace HospitalService.View.DoctorUI.ViewModel
             DoctorWindow = doctorWindow;
             thisWindow = window;
             Date = DateTime.Today.Date;
-            Appointment.StartTime = DateTime.Now;
-            Appointment.EndTime = DateTime.Now;
             AddCommand = new RelayCommand(Executed_AddCommand,
                CanExecute_AddCommand);
             FindCommand = new RelayCommand(Executed_FindCommand, CanExecute_CancelCommand);
@@ -127,14 +125,15 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_AddCommand(object obj)
         {
             DateService dateService = new DateService();
-            newAppointment.StartTime = dateService.CreateDate(Date, Appointment.StartTime);
-            newAppointment.EndTime = dateService.CreateDate(Date, Appointment.EndTime);
+            newAppointment.StartTime = dateService.CreateDateString(Date,Appointment.StartTime);
+            newAppointment.EndTime = dateService.CreateDateString(Date, Appointment.EndTime);
             newAppointment.Id = NextId;
             newAppointment.Type = AppointmentType;
             newAppointment.room = Appointment.Room;
             newAppointment.patient = Appointment.Patient;
             newAppointment.doctor = DoctorWindow.Doctor;
             new AppointmentsService().AddAppointment(newAppointment);
+            DoctorWindow.Date = Date;
             DoctorWindow.Refresh();
             thisWindow.Close();
         }
@@ -142,12 +141,13 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public bool CanExecute_AddCommand(object obj)
         {
             DateService dateService = new DateService();
-            newAppointment.StartTime = dateService.CreateDate(Date, Appointment.StartTime);
-            newAppointment.EndTime = dateService.CreateDate(Date, Appointment.EndTime);
+ 
             Doctor doctor = DoctorWindow.Doctor;
             Appointment.Validate();
             if (Appointment.IsValid)
             {
+                newAppointment.StartTime = dateService.CreateDateString(Date, Appointment.StartTime);
+                newAppointment.EndTime = dateService.CreateDateString(Date, Appointment.EndTime);
                 if (DateTime.Compare(newAppointment.StartTime, DateTime.Now) <= 0)
                 {
                     MessageBox.Show("Odabrano vrijeme je prošlo.");

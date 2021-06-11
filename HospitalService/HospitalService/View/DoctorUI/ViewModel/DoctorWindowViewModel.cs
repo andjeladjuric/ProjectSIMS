@@ -43,7 +43,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public RelayCommand ValidateCommand { get; set; }
         public RelayCommand LogOutCommand { get; set; }
         public RelayCommand ProfileCommand { get; set; }
-        public RelayCommand VacationCommand { get; set; }
+        public RelayCommand TutorialCommand { get; set; }
         public DoctorWindowView Window { get; set; }
         public RelayCommand KeyUpCommandWithKey { get; set; }
         #endregion
@@ -197,9 +197,9 @@ namespace HospitalService.View.DoctorUI.ViewModel
             new AddAppointmentToDoctorView(this).ShowDialog();
         }
 
-        public void Executed_VacationCommand(object obj)
+        public void Executed_TutorialCommand(object obj)
         {
-            new VacationView().ShowDialog();
+            new TutorialView().ShowDialog();
         }
 
         public void Executed_LogOutCommand(object obj)
@@ -278,8 +278,10 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         private void Executed_KeyDownCommandWithKey(object obj)
         {
-          //  if (obj.Equals(Key.A))
-            //    AddAppointmentCommand.Execute(obj);
+           /* if ((Key)obj == Key.Return)
+            {
+                AddAppointmentCommand.Execute(obj);
+            }    */       
         }
 
         public bool CanExecute_ProfileCommand(object obj)
@@ -373,7 +375,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
                CanExecute_ShowNewsCommand);
             ProfileCommand = new RelayCommand(Executed_ProfileCommand,
              CanExecute_ProfileCommand);
-            VacationCommand = new RelayCommand(Executed_VacationCommand,
+            TutorialCommand = new RelayCommand(Executed_TutorialCommand,
             CanExecute_ProfileCommand);
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
         }

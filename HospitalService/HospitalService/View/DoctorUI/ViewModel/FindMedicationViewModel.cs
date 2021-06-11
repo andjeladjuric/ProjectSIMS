@@ -4,9 +4,11 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace HospitalService.View.DoctorUI.ViewModel
 {
@@ -15,11 +17,35 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private ObservableCollection<Medication> medications;
         private Medication selectedMedication;
 
+        private string _filterString;
+        private ICollectionView _dataGridCollection;
+
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand ApplyCommand { get; set; }
         public RelayCommand KeyUpCommandWithKey { get; set; }
         public PrescriptionViewModel ParentWindow { get; set; }
         public Frame Frame { get; set; }
+
+        public ICollectionView DataGridCollection
+        {
+            get { return _dataGridCollection; }
+            set
+            {
+                _dataGridCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string FilterString
+        {
+            get { return _filterString; }
+            set
+            {
+                _filterString = value;
+                OnPropertyChanged();
+                FilterCollection();
+            }
+        }
 
 
         public ObservableCollection<Medication> Medications
@@ -53,6 +79,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
               CanExecute_ApplyCommand);
             CancelCommand = new RelayCommand(Executed_CancelCommand,
             CanExecute_CancelCommand);
+            DataGridCollection = CollectionViewSource.GetDefaultView(Medications);
+            DataGridCollection.Filter = new Predicate<object>(Filter);
         }
 
         public bool CanExecute_ApplyCommand(object obj)
@@ -85,6 +113,28 @@ namespace HospitalService.View.DoctorUI.ViewModel
 
         private void Executed_KeyDownCommandWithKey(object obj)
         {
+        }
+
+        public bool Filter(object obj)
+        {
+            var data = obj as Medication;
+            if (data != null)
+            {
+                if (!string.IsNullOrEmpty(_filterString))
+                {
+                    return data.MedicineName.ToLower().Contains(_filterString.ToLower().Trim());
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private void FilterCollection()
+        {
+            if (_dataGridCollection != null)
+            {
+                _dataGridCollection.Refresh();
+            }
         }
     }
 }

@@ -21,6 +21,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         private ICollectionView _dataGridCollection;
 
         public RelayCommand SelectCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
         public RelayCommand KeyUpCommandWithKey { get; set; }
         public AddAppointmentToDoctorViewModel ParentWindow { get; set; }
         public Frame Frame { get; set; }
@@ -75,6 +76,8 @@ namespace HospitalService.View.DoctorUI.ViewModel
             KeyUpCommandWithKey = new RelayCommand(Executed_KeyDownCommandWithKey);
             SelectCommand = new RelayCommand(Executed_SelectCommand,
               CanExecute_SelectCommand);
+            CancelCommand = new RelayCommand(Executed_CancelCommand,
+             CanExecute_CancelCommand);
             DataGridCollection = CollectionViewSource.GetDefaultView(Patients);
             DataGridCollection.Filter = new Predicate<object>(Filter);
         }
@@ -93,6 +96,16 @@ namespace HospitalService.View.DoctorUI.ViewModel
         public void Executed_SelectCommand(object obj)
         {
             ParentWindow.SelectPatient(Patient);
+            this.Frame.Content = null;
+        }
+
+        public bool CanExecute_CancelCommand(object obj)
+        {
+            return true;
+        }
+
+        public void Executed_CancelCommand(object obj)
+        {
             this.Frame.Content = null;
         }
 

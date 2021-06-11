@@ -20,11 +20,17 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-
+    <Page.InputBindings>
+        <KeyBinding Gesture="Ctrl+A" Command="{Binding ApplyCommand}"/>
+        <KeyBinding Gesture="Ctrl+A" Command="{Binding CancelCommand}"/>
+    </Page.InputBindings>
     <Grid Background="White" Height="270" Width="400" >
         <Border Margin="0,0,0,0" Width="300" Height="170" BorderThickness="2" BorderBrush="#3f51b5">
             <ListView  ItemsSource="{Binding Ingredients}" SelectedItem="{Binding SelectedIngredient, Mode=TwoWay}">
-            <ListView.ItemTemplate>
+                <ListView.InputBindings>
+                    <KeyBinding Gesture="Enter" Command="{Binding ApplyCommand}"/>
+                </ListView.InputBindings>
+                <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=IngredientName}" />
                 </DataTemplate>

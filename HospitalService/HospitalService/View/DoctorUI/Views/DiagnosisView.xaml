@@ -20,8 +20,12 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+P" Command="{Binding ApplyCommand}"/>
+        <KeyBinding Gesture="Esc"  Command="{Binding CancelCommand}"/>
+    </Window.InputBindings>
     <Grid Height="520" Width="450">
-        <Label Content="Dijagnoza" FontSize="24" HorizontalAlignment="Left" Margin="168,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.349,0.494"/>
+        <Label FontWeight="Medium" Content="Dijagnoza" FontSize="24" HorizontalAlignment="Left" Margin="168,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.349,0.494"/>
         <Label  Content="Pacijent:" HorizontalAlignment="Left" Margin="57,98,0,0" VerticalAlignment="Top"/>
         <Label  Content="Dijagnoza*:" HorizontalAlignment="Left" Margin="54,154,0,0" VerticalAlignment="Top"/>
         <Label  Content="Simptomi*:" HorizontalAlignment="Left" Margin="56,205,0,0" VerticalAlignment="Top"/>
@@ -33,8 +37,8 @@
                                Foreground="Red" Margin="197,190,0,0"  FontSize="12" />
         <TextBox Text="{Binding Symptoms, Mode=TwoWay}" HorizontalAlignment="Left" Margin="197,209,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="185"/>
         <TextBlock Text="{Binding ValidationErrors[Symptoms]}"
-                               Foreground="Red" Margin="197,242,0,0"  FontSize="12" />
-        <Button  Content="Odustani" HorizontalAlignment="Left" Margin="109,450,0,0" VerticalAlignment="Top" Width="83">
+                               Foreground="Red" Margin="197,242,0,246"  FontSize="12" />
+        <Button ToolTip="Esc" Content="Odustani" HorizontalAlignment="Left" Margin="109,450,0,0" VerticalAlignment="Top" Width="83">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding CancelCommand}"/>
@@ -47,7 +51,7 @@
                 <commands:KeyUpWithArgsBehavior KeyUpCommand="{Binding KeyUpCommandWithKey}" />
             </i:Interaction.Behaviors>
         </Button>
-        <Button  Content="Potvrdi" HorizontalAlignment="Left" Margin="246,450,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.527,1.175" Width="87">
+        <Button ToolTip="Ctrl+P"  Content="Potvrdi" HorizontalAlignment="Left" Margin="246,450,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.527,1.175" Width="87">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click" >
                     <i:InvokeCommandAction Command="{Binding ApplyCommand}"/>

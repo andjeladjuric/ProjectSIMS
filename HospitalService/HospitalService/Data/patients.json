@@ -1,5 +1,4 @@
-
-[
+﻿[
   {
     "PatientType": 0,
     "medicalRecordId": "123",
@@ -27,6 +26,21 @@
     "Address": "Balzakova 23",
     "Email": "sladjanac@gmail.com",
     "Gender": 0
+  },
+
+  {
+    "PatientType": 1,
+    "medicalRecordId": "9090",
+    "Username": "mihajlo",
+    "Password": "123",
+    "Name": "Mihajlo",
+    "Surname": "Perić",
+    "DateOfBirth": "1989-01-01T00:00:00",
+    "Jmbg": "0101000244315",
+    "Phone": "0614563456",
+    "Address": "Jevrejska 55",
+    "Email": "mihajloperic89@gmail.com",
+    "Gender": 1
   }
 
 ]
