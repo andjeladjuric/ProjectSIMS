@@ -11,9 +11,11 @@ namespace HospitalService.Service
     class AppointmentsService
     {
         private AppointmentsRepository repository;
+        private ScheduleService ScheduleService;
         public AppointmentsService()
         {
             repository = new AppointmentsRepository();
+            ScheduleService = new ScheduleService();
         }
         public void SetIds()
         {
@@ -123,32 +125,7 @@ namespace HospitalService.Service
         public void AddAppointment(Appointment newAppointment) => repository.Save(newAppointment);
        
 
-        public Boolean IsTaken(DateTime start, DateTime end, Doctor doctor)
-        {
-            Appointment appointment;
-            List<Appointment> appointments = this.GetByDoctor(doctor, start);
-            for (int i = 0; i < appointments.Count; i++)
-            {
-                appointment = appointments[i];
-                if (new DateService().ExsitstsAtTime(appointment, start, end))
-                    return true;
-            }
-            return false;
-        }
-
-        public Boolean IsRoomTaken(DateTime start, DateTime end, Room room)
-        {
-            Appointment appointment;
-            List<Appointment> appointments = GetForRoom(room.Id);
-            for (int i = 0; i < appointments.Count; i++)
-            {
-                appointment = appointments[i];
-                if (new DateService().ExsitstsAtTime(appointment, start, end))
-                    return true;
-            }
-            return false;
-        }
-
+       
 
         public void Save(Appointment appointment) {
             repository = new AppointmentsRepository();
@@ -193,7 +170,7 @@ namespace HospitalService.Service
             List<Room> allRooms = new RoomService().GetByType(roomType);
             List<Room> availableRooms = new List<Room>();
             foreach (Room room in allRooms)
-                if (!IsRoomTaken(start, end, room))
+                if (!ScheduleService.IsRoomTaken(start, end, room))
                     availableRooms.Add(room);
             return availableRooms;
         }
@@ -215,19 +192,6 @@ namespace HospitalService.Service
                 }
             }
             return retVal;
-        }
-
-        private bool checkPatient(Patient patient, Appointment arg)
-        {
-            List<Appointment> appoints = new AppointmentsService().getByPatient(patient);
-            foreach (Appointment appoint in appoints)
-            {
-                if (arg.intersect(appoint))
-                {
-                    return false;
-                }
-            }
-            return true;
         }
 
 
@@ -258,7 +222,7 @@ namespace HospitalService.Service
             AppointmentsService storage = new AppointmentsService();
             foreach (Doctor doc in doktori)
             {
-                if (!storage.IsTaken(appointment.StartTime, appointment.EndTime, doc))
+                if (!ScheduleService.IsDoctorTaken(appointment.StartTime, appointment.EndTime, doc))
                     return doc;
             }
             return null;
@@ -271,7 +235,7 @@ namespace HospitalService.Service
             AppointmentsService storage = new AppointmentsService();
             Room room = null;
             Doctor doctor = null;
-            if (!checkPatient(patient, appointment)) return null;
+            if (!ScheduleService.IsPatientTaken(patient, appointment)) return null;
             doctor = findFreeDoctor(appointment, oblast);
             room = findFreeRoom(appointment);
             if (doctor == null || room == null) return null;

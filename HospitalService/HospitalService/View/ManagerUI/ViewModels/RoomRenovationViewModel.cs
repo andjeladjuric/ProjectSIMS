@@ -184,13 +184,13 @@ namespace HospitalService.View.ManagerUI.ViewModels
             if (IsValid)
             {
                 if (CheckDateEntry(Start, End) && dateService.CheckExistingRenovations(SelectedRoom.Id, Start, End) &&
-                    renovationService.CheckAppointmentsForDate(Start, End, SelectedRoom.Id) &&
+                    new ScheduleService().CheckAppointmentsForDate(Start, End, SelectedRoom.Id) &&
                     CheckForPatientsInRoom(SelectedRoom.Id, Start, End))
                 {
                     if (IsChecked)
                     {
                         string selectedId = GetSecondRoomId();
-                        if (renovationService.CheckAppointmentsForDate(Start, End, selectedId) && CheckFloor(SelectedRoom.Id, selectedId) &&
+                        if (new ScheduleService().CheckAppointmentsForDate(Start, End, selectedId) && CheckFloor(SelectedRoom.Id, selectedId) &&
                             CheckForPatientsInRoom(selectedId, Start, End))
                             renovationService.Save(new Renovation(SelectedRoom.Id, Start, End, RenovationType.Merge, selectedId, NewID, NewType, NewName));
                     }
@@ -314,7 +314,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 this.ValidationErrors["Existing"] = "Već postoji zakazano renoviranje \n u ovom periodu!";
                 ValidationMessage = this.ValidationErrors["Existing"];
             }
-            if (!renovationService.CheckAppointmentsForDate(this.Start, this.End, this.SelectedRoom.Id))
+            if (!new ScheduleService().CheckAppointmentsForDate(this.Start, this.End, this.SelectedRoom.Id))
             {
                 this.ValidationErrors["Appointment"] = "Postoje zakazani termini \n u ovom periodu!";
                 ValidationMessage = this.ValidationErrors["Appointment"];
