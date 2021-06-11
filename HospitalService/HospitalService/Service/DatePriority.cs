@@ -17,7 +17,11 @@ namespace HospitalService.Service
             roomService = new RoomService();
             appointmentsService = new AppointmentsService();
             Doctor availableDoctor = doctorService.getFirstAvailableDoctor(startTime, endTime);
-
+            if (appointmentsService.moreThanTwoAppointmentsInOneDay(startTime, patient))
+            {
+                MessageBox.Show("Vise od dva termina u jednom danu!");
+                return false;
+            }
             if (availableDoctor == null)
             {
                 MessageBox.Show("Nema slobodnih doktora!");
@@ -27,20 +31,10 @@ namespace HospitalService.Service
             if (availableRoom == null)
             {
                 MessageBox.Show("Nema slobodnih sala!");
-                return false;
-               
-                
-            }
-            if (appointmentsService.moreThanTwoAppointmentsInOneDay(startTime, patient))
-            {
-
-                MessageBox.Show("Vise od dva termina u jednom danu!");
-                return false;
-                
+                return false;               
             }
             Appointment newAppointment = new Appointment() { Id = appointmentsService.GetNextId(), StartTime = startTime, EndTime = endTime, Type = AppointmentType.Pregled, doctor = availableDoctor, room = availableRoom, patient = patient };
-            appointmentsService.Save(newAppointment);
-           
+            appointmentsService.Save(newAppointment);          
             return true;
         }
     }
