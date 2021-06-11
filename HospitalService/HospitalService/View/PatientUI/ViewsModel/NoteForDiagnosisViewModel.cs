@@ -9,7 +9,7 @@ using Model;
 namespace HospitalService.View.PatientUI.ViewsModel
 {
     
-   public class NoteForDiagnosisViewModel:ViewModelPatientClass
+   public class NoteForDiagnosisViewModel:ValidationBase
     {
         public String PatientNotes { get; set; }
         public RelayCommand confirmMakeNote { get; set; }
@@ -22,10 +22,13 @@ namespace HospitalService.View.PatientUI.ViewsModel
 
         private void Execute_ConfirmMakeNote(object obj) {
 
-            
-            Note newNote = new Note { noteForPatient = PatientNotes, patient = patient, diagnosis = diagnosis };
-            notesService.saveNote(newNote);
-            noteForDiagnosis.NavigationService.Navigate(new DiagnosisForPatient(diagnosis, newNote));
+            this.Validate();
+            if (IsValid)
+            {
+                Note newNote = new Note { noteForPatient = PatientNotes, patient = patient, diagnosis = diagnosis };
+                notesService.saveNote(newNote);
+                noteForDiagnosis.NavigationService.Navigate(new DiagnosisForPatient(diagnosis, newNote));
+            }
 
         }
         private void Execute_CancelMakeNote(object obj) {
@@ -35,6 +38,14 @@ namespace HospitalService.View.PatientUI.ViewsModel
         private bool CanExecute_Command(object obj) {
             return true;
         }
+
+        protected override void ValidateSelf()
+        {
+            if (string.IsNullOrWhiteSpace(PatientNotes)) {
+                this.ValidationErrors["Note"] = "Unesite biljesku.";
+            }
+        }
+
         public NoteForDiagnosisViewModel(Patient patient, Diagnosis diagnosis, NoteForDiagnosis noteForDiagnosis) {
 
             this.patient = patient;

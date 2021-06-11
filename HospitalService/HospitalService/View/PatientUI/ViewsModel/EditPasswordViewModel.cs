@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace HospitalService.View.PatientUI.ViewsModel
 {
-   public class EditPasswordViewModel:ViewModelPatientClass
+   public class EditPasswordViewModel:ValidationBase
     {
         public RelayCommand confirmEditPassword { get; set; }
         public RelayCommand cancelEditPassword { get; set; }
@@ -27,13 +27,10 @@ namespace HospitalService.View.PatientUI.ViewsModel
 
             String newPassword = newPasswordPB.Password;
             String confirmPassword = confirmPb.Password;
-            if (!newPassword.Equals(confirmPassword))
+
+            this.Validate();
+            if (IsValid)
             {
-                MessageBox.Show("Sifre se ne poklapaju");
-            }
-            else
-            {
-                
                 patientService.Edit(patient.Jmbg, patient.Username, newPassword, patient.DateOfBirth, patient.Phone, patient.Address, patient.Email, patient.PatientType);
                 editPassword(newPassword);
                 editProfile.NavigationService.Navigate(new EditProfile(patient));
@@ -74,6 +71,26 @@ namespace HospitalService.View.PatientUI.ViewsModel
         private bool CanExecute_Command(object obj) {
             return true;
         }
+
+        protected override void ValidateSelf()
+        {
+            String newPassword = newPasswordPB.Password;
+            String confirmPassword = confirmPb.Password;
+            
+            if (string.IsNullOrWhiteSpace(newPassword))
+            {
+                this.ValidationErrors["PasswordNew"] = "Unesite novu lozinku";
+            }
+
+            if (string.IsNullOrWhiteSpace(confirmPassword)) {
+                this.ValidationErrors["PasswordConfirm"] = "Unesite potvrdu nove lozinke.";
+            }else if (!newPassword.Equals(confirmPassword))
+            {
+                this.ValidationErrors["PasswordConfirm"] = "Lozinke se ne poklapaju.";
+            }
+
+        }
+
         public EditPasswordViewModel(Patient patient, PasswordBox oldPasswordPb, PasswordBox newPasswordPB, PasswordBox confirmPb, EditProfile editProfile) {
 
             this.patient = patient;

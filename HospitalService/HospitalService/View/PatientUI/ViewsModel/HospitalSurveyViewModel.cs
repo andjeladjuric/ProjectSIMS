@@ -8,7 +8,7 @@ using Model;
 
 namespace HospitalService.View.PatientUI.ViewsModel
 {
-    public class HospitalSurveyViewModel : ViewModelPatientClass
+    public class HospitalSurveyViewModel : ValidationBase
     {
         public bool NStaffExpertiseChecked { get; set; }
         public bool DZStaffExpertiseChecked { get; set; }
@@ -35,94 +35,97 @@ namespace HospitalService.View.PatientUI.ViewsModel
         private HospitalSurveyService hospitalSurveyService;
 
         private void Execute_ConfirmHospitalSurvey(object obj) {
+            this.Validate();
+            if (IsValid)
+            {
+                String ratingForStaffExpertise;
+                if (NStaffExpertiseChecked == true)
+                {
+                    ratingForStaffExpertise = "Nezadovoljan/na";
+                }
+                else if (DZStaffExpertiseChecked == true)
+                {
+                    ratingForStaffExpertise = "Djelimicno zadovoljan/na";
+                }
+                else
+                {
+                    ratingForStaffExpertise = "Zadovoljan/na";
+                }
 
-            String ratingForStaffExpertise;
-            if (NStaffExpertiseChecked == true)
-            {
-                ratingForStaffExpertise = "Nezadovoljan/na";
-            }
-            else if (DZStaffExpertiseChecked == true)
-            {
-                ratingForStaffExpertise = "Djelimicno zadovoljan/na";
-            }
-            else
-            {
-                ratingForStaffExpertise = "Zadovoljan/na";
-            }
+                String ratingForCourtesy;
+                if (NCourtesyChecked == true)
+                {
+                    ratingForCourtesy = "Nezadovoljan/na";
+                }
+                else if (DZCourtesyChecked == true)
+                {
+                    ratingForCourtesy = "Djelimicno zadovoljan/na";
+                }
+                else
+                {
+                    ratingForCourtesy = "Zadovoljan/na";
+                }
 
-            String ratingForCourtesy;
-            if (NCourtesyChecked == true)
-            {
-                ratingForCourtesy = "Nezadovoljan/na";
-            }
-            else if (DZCourtesyChecked == true)
-            {
-                ratingForCourtesy = "Djelimicno zadovoljan/na";
-            }
-            else
-            {
-                ratingForCourtesy = "Zadovoljan/na";
-            }
+                String ratingForTimeliness;
+                if (NTimelinessChecked == true)
+                {
+                    ratingForTimeliness = "Nezadovoljan/na";
+                }
+                else if (DZTimelinessChecked == true)
+                {
+                    ratingForTimeliness = "Djelimicno zadovoljan/na";
+                }
+                else
+                {
+                    ratingForTimeliness = "Zadovoljan/na";
+                }
 
-            String ratingForTimeliness;
-            if (NTimelinessChecked == true)
-            {
-                ratingForTimeliness = "Nezadovoljan/na";
-            }
-            else if (DZTimelinessChecked == true)
-            {
-                ratingForTimeliness = "Djelimicno zadovoljan/na";
-            }
-            else
-            {
-                ratingForTimeliness = "Zadovoljan/na";
-            }
+                String ratingForHygiene;
+                if (NHygieneChecked == true)
+                {
+                    ratingForHygiene = "Nezadovoljan/na";
+                }
+                else if (DZHygieneChecked == true)
+                {
+                    ratingForHygiene = "Djelimicno zadovoljan/na";
+                }
+                else
+                {
+                    ratingForHygiene = "Zadovoljan/na";
+                }
 
-            String ratingForHygiene;
-            if (NHygieneChecked == true)
-            {
-                ratingForHygiene = "Nezadovoljan/na";
-            }
-            else if (DZHygieneChecked == true)
-            {
-                ratingForHygiene = "Djelimicno zadovoljan/na";
-            }
-            else
-            {
-                ratingForHygiene = "Zadovoljan/na";
-            }
+                String ratingForQualityOfService;
+                if (NQualityOfServiceChecked == true)
+                {
+                    ratingForQualityOfService = "Nezadovoljan/na";
+                }
+                else if (DZQualityOfServiceChecked == true)
+                {
+                    ratingForQualityOfService = "Djelimicno zadovoljan/na";
+                }
+                else
+                {
+                    ratingForQualityOfService = "Zadovoljan/na";
+                }
 
-            String ratingForQualityOfService;
-            if (NQualityOfServiceChecked == true)
-            {
-                ratingForQualityOfService = "Nezadovoljan/na";
-            }
-            else if (DZQualityOfServiceChecked == true)
-            {
-                ratingForQualityOfService = "Djelimicno zadovoljan/na";
-            }
-            else
-            {
-                ratingForQualityOfService = "Zadovoljan/na";
-            }
+                String ratingForServicePrices;
+                if (NServicePricesChecked == true)
+                {
+                    ratingForServicePrices = "Nezadovoljan/na";
+                }
+                else if (DZServicePricesChecked == true)
+                {
+                    ratingForServicePrices = "Djelimicno zadovoljan/na";
+                }
+                else
+                {
+                    ratingForServicePrices = "Zadovoljan/na";
+                }
 
-            String ratingForServicePrices;
-            if (NServicePricesChecked == true)
-            {
-                ratingForServicePrices = "Nezadovoljan/na";
+                SurveyHospitalPatient newSurvey = new SurveyHospitalPatient { StaffExpertise = ratingForStaffExpertise, StaffCourtesy = ratingForCourtesy, WaitingForReception = ratingForTimeliness, RoomHygiene = ratingForHygiene, QualityOfService = ratingForQualityOfService, ServicePrices = ratingForServicePrices, patient = patient, ExecutionTime = DateTime.Now };
+                hospitalSurveyService.saveHospitalSurvey(newSurvey);
+                hospitalSurvey.NavigationService.Navigate(new Surveys(patient));
             }
-            else if (DZServicePricesChecked == true)
-            {
-                ratingForServicePrices = "Djelimicno zadovoljan/na";
-            }
-            else
-            {
-                ratingForServicePrices = "Zadovoljan/na";
-            }
-
-            SurveyHospitalPatient newSurvey = new SurveyHospitalPatient { StaffExpertise = ratingForStaffExpertise, StaffCourtesy = ratingForCourtesy, WaitingForReception = ratingForTimeliness, RoomHygiene = ratingForHygiene, QualityOfService = ratingForQualityOfService, ServicePrices = ratingForServicePrices, patient = patient, ExecutionTime = DateTime.Now };
-            hospitalSurveyService.saveHospitalSurvey(newSurvey);
-            hospitalSurvey.NavigationService.Navigate(new Surveys(patient));
 
         }
         private void Execute_CancelHospitalSurvey(object obj) {
@@ -132,6 +135,40 @@ namespace HospitalService.View.PatientUI.ViewsModel
         private bool CanExecute_Command(object obj) {
             return true;
         }
+
+        protected override void ValidateSelf()
+        {
+            if (NStaffExpertiseChecked == false && DZStaffExpertiseChecked == false && ZStaffExpertiseChecked == false) {
+
+                this.ValidationErrors["StaffExpertise"] = "Ocijenite strucnost osoblja.";
+            }
+            if (NCourtesyChecked == false && DZCourtesyChecked == false && ZCourtesyChecked == false)
+            {
+
+                this.ValidationErrors["Courtesy"] = "Ocijenite ljubaznost osoblja.";
+            }
+            if (NTimelinessChecked == false && DZTimelinessChecked == false && ZTimelinessChecked == false)
+            {
+
+                this.ValidationErrors["Timeliness"] = "Ocijenite duzinu cekanja na prijem.";
+            }
+            if (NHygieneChecked == false && DZHygieneChecked == false && ZHygieneChecked == false)
+            {
+
+                this.ValidationErrors["Hygiene"] = "Ocijenite higijenu prostorija.";
+            }
+            if (NQualityOfServiceChecked == false && DZQualityOfServiceChecked == false && ZQualityOfServiceChecked == false)
+            {
+
+                this.ValidationErrors["QualityOfService"] = "Ocijenite kvalitet usluga bolnice.";
+            }
+            if (NServicePricesChecked == false && DZServicePricesChecked == false && ZServicePricesChecked == false)
+            {
+
+                this.ValidationErrors["ServicePrices"] = "Ocijenite cijene usluga bolnice.";
+            }
+        }
+
         public HospitalSurveyViewModel(Patient patient,HospitalSurvey hospitalSurvey) {
             this.patient = patient;
             this.hospitalSurvey = hospitalSurvey;

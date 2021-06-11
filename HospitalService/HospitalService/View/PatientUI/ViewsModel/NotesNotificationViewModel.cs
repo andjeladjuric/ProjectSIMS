@@ -8,7 +8,7 @@ using HospitalService.View.PatientUI.Pages;
 
 namespace HospitalService.View.PatientUI.ViewsModel
 {
-    public class NotesNotificationViewModel:ViewModelPatientClass
+    public class NotesNotificationViewModel:ValidationBase
     {
 
         public RelayCommand confirmSetReminder { get; set; }
@@ -44,33 +44,37 @@ namespace HospitalService.View.PatientUI.ViewsModel
         private NotesNotification notesNotification;
 
         private void Execute_ConfirmSetReminder(object obj) {
-
-            double howOftenInMilliseconds = 15000;
-            DateTime startTime = Convert.ToDateTime(StartDateReminder.ToShortDateString() + " " + StartTimeReminder + ":00");
-            DateTime endTime = Convert.ToDateTime(EndDateReminder.ToShortDateString() + " " + EndTimeReminder + ":00");
-            var timeToBeginning = startTime - DateTime.Now;
-            Timer everyFewHours = new Timer() { Interval = howOftenInMilliseconds };
-            everyFewHours.Elapsed += (sender, e) =>
+            this.Validate();
+            if (IsValid)
             {
 
-                if (DateTime.Compare(DateTime.Now, endTime) < 0)
+                double howOftenInMilliseconds = 15000;
+                DateTime startTime = Convert.ToDateTime(StartDateReminder.ToShortDateString() + " " + StartTimeReminder + ":00");
+                DateTime endTime = Convert.ToDateTime(EndDateReminder.ToShortDateString() + " " + EndTimeReminder + ":00");
+                var timeToBeginning = startTime - DateTime.Now;
+                Timer everyFewHours = new Timer() { Interval = howOftenInMilliseconds };
+                everyFewHours.Elapsed += (sender, e) =>
                 {
 
+                    if (DateTime.Compare(DateTime.Now, endTime) < 0)
+                    {
+
+                        MessageBox.Show(note.noteForPatient);
+                    }
+
+                };
+
+                var startTimer = new Timer { Interval = timeToBeginning.TotalMilliseconds, AutoReset = false };
+                startTimer.Elapsed += (sender, e) =>
+                {
+                    everyFewHours.Start();
                     MessageBox.Show(note.noteForPatient);
-                }
 
-            };
+                };
+                startTimer.Start();
 
-            var startTimer = new Timer { Interval = timeToBeginning.TotalMilliseconds, AutoReset = false };
-            startTimer.Elapsed += (sender, e) => {
-                everyFewHours.Start();
-                MessageBox.Show(note.noteForPatient);
-
-            };
-            startTimer.Start();
-
-            notesNotification.NavigationService.Navigate(new DiagnosisForPatient(diagnosis, note));
-
+                notesNotification.NavigationService.Navigate(new DiagnosisForPatient(diagnosis, note));
+            }
         }
 
         private int howOften()
@@ -104,6 +108,44 @@ namespace HospitalService.View.PatientUI.ViewsModel
         private bool CanExecute_Command(object obj) {
             return true;
         }
+
+        protected override void ValidateSelf()
+        {
+            DateTime startTime = DateTime.Now;
+            DateTime endTime = DateTime.Now;
+            if (!string.IsNullOrWhiteSpace(StartTimeReminder)) {
+                startTime = Convert.ToDateTime(StartDateReminder.ToShortDateString() + " " + StartTimeReminder + ":00");
+            }
+            if (!string.IsNullOrWhiteSpace(EndTimeReminder))
+            {
+               endTime = Convert.ToDateTime(EndDateReminder.ToShortDateString() + " " + EndTimeReminder + ":00");
+            }
+
+           
+            if (StartDateReminder.Date < DateTime.Now.Date) {
+                this.ValidationErrors["StartDate"] = "Datum je prosao.";
+            }
+
+            if (string.IsNullOrWhiteSpace(StartTimeReminder)) {
+                this.ValidationErrors["StartTime"] = "Unesite vrijeme.";
+            } else if (startTime<DateTime.Now) {
+                this.ValidationErrors["StartTime"] = "Vrijeme je proslo.";
+            }
+            if (EndDateReminder.Date < DateTime.Now.Date) {
+                this.ValidationErrors["EndDate"] = "Datum je prosao.";
+            }
+            if (string.IsNullOrWhiteSpace(EndTimeReminder))
+            {
+                this.ValidationErrors["EndTime"] = "Unesite vrijeme.";
+            }
+            else if (endTime < DateTime.Now) {
+                this.ValidationErrors["EndTime"] = "Vrijeme je proslo.";
+            }
+            if (string.IsNullOrWhiteSpace(HowOftenReminder)) {
+                this.ValidationErrors["HowOften"] = "Unesite period.";
+            }
+        }
+
         public NotesNotificationViewModel(Diagnosis diagnosis, Note note, NotesNotification notesNotification) {
 
             this.diagnosis = diagnosis;

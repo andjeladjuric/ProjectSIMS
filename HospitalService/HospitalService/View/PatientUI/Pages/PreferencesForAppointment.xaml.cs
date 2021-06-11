@@ -27,7 +27,7 @@ namespace HospitalService.View.PatientUI.Pages
         public PreferencesForAppointment(Patient patient)
         {
             InitializeComponent();
-            viewModel = new PreferencesForAppointmentViewModel(patient,this);
+            viewModel = new PreferencesForAppointmentViewModel(patient,this,AddAppointmentFrame.NavigationService);
             this.DataContext = viewModel;
            
         }

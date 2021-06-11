@@ -11,9 +11,8 @@ using Model;
 
 namespace HospitalService.View.PatientUI.ViewsModel
 {
-   public class AddPatientAppointmentViewModel:ViewModelPatientClass
+   public class AddPatientAppointmentViewModel:ValidationBase
     {
-        public String AppointmentId { get; set; }
         private DateTime date { get; set; }
         public DateTime Date
         {
@@ -44,39 +43,52 @@ namespace HospitalService.View.PatientUI.ViewsModel
                 OnPropertyChanged();
             }
         }
-        public String StartTimeAppointment { get; set; }
-        public String EndTimeAppointment { get; set; }
+            
+        public String SelectedTime { get; set; }
+
         public RelayCommand confirmAddAppointment { get; set; }
         public RelayCommand cancelAddAppointment { get; set; }
         private DoctorService doctorService;        
         private AppointmentsService appointmentsService;
         private RoomService roomService;
         private Patient patient;
-        private AddPatientAppointment addPatientAppointment;
+        private PreferencesForAppointment preferencesForAppointment;
         private void Execute_ConfirmAddAppointment(object obj) {
-          
-            DateTime startTime = Convert.ToDateTime(Date.ToShortDateString() + " " + StartTimeAppointment + ":00");
-            DateTime endTime = Convert.ToDateTime(Date.ToShortDateString() + " " + EndTimeAppointment + ":00");
-           
-            if (!doctorService.isDoctorAvailable(startTime, endTime, SelectedDoctor))
+
+            this.Validate();
+            if (IsValid)
             {
-                MessageBox.Show("Doktor je zauzet!");
-                return;
-            }                               
-            Room availableRoom = roomService.getFirstAvailableRoom(startTime, endTime);
-            if (availableRoom == null)
-            {
-                MessageBox.Show("Nema slobodnih sala!");
-                return;
-            }               
-            if (moreThanTwoAppointmentsInOneDay(startTime))
-            {
-                MessageBox.Show("Vise od dva termina u jednom danu!");
-                return;
-            }           
-                Appointment newAppointment = new Appointment() { Id = AppointmentId, StartTime = startTime, EndTime = endTime, Type = AppointmentType.Pregled, doctor = SelectedDoctor, room = availableRoom, patient = patient };                       
+                String[] startTimeArray1 = SelectedTime.Split(" ");
+                String startTimeCb = startTimeArray1[1];
+                String[] startTimeArray2 = startTimeCb.Split(":");
+
+                int endTimeCb = int.Parse(startTimeArray2[0]) + 1;
+                String shortEndTime = Convert.ToString(endTimeCb);
+
+
+                DateTime startTime = Convert.ToDateTime(Date.ToShortDateString() + " " + startTimeCb);
+                DateTime endTime = Convert.ToDateTime(Date.ToShortDateString() + " " + shortEndTime + ":00");
+
+                if (!doctorService.isDoctorAvailable(startTime, endTime, SelectedDoctor))
+                {
+                    MessageBox.Show("Doktor je zauzet!");
+                    return;
+                }
+                Room availableRoom = roomService.getFirstAvailableRoom(startTime, endTime);
+                if (availableRoom == null)
+                {
+                    MessageBox.Show("Nema slobodnih sala!");
+                    return;
+                }
+                if (moreThanTwoAppointmentsInOneDay(startTime))
+                {
+                    MessageBox.Show("Vise od dva termina u jednom danu!");
+                    return;
+                }
+                Appointment newAppointment = new Appointment() { Id = appointmentsService.GetNextId(), StartTime = startTime, EndTime = endTime, Type = AppointmentType.Pregled, doctor = SelectedDoctor, room = availableRoom, patient = patient };
                 appointmentsService.Save(newAppointment);
-                addPatientAppointment.NavigationService.Navigate(new ViewAppointment(patient));            
+                preferencesForAppointment.NavigationService.Navigate(new ViewAppointment(patient));
+            }
         }
 
         private bool moreThanTwoAppointmentsInOneDay(DateTime startTime)
@@ -91,20 +103,48 @@ namespace HospitalService.View.PatientUI.ViewsModel
       
         private void Execute_CancelAddAppointment(object obj) {
 
-            addPatientAppointment.NavigationService.Navigate(new ViewAppointment(patient));
+            preferencesForAppointment.NavigationService.Navigate(new PreferencesForAppointment(patient));
+
+           
+               
         }
+
+       
         private bool CanExecute_Command(object obj) {
             return true;
         }
-        
-        public AddPatientAppointmentViewModel(Patient patient,AddPatientAppointment addPatientAppointment) {
+
+        protected override void ValidateSelf()
+        {
+            DateTime startTime=DateTime.Now;
+            if (!string.IsNullOrWhiteSpace(SelectedTime))
+            {
+                String[] startTimeArray1 = SelectedTime.Split(" ");
+                String startTimeCb = startTimeArray1[1];
+                startTime = Convert.ToDateTime(Date.ToShortDateString() + " " + startTimeCb);
+            }
+            if (Date.Date < DateTime.Now.Date) {
+                this.ValidationErrors["Date"] = "Datum koji birate je prosao.";
+            }
+            if (string.IsNullOrWhiteSpace(SelectedTime)) {
+                this.ValidationErrors["Start"] = "Odaberite vrijeme termina.";
+            } else if (startTime <= DateTime.Now) {
+                this.ValidationErrors["Start"] = "Termin koji birate je prosao.";
+            }
+            if (SelectedDoctor==null) {
+                this.ValidationErrors["Doctor"] = "Odaberite doktora.";
+            }
+        }
+
+        public AddPatientAppointmentViewModel(Patient patient,PreferencesForAppointment preferencesForAppointment) {
             this.patient = patient;
-            this.addPatientAppointment = addPatientAppointment;
+            this.preferencesForAppointment = preferencesForAppointment;
             Date = DateTime.Now;
             appointmentsService = new AppointmentsService();
             roomService = new RoomService();
-            AppointmentId = appointmentsService.GetNextId();
             doctorService = new DoctorService();
+          
+
             List<Doctor> docttorsForAppointment = doctorService.GetAll();
             Doctors = new ObservableCollection<Doctor>();
             docttorsForAppointment.ForEach(this.Doctors.Add);
