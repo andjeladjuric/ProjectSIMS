@@ -11,11 +11,9 @@ namespace HospitalService.Service
     public class RoomRenovationService
     {
         RenovationsRepository renovations;
-        ScheduleService ScheduleService;
         public RoomRenovationService()
         {
             renovations = new RenovationsRepository();
-            ScheduleService = new ScheduleService();
         }
 
         public void CheckRenovationRequests()
@@ -59,8 +57,8 @@ namespace HospitalService.Service
             Room secondRoom = roomService.GetOne(renovation.SecondRoomId);
             double newSize = firstRoom.Size + secondRoom.Size;
 
-            if (ScheduleService.CheckAppointmentsForDate(renovation.Start, renovation.End, firstRoom.Id) &&
-                        ScheduleService.CheckAppointmentsForDate(renovation.Start, renovation.End, secondRoom.Id))
+            if (new ScheduleService().CheckAppointmentsForDate(renovation.Start, renovation.End, firstRoom.Id) &&
+                        new ScheduleService().CheckAppointmentsForDate(renovation.Start, renovation.End, secondRoom.Id))
             {
                 roomService.AddRoom(new Room(renovation.NewRoomType, renovation.RoomId, renovation.NewRoomName, newSize, firstRoom.Floor, true));
                 roomService.DeleteRoom(firstRoom.Id);
@@ -75,7 +73,7 @@ namespace HospitalService.Service
             Room firstRoom = roomService.GetOne(renovation.RoomId);
             double firstSize = firstRoom.Size - renovation.NewSize;
 
-            if (ScheduleService.CheckAppointmentsForDate(renovation.Start, renovation.End, renovation.RoomId))
+            if (new ScheduleService().CheckAppointmentsForDate(renovation.Start, renovation.End, renovation.RoomId))
             {
                 roomService.AddRoom(new Room(renovation.NewRoomType, renovation.RoomId, firstRoom.Name, firstSize ,firstRoom.Floor, true));
                 roomService.AddRoom(new Room(renovation.NewRoomType, renovation.NewRoomId, renovation.NewRoomName, renovation.NewSize,

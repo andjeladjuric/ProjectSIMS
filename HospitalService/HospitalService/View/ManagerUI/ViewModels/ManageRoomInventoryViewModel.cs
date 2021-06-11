@@ -147,7 +147,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             ChangeQuantityCommand = new MyICommand(OnChangeQuantity, CanExecute);
             CancelSearch = new MyICommand(OnCancel, CanExecute);
 
-            RoomInventoryService service = new RoomInventoryService();
+            TransferRequestsService service = new TransferRequestsService();
             service.CheckRequests();
         }
         #endregion

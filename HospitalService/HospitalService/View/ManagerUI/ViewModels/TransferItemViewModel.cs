@@ -276,7 +276,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             /*check requests*/
             roomInventoryService = new RoomInventoryService();
-            roomInventoryService.CheckRequests();
+            TransferRequestsService service = new TransferRequestsService();
+            service.CheckRequests();
 
             /*view*/
             this.Frame = currentFrame;

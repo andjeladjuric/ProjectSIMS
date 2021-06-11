@@ -154,6 +154,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
         {
             RoomService roomService = new RoomService();
             RoomInventoryService roomInventoryService = new RoomInventoryService();
+            TransferRequestsService requestsService = new TransferRequestsService();
             InventoryService inventoryService = new InventoryService();
             this.Validate();
 
@@ -172,14 +173,14 @@ namespace HospitalService.View.ManagerUI.ViewModels
                 Inventory item = inventoryService.GetOne(SelectedItem.Id);
                 if (item.EquipmentType.Equals(Equipment.Dynamic))
                 {
-                    roomInventoryService.AnalyzeRequests(new MovingRequests(DateTime.Now, Int32.Parse(Quantity), Room.Id, SelectedRoom.Id, item.Id));
+                    requestsService.ExecuteRequest(new MovingRequests(DateTime.Now, Int32.Parse(Quantity), Room.Id, SelectedRoom.Id, item.Id));
                 }
                 else
                 {
                     TimeSpan selectedTime = TimeSpan.ParseExact(EnteredTime, "c", null);
                     DateTime selectedDate = Convert.ToDateTime(selectedTime + " " + Date.ToString("d"));
                     MovingRequests request = new MovingRequests(selectedDate, Int32.Parse(Quantity), room.Id, SelectedRoom.Id, item.Id);
-                    roomInventoryService.StartMoving(request);
+                    requestsService.AddNewRequest(request);
 
                 }
 
@@ -237,7 +238,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private bool CheckExistingMovingRequests(Room moveFrom, int quantity)
         {
             RoomInventoryService service = new RoomInventoryService();
-            foreach (MovingRequests mr in service.LoadRequests())
+            TransferRequestsService requestsService = new TransferRequestsService();
+            foreach (MovingRequests mr in requestsService.GetAll())
             {
                 if (mr.moveFromThisRoom.Equals(moveFrom.Id) && mr.inventoryId == SelectedItem.Id)
                 {
@@ -254,8 +256,9 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private int GetAvailableNumber(Room moveFrom)
         {
             RoomInventoryService service = new RoomInventoryService();
+            TransferRequestsService requestsService = new TransferRequestsService();
             int temp = 0;
-            foreach (MovingRequests mr in service.LoadRequests())
+            foreach (MovingRequests mr in requestsService.GetAll())
             {
                 if (mr.moveFromThisRoom.Equals(moveFrom.Id) && mr.inventoryId == SelectedItem.Id)
                 {

@@ -62,8 +62,8 @@ namespace HospitalService.View.ManagerUI.ViewModels
         private void OnConfirm()
         {
             int enteredQuantity = Int32.Parse(Quantity);
-            InventoryService service = new InventoryService();
-            service.ReduceQuantity(enteredQuantity, SelectedItem, Room);
+            InventoryQuantityService service = new InventoryQuantityService();
+            service.RemoveUsedItems(enteredQuantity, SelectedItem, Room);
             this.Frame.NavigationService.Navigate(new ManageRoomInventoryView(Room));
         }
 
