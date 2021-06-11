@@ -9,7 +9,7 @@ using Model;
 
 namespace HospitalService.View.PatientUI.ViewsModel
 {
-   public class DoctorChoiceViewModel:ViewModelPatientClass
+   public class DoctorChoiceViewModel:ValidationBase
     {
 
         private Doctor selectedDoctor;
@@ -42,21 +42,24 @@ namespace HospitalService.View.PatientUI.ViewsModel
 
         private void Execute_DoctorSurvey(object obj) {
 
-            
-            Appointment lastFinishedAppointment = appointmentService.getLastFinishedAppointment(SelectedDoctor, patient);
-            SurveyDoctorPatient lastFinishedSurvey = doctorSurveyService.getLastFinishedDoctorSurvey(SelectedDoctor, patient);
-
-            if (lastFinishedSurvey.ExecutionTime > lastFinishedAppointment.EndTime && lastFinishedSurvey.ExecutionTime < DateTime.Now)
+            this.Validate();
+            if (IsValid)
             {
+                Appointment lastFinishedAppointment = appointmentService.getLastFinishedAppointment(SelectedDoctor, patient);
+                SurveyDoctorPatient lastFinishedSurvey = doctorSurveyService.getLastFinishedDoctorSurvey(SelectedDoctor, patient);
 
-                surveys.NavigationService.Navigate(new LastFinishedSurvey(SelectedDoctor, lastFinishedSurvey));
+                if (lastFinishedSurvey.ExecutionTime > lastFinishedAppointment.EndTime && lastFinishedSurvey.ExecutionTime < DateTime.Now)
+                {
 
-            }
-            else
-            {
+                    surveys.NavigationService.Navigate(new LastFinishedSurvey(SelectedDoctor, lastFinishedSurvey));
 
-                surveys.NavigationService.Navigate(new DoctorSurvey(patient, SelectedDoctor));
+                }
+                else
+                {
 
+                    surveys.NavigationService.Navigate(new DoctorSurvey(patient, SelectedDoctor));
+
+                }
             }
 
         }
@@ -65,6 +68,14 @@ namespace HospitalService.View.PatientUI.ViewsModel
             return true;
         
         }
+
+        protected override void ValidateSelf()
+        {
+            if (SelectedDoctor == null) {
+                this.ValidationErrors["Doctor"] = "Odaberite doktora.";
+            }
+        }
+
         public DoctorChoiceViewModel(Patient patient,Surveys surveys) {
             this.surveys = surveys;
             this.patient = patient;

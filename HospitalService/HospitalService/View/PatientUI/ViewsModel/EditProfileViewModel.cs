@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Navigation;
 using HospitalService.Service;
 using HospitalService.View.PatientUI.Pages;
@@ -8,7 +9,7 @@ using Model;
 
 namespace HospitalService.View.PatientUI.ViewsModel
 {
-   public class EditProfileViewModel:ViewModelPatientClass
+   public class EditProfileViewModel: ValidationBase
     {
         public String PatientGender { get; set; }
         public String PatientDateOfBirth { get; set; }
@@ -28,10 +29,15 @@ namespace HospitalService.View.PatientUI.ViewsModel
         private EditProfile editProfile;
 
         private void Execute_ConfirmEdit(object obj) {
+            this.Validate();
+            if (IsValid)
+            {
 
-            patientService.Edit(patient.Jmbg, patient.Username, patient.Password, patient.DateOfBirth, PatientPhone, PatientAddress, PatientEmail, patient.PatientType);
-            Patient p = patientService.GetOneByUsername(patient.Username);
-            editProfile.NavigationService.Navigate(new ProfileView(p));
+                patientService.Edit(patient.Jmbg, patient.Username, patient.Password, patient.DateOfBirth, PatientPhone, PatientAddress, PatientEmail, patient.PatientType);
+                patientService = new PatientService();
+                Patient p = patientService.GetOneByUsername(patient.Username);
+                editProfile.NavigationService.Navigate(new ProfileView(p));
+            }
 
         }
         private void Execute_CancelEdit(object obj) {
@@ -44,6 +50,38 @@ namespace HospitalService.View.PatientUI.ViewsModel
         private bool CanExecute_Command(object obj) {
             return true;
         }
+
+        protected override void ValidateSelf()
+            
+        {
+            Regex checkAddress = new Regex(@"[A-Za-z]+[\s][1-9]*[,][\s]?[A-Za-z]+");
+            Regex checkEmail = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+            Regex checkPhone = new Regex(@"[0-9]+");
+
+            if (string.IsNullOrWhiteSpace(this.PatientAddress))
+            {
+                this.ValidationErrors["Address"] = "Unesite adresu stanovanja.";
+            } else if (!checkAddress.IsMatch(this.PatientAddress)) {
+                this.ValidationErrors["Address"] = "Nije dobar format. Format je ULICA BROJ, GRAD";
+
+            }
+            if (string.IsNullOrWhiteSpace(this.PatientEmail)) {
+                this.ValidationErrors["Email"] = "Unesite e-mail adresu.";
+            }
+            else if (!checkEmail.IsMatch(this.PatientEmail))
+            {
+                this.ValidationErrors["Email"] = "Nije dobar format.";
+
+            }
+            if (string.IsNullOrWhiteSpace(this.PatientPhone)) {
+
+                this.ValidationErrors["Phone"] = "Unesite broj telefona.";
+
+            } else if (!checkPhone.IsMatch(this.PatientPhone)) {
+                this.ValidationErrors["Phone"] = "Nije dobar format.";
+            }
+        }
+
         public EditProfileViewModel(Patient patient, NavigationService navService, EditProfile editProfile) {
             this.patient = patient;
             this.navService = navService;

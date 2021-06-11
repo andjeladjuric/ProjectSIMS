@@ -24,10 +24,10 @@ namespace HospitalService.View.PatientUI.Pages
 
         
         private MoveAppointmentViewModel viewModel;
-        public MoveAppointment(Appointment appointment, Patient patient)
+        public MoveAppointment(Appointment appointment, Patient patient,AppointmentDetails appointmentDetails)
         {
             InitializeComponent();
-            viewModel = new MoveAppointmentViewModel(patient,appointment,this);
+            viewModel = new MoveAppointmentViewModel(patient,appointment,appointmentDetails);
             this.DataContext = viewModel;
             
 

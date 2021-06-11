@@ -7,17 +7,40 @@
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="985"
       Title="PreferencesForAppointment">
-
     <Grid>
-        <GroupBox x:Name="rb" Margin="40,40,580,430">
-            <StackPanel>
-                <Label FontWeight="Bold" FontSize="24" FontStyle="Italic">Brzo zakazivanje termina?</Label>
-                <RadioButton IsChecked="{Binding Path=CheckedYes}" x:Name="Yes" FontSize="22" FontStyle="Italic">DA</RadioButton>
-                <RadioButton IsChecked="{Binding Path=CheckedNo}" x:Name="No" FontSize="22" FontStyle="Italic">NE</RadioButton>
-            </StackPanel>
-        </GroupBox>
-        <Button Content="Zakazi termin" HorizontalAlignment="Left" Margin="110,240,0,0" VerticalAlignment="Top" Height="45" Width="174" FontSize="24" FontStyle="Italic" Command="{Binding addAppointment}" Background="RoyalBlue" Foreground="White"/>
-        <Button Content="Upute" Width="130" Height="45" Margin="802,40,33,535" Background="RoyalBlue" Foreground="White" FontStyle="Italic" FontSize="24" Command="{Binding showReferrals}"/>
+        <DockPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="105"/>
+                    <RowDefinition Height="105"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="215"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="470"/>
+                    <ColumnDefinition Width="585"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Zakazivanje termina" Grid.Row="1" Grid.Column="1" FontStyle="Italic" FontSize="27"/>
+                <GroupBox x:Name="rb" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2">
+                    <StackPanel>
+                        <Label FontWeight="Bold" FontSize="23" FontStyle="Italic">Zakazivanje termina na osnovu prioriteta</Label>
+                        <Label FontStyle="Italic" FontSize="22" Content="Odaberite prioritet:"/>
+                        <RadioButton IsChecked="{Binding Path=CheckedDate}" FontSize="20" FontStyle="Italic" Margin="40,0,0,0">Datum</RadioButton>
+                        <RadioButton IsChecked="{Binding Path=CheckedDoctor}" FontSize="20" FontStyle="Italic"  Margin="40,0,0,0">Doktor</RadioButton>
+                        <Label FontWeight="Bold" FontSize="23" FontStyle="Italic">Zakazivanje termina na osnovu uputnice</Label>
+                        <RadioButton IsChecked="{Binding Path=CheckedReferral}" FontSize="20" FontStyle="Italic"  Margin="40,0,0,0">Uputno zakazivanje termina</RadioButton>
+                    </StackPanel>
+                </GroupBox>
+                <Button Content="Zakazi termin" Grid.Row="6" Grid.Column="1"  Height="45" Width="174" FontSize="24" FontStyle="Italic" Command="{Binding addAppointment}" Background="RoyalBlue" Foreground="White"/>
 
+
+            </Grid>
+        </DockPanel>
+        <Frame x:Name="AddAppointmentFrame" NavigationUIVisibility="Hidden" Margin="495,105,0,105"/>
     </Grid>
 </Page>
