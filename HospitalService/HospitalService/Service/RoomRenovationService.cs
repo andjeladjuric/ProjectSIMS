@@ -11,10 +11,11 @@ namespace HospitalService.Service
     public class RoomRenovationService
     {
         RenovationsRepository renovations;
-
+        ScheduleService ScheduleService;
         public RoomRenovationService()
         {
             renovations = new RenovationsRepository();
+            ScheduleService = new ScheduleService();
         }
 
         public void CheckRenovationRequests()
@@ -58,8 +59,8 @@ namespace HospitalService.Service
             Room secondRoom = roomService.GetOne(renovation.SecondRoomId);
             double newSize = firstRoom.Size + secondRoom.Size;
 
-            if (CheckAppointmentsForDate(renovation.Start, renovation.End, firstRoom.Id) &&
-                        CheckAppointmentsForDate(renovation.Start, renovation.End, secondRoom.Id))
+            if (ScheduleService.CheckAppointmentsForDate(renovation.Start, renovation.End, firstRoom.Id) &&
+                        ScheduleService.CheckAppointmentsForDate(renovation.Start, renovation.End, secondRoom.Id))
             {
                 roomService.AddRoom(new Room(renovation.NewRoomType, renovation.RoomId, renovation.NewRoomName, newSize, firstRoom.Floor, true));
                 roomService.DeleteRoom(firstRoom.Id);
@@ -74,7 +75,7 @@ namespace HospitalService.Service
             Room firstRoom = roomService.GetOne(renovation.RoomId);
             double firstSize = firstRoom.Size - renovation.NewSize;
 
-            if (CheckAppointmentsForDate(renovation.Start, renovation.End, renovation.RoomId))
+            if (ScheduleService.CheckAppointmentsForDate(renovation.Start, renovation.End, renovation.RoomId))
             {
                 roomService.AddRoom(new Room(renovation.NewRoomType, renovation.RoomId, firstRoom.Name, firstSize ,firstRoom.Floor, true));
                 roomService.AddRoom(new Room(renovation.NewRoomType, renovation.NewRoomId, renovation.NewRoomName, renovation.NewSize,
@@ -84,23 +85,7 @@ namespace HospitalService.Service
             }
         }
 
-        public bool CheckAppointmentsForDate(DateTime startDate, DateTime endDate, string roomId)
-        {
-            AppointmentsService appointments = new AppointmentsService();
-            foreach (Appointment a in appointments.GetAll())
-            {
-                if (a.room.Id.Equals(roomId))
-                {
-                    if (DateTime.Compare(startDate.Date, a.StartTime.Date) <= 0 && 
-                        DateTime.Compare(endDate.Date, a.StartTime.Date) >= 0)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
+      
 
             private void DeleteRequestIfFinished(List<Renovation> renovationRequests)
         {
@@ -122,25 +107,6 @@ namespace HospitalService.Service
             Room room = roomService.GetOne(renovation.RoomId);
             room.IsFree = IsAvailable;
             roomService.UpdateRoom(room);
-        }
-
-        public bool IsRoomReservationPossible(DateTime appointmentStart, DateTime appointmentEnd)
-        {
-            List<Renovation> renovationRequests = renovations.GetAll();
-
-            if (renovations != null && renovationRequests.Count != 0)
-            {
-                foreach (Renovation renovation in renovationRequests)
-                {
-                    if (DateTime.Compare(renovation.Start, appointmentStart) <= 0 && DateTime.Compare(renovation.End, appointmentStart) >= 0
-                        && DateTime.Compare(renovation.Start, appointmentEnd) <= 0 && DateTime.Compare(renovation.End, appointmentEnd) >= 0)
-                        return false;
-                    else
-                        return true;
-                }
-            }
-
-            return true;
         }
 
         public void Save(Renovation reno) => renovations.Save(reno);

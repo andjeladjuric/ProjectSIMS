@@ -15,6 +15,7 @@ namespace HospitalService.Service
 
         RoomInventoryRepository roomInventoryRepository;
         RoomsRepository roomsRepository;
+        
 
         #endregion
 
@@ -125,7 +126,7 @@ namespace HospitalService.Service
             Room availableRoom = new Room();
             for (int i = 0; i < rooms.Count; i++)
             {
-                if (isCurrentRoomAvailable(startTime, endTime, rooms[i]))
+                if (!new ScheduleService().IsRoomTaken(startTime, endTime, rooms[i]))
                 {
 
                     availableRoom = rooms[i];
@@ -139,21 +140,7 @@ namespace HospitalService.Service
             }
             return availableRoom;
         }
-        public bool isCurrentRoomAvailable(DateTime startTime, DateTime endTime, Room examinedRoom)
-        {
-            AppointmentsService appointmentsService = new AppointmentsService();
-            List<Appointment> appointments = appointmentsService.GetAll();
-            DateService dateService = new DateService();
-            for (int j = 0; j < appointments.Count; j++)
-            {
-                if (dateService.IsTaken(appointments[j].StartTime, appointments[j].EndTime, startTime, endTime) && appointments[j].room.Id.Equals(examinedRoom.Id) && appointments[j].Status != Status.Canceled)
-                {
-
-                    return false;
-                }
-            }
-            return true;
-        }
+       
 
 
         public RoomType GetRoomType(AppointmentType appointmentType)

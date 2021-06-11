@@ -49,12 +49,12 @@ namespace HospitalService.View.PatientUI.ViewsModel
                 DateTime endTimeOfAppointment = Convert.ToDateTime(AppointmentDate.ToShortDateString() + " " + shortEndTime + ":00");
                 if (isLessThanTwoDaysBetween(startTimeOfAppointment))
                 {
-                    if (!doctorService.isDoctorAvailable(startTimeOfAppointment, endTimeOfAppointment, appointment.doctor))
+                    if (new ScheduleService().IsDoctorTaken(startTimeOfAppointment, endTimeOfAppointment, appointment.doctor))
                     {
                         MessageBox.Show("Doktor je zauzet!");
                         return;
                     }
-                    if (roomService.isCurrentRoomAvailable(startTimeOfAppointment, endTimeOfAppointment, appointment.room))
+                    if (new ScheduleService().IsRoomTaken(startTimeOfAppointment, endTimeOfAppointment, appointment.room))
                     {
                         appointmentsService.Move(appointment.Id, startTimeOfAppointment, endTimeOfAppointment, appointment.room);
                         appointmentDetails.NavigationService.Navigate(new ViewAppointment(patient));

@@ -15,6 +15,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
 {
     class EditAppointmentForDoctorViewModel:ValidationBase
     {
+        private ScheduleService ScheduleService;
         public Appointment AppointmentForEditing { get; set; }
         public DoctorWindowViewModel ParentWindow { get; set; }
         private DateTime date;
@@ -94,6 +95,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
             new RoomService().GetByType(roomType).ForEach(Rooms.Add);
            // new RoomService().GetAll().ForEach(Rooms.Add);
             Room = selectedAppointment.room;
+            ScheduleService = new ScheduleService();
         }
 
         public void Executed_EditCommand(object obj)
@@ -115,30 +117,35 @@ namespace HospitalService.View.DoctorUI.ViewModel
             {
                 DateTime Start = dateService.CreateDateString(Date, StartTime);
                 DateTime End = dateService.CreateDateString(Date, EndTime);
-                if (new AppointmentsService().IsTaken(Start, End, AppointmentForEditing.doctor))
+                if (DateTime.Compare(Start, DateTime.Now) <= 0)
                 {
-                    MessageBox.Show("Postoji termin u izabranom periodu.");
+                    MessageBox.Show("Odabrano vrijeme je prošlo.");
                     return false;
                 }
-                if (new AppointmentsService().IsRoomTaken(Start, End, Room))
+
+                if (ScheduleService.IsDoctorTaken(Start, End, AppointmentForEditing.doctor))
                 {
-                    RoomType roomType = new RoomService().GetRoomType(AppointmentForEditing.Type);
-                    List<Room> available = new AppointmentsService().GetAvailableRooms(AppointmentForEditing.StartTime, AppointmentForEditing.EndTime, roomType);
-                    try
-                    {
-                        if (available[0] != null)
-                        {
-                            MessageBox.Show("Odabrana soba je zauzeta. Slobodna je soba: " + available[0].Id);
-                            return false;
-                        }
-                    }
-                    catch
-                    {
+                    MessageBox.Show("Imate termin u izabranim periodu.");
+                    return false;
+                }
+                if (ScheduleService.IsRoomTaken(Start, End, Room))
+                {
+                    MessageBox.Show("Odabrana soba je zauzeta.");
+                    return false;
 
-                        MessageBox.Show("Nema slobodnih soba za odabrano vrijeme.");
-                        return false;
+                }
+                if (ScheduleService.IsPatientTaken(AppointmentForEditing.patient, AppointmentForEditing))
+                {
+                    MessageBox.Show("Pacijent je zauzet u odabranom terminu.");
+                    return false;
 
-                    }
+                }
+
+                if (ScheduleService.IsRoomRenovating(Start, End, Room))
+                {
+                    MessageBox.Show("Odabrana soba se trenutno renovira.");
+                    return false;
+
                 }
                 return true;
             }

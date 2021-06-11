@@ -46,7 +46,7 @@ namespace HospitalService.Service
             return false;
         }
 
-        private Boolean IsPatientTaken(Patient patient, Appointment arg)
+        public Boolean IsPatientTaken(Patient patient, Appointment arg)
         {
             List<Appointment> appoints = AppointmentsService.getByPatient(patient);
             foreach (Appointment appoint in appoints)
