@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HospitalService.Repositories
 {
-    class DoctorsSurveyRepository
+    class DoctorsSurveyRepository : RepositoryImplementationJson <SurveyDoctorPatient>
     {
         private String FileLocation = @"..\..\..\Data\doctorSurveys.json";
         public List<SurveyDoctorPatient> doctorSurveys { get; set; }
@@ -15,27 +15,18 @@ namespace HospitalService.Repositories
 
         public DoctorsSurveyRepository()
         {
-
             doctorSurveys = new List<SurveyDoctorPatient>();
-            doctorSurveys = JsonConvert.DeserializeObject<List<SurveyDoctorPatient>>(File.ReadAllText(FileLocation));
-
+            doctorSurveys = getAll(FileLocation);
         }
-
-        public void SerializeDoctorsSurveys()
-        {
-            File.WriteAllText(FileLocation, JsonConvert.SerializeObject(doctorSurveys));
-        }
-
-
         public List<SurveyDoctorPatient> GetAll()
         {
-            return doctorSurveys;
+            return getAll(FileLocation);
         }
 
         public void Save(SurveyDoctorPatient newSurvey)
         {
             doctorSurveys.Add(newSurvey);
-            SerializeDoctorsSurveys();
+            saveAll(doctorSurveys,FileLocation);
         }
     }
 }
