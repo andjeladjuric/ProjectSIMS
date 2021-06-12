@@ -1,5 +1,6 @@
 ﻿using HospitalService.Model;
 using HospitalService.Service;
+using HospitalService.Service.template;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Validation;
 using HospitalService.View.DoctorUI.Views;
@@ -91,8 +92,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 Datum = DateTime.Now.Date,
                 Anamnesis = this.Anamnesis
             };
-            this.MedicalRecord.Diagnoses.Add(newDiagnosis);
-            new MedicalRecordService().UpdateRecord(MedicalRecord); 
+            new DiagnosesService(newDiagnosis).UpdateRecord(MedicalRecord.Id);
             this.ParentWindow.Refresh();
             this.Window.Close();
 

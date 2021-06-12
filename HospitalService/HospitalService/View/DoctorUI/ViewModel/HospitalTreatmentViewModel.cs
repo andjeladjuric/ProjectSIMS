@@ -1,5 +1,6 @@
 ﻿using HospitalService.Model;
 using HospitalService.Service;
+using HospitalService.Service.template;
 using HospitalService.Storage;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Validation;
@@ -191,8 +192,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 BedNumber = this.BedNum,
                 Reason = this.Reason
             };
-            this.MedicalRecord.HospitalTreatments.Add(newHospitalTreatment);
-            new MedicalRecordService().UpdateRecord(MedicalRecord); 
+            new HospitalTreatmentsService(newHospitalTreatment).UpdateRecord(MedicalRecord.Id);
             this.ParentWindow.Refresh();
             this.Window.Close();
         }
