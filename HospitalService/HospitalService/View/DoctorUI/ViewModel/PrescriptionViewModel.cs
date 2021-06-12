@@ -1,5 +1,6 @@
 ﻿using HospitalService.Model;
 using HospitalService.Service;
+using HospitalService.Service.template;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Validation;
 using HospitalService.View.DoctorUI.Views;
@@ -122,8 +123,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
         {
             Prescription newPrescription = new Prescription(SelectedMedication.MedicineName, Int32.Parse(Hours), Int32.Parse(Days), Info, SelectedDate);
             MedicalRecord medicalRecord = this.ParentWindow.MedicalRecord;
-            medicalRecord.Prescriptions.Add(newPrescription);
-            new MedicalRecordService().UpdateRecord(medicalRecord); 
+            new PrescriptionsService(newPrescription).UpdateRecord(medicalRecord.Id);
             this.ParentWindow.Refresh();
             this.Window.Close();
 

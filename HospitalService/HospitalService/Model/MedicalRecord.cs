@@ -30,30 +30,6 @@ namespace Model
             Prescriptions = ps;
         }
 
-        public List<Diagnosis> editDignosis(Diagnosis d)
-        {
-            Diagnosis diagnosis;
-            for (int i = 0; i < Diagnoses.Count; i++)
-            {
-                diagnosis = Diagnoses[i];
-                if (diagnosis.Illness.Equals(d.Illness) && DateTime.Compare(diagnosis.Datum, d.Datum) == 0)
-                {
-                    Diagnoses[i] = d;
-                    break;
-                }
-            }
-            return Diagnoses;
-        }
-
-        public void deleteAllergie(MedicationIngredients allergie)
-        {
-            for (int i = 0; i < Allergies.Count; i++)
-                if (Allergies[i].IngredientName.Equals(allergie.IngredientName))
-                {
-                    Allergies.RemoveAt(i);
-                    break;
-                }
-        }
 
         public bool AlreadyExists(MedicationIngredients allergie)
         {

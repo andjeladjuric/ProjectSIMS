@@ -1,5 +1,6 @@
 ﻿using HospitalService.Model;
 using HospitalService.Service;
+using HospitalService.Service.template;
 using HospitalService.Storage;
 using HospitalService.View.DoctorUI.Commands;
 using HospitalService.View.DoctorUI.Validation;
@@ -136,8 +137,7 @@ namespace HospitalService.View.DoctorUI.ViewModel
                 IsUrgent = IsUrgent,
                 Reason = Reason
             };
-            MedicalRecord.Referrals.Add(newReferral);
-            new MedicalRecordService().UpdateRecord(MedicalRecord); 
+            new ReferralsService(newReferral).UpdateRecord(MedicalRecord.Id);
             ThisWindow.Close();
         
         }
