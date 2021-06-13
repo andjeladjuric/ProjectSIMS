@@ -90,5 +90,6 @@ namespace HospitalService.Service
         public void EditItem(RoomInventory r) => roomInventoryRepository.EditItem(r);
         public RoomInventory GetInventoryForRoom(string roomId) => roomInventoryRepository.GetInventoryForRoom(roomId);
         public void SerializeRoomInventory() => roomInventoryRepository.SerializeRoomInventory();
+        public void Delete(int itemId) => roomInventoryRepository.DeleteItemInAllRooms(itemId);
     }
 }

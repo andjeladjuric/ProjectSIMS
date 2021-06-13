@@ -18,8 +18,8 @@ namespace Model
         public string NewRoomName { get; set; }
         public double NewSize { get; set; }
 
-        [NonSerialized]
-        private RenovationState State;
+        /*[NonSerialized]
+        private RenovationState State;*/
 
         /*merge*/
         public Renovation(string roomId, DateTime start, DateTime end, RenovationType type, string secondRoomId, string newRoomId,
@@ -59,12 +59,12 @@ namespace Model
             Type = type;
         }
 
-        public void SetRenovationState(RenovationState state)
+        /*public void SetRenovationState(RenovationState state)
         {
             this.State = state;
             this.State.SetContext(this);
-            this.State.Renovate();
             this.State.ChangeRoomAvailability();
-        }
+            this.State.Renovate();
+        }*/
     }
 }

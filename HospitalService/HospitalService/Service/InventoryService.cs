@@ -42,45 +42,16 @@ namespace HospitalService.Service
 
         public void Delete(int itemId)
         {
-            if (itemId != 321 && GetAllTakenBeds() > 0)
+            TransferRequestsService transferRequests = new TransferRequestsService();
+            if (itemId == 321 && GetAllTakenBeds() > 0)
             {
                 MessageBox.Show("Postoje zauzeti kreveti!");
             }
             else
             {
-                DeleteInventoryInRoom(itemId);
-                DeleteRequests(itemId);
+                roomInventory.DeleteItemInAllRooms(itemId);
+                transferRequests.DeleteRequest(transferRequests.GetOne(itemId));
                 inventory.Delete(itemId);
-            }
-        }
-
-        private void DeleteInventoryInRoom(int itemId)
-        {
-            RoomInventory r;
-            for (int j = 0; j < roomInventory.GetAll().Count; j++)
-            {
-                r = roomInventory.GetAll()[j];
-                if (r.ItemId == itemId)
-                {
-                    roomInventory.GetAll().RemoveAt(j);
-                    roomInventory.SerializeRoomInventory();
-                }
-            }
-        }
-
-        private void DeleteRequests(int itemId)
-        {
-            List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-            MovingRequests movingRequest;
-            for (int i = 0; i < requests.Count; i++)
-            {
-                movingRequest = requests[i];
-                if (itemId == movingRequest.inventoryId)
-                {
-                    requests.RemoveAt(i);
-                    File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
-                    continue;
-                }
             }
         }
 
@@ -111,7 +82,7 @@ namespace HospitalService.Service
                         MessageBox.Show("Ne postoje sobe u kojima inventar može da se izmeni!");
                     }
 
-                    quantityService.EnlargeQuantityInStorage(item, quantity);
+                    quantityService.EnlargeExistingQuantity(item, quantity);
                     item.Name = name;
                     item.EquipmentType = type;
                     item.Supplier = supplier;

@@ -131,6 +131,10 @@ namespace HospitalService.View.ManagerUI.ViewModels
         #region Constructors
         public ManageRoomInventoryViewModel(Frame frame, Room selected)
         {
+            /*check requests*/
+            TransferRequestsService service = new TransferRequestsService();
+            service.CheckRequests();
+
             /*view*/
             this.Frame = frame;
             this.SelectedRoom = selected;
@@ -146,9 +150,6 @@ namespace HospitalService.View.ManagerUI.ViewModels
             /*commands*/
             ChangeQuantityCommand = new MyICommand(OnChangeQuantity, CanExecute);
             CancelSearch = new MyICommand(OnCancel, CanExecute);
-
-            TransferRequestsService service = new TransferRequestsService();
-            service.CheckRequests();
         }
         #endregion
     }

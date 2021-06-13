@@ -11,9 +11,19 @@ namespace HospitalService.Service
     public class RoomRenovationService
     {
         RenovationsRepository renovations;
+        RenovationState State;
+        RoomService roomService = new RoomService();
         public RoomRenovationService()
         {
             renovations = new RenovationsRepository();
+        }
+
+        public void SetRenovationState(RenovationState state, Renovation renovation)
+        {
+            this.State = state;
+            this.State.SetContext(renovation);
+            this.State.ChangeRoomAvailability();
+            this.State.Renovate();
         }
 
         public void CheckRenovationRequests()
@@ -28,7 +38,10 @@ namespace HospitalService.Service
                     {
                         if (DateTime.Compare(renovation.End, DateTime.Now) >= 0)
                         {
-                            ChangeRoomAvailability(renovation, false);
+                            roomService.ChangeRoomAvailability(renovation.RoomId, false);
+
+                            if(renovation.Type.Equals(RenovationType.Merge))
+                                roomService.ChangeRoomAvailability(renovation.SecondRoomId, false);
                         }
                         else
                         {
@@ -44,37 +57,17 @@ namespace HospitalService.Service
         private void SetState(Renovation renovation)
         {
             if (renovation.Type.Equals(RenovationType.Merge))
-                renovation.SetRenovationState(new MergeState());
+                SetRenovationState(new MergeState(), renovation);
             else if (renovation.Type.Equals(RenovationType.Split))
-                renovation.SetRenovationState(new SplitState());
+                SetRenovationState(new SplitState(), renovation);
             else
-                renovation.SetRenovationState(new OtherRenovationState());
-        }
-
-        private void DeleteRequestIfFinished(List<Renovation> renovationRequests)
-        {
-            Renovation renovation;
-            for (int i = 0; i < renovationRequests.Count; i++)
-            {
-                renovation = renovationRequests[i];
-                if (DateTime.Compare(renovation.End, DateTime.Now) < 0)
-                {
-                    renovationRequests.RemoveAt(i);
-                    renovations.SerializeRenovations();
-                }
-            }
-        }
-
-        private void ChangeRoomAvailability(Renovation renovation, bool IsAvailable)
-        {
-            RoomService roomService = new RoomService();
-            Room room = roomService.GetOne(renovation.RoomId);
-            room.IsFree = IsAvailable;
-            roomService.UpdateRoom(room);
+                SetRenovationState(new OtherRenovationState(), renovation);
         }
 
         public void Save(Renovation reno) => renovations.Save(reno);
         public List<Renovation> GetAll() => renovations.GetAll();
+        public void DeleteRequestIfFinished(List<Renovation> reno) => renovations.DeleteRequestIfFinished(reno);
+        public void Delete(string roomId) => renovations.Delete(roomId);
         public void SerializeRenovations() => renovations.SerializeRenovations();
     }
 }

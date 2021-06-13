@@ -18,9 +18,13 @@ namespace HospitalService.Service
         public void ChangeRoomAvailability()
         {
             RoomService roomService = new RoomService();
-            Room room = roomService.GetOne(renovation.RoomId);
-            room.IsFree = true;
-            roomService.UpdateRoom(room);
+            roomService.ChangeRoomAvailability(renovation.RoomId, true);
+
+            if (renovation.SecondRoomId != null) 
+            {
+                roomService.ChangeRoomAvailability(renovation.SecondRoomId, true);
+            }
+            
         }
     }
 }

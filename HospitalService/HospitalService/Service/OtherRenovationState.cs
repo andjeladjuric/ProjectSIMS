@@ -11,7 +11,7 @@ namespace HospitalService.Service
         {
             RoomService roomService = new RoomService();
             Room room = roomService.GetOne(renovation.RoomId);
-            room.IsFree = false;
+            room.IsFree = true;
             roomService.UpdateRoom(room);
         }
     }

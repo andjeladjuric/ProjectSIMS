@@ -57,6 +57,20 @@ namespace HospitalService.Repositories
             return inventoryInRoom;
         }
 
+        public void DeleteItemInAllRooms(int itemId)
+        {
+            RoomInventory r;
+            for (int j = 0; j < roomInventory.Count; j++)
+            {
+                r = roomInventory[j];
+                if (r.ItemId == itemId)
+                {
+                    roomInventory.RemoveAt(j);
+                    SerializeRoomInventory();
+                }
+            }
+        }
+
         public void EditItem(RoomInventory inv)
         {
             for (int i = 0; i < GetAll().Count; i++)

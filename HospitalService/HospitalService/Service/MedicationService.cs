@@ -32,23 +32,8 @@ namespace HospitalService.Service
 
         public void DeleteMedication(string medicineId)
         {
-            RemoveValidationRequest(medicineId);
+            validationRequests.Delete(medicineId);
             medications.Delete(medicineId);
-        }
-
-        private void RemoveValidationRequest(string medicineId)
-        {
-            MedicineValidationRequest request;
-            for (int i = 0; i < validationRequests.GetAll().Count; i++)
-            {
-                request = validationRequests.GetAll()[i];
-                if (request.MedicineId.Equals(medicineId))
-                {
-                    validationRequests.GetAll().RemoveAt(i);
-                    validationRequests.SerializeValidationRequests();
-                    break;
-                }
-            }
         }
 
         public void DeleteIngredient(string name)
