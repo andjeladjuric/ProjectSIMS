@@ -18,17 +18,16 @@ namespace HospitalService.Service
         public InventoryQuantityService()
         {
             roomService = new RoomService();
-            roomInventoryService = new RoomInventoryService();
-            inventoryService = new InventoryService();
         }
         #endregion
 
         public void RemoveUsedItems(int enteredQuantity, Inventory SelectedItem, Room SelectedRoom)
         {
+            inventoryService = new InventoryService();
             Inventory item = inventoryService.GetOne(SelectedItem.Id);
             RoomInventory inventoryInRoom = roomInventoryService.GetRoomInventoryByIds(SelectedRoom.Id, SelectedItem.Id);
             ReduceItemQuantity(enteredQuantity, item);
-            RemoveItemFromSelectedRoom(enteredQuantity, inventoryInRoom);
+            ReduceQuantityInSelectedRoom(enteredQuantity, inventoryInRoom);
         }
 
         private void ReduceItemQuantity(int enteredQuantity, Inventory item)
@@ -45,12 +44,12 @@ namespace HospitalService.Service
             inventoryService.EditItem(item);
         }
 
-        public void RemoveItemFromSelectedRoom(int enteredQuantity, RoomInventory inventoryInRoom)
+        public void ReduceQuantityInSelectedRoom(int enteredQuantity, RoomInventory inventoryInRoom)
         {
             roomInventoryService = new RoomInventoryService();
             if (inventoryInRoom.Quantity == enteredQuantity)
             {
-                roomInventoryService.GetAll().Remove(inventoryInRoom);
+                RemoveItem(inventoryInRoom);
             }
             else
             {
@@ -58,6 +57,21 @@ namespace HospitalService.Service
             }
 
             roomInventoryService.EditItem(inventoryInRoom);
+        }
+
+        private void RemoveItem(RoomInventory itemInRoom)
+        {
+            RoomInventory item;
+            roomInventoryService = new RoomInventoryService();
+            for (int i = 0; i < roomInventoryService.GetAll().Count; i++)
+            {
+                item = roomInventoryService.GetAll()[i];
+                if (item.Equals(itemInRoom))
+                {
+                    roomInventoryService.GetAll().RemoveAt(i);
+                    break;
+                }
+            }
         }
 
         public void EnlargeQuantityInSelectedRoom(RoomInventory inventoryInRoom, MovingRequests request)
@@ -75,9 +89,10 @@ namespace HospitalService.Service
             roomInventoryService.SerializeRoomInventory();
         }
 
-        public void EnlargeQuantityInStorage(Inventory item, int quantity)
+        public void EnlargeExistingQuantity(Inventory item, int quantity)
         {
             int temp;
+            roomInventoryService = new RoomInventoryService();
 
             if (roomService.GetByType(RoomType.StorageRoom).Count == 0)
             {

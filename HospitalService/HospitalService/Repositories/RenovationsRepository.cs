@@ -33,5 +33,34 @@ namespace HospitalService.Repositories
             renovations.Add(newReno);
             SerializeRenovations();
         }
+
+        public void Delete(string roomId)
+        {
+            Renovation renovationRequest;
+            for (int i = 0; i < renovations.Count; i++)
+            {
+                renovationRequest = renovations[i];
+                if (roomId.Equals(renovationRequest.RoomId) || roomId.Equals(renovationRequest.SecondRoomId))
+                {
+                    renovations.RemoveAt(i);
+                    SerializeRenovations();
+                    continue;
+                }
+            }
+        }
+
+        public void DeleteRequestIfFinished(List<Renovation> renovationRequests)
+        {
+            Renovation renovation;
+            for (int i = 0; i < renovationRequests.Count; i++)
+            {
+                renovation = renovationRequests[i];
+                if (DateTime.Compare(renovation.End, DateTime.Now) < 0)
+                {
+                    renovationRequests.RemoveAt(i);
+                    SerializeRenovations();
+                }
+            }
+        }
     }
 }

@@ -1,9 +1,1 @@
-[
-  {
-    "movingTime": "2021-06-07T10:40:00",
-    "quantity": 5,
-    "moveFromThisRoom": "330",
-    "sendToThisRoom": "105",
-    "inventoryId": 321
-  }
-]
+[]

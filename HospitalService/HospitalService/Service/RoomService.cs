@@ -15,7 +15,7 @@ namespace HospitalService.Service
 
         RoomInventoryRepository roomInventoryRepository;
         RoomsRepository roomsRepository;
-        
+        TransferRequestsService requestsService;
 
         #endregion
 
@@ -32,10 +32,12 @@ namespace HospitalService.Service
 
         public void DeleteRoom(string roomId)
         {
+            requestsService = new TransferRequestsService();
+            RoomRenovationService renovationService = new RoomRenovationService();
             if (CheckTakenBeds(roomId))
             {
-                DeleteMovingRequests(roomId);
-                DeleteRenovationRequests(roomId);
+                requestsService.DeleteByRoomId(roomId);
+                renovationService.Delete(roomId);
                 MoveItemsToStorage(roomId);
                 roomsRepository.Delete(roomId);
             }
@@ -57,37 +59,12 @@ namespace HospitalService.Service
             return true;
         }
 
-        private void DeleteMovingRequests(string roomId)
+        public void ChangeRoomAvailability(string roomId, bool IsAvailable)
         {
-            List<MovingRequests> requests = JsonConvert.DeserializeObject<List<MovingRequests>>(File.ReadAllText(@"..\..\..\Data\requests.json"));
-            MovingRequests movingRequest;
-            for (int i = 0; i < requests.Count; i++)
-            {
-                movingRequest = requests[i];
-                if (roomId.Equals(movingRequest.moveFromThisRoom) || roomId.Equals(movingRequest.sendToThisRoom))
-                {
-                    requests.RemoveAt(i);
-                    File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(requests));
-                    continue;
-                }
-            }
-        }
-
-        private void DeleteRenovationRequests(string roomId)
-        {
-            RenovationsRepository renovationRepository = new RenovationsRepository();
-            Renovation renovationRequest;
-            for (int i = 0; i < renovationRepository.GetAll().Count; i++)
-            {
-                renovationRequest = renovationRepository.GetAll()[i];
-                if (roomId.Equals(renovationRequest.RoomId))
-                {
-                    renovationRepository.GetAll().RemoveAt(i);
-                    renovationRepository.SerializeRenovations();
-                    continue;
-                }
-            }
-
+            RoomService roomService = new RoomService();
+            Room room = roomService.GetOne(roomId);
+            room.IsFree = IsAvailable;
+            roomService.UpdateRoom(room);
         }
 
         private void MoveItemsToStorage(string roomId)
@@ -142,7 +119,6 @@ namespace HospitalService.Service
         }
        
 
-
         public RoomType GetRoomType(AppointmentType appointmentType)
         {
             RoomType roomType;
@@ -160,6 +136,7 @@ namespace HospitalService.Service
         public void Edit(String id, String name, RoomType type) => roomsRepository.Edit(id, name, type);
         public void UpdateRoom(Room room) => roomsRepository.UpdateRoom(room);
         public void SerializeRooms() => roomsRepository.SerializeRooms();
+        public Room FindRoomByPriority() => roomsRepository.FindRoomByPriority();
 
         #endregion
     }

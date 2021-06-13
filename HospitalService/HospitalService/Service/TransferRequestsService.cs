@@ -31,33 +31,11 @@ namespace HospitalService.Service
                 RoomInventory moveFromHere = roomInventoryService.GetRoomInventoryByIds(request.moveFromThisRoom, request.inventoryId);
                 RoomInventory sendHere = roomInventoryService.GetRoomInventoryByIds(request.sendToThisRoom, request.inventoryId);
 
-                if (moveFromHere.Quantity == request.quantity)
-                {
-                    RemoveItem(moveFromHere);
-                }
-                else
-                {
-                    moveFromHere.Quantity -= request.quantity;
-                }
-
+                quantityService.ReduceQuantityInSelectedRoom(request.quantity, moveFromHere);
                 quantityService.EnlargeQuantityInSelectedRoom(sendHere, request);
 
                 roomInventoryService.SerializeRoomInventory();
                 requestsRepository.Delete(request);
-            }
-        }
-
-        private void RemoveItem(RoomInventory moveFromHere)
-        {
-            RoomInventory item;
-            for (int i = 0; i < roomInventoryService.GetAll().Count; i++)
-            {
-                item = roomInventoryService.GetAll()[i];
-                if (item.Equals(moveFromHere))
-                {
-                    roomInventoryService.GetAll().RemoveAt(i);
-                    break;
-                }
             }
         }
 
@@ -85,5 +63,8 @@ namespace HospitalService.Service
         }
 
         public List<MovingRequests> GetAll() => requestsRepository.GetAll();
+        public MovingRequests GetOne(int itemId) => requestsRepository.GetOne(itemId);
+        public void DeleteByRoomId(string id) => requestsRepository.DeleteByRoomId(id);
+        public void DeleteRequest(MovingRequests mr) => requestsRepository.Delete(mr);
     }
 }

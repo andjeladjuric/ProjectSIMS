@@ -25,6 +25,11 @@ namespace HospitalService.Repositories
             File.WriteAllText(@"..\..\..\Data\requests.json", JsonConvert.SerializeObject(movingRequests));
         }
 
+        public MovingRequests GetOne(int itemId)
+        {
+            return movingRequests.Find(x => x.inventoryId == itemId);
+        }
+
         public void Delete(MovingRequests mr)
         {
             for (int i = 0; i < movingRequests.Count; i++)
@@ -36,6 +41,21 @@ namespace HospitalService.Repositories
             }
 
             SerializeTransferRequests();
+        }
+
+        public void DeleteByRoomId(string roomId)
+        {
+            MovingRequests movingRequest;
+            for (int i = 0; i < movingRequests.Count; i++)
+            {
+                movingRequest = movingRequests[i];
+                if (roomId.Equals(movingRequest.moveFromThisRoom) || roomId.Equals(movingRequest.sendToThisRoom))
+                {
+                    movingRequests.RemoveAt(i);
+                    SerializeTransferRequests();
+                    continue;
+                }
+            }
         }
     }
 }
