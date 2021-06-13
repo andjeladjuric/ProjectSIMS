@@ -145,10 +145,11 @@
                 <StackPanel Orientation="Vertical">
                     <Label Content="Vrsta" Width="112" Height="35"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Width="232" Margin="0,10,0,0">
+                <StackPanel Orientation="Vertical" Width="119" Margin="10,0,0,0">
                     <RadioButton Content="Podeli sobu" IsChecked="True"/>
                     <Separator Opacity="0" Width="15"/>
                     <RadioButton Content="Spajanje soba" IsChecked="{Binding IsChecked}"/>
+                    <RadioButton Content="Ostalo" IsChecked="{Binding IsOther}"/>
                 </StackPanel>
             </StackPanel>
 
@@ -195,6 +196,16 @@
                                 </StackPanel>
                             </ControlTemplate>
                         </Validation.ErrorTemplate>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+                                <Setter Property="IsEnabled" Value="True"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsOther}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
                     </TextBox>
                     <Separator Opacity="0" Height="15"/>
                     <TextBox x:Name="NewNameBox" HorizontalAlignment="Left"
@@ -222,6 +233,16 @@
                                 </StackPanel>
                             </ControlTemplate>
                         </Validation.ErrorTemplate>
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+                                <Setter Property="IsEnabled" Value="True"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsOther}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
                     </TextBox>
                     <Separator Opacity="0" Height="15"/>
                     <ComboBox x:Name="TypeBox" IsEnabled="True" HorizontalAlignment="Left"
@@ -232,6 +253,16 @@
                               FontWeight="Light"
                               FontSize="14"
                               HorizontalContentAlignment="Center">
+                        <ComboBox.Style>
+                            <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+                                <Setter Property="IsEnabled" Value="True"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsOther}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource comboConvert}}"/>
@@ -254,6 +285,9 @@
                                 <Setter Property="IsEnabled" Value="True"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsChecked}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsOther}" Value="True">
                                         <Setter Property="IsEnabled" Value="False"/>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -298,6 +332,9 @@
                                     <DataTrigger Binding="{Binding IsChecked}" Value="False">
                                         <Setter Property="IsEnabled" Value="False"/>
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsOther}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </ComboBox.Style>
@@ -314,21 +351,25 @@
                 <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                     <Setter Property="IsEnabled" Value="True"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=NewIDBox, Path=Text}" Value="">
-                            <Setter Property="IsEnabled" Value="False"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=NewIDBox, Path=(Validation.HasError)}" Value="True">
-                            <Setter Property="IsEnabled" Value="False"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=NewNameBox, Path=Text}" Value="">
-                            <Setter Property="IsEnabled" Value="False"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=NewNameBox, Path=(Validation.HasError)}" Value="True">
-                            <Setter Property="IsEnabled" Value="False"/>
-                        </DataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding ElementName=SecondRoomBox, Path=IsEnabled}" Value="True"/>
+                                <Condition Binding="{Binding ElementName=NewIDBox, Path=IsEnabled}" Value="True"/>
+                                <Condition Binding="{Binding ElementName=NewIDBox, Path=(Validation.HasError)}" Value="True"/>
+                                <Condition Binding="{Binding ElementName=NewIDBox, Path=Text}" Value=""/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=NewNameBox, Path=IsEnabled}" Value="True"/>
+                                <Condition Binding="{Binding ElementName=NewNameBox, Path=(Validation.HasError)}" Value="True"/>
+                                <Condition Binding="{Binding ElementName=NewNameBox, Path=Text}" Value=""/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=NewSizeBox, Path=IsEnabled}" Value="True"/>
                                 <Condition Binding="{Binding ElementName=NewSizeBox, Path=(Validation.HasError)}" Value="True"/>
                                 <Condition Binding="{Binding ElementName=NewSizeBox, Path=Text}" Value=""/>
                             </MultiDataTrigger.Conditions>

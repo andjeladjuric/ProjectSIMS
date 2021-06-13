@@ -125,6 +125,17 @@ namespace HospitalService.View.ManagerUI.ViewModels
             }
         }
 
+        private bool isOther;
+        public bool IsOther
+        {
+            get { return isOther; }
+            set
+            {
+                isOther = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string secondRoom;
         public string SecondRoom
         {
@@ -193,6 +204,10 @@ namespace HospitalService.View.ManagerUI.ViewModels
                         if (new ScheduleService().CheckAppointmentsForDate(Start, End, selectedId) && CheckFloor(SelectedRoom.Id, selectedId) &&
                             CheckForPatientsInRoom(selectedId, Start, End))
                             renovationService.Save(new Renovation(SelectedRoom.Id, Start, End, RenovationType.Merge, selectedId, NewID, NewType, NewName));
+                    }
+                    else if (IsOther)
+                    {
+                        renovationService.Save(new Renovation(SelectedRoom.Id, Start, End, RenovationType.Other));
                     }
                     else
                         renovationService.Save(new Renovation(SelectedRoom.Id, Start, End, RenovationType.Split, NewID, newType, NewName, Double.Parse(NewSize)));
@@ -391,6 +406,7 @@ namespace HospitalService.View.ManagerUI.ViewModels
             this.End = DateTime.Now;
             this.DemoOn = demo;
             this.IsChecked = false;
+            this.IsOther = false;
             LoadAppointments();
             LoadRooms();
 

@@ -32,8 +32,7 @@ namespace HospitalService.Service
                         }
                         else
                         {
-                            ChangeRoomAvailability(renovation, true);
-                            SplitOrMergeRooms(renovation);
+                            SetState(renovation);
                         }
                     }
                 }
@@ -42,50 +41,17 @@ namespace HospitalService.Service
             }
         }
 
-        private void SplitOrMergeRooms(Renovation renovation)
+        private void SetState(Renovation renovation)
         {
             if (renovation.Type.Equals(RenovationType.Merge))
-                MergeRooms(renovation);
+                renovation.SetRenovationState(new MergeState());
+            else if (renovation.Type.Equals(RenovationType.Split))
+                renovation.SetRenovationState(new SplitState());
             else
-                SplitRoom(renovation);
+                renovation.SetRenovationState(new OtherRenovationState());
         }
 
-        private void MergeRooms(Renovation renovation)
-        {
-            RoomService roomService = new RoomService();
-            Room firstRoom = roomService.GetOne(renovation.RoomId);
-            Room secondRoom = roomService.GetOne(renovation.SecondRoomId);
-            double newSize = firstRoom.Size + secondRoom.Size;
-
-            if (new ScheduleService().CheckAppointmentsForDate(renovation.Start, renovation.End, firstRoom.Id) &&
-                        new ScheduleService().CheckAppointmentsForDate(renovation.Start, renovation.End, secondRoom.Id))
-            {
-                roomService.AddRoom(new Room(renovation.NewRoomType, renovation.RoomId, renovation.NewRoomName, newSize, firstRoom.Floor, true));
-                roomService.DeleteRoom(firstRoom.Id);
-                roomService.DeleteRoom(secondRoom.Id);
-                roomService.SerializeRooms();
-            }
-        }
-
-        private void SplitRoom(Renovation renovation)
-        {
-            RoomService roomService = new RoomService();
-            Room firstRoom = roomService.GetOne(renovation.RoomId);
-            double firstSize = firstRoom.Size - renovation.NewSize;
-
-            if (new ScheduleService().CheckAppointmentsForDate(renovation.Start, renovation.End, renovation.RoomId))
-            {
-                roomService.AddRoom(new Room(renovation.NewRoomType, renovation.RoomId, firstRoom.Name, firstSize ,firstRoom.Floor, true));
-                roomService.AddRoom(new Room(renovation.NewRoomType, renovation.NewRoomId, renovation.NewRoomName, renovation.NewSize,
-                    firstRoom.Floor, true));
-                roomService.DeleteRoom(firstRoom.Id);
-                roomService.SerializeRooms();
-            }
-        }
-
-      
-
-            private void DeleteRequestIfFinished(List<Renovation> renovationRequests)
+        private void DeleteRequestIfFinished(List<Renovation> renovationRequests)
         {
             Renovation renovation;
             for (int i = 0; i < renovationRequests.Count; i++)
